@@ -1,0 +1,41 @@
+sudo netstat -lntp | grep dockerd
+
+Specify DNS servers for Docker
+The default location of the configuration file is /etc/docker/daemon.json. You can change the location of the configuration file using the --config-file daemon flag. The documentation below assumes the configuration file is located at /etc/docker/daemon.json.
+
+Create or edit the Docker daemon configuration file, which defaults to /etc/docker/daemon.json file, which controls the Docker daemon configuration.
+
+ sudo nano /etc/docker/daemon.json
+Add a dns key with one or more IP addresses as values. If the file has existing contents, you only need to add or edit the dns line.
+
+{
+  "dns": ["8.8.8.8", "8.8.4.4"]
+}
+If your internal DNS server cannot resolve public IP addresses, include at least one DNS server which can, so that you can connect to Docker Hub and so that your containers can resolve internet domain names.
+
+Save and close the file.
+
+Restart the Docker daemon.
+
+ sudo service docker restart
+Verify that Docker can resolve external IP addresses by trying to pull an image:
+
+ docker pull hello-world
+If necessary, verify that Docker containers can resolve an internal hostname by pinging it.
+
+ docker run --rm -it alpine ping -c4 <my_internal_host>
+Disable dnsmasq
+Ubuntu
+If you prefer not to change the Docker daemon’s configuration to use a specific IP address, follow these instructions to disable dnsmasq in NetworkManager.
+
+Edit the /etc/NetworkManager/NetworkManager.conf file.
+
+Comment out the dns=dnsmasq line by adding a # character to the beginning of the line.
+
+# dns=dnsmasq
+Save and close the file.
+
+Restart both NetworkManager and Docker. As an alternative, you can reboot your system.
+
+ sudo systemctl restart network-manager
+ sudo systemctl restart docker

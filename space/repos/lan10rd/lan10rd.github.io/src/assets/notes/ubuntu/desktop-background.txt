@@ -1,0 +1,17 @@
+
+
+Both Unity and Gnome Shell (Gnome 3) use GSettings now instead of GConf. So in Unity and Gnome Shell you can use the command-line tool gsettings for that. Like gconftool, it lets you get or set an individual key.
+
+You can get the current URI of the background image as follows:
+
+gsettings get org.gnome.desktop.background picture-uri
+'file:///home/serrano/Pictures/x.jpg'
+And set the background URI as follows (which will immediately update your desktop background):
+
+gsettings set org.gnome.desktop.background picture-uri file:///home/serrano/Pictures/y.jpg
+Notice that you must prepend the URI with "file://" for this to work (unlike with gconftool).
+
+In order to make your script work with both Gnome 2 and Shell/Unity, you can let it do a Gnome version check first:
+
+gnome-session --version
+That will return the version of Gnome. If the version number starts with 3, then gsettings can be used. If it returns a version starting with 2, let your script use gconftool instead.
