@@ -1,9 +1,0 @@
-Open the Activities overview and start typing Users.
-
-Click Users to open the panel.
-
-Select the user account that you want to log in to automatically at startup.
-
-Press Unlock in the top right corner and type in your password when prompted.
-
-Switch the Automatic Login switch to on.

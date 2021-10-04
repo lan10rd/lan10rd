@@ -1,2 +1,0 @@
-docker save angular | gzip > angular.tar.gz
-docker load < angular.tar.gz

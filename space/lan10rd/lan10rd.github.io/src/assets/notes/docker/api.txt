@@ -1,2 +1,0 @@
-stream events
-$ curl --unix-socket /var/run/docker.sock http://localhost/events

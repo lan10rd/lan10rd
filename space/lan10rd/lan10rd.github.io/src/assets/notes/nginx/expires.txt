@@ -1,3 +1,0 @@
-expires $expires;
-# expires -1;
-# add_header Cache-Control no-cache;

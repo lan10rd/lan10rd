@@ -1,3 +1,0 @@
-sudo usermod -aG vboxsf <someuserID>
-
-i also had to make sure the mount folder was available, ie, make an empty folder with whatever name that you intend to be the target

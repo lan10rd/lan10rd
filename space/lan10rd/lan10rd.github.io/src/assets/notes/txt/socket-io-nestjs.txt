@@ -1,8 +1,0 @@
-so to for an event (endpoint) you can response with an observable or synchronously with {event: 'eventName', data: {}} and a message will be sent to connected sockets, if you just wish to respond back to the original socket who emitted the event, just response with the data {} you wish and an "acknowledgement" will be sent (for this to work, the client just needs to add an optional 4th parameter, which is a callback function)
-
-examples:
-1) normal
-
-
-2) with acknowledgement
-

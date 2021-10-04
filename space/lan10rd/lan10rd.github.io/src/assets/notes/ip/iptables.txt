@@ -1,5 +1,0 @@
-/* had a spammer in logs for dns acme container, had pizzaseo in the request, used this command to stop it. apparanetly there is something called fail2ban, possibly a go library */
-iptables -I FORWARD 1 -p udp --dport 53 -m string --algo kmp --string "pizzaseo" -j DROP
-iptables -I FORWARD 1 -p udp --dport 53 -m string --algo kmp --string "census.gov" -j DROP
-
-iptables -I FORWARD 1 -p udp --dport 53 -m string --algo kmp --string "pizzaseo.com" -j DROP

@@ -1,7 +1,0 @@
-/* if you see ERR Integrity unable to verify, or something along those lines */
-
-npm cache verify
-
-/* OR */
-
-npm cache clean --force

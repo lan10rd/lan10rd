@@ -1,2 +1,0 @@
-/* to stop mac from writing .ds_store */
-defaults write com.apple.desktopservices DSDontWriteNetworkStores true

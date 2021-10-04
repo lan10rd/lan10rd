@@ -1,5 +1,0 @@
-position: sticky;
-top: 0;
-
-
-**for this to work parents cannot have overflow x or y hidden!**

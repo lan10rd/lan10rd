@@ -1,9 +1,0 @@
-It is because there is no package cache in the image, you need to run:
-
-apt-get update
-before installing packages, and if your command is in a Dockerfile, you'll then need:
-
-apt-get -y install curl
-To suppress the standard output from a command use -qq. E.g.
-
-apt-get -qq -y install curl

@@ -1,1 +1,0 @@
-if using apache http server, you need to navigate to xampp/apache/bin and execute httpd.exe -k install from an elevated window

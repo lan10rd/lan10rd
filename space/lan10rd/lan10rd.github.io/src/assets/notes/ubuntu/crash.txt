@@ -1,2 +1,0 @@
-/* if you see system problem occurred */
-sudo rm /var/crash/*

@@ -1,3 +1,0 @@
-sudo apt install ubuntu-software
-
-x11 server vnc downloaded

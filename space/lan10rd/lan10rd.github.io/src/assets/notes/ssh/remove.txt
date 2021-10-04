@@ -1,2 +1,0 @@
-ssh-add -D # forget all identities
-ssh-add -d # forget primary identity

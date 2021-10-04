@@ -1,2 +1,0 @@
-sudo mount /dev/cdrom /media/cdrom
-sudo umount /media/cdrom

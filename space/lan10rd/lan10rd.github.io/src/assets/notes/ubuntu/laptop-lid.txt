@@ -1,6 +1,0 @@
-sudo nano /etc/systemd/logind.conf
-
-#HandleLidSwitch=suspend
-HandleLidSwitch=ignore
-
-sudo systemctl restart systemd-logind

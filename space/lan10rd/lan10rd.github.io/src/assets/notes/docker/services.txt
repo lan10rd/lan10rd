@@ -1,6 +1,0 @@
-remove all (stop all) services
-
-docker service rm $(docker service ls -q)
-
-command: while :; do sleep 300; done;
-command: tail -f /dev/null

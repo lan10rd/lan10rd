@@ -1,1 +1,0 @@
-virtualenv allows you to create local dependencies, lets practice doing this like npm works where i have a base python image, then i have a node_modules folder that i make portable. i would even think that i can do like what i do with earthjs and make earthpy and have flask, django, sanic, vibora and other popular frameworks installed globally and have virtualenv for each

@@ -1,7 +1,0 @@
-build to docs/
-
-on master
-
-// make sure your dist folder, docs, is not in .gitignore, it shouldnt be
-
-i think you have to name your repository   yourname.github.io  then you will have it built and available on yourname.github.io!

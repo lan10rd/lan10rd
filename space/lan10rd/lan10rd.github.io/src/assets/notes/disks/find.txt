@@ -1,3 +1,0 @@
-find /some/folders -maxdepth 2 -mindepth 2
-
-find /media -maxdepth 1 -mindepth 1   #  /media/simba

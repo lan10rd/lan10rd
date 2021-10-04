@@ -1,4 +1,0 @@
-for ubuntu 20 mate (running on arm64) i did:
-sudo dpkg --add-architecture armhf && sudo apt update
-
-then i was able to use deb packages targeted for raspberry pi, like vnc client!

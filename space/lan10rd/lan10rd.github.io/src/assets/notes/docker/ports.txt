@@ -1,9 +1,0 @@
-ssh 22 tcp
-http 80 tcp
-https 443 tcp
-registry 5000 tcp
-dockerd 2376 tcp
-swarm 2377 tcp
-discovery 7946 tcp
-discovery 7946 udp
-overlay 4789 udp   

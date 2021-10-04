@@ -1,3 +1,0 @@
-search -> run
-netplwiz
-uncheck require user/password to signin

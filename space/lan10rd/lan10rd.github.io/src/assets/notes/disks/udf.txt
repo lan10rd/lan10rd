@@ -1,2 +1,0 @@
-/* i believe first i removed all partitions, and unmounted then ran: */
-sudo mkudffs --blocksize=512 --label="pioneer" /dev/sde

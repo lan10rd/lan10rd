@@ -1,2 +1,0 @@
-sudo apt install -y tigervnc-standalone-server tigervnc-xorg-extension tigervnc-viewer
-vncserver && x11vnc -display :1

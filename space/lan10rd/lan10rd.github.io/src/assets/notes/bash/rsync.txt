@@ -1,1 +1,0 @@
-time rsync -avhri --progress  ~/earth/systems/ssh 192.168.0.77:~/earth/systems

@@ -1,3 +1,0 @@
-nx generate move 
-
-nx g @nrwl/angular:move --project my-feature-lib shared/my-feature-lib

@@ -1,5 +1,0 @@
-chmod -R MODE DIRECTORY
-
-chmod -R 777 ~
-
-chown -R $USER:$USER ~

@@ -1,8 +1,0 @@
-curl http://www.example.com --resolve www.example.com:80:127.0.0.1
-
-The command above can be augmented to look like this:
-
-curl http://www.example.com --resolve www.example.com:80:127.0.0.1 --resolve www.example.com:443:127.0.0.1
-...which will force cURL to use  "127.0.0.1" as the IP address for requests to "www.example.com " over ports 80 (HTTP and 443 (HTTPS). This can be useful for sites that automatically redirect HTTP requests to HTTPS requests as a security measure.
-
-Remember, --resolve can be specified multiple times (and for multiple domain/port combinations) for a single cURL command, allowing you to establish complex routing rules for requests that you know will be redirected multiple times across various domains and ports.

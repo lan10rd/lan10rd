@@ -1,2 +1,0 @@
-diskutil list
-diskutil mountDisk /dev/disk2
