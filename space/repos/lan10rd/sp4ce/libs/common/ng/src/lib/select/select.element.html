@@ -7,35 +7,34 @@
     [classes]="scrollClasses"
     [styles]="scrollStyles"
     *ngIf="!big"
-    (scroll)="hasFocus(wrapper, $event)"
-    (click)="hasFocus(wrapper, $event)"
+    (scroll)="focus(wrapper, scrollElement, $event)"
+    (click)="focus(wrapper, scrollElement, $event)"
+    (focus)="focus(wrapper,scrollElement, $event)"
+    tabindex="0"
     #scrollElement
     >
-        <!-- changed i to opt in the scenarios below: select(i), i === selected -->
+
         <ng-container
         *ngFor="let opt of __options; let i = index"
         >
-
             <div
-            (click)="select(opt)"
             [class]="buttonClasses"
             [style]="buttonStyles"
             [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
             >
-
                 <div
                 [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
                 >
-
-                    <!-- <button
-                    >{{opt}}</button> -->
                     <button
-                    >{{_options[opt]}}</button>
-
+                    (click)="$event.stopPropagation(); select(opt)"
+                    tabindex="{{trap_focus ? 0 : -1}}"
+                    (focus)="buttonFocus(i, $event)"
+                    (keydown)="cycleButton($event, scrollElement)"
+                    >
+                        {{_options[opt]}}
+                    </button>
                 </div>
-
             </div>
-
         </ng-container>
 
     </common-ng-scroll-element>
@@ -49,64 +48,46 @@
     autosize
     [ngStyle]="{'height': height}"
     style="text-align: center; overflow-y: hidden; white-space: no-wrap; overflow-x: auto; white-space: nowrap"
-    (scroll)="hasFocus(wrapper, $event)"
-    (click)="hasFocus(wrapper, $event)"
+    (scroll)="focus(wrapper, bigScrollElement, $event)"
+    (click)="focus(wrapper, bigScrollElement, $event)"
+    (focus)="focus(wrapper, bigScrollElement, $event)"
+    #bigScrollElement
+    tabindex="0"
     >
 
         <div
         *cdkVirtualFor="let opt of __options; let i = index;"
-        (click)="select(opt)"
         [class]="buttonClasses"
         [style]="buttonStyles"
         [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
         >
-
             <div
             [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
             >
-
-                <!-- <button
-                >{{opt}}</button> -->
                 <button
-                >{{_options[opt]}}</button>
-                
-            </div>
-
-        </div>
-
-    </cdk-virtual-scroll-viewport>
-
-
-    <!-- <div style="width: 50vw; height: 5rem; border: 1px solid white; overflow-y: hidden; overflow-x: scroll; white-space: nowrap;">
-        <div
-        (click)="select(i)"
-        [class]="buttonClasses"
-        [style]="buttonStyles"
-        [ngClass]="{'glo-0-shadow': toggleable && i === selected}"
-        *uiScroll="let opt of datasource; let i = index"
-        >
-            <div
-            [ngClass]="{'glo-0-shadow': toggleable && i === selected}"
-            >
-                <button
+                (click)="$event.stopPropagation(); select(opt)"
+                tabindex="{{trap_focus ? 0 : -1}}"
+                (focus)="buttonFocus(i, $event)"
+                (keydown)="cycleButton($event, bigScrollElement)"
+                #buttons
+                [attr.x-button-i]="i"
                 >
-                    {{opt.text}}
+                    {{_options[opt]}}
                 </button>
             </div>
         </div>
-    </div> -->
+
+    </cdk-virtual-scroll-viewport>
 
     <div
     *ngIf="show_search"
     class="fade"
     >
         <input
-
         class="tcenter bl"
         [(ngModel)]="search"
         (ngModelChange)="searchChange.emit(search); filter()"
         >
-
     </div>
 
 </div>

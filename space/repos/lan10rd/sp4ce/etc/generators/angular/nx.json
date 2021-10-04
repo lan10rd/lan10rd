@@ -9,6 +9,9 @@
         },
         "demo-lib": {
           "tags": []
+        },
+        "shared-ng": {
+          "tags": []
         }
     }
 }

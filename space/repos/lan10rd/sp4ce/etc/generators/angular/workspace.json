@@ -156,6 +156,47 @@
           }
         }
       }
+    },
+    "shared-ng": {
+      "projectType": "library",
+      "root": "libs/shared/ng",
+      "sourceRoot": "libs/shared/ng/src",
+      "prefix": "sp4ce",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:package",
+          "outputs": ["dist/libs/shared/ng"],
+          "options": {
+            "project": "libs/shared/ng/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/shared/ng/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/shared/ng/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ng"],
+          "options": {
+            "jestConfig": "libs/shared/ng/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/ng/src/**/*.ts",
+              "libs/shared/ng/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }
