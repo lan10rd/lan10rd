@@ -1,0 +1,5 @@
+apt-get install build-essential libssl-dev
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+Close and reopen your terminal to start using nvm
+nvm install v14.17.0
+nvm use v14.17.0

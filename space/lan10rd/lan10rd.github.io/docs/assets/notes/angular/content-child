@@ -1,0 +1,27 @@
+
+The ContentChild & ContentChildren is like ViewChild & ViewChildren. We use the ViewChild  or  ViewChildren to Query and get the reference of any DOM element in the Component. The DOM element can be an HTML element, Child Component or directive, etc. But, We cannot use the ViewChild  or  ViewChildren to get the reference to the template inserted using the Content projection.
+
+ 
+import { Component} from '@angular/core';
+ 
+ 
+@Component({
+  selector: 'card',
+  template: `
+ 
+    <div class="card">
+      <ng-content select="header"></ng-content>
+      <ng-content select="content"></ng-content>
+      <ng-content select="footer"></ng-content>
+    </div> 
+   
+  `,
+  styles: [
+    ` 
+    `
+  ]
+})
+export class CardComponent {
+ 
+}
+ 

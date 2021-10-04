@@ -1,0 +1,33 @@
+--manual --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py \
+   --preferred-challenges dns
+
+certbot certonly -d "*.ass.space" -d "ass.space" --dry-run --agree-tos --manual-public-ip-logging-ok --preferred-challenges dns --manual --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py --expand --debug-challenges
+
+-expand --renew-by-default
+
+certbot certonly -d "*.ass.space" -d "ass.space" --agree-tos --manual-public-ip-logging-ok --preferred-challenges dns --manual --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py --expand --debug-challenges
+
+
+----- this works ----- (while adding records use cmd:  dig TXT _acme-challenge.ass.space  to check before submitting!)
+
+certbot certonly -d "*.ass.space" -d "ass.space" --agree-tos --manual-public-ip-logging-ok --preferred-challenges dns --manual --expand --debug-challenges
+
+
+
+it prompts for 1 or 2 txt records to be added depending
+
+
+Please deploy a DNS TXT record under the name
+_acme-challenge.k1ng7ang0.xyz with the following value:
+
+M-JsruH6OhBy0sHsq0DsQNPeT1zZ4dVL7jdO7ml6Ffc
+
+Before continuing, verify the record is deployed.
+
+TXT _acme-challenge   M-JsruH6OhBy0sHsq0DsQNPeT1zZ4dVL7jdO7ml6Ffc
+
+
+------ here be dragons ------
+
+certbot certonly -d "*.ocelot.work" -d "ocelot.work" --agree-tos --manual-public-ip-logging-ok --preferred-challenges dns --manual --expand --debug-challenges --register-unsafely-without-email
+

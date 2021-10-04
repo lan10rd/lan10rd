@@ -1,0 +1,22 @@
+- download .iso
+- create new image, with a vdi
+    - dynamic
+    
+!choose bridged!!
+
+- once created for the first time, go to settings
+    - network, NAT
+        ssh 22 tcp
+        http 80 tcp
+        https 443 tcp
+        registry 5000 tcp
+        dockerd 2376 tcp
+        swarm 2377 tcp
+        discovery 7946 tcp
+        discovery 7946 udp
+        overlay 4789 udp
+    - storage
+        ** to boot to something you have to pick an iso and insert it
+        - under controller IDE, click the disc and select the iso
+
+- once all setup is down reboot (make sure to eject the iso disk in the controller)

@@ -1,0 +1,53 @@
+Gzip
+The most basic way to use gzip to compress a file is to type:
+
+% gzip filename
+
+This will create a compressed version of filename named filename.gz and remove the previous file. To reverse the process type:
+
+% gzip -d filename.gz or % gunzip filename.gz
+
+Which removes filename.gz and replaces it with the uncompressed filename.
+
+To prevent gzip from overwriting a file that you are (de)compressing, use the -c option to send the output to stdout where you can manipulate it as you like.
+(i.e. % gzip -c filename > compressedfile.gz)
+
+Tar
+When working with archives I recommend that you generally use the -v option (verbose output). To create a new archive type:
+
+% tar -cvf archive.tar foo bar dir/
+
+This will create an archive named archive.tar containing foo, bar and the directory dir/. Inversely, to extract files type:
+
+% tar -xvf archive.tar
+
+Which will create a copy of the contents of archive.tar in the current directory. To list the contents of an archive without extracting them use:
+
+% tar -tvf archive.tar
+
+(Note: The -f switch is used to specify the name of the archive. The archive filename must always immediately follow this switch.) Tar also has options for comparing (-d) and updating (-u) an archive with respect to the file system, as well as for appending (-r) and deleting (--delete) files.
+
+Tar Pipes
+Tar is also the recommended tool for copying non-trivial file trees as it is more efficient and flexible than cp -R. This function is accomplished by piping the output of one tar process into the input of a second tar process. (Hence the name "tar pipe".) The basic syntax is:
+
+% (cd /src/dir; tar -cf - {file|dir}+) |(cd /dst/dir;tar -xvf -)
+This copies the file(s) specified from /src/dir to /dst/dir.(The filename given to both tar processes is "-", which instructs tar to use stdin/stdout.) Notice that -v is only used on one side of the pipe to avoid duplicate output. You could remove that option entirely if you want to expedite the process further. The -p option may be used on the second (writing) tar process in order to preserve the modes of the files copied. As an example, to copy everything in /foo, to the directory /bar preserving permissions, you can use:
+
+% (cd /foo; tar -cf - . ) | (cd /bar; tar -xpf - )
+You can also use a tar pipe to copy across the network:
+
+% (cd /src; tar -cvf - foo) | (ssh other.machine 'cd /dst; tar -xf -)
+Copies /src/foo on the local tree to /dst/foo on "other.machine". If you use -v make sure it is on the tar process on the local machine. (You may also use -z to compress the data before sending it across the network. The efficiency of that method depends on CPU speed verses network bandwidth, however, using -v renders the issue moot.)
+
+Most often you find Tar and Gzip used in concert to create "gzipped archives" with .tar.gz extensions (or its abbreviated form, .tgz). While you can obviously use the commands separately, tar's -z option feeds the archive through gzip after packing and before unpacking, Thus:
+
+% tar -czvf archive.tar.gz file1 file2 dir/
+
+Creates a gzipped archive, archive.tar.gz.
+
+% tar -xzvf archive.tar.gz
+
+Extracts all files from the gzipped archive and,
+% tar -tzvf archive.tar.gz
+
+Lists the contents of the gzipped archive without extracting them. (You can also have tar use other compression tools such as bzip2 [-j] and compress [-Z])

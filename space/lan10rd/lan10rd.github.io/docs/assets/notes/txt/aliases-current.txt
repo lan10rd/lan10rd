@@ -1,0 +1,32 @@
+alias srouter="docker rm glass.router.nginx --force || true && docker run --restart=always -dit --network=earth_network -m 4mb --name glass.router.nginx -v ~/earth/systems/docker/nginx/:/etc/nginx:ro -v ~/earth:/earth:ro -p 80:80 -p 443:443 nginx:alpine"
+alias rrouter="docker exec -it glass.router.nginx nginx -s reload"
+
+alias bearth='docker run --rm --name nest -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src/:/root/src -w /root/src/apps/earth-api nest sh -c "rm node_modules || true && ln -s /app/node_modules . && rm -rf /root/dist/earth-api && tsc -p tsconfig.build.json --preserveSymlinks --outDir /root/dist/earth-api && rm /root/src/apps/earth-api/node_modules"'
+alias bbearth='docker run --privileged --rm --name nest -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src/:/root/src -w /root/src/apps/earth-api nest sh -c "rm -rf node_modules || true && mkdir node_modules && mount --bind /app/node_modules node_modules && rm -rf src/libs || true && mkdir src/libs && mount --bind ../../libs src/libs && rm -rf /root/dist/earth-api && tsc -p tsconfig.build.json --preserveSymlinks --outDir /root/dist/earth-api && rm /root/src/apps/earth-api/node_modules"'
+alias rearth="docker rm ass.space-api.moon --force || true && docker run --restart=always -dit --name ass.space-api.moon --network=earth_network -v ~/earth/realms/glass/dist/earth-api:/app/dist/:ro -v ~/earth:/root/earth -v /var/run/docker.sock:/var/run/docker.sock --env EARTH_ROOT=/root/earth/ -w /app/dist --expose 34274 nest/glass node main.js --expose-gc --preserve-symlinks --preserve-symlinks-main"
+alias aearth='docker run --rm --name angular -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/earth angular sh -c "rm node_modules || true && ln -s /app/node_modules . && mkdir -p /root/tmp/dist/earth && ng build --prod --aot --outputPath=/root/tmp/dist/earth && rm -rf /root/dist/earth || true && cp -r /root/tmp/dist/earth /root/dist/ && rm /root/src/apps/earth/node_modules"'
+alias aaearth='docker run --privileged --rm --name angular -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/earth angular sh -c "rm -rf node_modules || true && mkdir node_modules && mount --bind /app/node_modules node_modules && rm -rf src/libs || true && mkdir src/libs && mount --bind ../../libs src/libs && mkdir -p /root/tmp/dist/earth && ng build --prod --aot --outputPath=/root/tmp/dist/earth && rm -rf /root/dist/earth || true && cp -r /root/tmp/dist/earth /root/dist/ && rm /root/src/apps/earth/node_modules"'
+alias aaaearth='docker run --privileged --rm --name angular -v ~/earth/realms/glass:/root/glass -w /root/glass/src/apps/earth angular sh -c "rm -rf node_modules || true && mkdir node_modules && mount --bind /app/node_modules node_modules && rm -rf src/libs || true && mkdir src/libs && mount --bind ../../libs src/libs && mkdir -p /root/glass-tmp/dist/earth/browser && ng build --prod && mkdir -p /root/glass/dist/earth/browser && rm -rf /root/glass/dist/earth/browser || true && mv -f dist/earth/browser /root/glass/dist/earth/browser"'
+alias searth='docker rm angular-serve --force || true && docker run --rm -it --name angular-serve -p 4200:4200 --network=earth_network -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/earth angular sh -c "rm node_modules || true && ln -s /app/node_modules . && ng serve --aot --host 0.0.0.0 --disableHostCheck"'
+alias ssearth='docker rm angular-serve --force || true && docker run --privileged --rm -it --name angular-serve -p 4200:4200 --network=earth_network -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/earth angular sh -c "rm -rf node_modules || true && mkdir node_modules && mount --bind /app/node_modules ./node_modules && rm -rf src/libs || true && mkdir src/libs && mount --bind ../../libs src/libs && ng serve --aot --host 0.0.0.0 --disableHostCheck"'
+alias sssearth='docker rm angular-serve --force || true && docker run --privileged --rm -it --name angular-serve -p 4200:4200 --network=earth_network -v ~/earth/realms/glass:/root/glass -w /root/glass/src/apps/earth angular sh -c "rm -rf node_modules || true && mkdir node_modules && mount --bind /app/node_modules ./node_modules && rm -rf src/libs || true && mkdir src/libs && mount --bind ../../libs src/libs && ng serve --host 0.0.0.0 --disableHostCheck"'
+alias eearth='docker exec -it ass.space-api.moon sh'
+alias learth='docker logs -f ass.space-api.moon'
+
+alias alpine='docker rm --force glass.alpine.breeze || true && docker run -dit --expose 443 --name=glass.alpine.breeze --restart=always -m 4mb --network=earth_network -v ~/:/root alpine:glass'
+
+alias tobullet="time rsync -avhri --progress --delete ~/earth ~/../../Volumes/bullet/"
+alias tosilver="time rsync -avhri --progress --delete ~/earth ~/../../Volumes/silver/"
+alias toxtreme="time rsync -avhri --progress --delete ~/earth ~/../../Volumes/xtreme/"
+alias toblue="time rsync -avhri --progress --delete ~/earth ~/../../Volumes/blue/"
+alias toredline="time rsync -avhri --progress --delete ~/earth ~/../../Volumes/redline/"
+alias tostone="time rsync -avhri --progress --delete ~/earth ~/../../Volumes/stone/"
+alias toraoyi="time rsync -avhri --progress --delete ~/earth ~/../../Volumes/raoyi/"
+alias fromblue="time rsync -avhri --progress --delete ~/../../Volumes/blue/earth ~"
+alias fromraoyi="time rsync -avhri --progress --delete ~/../../Volumes/raoyi/earth ~"
+
+alias passport='docker run --rm --name angular -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/passport angular sh -c "rm node_modules || true && ln -s /app/node_modules . && mkdir -p /root/tmp/dist/passport && ng build --prod --aot --outputPath=/root/tmp/dist/passport && rm -rf /root/dist/passport || true && cp -r /root/tmp/dist/passport /root/dist/ && rm /root/src/apps/passport/node_modules"'
+
+alias hakmat='docker run --rm --name angular -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/hakuna-matata angular sh -c "rm node_modules || true && ln -s /app/node_modules . && mkdir -p /root/tmp/dist/hakuna-matata && ng build --prod --aot --outputPath=/root/tmp/dist/hakuna-matata && rm -rf /root/dist/hakuna-matata || true && cp -r /root/tmp/dist/hakuna-matata /root/dist/ && rm /root/src/apps/hakuna-matata/node_modules"'
+
+alias dsstore="find . -name '.DS_Store' -type f -delete"

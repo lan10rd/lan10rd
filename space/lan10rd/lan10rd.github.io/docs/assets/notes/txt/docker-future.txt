@@ -1,0 +1,59 @@
+--realm--
+docker run -it --rm --name angular -w /app angular sh
+docker run -it --rm --name nest -w /app nest sh
+
+docker run --rm --name realm-angular -p 4200:4200 -w /app angular npm run serve
+docker rm angular-serve --force || true && docker run --privileged --rm -it --name angular-serve -p 4200:4200 --network=earth_network -v ~/earth/realms/angular/src:/app/src -w /app angular ng run angular:serve-ssr --host 0.0.0.0 --publicHost=https://angular.ass.space
+
+docker run --rm --name realm-nest -p 3000:3000 -w /app nest npm run serve
+
+docker rm angular-serve --force || true  && docker run --rm --name angular-serve --network=earth_network -p 4200:4200 -w /app angular ng serve --host 0.0.0.0 --disableHostCheck
+docker rm angular-serve --force || true  && docker run --rm --name angular-serve --network=earth_network -p 4000:4000 -w /app angular node dist/server
+docker rm angular-serve --force || true  && docker run --rm --name angular-serve --network=earth_network -p 4200:4200 -w /app angular http-server -p 4200 dist/
+
+--os--
+docker rm alpine --force || true && docker run -dit --rm --name=alpine -v ~/earth:/Users/simba/earth alpine
+
+--initial--
+docker network create earth_network || true
+
+--router--
+docker rm router --force || true && docker run --rm --always -d --network=earth_network -m 4mb --name router -v ~/earth/systems/docker/nginx/:/etc/nginx:ro -v ~/earth/realms:/realms:ro -p 80:80 -p 443:443 nginx:alpine
+docker exec -it router -t
+docker exec -it router nginx -s reload
+
+--angular--
+*build*
+docker rm angular-servey --force || true && docker run --privileged --rm -it --name angular-servey -p 4201:4201 --network=earth_network angular sh -c "ng serve --aot --host 0.0.0.0 --disableHostCheck"
+
+docker run --rm --name angular -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/earth angular sh -c "rm node_modules || true && ln -s /app/node_modules . && mkdir -p /root/tmp/dist/earth && ng build --prod --aot --outputPath=/root/tmp/dist/earth && rm -rf /root/dist/earth || true && cp -r /root/tmp/dist/earth /root/dist/ && rm /root/src/apps/earth/node_modules"
+
+docker run --rm --always --name angular -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/passport angular sh -c "rm node_modules || true && ln -s /app/node_modules . && mkdir -p /root/tmp/dist/passport && ng build --prod --aot --outputPath=/root/tmp/dist/passport && rm -rf /root/dist/passport || true && cp -r /root/tmp/dist/passport /root/dist/ && rm /root/src/apps/passport/node_modules"
+
+docker run --rm --name angular -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/hakuna-matata angular sh -c "rm node_modules || true && ln -s /app/node_modules . && mkdir -p /root/tmp/dist/hakuna-matata && ng build --prod --aot --outputPath=/root/tmp/dist/hakuna-matata && rm -rf /root/dist/hakuna-matata || true && cp -r /root/tmp/dist/hakuna-matata /root/dist/ && rm /root/src/apps/hakuna-matata/node_modules"
+
+docker run --rm --name angular -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/chalk-ash-pearl-caramel angular sh -c "rm node_modules || true && ln -s /app/node_modules . && mkdir -p /root/tmp/dist/chalk-ash-pearl-caramel && ng build --prod --aot --outputPath=/root/tmp/dist/chalk-ash-pearl-caramel && rm -rf /root/dist/chalk-ash-pearl-caramel || true && cp -r /root/tmp/dist/chalk-ash-pearl-caramel /root/dist/ && rm /root/src/apps/chalk-ash-pearl-caramel/node_modules"
+
+docker run --rm --name angular -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/broadcast angular sh -c "rm node_modules || true && ln -s /app/node_modules . && mkdir -p /root/tmp/dist/broadcast && ng build --prod --aot --outputPath=/root/tmp/dist/broadcast && rm -rf /root/dist/broadcast || true && cp -r /root/tmp/dist/broadcast /root/dist/ && rm /root/src/apps/broadcast/node_modules"
+
+*run*
+* this step not necessary as it is included in the router now, unless you are server side rendering*
+docker rm tribe-glass-app-hakuna-matata --force || true && docker run --rm -d -m 4mb --name tribe-1-app-1 --network=earth_network -v ~/earth/realms/glass/dist/hakuna-matata:/usr/share/nginx/html:ro nginx:alpine
+
+docker rm angular-serve --force || true && docker run --rm -it --name angular-serve -p 4200:4200 --network=earth_network -v ~/earth/realms/glass/src:/root/src -w /root/src/apps/earth angular sh -c "rm node_modules || true && ln -s /app/node_modules . && ng serve --host 0.0.0.0 --disableHostCheck"
+
+docker rm angular-serve --force || true  && docker run --rm --name angular-serve --network=earth_network -p 4200:4200 -w /app angular ng serve --host 0.0.0.0 --disableHostCheck
+docker rm angular-serve --force || true  && docker run --rm --name angular-serve --network=earth_network -p 4000:4000 -w /app angular node dist/server
+docker rm angular-serve --force || true  && docker run --rm --name angular-serve --network=earth_network -p 4200:4200 -w /app angular ng run angular:serve-ssr --host 0.0.0.0
+docker rm angular-serve --force || true  && docker run --rm --name angular-serve --network=earth_network -p 4000:4000 -w /app angular sh -c "npm run serve:ssr"
+
+--nests--
+docker run --rm --name nest -v ~/earth/realms/glass/dist/:/root/dist -v ~/earth/realms/glass/src/:/root/src -w /root/src/apps/earth-api nest sh -c "rm node_modules || true && ln -s /app/node_modules . && rm -rf /root/dist/earth-api && tsc -p tsconfig.build.json --preserveSymlinks --outDir /root/dist/earth-api && rm /root/src/apps/earth-api/node_modules"
+docker rm tribe-glass-app-earth-api --force || true && docker run --rm -d -m 16mb --name tribe-glass-app-earth-api --network=earth_network -v ~/earth/realms/glass/dist/earth-api:/app/dist/:ro -v ~/earth:/root/earth -w /app/dist --expose 34274 nest node main.js --preserve-symlinks --preserve-symlinks-main
+
+-updated-
+docker rm nest-serve --force || true && docker run -it --name nest-serve -p 3000:3000 nest/glass sh -c "npm run start:dev"
+
+docker rm ass.space-api.moon --force || true && docker run --privileged --restart=always -dit --name ass.space-api.moon --network=earth_network -v ~/earth/realms/glass/dist/earth-api:/app/dist/:ro -v ~/earth:/root/earth -v /var/run/docker.sock:/var/run/docker.sock --env EARTH_ROOT=/root/earth/ -w /app/dist --expose 34274 nest/glass node main.js --expose-gc --preserve-symlinks --preserve-symlinks-main
+
+docker rm ass.space-api.moon --force || true && docker run -it --privileged --name ass.space-api.moon --network=earth_network -v ~/earth:/root/earth -v /var/run/docker.sock:/var/run/docker.sock --env EARTH_ROOT=/root/earth/ -w /root/earth/realms/glass/src/apps/earth-api --expose 34274 nest/glass sh -c "pwd && ls && rm -rf node_modules || true && mkdir node_modules && mount --bind /app/node_modules ./node_modules && rm -rf src/libs || true && mkdir src/libs && mount --bind ../../libs src/libs && npm run start:dev"

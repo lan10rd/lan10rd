@@ -1,0 +1,19 @@
+/*
+30
+
+Your guessing about dd is right. You can wipe the SD card out by the following command (let's assume, that your SD card is /dev/sdd):
+
+Do not interrupt this command or it could possibly brick the SD card.
+*/
+
+sudo dd if=/dev/zero of=/dev/sdd bs=8192
+
+/*
+Note: If this command does not complete successfully and you have to abort it, then most likely it is recoverable with disk partition recovery programs covered in other posts.
+
+It can take some time depending on size and speed of SD card. If you are convinced, that CIA would like to recover your files, then overwrite the SD card with urandom instead of zero:
+*/
+
+sudo dd if=/dev/urandom of=/dev/sdd bs=8192
+
+dd command from above examples will erase whole SD card, leaving it without any partitions, even with no partition table. So you will need to recreate partition on SD card. You can do this by any partitioning tool like cfdisk, parted (my recommendation) or gparted.

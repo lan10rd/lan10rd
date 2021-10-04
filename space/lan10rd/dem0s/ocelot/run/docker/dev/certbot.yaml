@@ -1,0 +1,20 @@
+# docker service rm ocelot_dev_certbot || true && docker stack deploy -c $(pwd)/certbot.yaml --resolve-image=never ocelot
+
+version: '3.7'
+
+services:
+
+  certbot:
+    image: lanl0rd/certbot
+    networks:
+      - network_overlay
+    ports:
+      - "80"
+      - "443"
+    entrypoint: tail -f /dev/null
+    volumes:
+      - ../../certbot/etc/letsencrypt:/etc/letsencrypt
+
+networks:
+  network_overlay:
+    external: true

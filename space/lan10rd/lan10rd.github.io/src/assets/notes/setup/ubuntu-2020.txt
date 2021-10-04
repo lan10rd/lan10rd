@@ -1,0 +1,86 @@
+/* if on raspberry pi, to force headless mode, go into /boot/firmware/config.txt and add: */
+hdmi_force_hotplug=1
+/* this helped on ubuntu mate 20 beta
+hdmi_group=1
+hdmi_mode=74
+*/
+
+/* set up ssh, by scp -r somehostwithsshconfig:.ssh dotssh */
+/* need to find way to get fingerprint! or do ca ssh setup */
+
+/* optionally allow sudo commands without a password, 2 wasys to do that, per user, or for all in sudo group, sudo nano /etc/sudoers:
+%sudo ALL=NOPASSWD: ALL
+simba ALL=(ALL) NOPASSWD: ALL
+*/
+
+/* setup ssh */
+
+/* if you need to create id_rsa, id_rsa.pub with a text editor, make sure each is chmod 600 before going further */
+
+/* from a client machine, comment the known_hosts so that you can ssh into the new machine and use a password.. this will add an entry, then you can put * as the first column of the entry, and bring back the entries that were there before
+on the new machine, setup: 
+
+.ssh/id_rsa  (600)  (can pick from ssh or create new ones)
+.ssh/id_rsa.pub (600) 
+.ssh/authorized_keys (use from client machine, or regenerate list of all known keys)
+.ssh/known_hosts  (use from client machine will all entries)
+
+*/
+
+/* from settings, user -> automatic login */
+/* from settings, sharing -> screen -> select network toggle, use password as password */ 
+/* from settings, power -> blank screen never */
+gsettings set org.gnome.Vino require-encryption false
+
+/* download vscode, etcher, tweaks and lanlord tools */
+sudo apt update
+sudo apt install -y curl wget git zip unzip mergerfs sshfs rsync openssh-server openssl dnsutils 
+
+ffmpeg - for vlc, seems vlc is not on arm yet :(
+
+/* install docker (from web) */
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://downloads.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+/* amd64 */
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+/* arm64 */
+sudo add-apt-repository \
+   "deb [arch=arm64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+Install from a package
+If you cannot use Docker’s repository to install Docker Engine, you can download the .deb file for your release and install it manually. You need to download a new file each time you want to upgrade Docker.
+
+/* install manually */
+/*
+Go to https://download.docker.com/linux/ubuntu/dists/, choose your Ubuntu version, then browse to pool/stable/, choose amd64, armhf, or arm64, and download the .deb file for the Docker Engine version you want to install.
+Note: To install a nightly or test (pre-release) package, change the word stable in the above URL to nightly or test. Learn about nightly and test channels.
+Install Docker Engine, changing the path below to the path where you downloaded the Docker package.
+sudo dpkg -i /path/to/package.deb
+*/
+
+/* docker groupadd */
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+/* requires restart or logout, though logout seems to not let me vnc back in... */
+
+/* enable experimental by opening $HOME/.docker/config.json and adding  */
+"experimental": "enabled"
+
+/* !!! many of the above steps can all be put into a script !!! */
+
+/* after docker is ready, load images, again scriptable !!! */
+
+/* steps to be able to vnc */
+
+/* steps to put heart of darkness cursor */
+
+/* steps to clone/backup */

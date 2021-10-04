@@ -1,0 +1,19 @@
+# docker service rm lanl0rd_github_io || true && docker stack deploy -c $(pwd)/stack.yaml --resolve-image=never lanl0rd_github && docker service logs -f lanl0rd_github_io
+
+version: '3.7'
+
+services:
+
+ io:
+    image: lanl0rd/js-works
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    volumes:
+      - .:/app
+    ports:
+      - 4200:4200
+    working_dir: /app
+    command: sh -c "rm node_modules || true && ln -s /js/angular/works/node_modules . && ng serve --host 0.0.0.0 --disableHostCheck"
+    # command: tail -f /dev/null

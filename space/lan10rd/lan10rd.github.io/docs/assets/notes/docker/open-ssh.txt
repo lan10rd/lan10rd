@@ -1,0 +1,22 @@
+
+docker rm openssh || true && docker run -d -P -p 22:22 --name openssh ssh/ubuntu 
+
+
+
+
+
+docker service rm openssh || true && docker service create --name=openssh --network=earth_network_overlay -p 23:22 openssh/ubuntu:1604
+
+
+
+docker run -d -P --name test_sshd eg_sshd   #   docker run -d -P --name openssh ssh/ubuntu
+docker port test_sshd 22   #  docker port openssh 22
+
+0.0.0.0:49154  #  0.0.0.0:32769
+And now you can ssh as root on the container’s IP address (you can find it with docker inspect) or on port 49154 of the Docker daemon’s host IP address (ip address or ifconfig can tell you that) or localhost if on the Docker daemon host:
+
+ssh root@192.168.1.2 -p 49154   #   ssh root@0.0.0.0 -p 32769
+# or
+ssh root@localhost -p 49154
+# The password is ``screencast``.  #   password
+root@f38c87f2a42d:/#

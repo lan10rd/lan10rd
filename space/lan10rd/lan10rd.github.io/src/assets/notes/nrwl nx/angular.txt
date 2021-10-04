@@ -1,0 +1,10 @@
+nx generate @nrwl/angular:application myapp --style=scss --dry-run
+nx generate @nrwl/angular:application bakery --routing --style=scss --dry-run
+
+nx serve todos --prod
+ng add Functionality
+To run the equivalent of the Angular CLI's ng add command for a package named my-package, you need to run two commands:
+
+# npm
+npm i my-package
+nx g my-package:ng-add

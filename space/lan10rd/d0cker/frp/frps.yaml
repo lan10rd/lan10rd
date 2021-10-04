@@ -1,0 +1,24 @@
+# docker service rm d0cker_frps || true && docker stack deploy -c $(pwd)/frps.yaml --resolve-image=never d0cker && docker service logs -f d0cker_frps
+
+version: '3.7'
+
+services:
+
+  frps:
+    # image: lanl0rd/frp
+    image: snowdreamtech/frps
+    networks:
+      - host
+    environment:
+      - FRP_ADMIN_USER=${FRP_ADMIN_USER:-admin}
+      - FRP_ADMIN_PWD=${FRP_ADMIN_PWD:-pass}
+      - FRP_TOKEN=${FRP_TOKEN:-token}
+    volumes:
+      # - ./frps.ini:/etc/frp/frps-docker.ini
+      - ./frps.ini:/etc/frp/frps.ini
+    # command: /etc/frp/frpc -c /etc/frp/frps-docker.ini
+    # command: ./frps -c /etc/frpc/frps-docker.ini
+
+networks:
+  host:
+    external: true

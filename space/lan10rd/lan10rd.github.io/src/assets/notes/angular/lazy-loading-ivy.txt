@@ -1,0 +1,136 @@
+Lazy load feature modules without routing in Angular 9 / Ivy
+Fergal
+Fergal
+Follow
+Feb 22 · 1 min read
+
+
+
+TL;DR: Use a dynamic import on a feature module, compile the module, resolve an entry component and create that component inside a placeholder template.
+
+@NgModule({
+  declarations: [
+    LazyComponent,
+    DetailsComponent
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule
+  ]
+})
+export class LazyFeatureModule {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+
+  public resolveComponent(): ComponentFactory<LazyComponent> {
+    return this.componentFactoryResolver.resolveComponentFactory(LazyComponent);
+  }
+}
+view rawlazy-feature.module.ts
+
+loadFeature() {
+  import('./lazy-feature/lazy-feature.module').then(({ LazyFeatureModule }) => {
+    this.compiler.compileModuleAsync(LazyFeatureModule).then(moduleFactory => {
+      const moduleRef = moduleFactory.create(this.injector);
+      const componentFactory = moduleRef.instance.resolveComponent();
+      const { instance } = this.container.createComponent(componentFactory, null, moduleRef.injector);
+      instance.title = 'foo';
+      instance.ngOnChanges();
+    });
+  });
+}
+
+
+Manually lazy loading feature modules
+Normally to lazy load a feature module (a component which has it’s own dependencies) we use the Router, define Routes and use `loadChildren` to dynamically import a feature module.
+Sometimes it’s nice to be able to lazy load a chunk of our application on a button click or onInit of a parent component, without having to rely on the Router and changing the location history state.
+Angular 9 / Ivy can lazy load individual components, like this:
+
+// In the html: <ng-template #container></ng-template>
+
+import('./lazy/lazy.component').then(({ LazyComponent }) => {
+  const componentFactory = this.componentFactoryResolver.resolveComponentFactory(LazyComponent);
+  const { instance } = this.container.createComponent(componentFactory);
+});
+
+But what if that component has dependencies on other modules and components that are not registered on the main app.module? In that case we need to:
+Create a feature module
+Use a dynamic import to lazy load it
+Compile it to let Angular know about all of the feature dependencies
+Resolve the component we want to display in the context of the feature module
+Create the component into a container template
+The full gists of the relevant files:
+
+
+import { NgModule, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { LazyComponent } from './lazy/lazy.component';
+
+@NgModule({
+  declarations: [
+    LazyComponent
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule
+  ]
+})
+export class LazyFeatureModule {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+
+  public resolveComponent(): ComponentFactory<LazyComponent> {
+    return this.componentFactoryResolver.resolveComponentFactory(LazyComponent);
+  }
+}
+
+import { Component, Compiler, Injector, ViewChild, ViewContainerRef } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+
+  constructor(
+    private compiler: Compiler,
+    private injector: Injector
+  ) { }
+
+  loadFeature() {
+    // Dynamic import, activate code splitting and on demand loading of feature module
+    import('./lazy-feature/lazy-feature.module').then(({ LazyFeatureModule }) => {
+      // Compile the module
+      this.compiler.compileModuleAsync(LazyFeatureModule).then(moduleFactory => {
+        // Create a moduleRef, resolve an entry component, create the component
+        const moduleRef = moduleFactory.create(this.injector);
+        const componentFactory = moduleRef.instance.resolveComponent();
+        const { instance } = this.container.createComponent(componentFactory, null, moduleRef.injector);
+
+        // set component Input() property
+        instance.title = 'foo';
+
+        // you have to manually call ngOnChanges for dynamically created components
+        instance.ngOnChanges();
+      });
+    });
+  }
+}
+
+<button type="button" (click)="loadFeature()">Load feature module and render component</button>
+<ng-template #container></ng-template>
+
+
+
+You can also import the module and component separately, resolve the component in the context of the current module, and use the injector from the compiled module when calling createComponent to ensure the newly created component is correctly wired up to its dependencies e.g:
+
+
+import('./lazy-feature/lazy-feature.module').then(({ LazyFeatureModule, LazyComponent }) => {
+  this.compiler.compileModuleAsync(LazyFeatureModule).then(moduleFactory => {
+    const moduleRef = moduleFactory.create(this.injector);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(LazyComponent);
+    const { instance } = this.container.createComponent(componentFactory, null, moduleRef.injector);
+  });
+});

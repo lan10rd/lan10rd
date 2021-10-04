@@ -1,0 +1,19 @@
+
+import { Subscription, interval } from 'rxjs'
+
+@Component(...)
+export class AppComponent {
+
+    sub$: Subscription | undefined
+
+    ngOnInit(){
+        this.sub$ = interval(1000).subscribe(value => {
+            console.log('value', value)
+        })
+    }
+
+    ngOnDestroy(){
+        this.sub$?.unsubscribe()
+    }
+
+}

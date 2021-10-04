@@ -1,0 +1,7 @@
+docker run -dit --name nginx-name -p 80:80 nginx
+docker run -d -p 4040:4040 --link nginx-name --name www_ngrok wernight/ngrok ngrok http nginx-name:80
+
+docker rm --force nginx-name || true && docker run -dit --name nginx-name -p 80:80 nginx
+docker rm --force nginx-name || true && docker run -dit --name nginx-name -p 3000:3000 nginx
+
+docker rm --force nginx-name || true && docker run -dit --name nginx-name -p 8080:80 nginx

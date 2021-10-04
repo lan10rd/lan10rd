@@ -1,0 +1,24 @@
+<ng-container
+*ngIf="srv.index"
+>
+    <div
+    class="tcenter"
+    >
+        
+        <common-select-element
+        style="padding-top: 0"
+        class="glo-drop p ubuntu-thin bl"
+        [options]="srv.index"
+        [(option)]="selected"
+        (clicked)="srv.changeNote('assets/notes/' + $event)"
+        [searchEnabled]="true"
+        ></common-select-element>
+
+    </div>
+
+    <pre
+    class="glo-drop p pre ubuntu-mono"
+    style="margin-top: 2rem"
+    >{{srv.note}}</pre>
+
+</ng-container>

@@ -1,0 +1,35 @@
+
+ssh-keygen -f test -C "" -t rsa -q -N "" -b 2048
+cat test.pub >> ~/.ssh/authorized_keys
+
+# root user has its own .ssh, so:
+# first enable root user if it's not, on ubuntu it's not default
+# Enabling the root account:
+sudo -i
+#To enable the Root account (i.e. set a password) use:
+sudo passwd root
+
+sudo mkdir -P /root/.ssh
+sudo touch /root/.ssh/authorized_keys
+sudo chmod -R 777 /root/.ssh
+sudo cat test.pub >> root/.ssh/authorized_keys
+
+sudo nano /etc/ssh/sshd_config
+
+PermitRootLogin yes
+PubkeyAuthentication yes
+ChallengeResponseAuthentication no # erm not entirely sure what this does
+PasswordAuthentication yes # for security change to no
+UsePAM yes # default
+
+sudo service sshd restart
+sudo service ssh restart
+
+sudo systemctl restart sshd
+
+ssh root@localhost -o "PreferredAuthentications=publickey" -o "StrictHostKeyChecking no" -i ./test
+
+/* had a really rough time on of my boxes, it seems it was just the .ssh folder in /root , i just blew it away and cp -R /home/user/.ssh as that was working, and low and behold it started working... stay tuned gonna try from scratch i think authorized_keys is only supposed to have 600 permissions
+
+chmod 700 .ssh
+chmod 600 .ssh/*

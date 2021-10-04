@@ -1,0 +1,1217 @@
+Certbot Commands
+Certbot uses a number of different commands (also referred to as “subcommands”) to request specific actions such as obtaining, renewing, or revoking certificates. The most important and commonly-used commands will be discussed throughout this document; an exhaustive list also appears near the end of the document.
+
+The certbot script on your web server might be named letsencrypt if your system uses an older package, or certbot-auto if you used an alternate installation method. Throughout the docs, whenever you see certbot, swap in the correct name as needed.
+
+Getting certificates (and choosing plugins)
+The Certbot client supports two types of plugins for obtaining and installing certificates: authenticators and installers.
+
+Authenticators are plugins used with the certonly command to obtain a certificate. The authenticator validates that you control the domain(s) you are requesting a certificate for, obtains a certificate for the specified domain(s), and places the certificate in the /etc/letsencrypt directory on your machine. The authenticator does not install the certificate (it does not edit any of your server’s configuration files to serve the obtained certificate). If you specify multiple domains to authenticate, they will all be listed in a single certificate. To obtain multiple separate certificates you will need to run Certbot multiple times.
+
+Installers are Plugins used with the install command to install a certificate. These plugins can modify your webserver’s configuration to serve your website over HTTPS using certificates obtained by certbot.
+
+Plugins that do both can be used with the certbot run command, which is the default when no command is specified. The run subcommand can also be used to specify a combination of distinct authenticator and installer plugins.
+
+Plugin  Auth    Inst    Notes   Challenge types (and port)
+apache  Y   Y   
+Automates obtaining and installing a certificate with Apache.
+http-01 (80)
+nginx   Y   Y   
+Automates obtaining and installing a certificate with Nginx.
+http-01 (80)
+webroot Y   N   
+Obtains a certificate by writing to the webroot directory of
+an already running webserver.
+http-01 (80)
+standalone  Y   N   
+Uses a “standalone” webserver to obtain a certificate.
+Requires port 80 to be available. This is useful on
+systems with no webserver, or when direct integration with
+the local webserver is not supported or not desired.
+http-01 (80)
+DNS plugins Y   N   
+This category of plugins automates obtaining a certificate by
+modifying DNS records to prove you have control over a
+domain. Doing domain validation in this way is
+the only way to obtain wildcard certificates from Let’s
+Encrypt.
+dns-01 (53)
+manual  Y   N   
+Helps you obtain a certificate by giving you instructions to
+perform domain validation yourself. Additionally allows you
+to specify scripts to automate the validation task in a
+customized way.
+http-01 (80) or dns-01 (53)
+Under the hood, plugins use one of several ACME protocol challenges to prove you control a domain. The options are http-01 (which uses port 80) and dns-01 (requiring configuration of a DNS server on port 53, though that’s often not the same machine as your webserver). A few plugins support more than one challenge type, in which case you can choose one with --preferred-challenges.
+
+There are also many third-party-plugins available. Below we describe in more detail the circumstances in which each plugin can be used, and how to use it.
+
+Apache
+The Apache plugin currently supports modern OSes based on Debian, Fedora, SUSE, Gentoo and Darwin. This automates both obtaining and installing certificates on an Apache webserver. To specify this plugin on the command line, simply include --apache.
+
+Webroot
+If you’re running a local webserver for which you have the ability to modify the content being served, and you’d prefer not to stop the webserver during the certificate issuance process, you can use the webroot plugin to obtain a certificate by including certonly and --webroot on the command line. In addition, you’ll need to specify --webroot-path or -w with the top-level directory (“web root”) containing the files served by your webserver. For example, --webroot-path /var/www/html or --webroot-path /usr/share/nginx/html are two common webroot paths.
+
+If you’re getting a certificate for many domains at once, the plugin needs to know where each domain’s files are served from, which could potentially be a separate directory for each domain. When requesting a certificate for multiple domains, each domain will use the most recently specified --webroot-path. So, for instance,
+
+certbot certonly --webroot -w /var/www/example -d www.example.com -d example.com -w /var/www/other -d other.example.net -d another.other.example.net
+would obtain a single certificate for all of those names, using the /var/www/example webroot directory for the first two, and /var/www/other for the second two.
+
+The webroot plugin works by creating a temporary file for each of your requested domains in ${webroot-path}/.well-known/acme-challenge. Then the Let’s Encrypt validation server makes HTTP requests to validate that the DNS for each requested domain resolves to the server running certbot. An example request made to your web server would look like:
+
+66.133.109.36 - - [05/Jan/2016:20:11:24 -0500] "GET /.well-known/acme-challenge/HGr8U1IeTW4kY_Z6UIyaakzOkyQgPr_7ArlLgtZE8SX HTTP/1.1" 200 87 "-" "Mozilla/5.0 (compatible; Let's Encrypt validation server; +https://www.letsencrypt.org)"
+Note that to use the webroot plugin, your server must be configured to serve files from hidden directories. If /.well-known is treated specially by your webserver configuration, you might need to modify the configuration to ensure that files inside /.well-known/acme-challenge are served by the webserver.
+
+Nginx
+The Nginx plugin should work for most configurations. We recommend backing up Nginx configurations before using it (though you can also revert changes to configurations with certbot --nginx rollback). You can use it by providing the --nginx flag on the commandline.
+
+certbot --nginx
+Standalone
+Use standalone mode to obtain a certificate if you don’t want to use (or don’t currently have) existing server software. The standalone plugin does not rely on any other server software running on the machine where you obtain the certificate.
+
+To obtain a certificate using a “standalone” webserver, you can use the standalone plugin by including certonly and --standalone on the command line. This plugin needs to bind to port 80 in order to perform domain validation, so you may need to stop your existing webserver.
+
+It must still be possible for your machine to accept inbound connections from the Internet on the specified port using each requested domain name.
+
+By default, Certbot first attempts to bind to the port for all interfaces using IPv6 and then bind to that port using IPv4; Certbot continues so long as at least one bind succeeds. On most Linux systems, IPv4 traffic will be routed to the bound IPv6 port and the failure during the second bind is expected.
+
+Use --<challenge-type>-address to explicitly tell Certbot which interface (and protocol) to bind.
+
+DNS Plugins
+If you’d like to obtain a wildcard certificate from Let’s Encrypt or run certbot on a machine other than your target webserver, you can use one of Certbot’s DNS plugins.
+
+These plugins are not included in a default Certbot installation and must be installed separately. While the DNS plugins cannot currently be used with certbot-auto, they are available in many OS package managers, as Docker images, and as snaps. Visit https://certbot.eff.org to learn the best way to use the DNS plugins on your system.
+
+Once installed, you can find documentation on how to use each plugin at:
+
+certbot-dns-cloudflare
+certbot-dns-cloudxns
+certbot-dns-digitalocean
+certbot-dns-dnsimple
+certbot-dns-dnsmadeeasy
+certbot-dns-google
+certbot-dns-linode
+certbot-dns-luadns
+certbot-dns-nsone
+certbot-dns-ovh
+certbot-dns-rfc2136
+certbot-dns-route53
+Manual
+If you’d like to obtain a certificate running certbot on a machine other than your target webserver or perform the steps for domain validation yourself, you can use the manual plugin. While hidden from the UI, you can use the plugin to obtain a certificate by specifying certonly and --manual on the command line. This requires you to copy and paste commands into another terminal session, which may be on a different computer.
+
+The manual plugin can use either the http or the dns challenge. You can use the --preferred-challenges option to choose the challenge of your preference.
+
+The http challenge will ask you to place a file with a specific name and specific content in the /.well-known/acme-challenge/ directory directly in the top-level directory (“web root”) containing the files served by your webserver. In essence it’s the same as the webroot plugin, but not automated.
+
+When using the dns challenge, certbot will ask you to place a TXT DNS record with specific contents under the domain name consisting of the hostname for which you want a certificate issued, prepended by _acme-challenge.
+
+For example, for the domain example.com, a zone file entry would look like:
+
+_acme-challenge.example.com. 300 IN TXT "gfj9Xq...Rg85nM"
+Additionally you can specify scripts to prepare for validation and perform the authentication procedure and/or clean up after it by using the --manual-auth-hook and --manual-cleanup-hook flags. This is described in more depth in the hooks section.
+
+Combining plugins
+Sometimes you may want to specify a combination of distinct authenticator and installer plugins. To do so, specify the authenticator plugin with --authenticator or -a and the installer plugin with --installer or -i.
+
+For instance, you could create a certificate using the webroot plugin for authentication and the apache plugin for installation.
+
+certbot run -a webroot -i apache -w /var/www/html -d example.com
+Or you could create a certificate using the manual plugin for authentication and the nginx plugin for installation. (Note that this certificate cannot be renewed automatically.)
+
+certbot run -a manual -i nginx -d example.com
+Third-party plugins
+There are also a number of third-party plugins for the client, provided by other developers. Many are beta/experimental, but some are already in widespread use:
+
+Plugin  Auth    Inst    Notes
+haproxy Y   Y   Integration with the HAProxy load balancer
+s3front Y   Y   Integration with Amazon CloudFront distribution of S3 buckets
+gandi   Y   N   Obtain certificates via the Gandi LiveDNS API
+varnish Y   N   Obtain certificates via a Varnish server
+external-auth   Y   Y   A plugin for convenient scripting
+pritunl N   Y   Install certificates in pritunl distributed OpenVPN servers
+proxmox N   Y   Install certificates in Proxmox Virtualization servers
+dns-standalone  Y   N   Obtain certificates via an integrated DNS server
+dns-ispconfig   Y   N   DNS Authentication using ISPConfig as DNS server
+dns-clouddns    Y   N   DNS Authentication using CloudDNS API
+dns-inwx    Y   Y   DNS Authentication for INWX through the XML API
+If you’re interested, you can also write your own plugin.
+
+Managing certificates
+To view a list of the certificates Certbot knows about, run the certificates subcommand:
+
+certbot certificates
+
+This returns information in the following format:
+
+Found the following certs:
+  Certificate Name: example.com
+    Domains: example.com, www.example.com
+    Expiry Date: 2017-02-19 19:53:00+00:00 (VALID: 30 days)
+    Certificate Path: /etc/letsencrypt/live/example.com/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/example.com/privkey.pem
+Certificate Name shows the name of the certificate. Pass this name using the --cert-name flag to specify a particular certificate for the run, certonly, certificates, renew, and delete commands. Example:
+
+certbot certonly --cert-name example.com
+Re-creating and Updating Existing Certificates
+You can use certonly or run subcommands to request the creation of a single new certificate even if you already have an existing certificate with some of the same domain names.
+
+If a certificate is requested with run or certonly specifying a certificate name that already exists, Certbot updates the existing certificate. Otherwise a new certificate is created and assigned the specified name.
+
+The --force-renewal, --duplicate, and --expand options control Certbot’s behavior when re-creating a certificate with the same name as an existing certificate. If you don’t specify a requested behavior, Certbot may ask you what you intended.
+
+--force-renewal tells Certbot to request a new certificate with the same domains as an existing certificate. Each domain must be explicitly specified via -d. If successful, this certificate is saved alongside the earlier one and symbolic links (the “live” reference) will be updated to point to the new certificate. This is a valid method of renewing a specific individual certificate.
+
+--duplicate tells Certbot to create a separate, unrelated certificate with the same domains as an existing certificate. This certificate is saved completely separately from the prior one. Most users will not need to issue this command in normal circumstances.
+
+--expand tells Certbot to update an existing certificate with a new certificate that contains all of the old domains and one or more additional new domains. With the --expand option, use the -d option to specify all existing domains and one or more new domains.
+
+Example:
+
+certbot --expand -d existing.com,example.com,newdomain.com
+If you prefer, you can specify the domains individually like this:
+
+certbot --expand -d existing.com -d example.com -d newdomain.com
+Consider using --cert-name instead of --expand, as it gives more control over which certificate is modified and it lets you remove domains as well as adding them.
+
+--allow-subset-of-names tells Certbot to continue with certificate generation if only some of the specified domain authorizations can be obtained. This may be useful if some domains specified in a certificate no longer point at this system.
+
+Whenever you obtain a new certificate in any of these ways, the new certificate exists alongside any previously obtained certificates, whether or not the previous certificates have expired. The generation of a new certificate counts against several rate limits that are intended to prevent abuse of the ACME protocol, as described here.
+
+Changing a Certificate’s Domains
+The --cert-name flag can also be used to modify the domains a certificate contains, by specifying new domains using the -d or --domains flag. If certificate example.com previously contained example.com and www.example.com, it can be modified to only contain example.com by specifying only example.com with the -d or --domains flag. Example:
+
+certbot certonly --cert-name example.com -d example.com
+The same format can be used to expand the set of domains a certificate contains, or to replace that set entirely:
+
+certbot certonly --cert-name example.com -d example.org,www.example.org
+Revoking certificates
+If your account key has been compromised or you otherwise need to revoke a certificate, use the revoke command to do so. Note that the revoke command takes the certificate path (ending in cert.pem), not a certificate name or domain. Example:
+
+certbot revoke --cert-path /etc/letsencrypt/live/CERTNAME/cert.pem
+You can also specify the reason for revoking your certificate by using the reason flag. Reasons include unspecified which is the default, as well as keycompromise, affiliationchanged, superseded, and cessationofoperation:
+
+certbot revoke --cert-path /etc/letsencrypt/live/CERTNAME/cert.pem --reason keycompromise
+Additionally, if a certificate is a test certificate obtained via the --staging or --test-cert flag, that flag must be passed to the revoke subcommand. Once a certificate is revoked (or for other certificate management tasks), all of a certificate’s relevant files can be removed from the system with the delete subcommand:
+
+certbot delete --cert-name example.com
+Note
+
+If you don’t use delete to remove the certificate completely, it will be renewed automatically at the next renewal event.
+
+Note
+
+Revoking a certificate will have no effect on the rate limit imposed by the Let’s Encrypt server.
+
+Renewing certificates
+Note
+
+Let’s Encrypt CA issues short-lived certificates (90 days). Make sure you renew the certificates at least once in 3 months.
+
+See also
+
+Many of the certbot clients obtained through a distribution come with automatic renewal out of the box, such as Debian and Ubuntu versions installed through apt, CentOS/RHEL 7 through EPEL, etc. See Automated Renewals for more details.
+
+As of version 0.10.0, Certbot supports a renew action to check all installed certificates for impending expiry and attempt to renew them. The simplest form is simply
+
+certbot renew
+
+This command attempts to renew any previously-obtained certificates that expire in less than 30 days. The same plugin and options that were used at the time the certificate was originally issued will be used for the renewal attempt, unless you specify other plugins or options. Unlike certonly, renew acts on multiple certificates and always takes into account whether each one is near expiry. Because of this, renew is suitable (and designed) for automated use, to allow your system to automatically renew each certificate when appropriate. Since renew only renews certificates that are near expiry it can be run as frequently as you want - since it will usually take no action.
+
+The renew command includes hooks for running commands or scripts before or after a certificate is renewed. For example, if you have a single certificate obtained using the standalone plugin, you might need to stop the webserver before renewing so standalone can bind to the necessary ports, and then restart it after the plugin is finished. Example:
+
+certbot renew --pre-hook "service nginx stop" --post-hook "service nginx start"
+If a hook exits with a non-zero exit code, the error will be printed to stderr but renewal will be attempted anyway. A failing hook doesn’t directly cause Certbot to exit with a non-zero exit code, but since Certbot exits with a non-zero exit code when renewals fail, a failed hook causing renewal failures will indirectly result in a non-zero exit code. Hooks will only be run if a certificate is due for renewal, so you can run the above command frequently without unnecessarily stopping your webserver.
+
+When Certbot detects that a certificate is due for renewal, --pre-hook and --post-hook hooks run before and after each attempt to renew it. If you want your hook to run only after a successful renewal, use --deploy-hook in a command like this.
+
+certbot renew --deploy-hook /path/to/deploy-hook-script
+
+You can also specify hooks by placing files in subdirectories of Certbot’s configuration directory. Assuming your configuration directory is /etc/letsencrypt, any executable files found in /etc/letsencrypt/renewal-hooks/pre, /etc/letsencrypt/renewal-hooks/deploy, and /etc/letsencrypt/renewal-hooks/post will be run as pre, deploy, and post hooks respectively when any certificate is renewed with the renew subcommand. These hooks are run in alphabetical order and are not run for other subcommands. (The order the hooks are run is determined by the byte value of the characters in their filenames and is not dependent on your locale.)
+
+Hooks specified in the command line, configuration file, or renewal configuration files are run as usual after running all hooks in these directories. One minor exception to this is if a hook specified elsewhere is simply the path to an executable file in the hook directory of the same type (e.g. your pre-hook is the path to an executable in /etc/letsencrypt/renewal-hooks/pre), the file is not run a second time. You can stop Certbot from automatically running executables found in these directories by including --no-directory-hooks on the command line.
+
+More information about hooks can be found by running certbot --help renew.
+
+If you’re sure that this command executes successfully without human intervention, you can add the command to crontab (since certificates are only renewed when they’re determined to be near expiry, the command can run on a regular basis, like every week or every day). In that case, you are likely to want to use the -q or --quiet quiet flag to silence all output except errors.
+
+If you are manually renewing all of your certificates, the --force-renewal flag may be helpful; it causes the expiration time of the certificate(s) to be ignored when considering renewal, and attempts to renew each and every installed certificate regardless of its age. (This form is not appropriate to run daily because each certificate will be renewed every day, which will quickly run into the certificate authority rate limit.)
+
+Note that options provided to certbot renew will apply to every certificate for which renewal is attempted; for example, certbot renew --rsa-key-size 4096 would try to replace every near-expiry certificate with an equivalent certificate using a 4096-bit RSA public key. If a certificate is successfully renewed using specified options, those options will be saved and used for future renewals of that certificate.
+
+An alternative form that provides for more fine-grained control over the renewal process (while renewing specified certificates one at a time), is certbot certonly with the complete set of subject domains of a specific certificate specified via -d flags. You may also want to include the -n or --noninteractive flag to prevent blocking on user input (which is useful when running the command from cron).
+
+certbot certonly -n -d example.com -d www.example.com
+
+All of the domains covered by the certificate must be specified in this case in order to renew and replace the old certificate rather than obtaining a new one; don’t forget any www. domains! Specifying a subset of the domains creates a new, separate certificate containing only those domains, rather than replacing the original certificate. When run with a set of domains corresponding to an existing certificate, the certonly command attempts to renew that specific certificate.
+
+Please note that the CA will send notification emails to the address you provide if you do not renew certificates that are about to expire.
+
+Certbot is working hard to improve the renewal process, and we apologize for any inconvenience you encounter in integrating these commands into your individual environment.
+
+Note
+
+certbot renew exit status will only be 1 if a renewal attempt failed. This means certbot renew exit status will be 0 if no certificate needs to be updated. If you write a custom script and expect to run a command only after a certificate was actually renewed you will need to use the --deploy-hook since the exit status will be 0 both on successful renewal and when renewal is not necessary.
+
+Modifying the Renewal Configuration File
+When a certificate is issued, by default Certbot creates a renewal configuration file that tracks the options that were selected when Certbot was run. This allows Certbot to use those same options again when it comes time for renewal. These renewal configuration files are located at /etc/letsencrypt/renewal/CERTNAME.
+
+For advanced certificate management tasks, it is possible to manually modify the certificate’s renewal configuration file, but this is discouraged since it can easily break Certbot’s ability to renew your certificates. If you choose to modify the renewal configuration file we advise you to test its validity with the certbot renew --dry-run command.
+
+Warning
+
+Modifying any files in /etc/letsencrypt can damage them so Certbot can no longer properly manage its certificates, and we do not recommend doing so.
+
+For most tasks, it is safest to limit yourself to pointing symlinks at the files there, or using --deploy-hook to copy / make new files based upon those files, if your operational situation requires it (for instance, combining certificates and keys in different way, or having copies of things with different specific permissions that are demanded by other programs).
+
+If the contents of /etc/letsencrypt/archive/CERTNAME are moved to a new folder, first specify the new folder’s name in the renewal configuration file, then run certbot update_symlinks to point the symlinks in /etc/letsencrypt/live/CERTNAME to the new folder.
+
+If you would like the live certificate files whose symlink location Certbot updates on each run to reside in a different location, first move them to that location, then specify the full path of each of the four files in the renewal configuration file. Since the symlinks are relative links, you must follow this with an invocation of certbot update_symlinks.
+
+For example, say that a certificate’s renewal configuration file previously contained the following directives:
+
+archive_dir = /etc/letsencrypt/archive/example.com
+cert = /etc/letsencrypt/live/example.com/cert.pem
+privkey = /etc/letsencrypt/live/example.com/privkey.pem
+chain = /etc/letsencrypt/live/example.com/chain.pem
+fullchain = /etc/letsencrypt/live/example.com/fullchain.pem
+The following commands could be used to specify where these files are located:
+
+mv /etc/letsencrypt/archive/example.com /home/user/me/certbot/example_archive
+sed -i 's,/etc/letsencrypt/archive/example.com,/home/user/me/certbot/example_archive,' /etc/letsencrypt/renewal/example.com.conf
+mv /etc/letsencrypt/live/example.com/*.pem /home/user/me/certbot/
+sed -i 's,/etc/letsencrypt/live/example.com,/home/user/me/certbot,g' /etc/letsencrypt/renewal/example.com.conf
+certbot update_symlinks
+Automated Renewals
+Many Linux distributions provide automated renewal when you use the packages installed through their system package manager. The following table is an incomplete list of distributions which do so, as well as their methods for doing so.
+
+If you are not sure whether or not your system has this already automated, refer to your distribution’s documentation, or check your system’s crontab (typically in /etc/crontab/ and /etc/cron.*/* and systemd timers (systemctl list-timers).
+
+Distributions with Automated Renewal¶
+Distribution Name   Distribution Version    Automation Method
+CentOS  EPEL 7  systemd
+Debian  stretch cron, systemd
+Debian  testing/sid cron, systemd
+Fedora  26  systemd
+Fedora  27  systemd
+RHEL    EPEL 7  systemd
+Ubuntu  17.10   cron, systemd
+Ubuntu  certbot PPA cron, systemd
+Where are my certificates?
+All generated keys and issued certificates can be found in /etc/letsencrypt/live/$domain. In the case of creating a SAN certificate with multiple alternative names, $domain is the first domain passed in via -d parameter. Rather than copying, please point your (web) server configuration directly to those files (or create symlinks). During the renewal, /etc/letsencrypt/live is updated with the latest necessary files.
+
+For historical reasons, the containing directories are created with permissions of 0700 meaning that certificates are accessible only to servers that run as the root user. If you will never downgrade to an older version of Certbot, then you can safely fix this using chmod 0755 /etc/letsencrypt/{live,archive}.
+
+For servers that drop root privileges before attempting to read the private key file, you will also need to use chgrp and chmod 0640 to allow the server to read /etc/letsencrypt/live/$domain/privkey.pem.
+
+Note
+
+/etc/letsencrypt/archive and /etc/letsencrypt/keys contain all previous keys and certificates, while /etc/letsencrypt/live symlinks to the latest versions.
+
+The following files are available:
+
+privkey.pem
+Private key for the certificate.
+
+Warning
+
+This must be kept secret at all times! Never share it with anyone, including Certbot developers. You cannot put it into a safe, however - your server still needs to access this file in order for SSL/TLS to work.
+
+Note
+
+As of Certbot version 0.29.0, private keys for new certificate default to 0600. Any changes to the group mode or group owner (gid) of this file will be preserved on renewals.
+
+This is what Apache needs for SSLCertificateKeyFile, and Nginx for ssl_certificate_key.
+
+fullchain.pem
+All certificates, including server certificate (aka leaf certificate or end-entity certificate). The server certificate is the first one in this file, followed by any intermediates.
+
+This is what Apache >= 2.4.8 needs for SSLCertificateFile, and what Nginx needs for ssl_certificate.
+
+cert.pem and chain.pem (less common)
+cert.pem contains the server certificate by itself, and chain.pem contains the additional intermediate certificate or certificates that web browsers will need in order to validate the server certificate. If you provide one of these files to your web server, you must provide both of them, or some browsers will show “This Connection is Untrusted” errors for your site, some of the time.
+
+Apache < 2.4.8 needs these for SSLCertificateFile. and SSLCertificateChainFile, respectively.
+
+If you’re using OCSP stapling with Nginx >= 1.3.7, chain.pem should be provided as the ssl_trusted_certificate to validate OCSP responses.
+
+Note
+
+All files are PEM-encoded. If you need other format, such as DER or PFX, then you could convert using openssl. You can automate that with --deploy-hook if you’re using automatic renewal.
+
+Pre and Post Validation Hooks
+Certbot allows for the specification of pre and post validation hooks when run in manual mode. The flags to specify these scripts are --manual-auth-hook and --manual-cleanup-hook respectively and can be used as follows:
+
+certbot certonly --manual --manual-auth-hook /path/to/http/authenticator.sh --manual-cleanup-hook /path/to/http/cleanup.sh -d secure.example.com
+This will run the authenticator.sh script, attempt the validation, and then run the cleanup.sh script. Additionally certbot will pass relevant environment variables to these scripts:
+
+CERTBOT_DOMAIN: The domain being authenticated
+CERTBOT_VALIDATION: The validation string
+CERTBOT_TOKEN: Resource name part of the HTTP-01 challenge (HTTP-01 only)
+CERTBOT_REMAINING_CHALLENGES: Number of challenges remaining after the current challenge
+CERTBOT_ALL_DOMAINS: A comma-separated list of all domains challenged for the current certificate
+Additionally for cleanup:
+
+CERTBOT_AUTH_OUTPUT: Whatever the auth script wrote to stdout
+Example usage for HTTP-01:
+
+certbot certonly --manual --preferred-challenges=http --manual-auth-hook /path/to/http/authenticator.sh --manual-cleanup-hook /path/to/http/cleanup.sh -d secure.example.com
+/path/to/http/authenticator.sh
+
+#!/bin/bash
+echo $CERTBOT_VALIDATION > /var/www/htdocs/.well-known/acme-challenge/$CERTBOT_TOKEN
+/path/to/http/cleanup.sh
+
+#!/bin/bash
+rm -f /var/www/htdocs/.well-known/acme-challenge/$CERTBOT_TOKEN
+Example usage for DNS-01 (Cloudflare API v4) (for example purposes only, do not use as-is)
+
+certbot certonly --manual --preferred-challenges=dns --manual-auth-hook /path/to/dns/authenticator.sh --manual-cleanup-hook /path/to/dns/cleanup.sh -d secure.example.com
+/path/to/dns/authenticator.sh
+
+#!/bin/bash
+
+# Get your API key from https://www.cloudflare.com/a/account/my-account
+API_KEY="your-api-key"
+EMAIL="your.email@example.com"
+
+# Strip only the top domain to get the zone id
+DOMAIN=$(expr match "$CERTBOT_DOMAIN" '.*\.\(.*\..*\)')
+
+# Get the Cloudflare zone id
+ZONE_EXTRA_PARAMS="status=active&page=1&per_page=20&order=status&direction=desc&match=all"
+ZONE_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=$DOMAIN&$ZONE_EXTRA_PARAMS" \
+     -H     "X-Auth-Email: $EMAIL" \
+     -H     "X-Auth-Key: $API_KEY" \
+     -H     "Content-Type: application/json" | python -c "import sys,json;print(json.load(sys.stdin)['result'][0]['id'])")
+
+# Create TXT record
+CREATE_DOMAIN="_acme-challenge.$CERTBOT_DOMAIN"
+RECORD_ID=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" \
+     -H     "X-Auth-Email: $EMAIL" \
+     -H     "X-Auth-Key: $API_KEY" \
+     -H     "Content-Type: application/json" \
+     --data '{"type":"TXT","name":"'"$CREATE_DOMAIN"'","content":"'"$CERTBOT_VALIDATION"'","ttl":120}' \
+             | python -c "import sys,json;print(json.load(sys.stdin)['result']['id'])")
+# Save info for cleanup
+if [ ! -d /tmp/CERTBOT_$CERTBOT_DOMAIN ];then
+        mkdir -m 0700 /tmp/CERTBOT_$CERTBOT_DOMAIN
+fi
+echo $ZONE_ID > /tmp/CERTBOT_$CERTBOT_DOMAIN/ZONE_ID
+echo $RECORD_ID > /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID
+
+# Sleep to make sure the change has time to propagate over to DNS
+sleep 25
+/path/to/dns/cleanup.sh
+
+#!/bin/bash
+
+# Get your API key from https://www.cloudflare.com/a/account/my-account
+API_KEY="your-api-key"
+EMAIL="your.email@example.com"
+
+if [ -f /tmp/CERTBOT_$CERTBOT_DOMAIN/ZONE_ID ]; then
+        ZONE_ID=$(cat /tmp/CERTBOT_$CERTBOT_DOMAIN/ZONE_ID)
+        rm -f /tmp/CERTBOT_$CERTBOT_DOMAIN/ZONE_ID
+fi
+
+if [ -f /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID ]; then
+        RECORD_ID=$(cat /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID)
+        rm -f /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID
+fi
+
+# Remove the challenge TXT record from the zone
+if [ -n "${ZONE_ID}" ]; then
+    if [ -n "${RECORD_ID}" ]; then
+        curl -s -X DELETE "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID" \
+                -H "X-Auth-Email: $EMAIL" \
+                -H "X-Auth-Key: $API_KEY" \
+                -H "Content-Type: application/json"
+    fi
+fi
+Changing the ACME Server
+By default, Certbot uses Let’s Encrypt’s production server at https://acme-v02.api.letsencrypt.org/. You can tell Certbot to use a different CA by providing --server on the command line or in a configuration file with the URL of the server’s ACME directory. For example, if you would like to use Let’s Encrypt’s staging server, you would add --server https://acme-staging-v02.api.letsencrypt.org/directory to the command line.
+
+If you use --server to specify an ACME CA that implements the standardized version of the spec, you may be able to obtain a certificate for a wildcard domain. Some CAs (such as Let’s Encrypt) require that domain validation for wildcard domains must be done through modifications to DNS records which means that the dns-01 challenge type must be used. To see a list of Certbot plugins that support this challenge type and how to use them, see plugins.
+
+Lock Files
+When processing a validation Certbot writes a number of lock files on your system to prevent multiple instances from overwriting each other’s changes. This means that by default two instances of Certbot will not be able to run in parallel.
+
+Since the directories used by Certbot are configurable, Certbot will write a lock file for all of the directories it uses. This include Certbot’s --work-dir, --logs-dir, and --config-dir. By default these are /var/lib/letsencrypt, /var/log/letsencrypt, and /etc/letsencrypt respectively. Additionally if you are using Certbot with Apache or nginx it will lock the configuration folder for that program, which are typically also in the /etc directory.
+
+Note that these lock files will only prevent other instances of Certbot from using those directories, not other processes. If you’d like to run multiple instances of Certbot simultaneously you should specify different directories as the --work-dir, --logs-dir, and --config-dir for each instance of Certbot that you would like to run.
+
+Configuration file
+Certbot accepts a global configuration file that applies its options to all invocations of Certbot. Certificate specific configuration choices should be set in the .conf files that can be found in /etc/letsencrypt/renewal.
+
+By default no cli.ini file is created (though it may exist already if you installed Certbot via a package manager, for instance). After creating one it is possible to specify the location of this configuration file with certbot --config cli.ini (or shorter -c cli.ini). An example configuration file is shown below:
+
+# This is an example of the kind of things you can do in a configuration file.
+# All flags used by the client can be configured here. Run Certbot with
+# "--help" to learn more about the available options.
+#
+# Note that these options apply automatically to all use of Certbot for
+# obtaining or renewing certificates, so options specific to a single
+# certificate on a system with several certificates should not be placed
+# here.
+
+# Use a 4096 bit RSA key instead of 2048
+rsa-key-size = 4096
+
+# Uncomment and update to register with the specified e-mail address
+# email = foo@example.com
+
+# Uncomment to use the standalone authenticator on port 443
+# authenticator = standalone
+
+# Uncomment to use the webroot authenticator. Replace webroot-path with the
+# path to the public_html / webroot folder being served by your web server.
+# authenticator = webroot
+# webroot-path = /usr/share/nginx/html
+By default, the following locations are searched:
+
+/etc/letsencrypt/cli.ini
+$XDG_CONFIG_HOME/letsencrypt/cli.ini (or ~/.config/letsencrypt/cli.ini if $XDG_CONFIG_HOME is not set).
+Since this configuration file applies to all invocations of certbot it is incorrect to list domains in it. Listing domains in cli.ini may prevent renewal from working. Additionally due to how arguments in cli.ini are parsed, options which wish to not be set should not be listed. Options set to false will instead be read as being set to true by older versions of Certbot, since they have been listed in the config file.
+
+Log Rotation
+By default certbot stores status logs in /var/log/letsencrypt. By default certbot will begin rotating logs once there are 1000 logs in the log directory. Meaning that once 1000 files are in /var/log/letsencrypt Certbot will delete the oldest one to make room for new logs. The number of subsequent logs can be changed by passing the desired number to the command line flag --max-log-backups.
+
+Note
+
+Some distributions, including Debian and Ubuntu, disable certbot’s internal log rotation in favor of a more traditional logrotate script. If you are using a distribution’s packages and want to alter the log rotation, check /etc/logrotate.d/ for a certbot rotation script.
+
+Certbot command-line options
+Certbot supports a lot of command line options. Here’s the full list, from certbot --help all:
+
+usage: 
+  certbot [SUBCOMMAND] [options] [-d DOMAIN] [-d DOMAIN] ...
+
+Certbot can obtain and install HTTPS/TLS/SSL certificates.  By default,
+it will attempt to use a webserver both for obtaining and installing the
+certificate. The most common SUBCOMMANDS and flags are:
+
+obtain, install, and renew certificates:
+    (default) run   Obtain & install a certificate in your current webserver
+    certonly        Obtain or renew a certificate, but do not install it
+    renew           Renew all previously obtained certificates that are near expiry
+    enhance         Add security enhancements to your existing configuration
+   -d DOMAINS       Comma-separated list of domains to obtain a certificate for
+
+  --apache          Use the Apache plugin for authentication & installation
+  --standalone      Run a standalone webserver for authentication
+  --nginx           Use the Nginx plugin for authentication & installation
+  --webroot         Place files in a server's webroot folder for authentication
+  --manual          Obtain certificates interactively, or using shell script hooks
+
+   -n               Run non-interactively
+  --test-cert       Obtain a test certificate from a staging server
+  --dry-run         Test "renew" or "certonly" without saving any certificates to disk
+
+manage certificates:
+    certificates    Display information about certificates you have from Certbot
+    revoke          Revoke a certificate (supply --cert-name or --cert-path)
+    delete          Delete a certificate (supply --cert-name)
+
+manage your account:
+    register        Create an ACME account
+    unregister      Deactivate an ACME account
+    update_account  Update an ACME account
+  --agree-tos       Agree to the ACME server's Subscriber Agreement
+   -m EMAIL         Email address for important account notifications
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIG_FILE, --config CONFIG_FILE
+                        path to config file (default: /etc/letsencrypt/cli.ini
+                        and ~/.config/letsencrypt/cli.ini)
+  -v, --verbose         This flag can be used multiple times to incrementally
+                        increase the verbosity of output, e.g. -vvv. (default:
+                        -2)
+  --max-log-backups MAX_LOG_BACKUPS
+                        Specifies the maximum number of backup logs that
+                        should be kept by Certbot's built in log rotation.
+                        Setting this flag to 0 disables log rotation entirely,
+                        causing Certbot to always append to the same log file.
+                        (default: 1000)
+  -n, --non-interactive, --noninteractive
+                        Run without ever asking for user input. This may
+                        require additional command line flags; the client will
+                        try to explain which ones are required if it finds one
+                        missing (default: False)
+  --force-interactive   Force Certbot to be interactive even if it detects
+                        it's not being run in a terminal. This flag cannot be
+                        used with the renew subcommand. (default: False)
+  -d DOMAIN, --domains DOMAIN, --domain DOMAIN
+                        Domain names to apply. For multiple domains you can
+                        use multiple -d flags or enter a comma separated list
+                        of domains as a parameter. The first domain provided
+                        will be the subject CN of the certificate, and all
+                        domains will be Subject Alternative Names on the
+                        certificate. The first domain will also be used in
+                        some software user interfaces and as the file paths
+                        for the certificate and related material unless
+                        otherwise specified or you already have a certificate
+                        with the same name. In the case of a name collision it
+                        will append a number like 0001 to the file path name.
+                        (default: Ask)
+  --eab-kid EAB_KID     Key Identifier for External Account Binding (default:
+                        None)
+  --eab-hmac-key EAB_HMAC_KEY
+                        HMAC key for External Account Binding (default: None)
+  --cert-name CERTNAME  Certificate name to apply. This name is used by
+                        Certbot for housekeeping and in file paths; it doesn't
+                        affect the content of the certificate itself. To see
+                        certificate names, run 'certbot certificates'. When
+                        creating a new certificate, specifies the new
+                        certificate's name. (default: the first provided
+                        domain or the name of an existing certificate on your
+                        system for the same domains)
+  --dry-run             Perform a test run of the client, obtaining test
+                        (invalid) certificates but not saving them to disk.
+                        This can currently only be used with the 'certonly'
+                        and 'renew' subcommands. Note: Although --dry-run
+                        tries to avoid making any persistent changes on a
+                        system, it is not completely side-effect free: if used
+                        with webserver authenticator plugins like apache and
+                        nginx, it makes and then reverts temporary config
+                        changes in order to obtain test certificates, and
+                        reloads webservers to deploy and then roll back those
+                        changes. It also calls --pre-hook and --post-hook
+                        commands if they are defined because they may be
+                        necessary to accurately simulate renewal. --deploy-
+                        hook commands are not called. (default: False)
+  --debug-challenges    After setting up challenges, wait for user input
+                        before submitting to CA (default: False)
+  --preferred-chain PREFERRED_CHAIN
+                        If the CA offers multiple certificate chains, prefer
+                        the chain with an issuer matching this Subject Common
+                        Name. If no match, the default offered chain will be
+                        used. (default: None)
+  --preferred-challenges PREF_CHALLS
+                        A sorted, comma delimited list of the preferred
+                        challenge to use during authorization with the most
+                        preferred challenge listed first (Eg, "dns" or
+                        "http,dns"). Not all plugins support all challenges.
+                        See https://certbot.eff.org/docs/using.html#plugins
+                        for details. ACME Challenges are versioned, but if you
+                        pick "http" rather than "http-01", Certbot will select
+                        the latest version automatically. (default: [])
+  --user-agent USER_AGENT
+                        Set a custom user agent string for the client. User
+                        agent strings allow the CA to collect high level
+                        statistics about success rates by OS, plugin and use
+                        case, and to know when to deprecate support for past
+                        Python versions and flags. If you wish to hide this
+                        information from the Let's Encrypt server, set this to
+                        "". (default: CertbotACMEClient/1.9.0 (certbot(-auto);
+                        OS_NAME OS_VERSION) Authenticator/XXX Installer/YYY
+                        (SUBCOMMAND; flags: FLAGS) Py/major.minor.patchlevel).
+                        The flags encoded in the user agent are: --duplicate,
+                        --force-renew, --allow-subset-of-names, -n, and
+                        whether any hooks are set.
+  --user-agent-comment USER_AGENT_COMMENT
+                        Add a comment to the default user agent string. May be
+                        used when repackaging Certbot or calling it from
+                        another tool to allow additional statistical data to
+                        be collected. Ignored if --user-agent is set.
+                        (Example: Foo-Wrapper/1.0) (default: None)
+
+automation:
+  Flags for automating execution & other tweaks
+
+  --keep-until-expiring, --keep, --reinstall
+                        If the requested certificate matches an existing
+                        certificate, always keep the existing one until it is
+                        due for renewal (for the 'run' subcommand this means
+                        reinstall the existing certificate). (default: Ask)
+  --expand              If an existing certificate is a strict subset of the
+                        requested names, always expand and replace it with the
+                        additional names. (default: Ask)
+  --version             show program's version number and exit
+  --force-renewal, --renew-by-default
+                        If a certificate already exists for the requested
+                        domains, renew it now, regardless of whether it is
+                        near expiry. (Often --keep-until-expiring is more
+                        appropriate). Also implies --expand. (default: False)
+  --renew-with-new-domains
+                        If a certificate already exists for the requested
+                        certificate name but does not match the requested
+                        domains, renew it now, regardless of whether it is
+                        near expiry. (default: False)
+  --reuse-key           When renewing, use the same private key as the
+                        existing certificate. (default: False)
+  --allow-subset-of-names
+                        When performing domain validation, do not consider it
+                        a failure if authorizations can not be obtained for a
+                        strict subset of the requested domains. This may be
+                        useful for allowing renewals for multiple domains to
+                        succeed even if some domains no longer point at this
+                        system. This option cannot be used with --csr.
+                        (default: False)
+  --agree-tos           Agree to the ACME Subscriber Agreement (default: Ask)
+  --duplicate           Allow making a certificate lineage that duplicates an
+                        existing one (both can be renewed in parallel)
+                        (default: False)
+  --os-packages-only    (certbot-auto only) install OS package dependencies
+                        and then stop (default: False)
+  --no-self-upgrade     (certbot-auto only) prevent the certbot-auto script
+                        from upgrading itself to newer released versions
+                        (default: Upgrade automatically)
+  --no-bootstrap        (certbot-auto only) prevent the certbot-auto script
+                        from installing OS-level dependencies (default: Prompt
+                        to install OS-wide dependencies, but exit if the user
+                        says 'No')
+  --no-permissions-check
+                        (certbot-auto only) skip the check on the file system
+                        permissions of the certbot-auto script (default:
+                        False)
+  -q, --quiet           Silence all output except errors. Useful for
+                        automation via cron. Implies --non-interactive.
+                        (default: False)
+
+security:
+  Security parameters & server settings
+
+  --rsa-key-size N      Size of the RSA key. (default: 2048)
+  --must-staple         Adds the OCSP Must Staple extension to the
+                        certificate. Autoconfigures OCSP Stapling for
+                        supported setups (Apache version >= 2.3.3 ). (default:
+                        False)
+  --redirect            Automatically redirect all HTTP traffic to HTTPS for
+                        the newly authenticated vhost. (default: redirect
+                        enabled for install and run, disabled for enhance)
+  --no-redirect         Do not automatically redirect all HTTP traffic to
+                        HTTPS for the newly authenticated vhost. (default:
+                        redirect enabled for install and run, disabled for
+                        enhance)
+  --hsts                Add the Strict-Transport-Security header to every HTTP
+                        response. Forcing browser to always use SSL for the
+                        domain. Defends against SSL Stripping. (default: None)
+  --uir                 Add the "Content-Security-Policy: upgrade-insecure-
+                        requests" header to every HTTP response. Forcing the
+                        browser to use https:// for every http:// resource.
+                        (default: None)
+  --staple-ocsp         Enables OCSP Stapling. A valid OCSP response is
+                        stapled to the certificate that the server offers
+                        during TLS. (default: None)
+  --strict-permissions  Require that all configuration files are owned by the
+                        current user; only needed if your config is somewhere
+                        unsafe like /tmp/ (default: False)
+  --auto-hsts           Gradually increasing max-age value for HTTP Strict
+                        Transport Security security header (default: False)
+
+testing:
+  The following flags are meant for testing and integration purposes only.
+
+  --test-cert, --staging
+                        Use the staging server to obtain or revoke test
+                        (invalid) certificates; equivalent to --server
+                        https://acme-staging-v02.api.letsencrypt.org/directory
+                        (default: False)
+  --debug               Show tracebacks in case of errors, and allow certbot-
+                        auto execution on experimental platforms (default:
+                        False)
+  --no-verify-ssl       Disable verification of the ACME server's certificate.
+                        (default: False)
+  --http-01-port HTTP01_PORT
+                        Port used in the http-01 challenge. This only affects
+                        the port Certbot listens on. A conforming ACME server
+                        will still attempt to connect on port 80. (default:
+                        80)
+  --http-01-address HTTP01_ADDRESS
+                        The address the server listens to during http-01
+                        challenge. (default: )
+  --https-port HTTPS_PORT
+                        Port used to serve HTTPS. This affects which port
+                        Nginx will listen on after a LE certificate is
+                        installed. (default: 443)
+  --break-my-certs      Be willing to replace or renew valid certificates with
+                        invalid (testing/staging) certificates (default:
+                        False)
+
+paths:
+  Flags for changing execution paths & servers
+
+  --cert-path CERT_PATH
+                        Path to where certificate is saved (with auth --csr),
+                        installed from, or revoked. (default: None)
+  --key-path KEY_PATH   Path to private key for certificate installation or
+                        revocation (if account key is missing) (default: None)
+  --fullchain-path FULLCHAIN_PATH
+                        Accompanying path to a full certificate chain
+                        (certificate plus chain). (default: None)
+  --chain-path CHAIN_PATH
+                        Accompanying path to a certificate chain. (default:
+                        None)
+  --config-dir CONFIG_DIR
+                        Configuration directory. (default: /etc/letsencrypt)
+  --work-dir WORK_DIR   Working directory. (default: /var/lib/letsencrypt)
+  --logs-dir LOGS_DIR   Logs directory. (default: /var/log/letsencrypt)
+  --server SERVER       ACME Directory Resource URI. (default:
+                        https://acme-v02.api.letsencrypt.org/directory)
+
+manage:
+  Various subcommands and flags are available for managing your
+  certificates:
+
+  certificates          List certificates managed by Certbot
+  delete                Clean up all files related to a certificate
+  renew                 Renew all certificates (or one specified with --cert-
+                        name)
+  revoke                Revoke a certificate specified with --cert-path or
+                        --cert-name
+  update_symlinks       Recreate symlinks in your /etc/letsencrypt/live/
+                        directory
+
+run:
+  Options for obtaining & installing certificates
+
+certonly:
+  Options for modifying how a certificate is obtained
+
+  --csr CSR             Path to a Certificate Signing Request (CSR) in DER or
+                        PEM format. Currently --csr only works with the
+                        'certonly' subcommand. (default: None)
+
+renew:
+  The 'renew' subcommand will attempt to renew all certificates (or more
+  precisely, certificate lineages) you have previously obtained if they are
+  close to expiry, and print a summary of the results. By default, 'renew'
+  will reuse the options used to create obtain or most recently successfully
+  renew each certificate lineage. You can try it with `--dry-run` first. For
+  more fine-grained control, you can renew individual lineages with the
+  `certonly` subcommand. Hooks are available to run commands before and
+  after renewal; see https://certbot.eff.org/docs/using.html#renewal for
+  more information on these.
+
+  --pre-hook PRE_HOOK   Command to be run in a shell before obtaining any
+                        certificates. Intended primarily for renewal, where it
+                        can be used to temporarily shut down a webserver that
+                        might conflict with the standalone plugin. This will
+                        only be called if a certificate is actually to be
+                        obtained/renewed. When renewing several certificates
+                        that have identical pre-hooks, only the first will be
+                        executed. (default: None)
+  --post-hook POST_HOOK
+                        Command to be run in a shell after attempting to
+                        obtain/renew certificates. Can be used to deploy
+                        renewed certificates, or to restart any servers that
+                        were stopped by --pre-hook. This is only run if an
+                        attempt was made to obtain/renew a certificate. If
+                        multiple renewed certificates have identical post-
+                        hooks, only one will be run. (default: None)
+  --deploy-hook DEPLOY_HOOK
+                        Command to be run in a shell once for each
+                        successfully issued certificate. For this command, the
+                        shell variable $RENEWED_LINEAGE will point to the
+                        config live subdirectory (for example,
+                        "/etc/letsencrypt/live/example.com") containing the
+                        new certificates and keys; the shell variable
+                        $RENEWED_DOMAINS will contain a space-delimited list
+                        of renewed certificate domains (for example,
+                        "example.com www.example.com" (default: None)
+  --disable-hook-validation
+                        Ordinarily the commands specified for --pre-
+                        hook/--post-hook/--deploy-hook will be checked for
+                        validity, to see if the programs being run are in the
+                        $PATH, so that mistakes can be caught early, even when
+                        the hooks aren't being run just yet. The validation is
+                        rather simplistic and fails if you use more advanced
+                        shell constructs, so you can use this switch to
+                        disable it. (default: False)
+  --no-directory-hooks  Disable running executables found in Certbot's hook
+                        directories during renewal. (default: False)
+  --disable-renew-updates
+                        Disable automatic updates to your server configuration
+                        that would otherwise be done by the selected installer
+                        plugin, and triggered when the user executes "certbot
+                        renew", regardless of if the certificate is renewed.
+                        This setting does not apply to important TLS
+                        configuration updates. (default: False)
+  --no-autorenew        Disable auto renewal of certificates. (default: True)
+
+certificates:
+  List certificates managed by Certbot
+
+delete:
+  Options for deleting a certificate
+
+revoke:
+  Options for revocation of certificates
+
+  --reason {unspecified,keycompromise,affiliationchanged,superseded,cessationofoperation}
+                        Specify reason for revoking certificate. (default:
+                        unspecified)
+  --delete-after-revoke
+                        Delete certificates after revoking them, along with
+                        all previous and later versions of those certificates.
+                        (default: None)
+  --no-delete-after-revoke
+                        Do not delete certificates after revoking them. This
+                        option should be used with caution because the 'renew'
+                        subcommand will attempt to renew undeleted revoked
+                        certificates. (default: None)
+
+register:
+  Options for account registration
+
+  --register-unsafely-without-email
+                        Specifying this flag enables registering an account
+                        with no email address. This is strongly discouraged,
+                        because you will be unable to receive notice about
+                        impending expiration or revocation of your
+                        certificates or problems with your Certbot
+                        installation that will lead to failure to renew.
+                        (default: False)
+  -m EMAIL, --email EMAIL
+                        Email used for registration and recovery contact. Use
+                        comma to register multiple emails, ex:
+                        u1@example.com,u2@example.com. (default: Ask).
+  --eff-email           Share your e-mail address with EFF (default: None)
+  --no-eff-email        Don't share your e-mail address with EFF (default:
+                        None)
+
+update_account:
+  Options for account modification
+
+unregister:
+  Options for account deactivation.
+
+  --account ACCOUNT_ID  Account ID to use (default: None)
+
+install:
+  Options for modifying how a certificate is deployed
+
+rollback:
+  Options for rolling back server configuration changes
+
+  --checkpoints N       Revert configuration N number of checkpoints.
+                        (default: 1)
+
+plugins:
+  Options for the "plugins" subcommand
+
+  --init                Initialize plugins. (default: False)
+  --prepare             Initialize and prepare plugins. (default: False)
+  --authenticators      Limit to authenticator plugins only. (default: None)
+  --installers          Limit to installer plugins only. (default: None)
+
+update_symlinks:
+  Recreates certificate and key symlinks in /etc/letsencrypt/live, if you
+  changed them by hand or edited a renewal configuration file
+
+enhance:
+  Helps to harden the TLS configuration by adding security enhancements to
+  already existing configuration.
+
+plugins:
+  Plugin Selection: Certbot client supports an extensible plugins
+  architecture. See 'certbot plugins' for a list of all installed plugins
+  and their names. You can force a particular plugin by setting options
+  provided below. Running --help <plugin_name> will list flags specific to
+  that plugin.
+
+  --configurator CONFIGURATOR
+                        Name of the plugin that is both an authenticator and
+                        an installer. Should not be used together with
+                        --authenticator or --installer. (default: Ask)
+  -a AUTHENTICATOR, --authenticator AUTHENTICATOR
+                        Authenticator plugin name. (default: None)
+  -i INSTALLER, --installer INSTALLER
+                        Installer plugin name (also used to find domains).
+                        (default: None)
+  --apache              Obtain and install certificates using Apache (default:
+                        False)
+  --nginx               Obtain and install certificates using Nginx (default:
+                        False)
+  --standalone          Obtain certificates using a "standalone" webserver.
+                        (default: False)
+  --manual              Provide laborious manual instructions for obtaining a
+                        certificate (default: False)
+  --webroot             Obtain certificates by placing files in a webroot
+                        directory. (default: False)
+  --dns-cloudflare      Obtain certificates using a DNS TXT record (if you are
+                        using Cloudflare for DNS). (default: False)
+  --dns-cloudxns        Obtain certificates using a DNS TXT record (if you are
+                        using CloudXNS for DNS). (default: False)
+  --dns-digitalocean    Obtain certificates using a DNS TXT record (if you are
+                        using DigitalOcean for DNS). (default: False)
+  --dns-dnsimple        Obtain certificates using a DNS TXT record (if you are
+                        using DNSimple for DNS). (default: False)
+  --dns-dnsmadeeasy     Obtain certificates using a DNS TXT record (if you are
+                        using DNS Made Easy for DNS). (default: False)
+  --dns-gehirn          Obtain certificates using a DNS TXT record (if you are
+                        using Gehirn Infrastructure Service for DNS).
+                        (default: False)
+  --dns-google          Obtain certificates using a DNS TXT record (if you are
+                        using Google Cloud DNS). (default: False)
+  --dns-linode          Obtain certificates using a DNS TXT record (if you are
+                        using Linode for DNS). (default: False)
+  --dns-luadns          Obtain certificates using a DNS TXT record (if you are
+                        using LuaDNS for DNS). (default: False)
+  --dns-nsone           Obtain certificates using a DNS TXT record (if you are
+                        using NS1 for DNS). (default: False)
+  --dns-ovh             Obtain certificates using a DNS TXT record (if you are
+                        using OVH for DNS). (default: False)
+  --dns-rfc2136         Obtain certificates using a DNS TXT record (if you are
+                        using BIND for DNS). (default: False)
+  --dns-route53         Obtain certificates using a DNS TXT record (if you are
+                        using Route53 for DNS). (default: False)
+  --dns-sakuracloud     Obtain certificates using a DNS TXT record (if you are
+                        using Sakura Cloud for DNS). (default: False)
+
+apache:
+  Apache Web Server plugin (Please note that the default values of the
+  Apache plugin options change depending on the operating system Certbot is
+  run on.)
+
+  --apache-enmod APACHE_ENMOD
+                        Path to the Apache 'a2enmod' binary (default: None)
+  --apache-dismod APACHE_DISMOD
+                        Path to the Apache 'a2dismod' binary (default: None)
+  --apache-le-vhost-ext APACHE_LE_VHOST_EXT
+                        SSL vhost configuration extension (default: -le-
+                        ssl.conf)
+  --apache-server-root APACHE_SERVER_ROOT
+                        Apache server root directory (default: /etc/apache2)
+  --apache-vhost-root APACHE_VHOST_ROOT
+                        Apache server VirtualHost configuration root (default:
+                        None)
+  --apache-logs-root APACHE_LOGS_ROOT
+                        Apache server logs directory (default:
+                        /var/log/apache2)
+  --apache-challenge-location APACHE_CHALLENGE_LOCATION
+                        Directory path for challenge configuration (default:
+                        /etc/apache2)
+  --apache-handle-modules APACHE_HANDLE_MODULES
+                        Let installer handle enabling required modules for you
+                        (Only Ubuntu/Debian currently) (default: False)
+  --apache-handle-sites APACHE_HANDLE_SITES
+                        Let installer handle enabling sites for you (Only
+                        Ubuntu/Debian currently) (default: False)
+  --apache-ctl APACHE_CTL
+                        Full path to Apache control script (default:
+                        apache2ctl)
+  --apache-bin APACHE_BIN
+                        Full path to apache2/httpd binary (default: None)
+
+dns-cloudflare:
+  Obtain certificates using a DNS TXT record (if you are using Cloudflare
+  for DNS).
+
+  --dns-cloudflare-propagation-seconds DNS_CLOUDFLARE_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 10)
+  --dns-cloudflare-credentials DNS_CLOUDFLARE_CREDENTIALS
+                        Cloudflare credentials INI file. (default: None)
+
+dns-cloudxns:
+  Obtain certificates using a DNS TXT record (if you are using CloudXNS for
+  DNS).
+
+  --dns-cloudxns-propagation-seconds DNS_CLOUDXNS_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 30)
+  --dns-cloudxns-credentials DNS_CLOUDXNS_CREDENTIALS
+                        CloudXNS credentials INI file. (default: None)
+
+dns-digitalocean:
+  Obtain certs using a DNS TXT record (if you are using DigitalOcean for
+  DNS).
+
+  --dns-digitalocean-propagation-seconds DNS_DIGITALOCEAN_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 10)
+  --dns-digitalocean-credentials DNS_DIGITALOCEAN_CREDENTIALS
+                        DigitalOcean credentials INI file. (default: None)
+
+dns-dnsimple:
+  Obtain certificates using a DNS TXT record (if you are using DNSimple for
+  DNS).
+
+  --dns-dnsimple-propagation-seconds DNS_DNSIMPLE_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 30)
+  --dns-dnsimple-credentials DNS_DNSIMPLE_CREDENTIALS
+                        DNSimple credentials INI file. (default: None)
+
+dns-dnsmadeeasy:
+  Obtain certificates using a DNS TXT record (if you are using DNS Made Easy
+  for DNS).
+
+  --dns-dnsmadeeasy-propagation-seconds DNS_DNSMADEEASY_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 60)
+  --dns-dnsmadeeasy-credentials DNS_DNSMADEEASY_CREDENTIALS
+                        DNS Made Easy credentials INI file. (default: None)
+
+dns-gehirn:
+  Obtain certificates using a DNS TXT record (if you are using Gehirn
+  Infrastructure Service for DNS).
+
+  --dns-gehirn-propagation-seconds DNS_GEHIRN_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 30)
+  --dns-gehirn-credentials DNS_GEHIRN_CREDENTIALS
+                        Gehirn Infrastructure Service credentials file.
+                        (default: None)
+
+dns-google:
+  Obtain certificates using a DNS TXT record (if you are using Google Cloud
+  DNS for DNS).
+
+  --dns-google-propagation-seconds DNS_GOOGLE_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 60)
+  --dns-google-credentials DNS_GOOGLE_CREDENTIALS
+                        Path to Google Cloud DNS service account JSON file.
+                        (See https://developers.google.com/identity/protocols/
+                        OAuth2ServiceAccount#creatinganaccount forinformation
+                        about creating a service account and
+                        https://cloud.google.com/dns/access-
+                        control#permissions_and_roles for information about
+                        therequired permissions.) (default: None)
+
+dns-linode:
+  Obtain certs using a DNS TXT record (if you are using Linode for DNS).
+
+  --dns-linode-propagation-seconds DNS_LINODE_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 120)
+  --dns-linode-credentials DNS_LINODE_CREDENTIALS
+                        Linode credentials INI file. (default: None)
+
+dns-luadns:
+  Obtain certificates using a DNS TXT record (if you are using LuaDNS for
+  DNS).
+
+  --dns-luadns-propagation-seconds DNS_LUADNS_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 30)
+  --dns-luadns-credentials DNS_LUADNS_CREDENTIALS
+                        LuaDNS credentials INI file. (default: None)
+
+dns-nsone:
+  Obtain certificates using a DNS TXT record (if you are using NS1 for DNS).
+
+  --dns-nsone-propagation-seconds DNS_NSONE_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 30)
+  --dns-nsone-credentials DNS_NSONE_CREDENTIALS
+                        NS1 credentials file. (default: None)
+
+dns-ovh:
+  Obtain certificates using a DNS TXT record (if you are using OVH for DNS).
+
+  --dns-ovh-propagation-seconds DNS_OVH_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 30)
+  --dns-ovh-credentials DNS_OVH_CREDENTIALS
+                        OVH credentials INI file. (default: None)
+
+dns-rfc2136:
+  Obtain certificates using a DNS TXT record (if you are using BIND for
+  DNS).
+
+  --dns-rfc2136-propagation-seconds DNS_RFC2136_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 60)
+  --dns-rfc2136-credentials DNS_RFC2136_CREDENTIALS
+                        RFC 2136 credentials INI file. (default: None)
+
+dns-route53:
+  Obtain certificates using a DNS TXT record (if you are using AWS Route53
+  for DNS).
+
+  --dns-route53-propagation-seconds DNS_ROUTE53_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 10)
+
+dns-sakuracloud:
+  Obtain certificates using a DNS TXT record (if you are using Sakura Cloud
+  for DNS).
+
+  --dns-sakuracloud-propagation-seconds DNS_SAKURACLOUD_PROPAGATION_SECONDS
+                        The number of seconds to wait for DNS to propagate
+                        before asking the ACME server to verify the DNS
+                        record. (default: 90)
+  --dns-sakuracloud-credentials DNS_SAKURACLOUD_CREDENTIALS
+                        Sakura Cloud credentials file. (default: None)
+
+manual:
+  Authenticate through manual configuration or custom shell scripts. When
+  using shell scripts, an authenticator script must be provided. The
+  environment variables available to this script depend on the type of
+  challenge. $CERTBOT_DOMAIN will always contain the domain being
+  authenticated. For HTTP-01 and DNS-01, $CERTBOT_VALIDATION is the
+  validation string, and $CERTBOT_TOKEN is the filename of the resource
+  requested when performing an HTTP-01 challenge. An additional cleanup
+  script can also be provided and can use the additional variable
+  $CERTBOT_AUTH_OUTPUT which contains the stdout output from the auth
+  script. For both authenticator and cleanup script, on HTTP-01 and DNS-01
+  challenges, $CERTBOT_REMAINING_CHALLENGES will be equal to the number of
+  challenges that remain after the current one, and $CERTBOT_ALL_DOMAINS
+  contains a comma-separated list of all domains that are challenged for the
+  current certificate.
+
+  --manual-auth-hook MANUAL_AUTH_HOOK
+                        Path or command to execute for the authentication
+                        script (default: None)
+  --manual-cleanup-hook MANUAL_CLEANUP_HOOK
+                        Path or command to execute for the cleanup script
+                        (default: None)
+  --manual-public-ip-logging-ok
+                        Automatically allows public IP logging (default: Ask)
+
+nginx:
+  Nginx Web Server plugin
+
+  --nginx-server-root NGINX_SERVER_ROOT
+                        Nginx server root directory. (default: /etc/nginx or
+                        /usr/local/etc/nginx)
+  --nginx-ctl NGINX_CTL
+                        Path to the 'nginx' binary, used for 'configtest' and
+                        retrieving nginx version number. (default: nginx)
+  --nginx-sleep-seconds NGINX_SLEEP_SECONDS
+                        Number of seconds to wait for nginx configuration
+                        changes to apply when reloading. (default: 1)
+
+null:
+  Null Installer
+
+standalone:
+  Spin up a temporary webserver
+
+webroot:
+  Place files in webroot directory
+
+  --webroot-path WEBROOT_PATH, -w WEBROOT_PATH
+                        public_html / webroot path. This can be specified
+                        multiple times to handle different domains; each
+                        domain will have the webroot path that preceded it.
+                        For instance: `-w /var/www/example -d example.com -d
+                        www.example.com -w /var/www/thing -d thing.net -d
+                        m.thing.net` (default: Ask)
+  --webroot-map WEBROOT_MAP
+                        JSON dictionary mapping domains to webroot paths; this
+                        implies -d for each entry. You may need to escape this
+                        from your shell. E.g.: --webroot-map
+                        '{"eg1.is,m.eg1.is":"/www/eg1/", "eg2.is":"/www/eg2"}'
+                        This option is merged with, but takes precedence over,
+                        -w / -d entries. At present, if you put webroot-map in
+                        a config file, it needs to be on a single line, like:
+                        webroot-map = {"example.com":"/var/www"}. (default:
+                        {})

@@ -1,0 +1,21 @@
+--- install ---
+
+* comes with docker desktop for mac/windows *
+
+for linux,
+
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+
+
+-- apparently you can have compose project names (realms) which allow for servies to have the same name --
+
+-p command line option or the COMPOSE_PROJECT_NAME environment variable.
+
+/* build and deploy */
+
+$ docker-compose build web
+$ docker-compose up --no-deps -d web
+
+This first rebuilds the image for web and then stop, destroy, and recreate just the web service. The --no-deps flag prevents Compose from also recreating any services which web depends on.

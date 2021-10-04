@@ -1,0 +1,104 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("assets/styles/fonts.scss");
+
+html, body {
+    min-height: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    cursor: default;
+    word-wrap: break-word;
+    font-size: 24px;
+    padding: 1rem;
+    padding-top: 3rem;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    background-repeat: 'no-repeat';
+}
+
+.glo-drop {
+    backdrop-filter: blur(2.5px);
+    // border: solid white 1px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 2px 0px rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 2px 0px rgba(255, 255, 255, 1);
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+}
+
+.p {
+    padding: 1rem;
+}
+
+.m {
+    margin: 1rem
+}
+
+.bl {
+    display: block;
+}
+
+.ib {
+    display: inline-block;
+}
+
+.bottom {
+    margin-bottom: 2rem
+}
+
+.grow {
+    transition: all .2s ease-in-out;
+}
+
+.grow:hover {
+    transform: scale(1.33);
+}
+
+.scrollable {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.pre {
+    white-space: pre-line;
+}
+
+.tcenter {
+    text-align: center;
+}
+
+.sticky {
+    // position: sticky;
+    // position: -webkit-sticky;
+    position: fixed;
+    // top: 2rem;
+    top: 0px;
+    z-index: 2;
+    transition-property: top;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0s;
+    left: 0;
+    right: 0;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}

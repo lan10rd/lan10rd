@@ -1,0 +1,14 @@
+this was tricky to understand at first....
+
+so when using csrf (cross site request forgery) the goal is to provent form submissions from anywhere but the client app (i believe)
+
+in order to implement this, both the client and server need to cooperate
+
+
+how this works is the csrf (xsrf) library will generate both a token and a secret that was used to generate the token, based on the initial configuration (it seems to sign in a similar fashion to https).  So, you can pass the same key on startup and all servers will sign the tokens/secrets similarly.
+
+now, the default for delivering is through session but i believe that increases memory on the back end to maintain them, could be wrong.. however i saw many examples using cookie (along with cookie parser middleware instead) .... using cookie middleware instead makes it stateless
+
+so, now that you are using cookies, you can ensure that the secret only ever gets generated for the server domain, and so you should send with credentials when talking to the api (the secret needs to come along with every request, as does the token).. the token can come back in anyway you like from the server, for instance another cookie, or in a request body or what have you.  you could actually generate multiple tokens for every form if you like.  but to keep it simple you could just generate it as the first get call in the app initialization, and make sure it is included in every request (usually as a header, but could also be a cookie).  then the server can authenticate that the current session is valid and ok to send the cookie.
+
+angular has an xsrf module that allows the xsrf-token to be extracted from the cookie and sent with the header, but really it seems moot if it doesnt also send the _csrf secret with it (which requires the withCredentials: true).. so i found i had to write an interceptor (and start up call that is triggered to get a token first), which mutates calls to the xsrf api origin with withCredentials: true, and also adds 

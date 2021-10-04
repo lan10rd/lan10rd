@@ -1,0 +1,41 @@
+# docker network create -d overlay --attachable network_overlay
+# docker service rm ocelot_traefik || true && docker service rm ocelot_nginx || true && docker stack deploy -c $(pwd)/router.yaml --resolve-image=never ocelot
+
+version: '3.7'
+
+services:
+
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - network_overlay
+    volumes:
+      - ../../:/ocelot
+      - ../../:/root/ocelot
+      - ../certbot/etc/letsencrypt:/etc/letsencrypt
+      - ../nginx:/etc/nginx
+    command: sh -c "nginx -g \"daemon off;\" & while true; do echo `date` || true; nginx -s reload || true; sleep 10s; done"
+
+  traefik:
+    image: traefik
+    ports:
+      - "80"
+      - "8080"
+    networks:
+      - network_overlay
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      replicas: 1
+      restart_policy:
+          condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+    command: --api.insecure --providers.docker --providers.docker.swarmMode --providers.docker.exposedByDefault=false --api.debug --providers.docker.network=network_overlay
+
+networks:
+  network_overlay:
+    external: true

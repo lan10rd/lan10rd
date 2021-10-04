@@ -1,0 +1,60 @@
+From what I read the packaging specific for Angular Elements components for easy use outside Angular will come with Angular 7.
+
+What you can do now is to create and angular application with the cli.
+
+ng new YourAppName
+Add the Angular Elements library with:
+
+ng add @angular/elements
+This adds also all required polyfills as described in the official Angular Documentation.
+
+Then you change the AppModule to not be a bootstrap module but just register the custom elements. You remove the bootstrap from the NgModule and ad the components as entry components. Then register the components as custom elements in the ngDoBootstrap hook. I made both the default AppComponent and HelloComponent custom elements. This is how my app module looks like:
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, Injector } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
+
+import { AppComponent } from './app.component';
+import { HelloComponent } from '../hello/hello.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HelloComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  entryComponents: [AppComponent, HelloComponent]
+})
+export class AppModule {
+  constructor(private injector: Injector) {
+  }
+
+  ngDoBootstrap() {
+    customElements.define('app-root', createCustomElement(AppComponent, {injector: this.injector}));
+    customElements.define('hello-world', createCustomElement(HelloComponent, {injector: this.injector}));
+  }
+ }
+Then you can use the elements in the index.html like elements for example like this:
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ElementsTest</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <div>
+    <app-root></app-root>
+  </div>
+  <div>
+    <hello-world></hello-world>
+  </div>
+</body>
+</html>

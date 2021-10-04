@@ -1,0 +1,14 @@
+// could be useful
+nobody:nogroup
+
+// user:group
+$USER:$USER
+
+
+// recursively change owner of a folder
+chown -R nobody:nogroup dirname
+
+// change permissions
+chmod a+rwx dirname 
+chmod 777 filename
+chmod -R 777 dirname // recursive

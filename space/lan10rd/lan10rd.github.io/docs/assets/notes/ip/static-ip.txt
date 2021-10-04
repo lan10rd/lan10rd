@@ -1,0 +1,22 @@
+/* windows */
+network -> advanced network -> ipv4 properties -> 192.168.0.12   255.255.255.0  192.168.0.1     dns 192.168.0.1, 0.0.0.0 or 192.168.0.1
+
+/* mac */
+network -> settings -> ipv4 -> 192.168.0.12   255.255.255.0  192.168.0.1     dns 192.168.0.1, 0.0.0.0 or 192.168.0.1
+
+/* linux */
+
+sudo nano /etc/network/interfaces
+
+source /etc/network/interfaces.d/*
+# The loopback network interface
+auto lo
+iface lo inet loopback
+# The primary network interface (that's the NAT)
+auto enp0s3
+iface enp0s3 inet dhcp
+# The secondary network interface (that's the host-only network)
+auto enp0s8
+iface enp0s8 inet static
+  address 192.168.56.101
+  netmask 255.255.255.0

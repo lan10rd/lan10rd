@@ -1,0 +1,14 @@
+docker run --privileged --name tunnel -dit --network=host docker:dind
+
+docker run --privileged --name tunnel -dit --network=earth_network_tunnel_overlay -p 8080:8080 docker:dind
+
+apk add curl
+curl http://127.0.0.1:3000    // if running a service bound to 3000 you get a response! gonna try without using network host though.  also note localhost doesnt work but 127.0.0.1 does!
+
+docker pull nginx
+docker rm --force nginx-name || true && docker run -dit --name nginx-name -p 8080:80 nginx
+
+http://realms_glass_works_systems-api:3000; works if on the same network
+
+
+docker node --label-add readyyyy

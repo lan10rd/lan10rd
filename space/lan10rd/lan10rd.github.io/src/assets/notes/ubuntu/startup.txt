@@ -1,0 +1,1 @@
+add startup applications by writing a .sh script (executable, chmod u+x), and placing in /usr/bin and selecting that from the startup apps menu  (you can add options to it, like /usr/bin/x11vnc -forever)

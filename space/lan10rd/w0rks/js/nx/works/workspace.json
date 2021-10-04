@@ -1,0 +1,566 @@
+{
+  "version": 2,
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  },
+  "defaultProject": "works-nest",
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/web:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/web:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    }
+  },
+  "projects": {
+    "works-nest": {
+      "root": "apps/works-nest",
+      "sourceRoot": "apps/works-nest/src",
+      "projectType": "application",
+      "prefix": "works-nest",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/works-nest",
+            "main": "apps/works-nest/src/main.ts",
+            "tsConfig": "apps/works-nest/tsconfig.app.json",
+            "assets": [
+              "apps/works-nest/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/works-nest/src/environments/environment.ts",
+                  "with": "apps/works-nest/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "works-nest:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/works-nest/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/works-nest"
+          ],
+          "options": {
+            "jestConfig": "apps/works-nest/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "works-angular": {
+      "projectType": "application",
+      "root": "apps/works-angular",
+      "sourceRoot": "apps/works-angular/src",
+      "prefix": "works",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/works-angular",
+            "index": "apps/works-angular/src/index.html",
+            "main": "apps/works-angular/src/main.ts",
+            "polyfills": "apps/works-angular/src/polyfills.ts",
+            "tsConfig": "apps/works-angular/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/works-angular/src/favicon.ico",
+              "apps/works-angular/src/assets"
+            ],
+            "styles": [
+              "apps/works-angular/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/works-angular/src/environments/environment.ts",
+                  "with": "apps/works-angular/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "works-angular:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "works-angular:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "works-angular:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/works-angular/src/**/*.ts",
+              "apps/works-angular/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/works-angular"
+          ],
+          "options": {
+            "jestConfig": "apps/works-angular/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "works-angular-e2e": {
+      "root": "apps/works-angular-e2e",
+      "sourceRoot": "apps/works-angular-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/works-angular-e2e/cypress.json",
+            "tsConfig": "apps/works-angular-e2e/tsconfig.e2e.json",
+            "devServerTarget": "works-angular:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "works-angular:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/works-angular-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "works-react": {
+      "root": "apps/works-react",
+      "sourceRoot": "apps/works-react/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/works-react",
+            "index": "apps/works-react/src/index.html",
+            "main": "apps/works-react/src/main.tsx",
+            "polyfills": "apps/works-react/src/polyfills.ts",
+            "tsConfig": "apps/works-react/tsconfig.app.json",
+            "assets": [
+              "apps/works-react/src/favicon.ico",
+              "apps/works-react/src/assets"
+            ],
+            "styles": [
+              "apps/works-react/src/styles.scss"
+            ],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/works-react/src/environments/environment.ts",
+                  "with": "apps/works-react/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "works-react:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "works-react:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/works-react/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/works-react"
+          ],
+          "options": {
+            "jestConfig": "apps/works-react/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "works-react-e2e": {
+      "root": "apps/works-react-e2e",
+      "sourceRoot": "apps/works-react-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/works-react-e2e/cypress.json",
+            "tsConfig": "apps/works-react-e2e/tsconfig.e2e.json",
+            "devServerTarget": "works-react:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "works-react:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/works-react-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "works-express": {
+      "root": "apps/works-express",
+      "sourceRoot": "apps/works-express/src",
+      "projectType": "application",
+      "prefix": "works-express",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/works-express",
+            "main": "apps/works-express/src/main.ts",
+            "tsConfig": "apps/works-express/tsconfig.app.json",
+            "assets": [
+              "apps/works-express/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/works-express/src/environments/environment.ts",
+                  "with": "apps/works-express/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "works-express:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/works-express/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/works-express"
+          ],
+          "options": {
+            "jestConfig": "apps/works-express/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "works-web": {
+      "projectType": "application",
+      "root": "apps/works-web",
+      "sourceRoot": "apps/works-web/src",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/works-web",
+            "index": "apps/works-web/src/index.html",
+            "main": "apps/works-web/src/main.ts",
+            "polyfills": "apps/works-web/src/polyfills.ts",
+            "tsConfig": "apps/works-web/tsconfig.app.json",
+            "assets": [
+              "apps/works-web/src/favicon.ico",
+              "apps/works-web/src/assets"
+            ],
+            "styles": [
+              "apps/works-web/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/works-web/src/environments/environment.ts",
+                  "with": "apps/works-web/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "works-web:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "works-web:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/works-web/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/works-web"
+          ],
+          "options": {
+            "jestConfig": "apps/works-web/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "works-web-e2e": {
+      "root": "apps/works-web-e2e",
+      "sourceRoot": "apps/works-web-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/works-web-e2e/cypress.json",
+            "tsConfig": "apps/works-web-e2e/tsconfig.e2e.json",
+            "devServerTarget": "works-web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "works-web:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/works-web-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "works-node": {
+      "root": "apps/works-node",
+      "sourceRoot": "apps/works-node/src",
+      "projectType": "application",
+      "prefix": "works-node",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/works-node",
+            "main": "apps/works-node/src/main.ts",
+            "tsConfig": "apps/works-node/tsconfig.app.json",
+            "assets": [
+              "apps/works-node/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/works-node/src/environments/environment.ts",
+                  "with": "apps/works-node/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "works-node:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/works-node/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/works-node"
+          ],
+          "options": {
+            "jestConfig": "apps/works-node/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  }
+}

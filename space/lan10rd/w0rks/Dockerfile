@@ -1,0 +1,7 @@
+FROM --platform=$TARGETPLATFORM lanl0rd/js AS build
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+
+WORKDIR /root
+COPY . .
+RUN chmod u+x /root/dockerfile.sh && TARGETPLATFORM=$TARGETPLATFORM BUILDPLATFORM=$BUILDPLATFORM /root/dockerfile.sh

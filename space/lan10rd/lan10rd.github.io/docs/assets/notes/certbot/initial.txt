@@ -1,0 +1,55 @@
+(1) setup public ip to point to box that will run certbot standalone
+(2) 
+
+sudo certbot certonly --standalone
+
+
+(3)
+
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator standalone, Installer None
+Please enter in your domain name(s) (comma and/or space separated)  (Enter 'c'
+to cancel): 
+
+doubletake.digital
+
+
+Obtaining a new certificate
+Performing the following challenges:
+http-01 challenge for doubletake.digital
+Waiting for verification...
+Cleaning up challenges
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/doubletake.digital/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/doubletake.digital/privkey.pem
+   Your cert will expire on 2021-01-14. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+simba@simbas-Air earth % cd /etc/letsencrypt 
+simba@simbas-Air letsencrypt % ls
+accounts        csr         live            renewal
+archive         keys            options-ssl-apache.conf renewal-hooks
+simba@simbas-Air letsencrypt % sudo chmod 755 /etc/letsencrypt/live/
+Password:
+simba@simbas-Air letsencrypt % cd live 
+simba@simbas-Air live % ls
+README          doubletake.digital
+simba@simbas-Air live % cd doubletake.digital 
+
+
+(4) if you run on apple/mac you might not be able to view the /etc/letsencrypt/live folder: (the live folder just has symbol links!! use archives for actual file)
+
+ sudo chmod 755 /etc/letsencrypt/live
+ sudo chmod 755 /etc/letsencrypt/archive
+
+
+(5) now lets convert pem to crt for nginx (okay so need, pem is actually just a different extension but they should already be in the correct format... make sure to use the full chain for nginx!)

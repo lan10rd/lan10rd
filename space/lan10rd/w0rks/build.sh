@@ -1,0 +1,1 @@
+docker buildx build --platform linux/arm64,linux/amd64 --rm --push --compress -t earthw0rks/js:latest -f ./Dockerfile .

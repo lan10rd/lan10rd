@@ -1,0 +1,22 @@
+// had a disk, raoyi decay or something
+
+sudo zfs unmount -f raoyi // wasnt destroying without unmounting
+sudo zfs destroy raoyi
+sudo zpool create -m /zfspools/raoyi raoyi /dev/disk/by-id/ata-123
+
+sudo zpool import -f raoyi
+
+if on mac, the /zfspools mountpoint isnt available, and you must use -R option for alternate root
+
+sudo zpool import -f -R /Volumes raoyi
+
+this will actually mount the device at  /Volumes/zfspools/raoyi  
+
+typically apple zpools are on /Volumes like /Volumes/blue
+
+
+also you can just type "zpool import" and it will list all the possibly importable devices! to change name on import just add the new pool name after like
+zpool import -f blue red
+
+
+if you have conflicting names i think you can use the device id, which you can see with zpool import

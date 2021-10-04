@@ -1,0 +1,29 @@
+stack files are used to help group the deployment of several services together, similar to compose you can use a yaml format
+
+bb-stack.yaml:
+
+version: '3.7'
+
+services:
+  bb-app:
+    image: bulletinboard:1.0
+    ports:
+      - "8000:8080"
+
+1. Deploy your application to Swarm:
+
+    docker stack deploy -c bb-stack.yaml demo
+
+If all goes well, Swarm will report creating all your stack objects with no complaints:
+
+Creating network demo_default
+Creating service demo_bb-app
+Notice that in addition to your service, Swarm also creates a Docker network by default to isolate the containers deployed as part of your stack.
+
+docker stack rm demo
+
+
+
+remove all stacks:
+
+docker stack rm $(docker stack ls -q)

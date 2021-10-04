@@ -1,0 +1,1 @@
+export CLASSPATH=$CLASSPATH:~/earth/realms/glass/src/resources/compiled/jars/algs4.jar

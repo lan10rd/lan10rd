@@ -1,0 +1,43 @@
+${FRP_TOKEN:-some_password}
+
+You could just use parameter expansion:
+
+${parameter:-word}
+
+If parameter is unset or null, the expansion of word is substituted. Otherwise, the value of parameter is substituted.
+
+So try this:
+
+var=${DEPLOY_ENV:-default_value}
+
+There's also the ${parameter-word} form, which substitutes the default value only when parameter is unset (but not when it's null).
+
+To demonstrate the difference between the two:
+
+$ unset DEPLOY_ENV
+$ echo "'${DEPLOY_ENV:-default_value}' '${DEPLOY_ENV-default_value}'"
+'default_value' 'default_value'
+$ DEPLOY_ENV=
+$ echo "'${DEPLOY_ENV:-default_value}' '${DEPLOY_ENV-default_value}'"
+'default_value' ''
+
+
+
+26
+
+I think you're confused about terminology.
+
+An "environment variable" is merely a shell variable that any child processes will inherit.
+
+What you're doing in your example is creating a shell variable. It's not in the environment until you export it:
+
+MY_HOME="/home/my_user"
+export MY_HOME
+puts a variable named "MY_HOME" in almost all shells (csh, tcsh excepted).
+
+In this particular case, the double-quotes are superfluous. They have no effect. Double-quotes group substrings, but allows whatever shell you use to do variable substitution. Single-quoting groups substrings and prevents substitution. Since your example assignment does not have any variables in it, the double-quotes could have appeared as single-quotes.
+
+V='some substrings grouped together'  # assignment
+X="Put $V to make a longer string"    # substitution and then assignment
+Y=`date`                              # run command, assign its output
+Z='Put $V to make a longer string'    # no substition, simple assignment

@@ -1,0 +1,5 @@
+/etc/hosts
+
+
+/* on windows, run as administrator*/
+c:\windows\system32\drivers\etc\hosts

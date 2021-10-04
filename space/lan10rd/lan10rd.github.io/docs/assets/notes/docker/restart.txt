@@ -1,0 +1,2 @@
+/* ubuntu, if you make changes to .docker/daemon.json for instance */
+service restart docker

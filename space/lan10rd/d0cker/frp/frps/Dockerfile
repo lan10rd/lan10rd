@@ -1,0 +1,3 @@
+FROM --platform=$TARGETPLATFORM snowdreamtech/frps AS build
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM

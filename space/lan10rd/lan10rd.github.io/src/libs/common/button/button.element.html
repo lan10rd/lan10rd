@@ -1,0 +1,12 @@
+<div
+[ngStyle]="{'filter': toggle ? 'drop-shadow(0 0 ' + radius + ' ' + color + ')' : 'none'}"
+(click)="click()"
+>
+
+    <div
+    [ngStyle]="{'filter': toggle ? 'drop-shadow(0 0 ' + radius + ' ' + color + ')' : 'none'}"
+    >
+        {{text}}
+    </div>
+
+</div>

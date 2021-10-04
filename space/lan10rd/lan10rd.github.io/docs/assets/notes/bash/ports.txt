@@ -1,0 +1,3 @@
+/* ls ports in use */
+
+lsof -nP +c 15 | grep LISTEN

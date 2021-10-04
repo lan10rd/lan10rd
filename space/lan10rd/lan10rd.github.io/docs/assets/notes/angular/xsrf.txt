@@ -1,0 +1,65 @@
+app.module.ts
+
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core'
+import { HttpClientModule, HttpClientXsrfModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { XsrfInterceptor } from './xsrf.interceptor'
+
+let appInit = (http: HttpClient) => { return async () => { return await http.get('http://localhost:3000/xsrf', {withCredentials: true}).toPromise() }}
+
+imports:
+[
+    ...
+    HttpClientModule,
+    HttpClientXsrfModule
+],
+providers:
+[
+    {
+        provide: APP_INITIALIZER,
+        useFactory: appInit,
+        multi: true,
+        deps:
+        [
+            HttpClient
+        ]
+    },
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: XsrfInterceptor,
+        multi: true
+    }
+]
+
+
+xsrf.interceptor.ts
+
+import { Injectable } from '@angular/core'
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpXsrfTokenExtractor, HttpResponse, HttpErrorResponse } from '@angular/common/http'
+import { Observable, of } from 'rxjs'
+import { tap } from 'rxjs/operators'
+
+@Injectable()
+export class XsrfService implements HttpInterceptor
+{
+
+    constructor
+    (
+        public extractor: HttpXsrfTokenExtractor
+    )
+    {
+
+    }
+
+    intercept
+    (
+        req: HttpRequest<any>,
+        next: HttpHandler
+    ): Observable<HttpEvent<any>>
+    {
+        if (req.url === 'http://localhost:3000/xsrf')
+            return next.handle(req.clone({withCredentials: true, setHeaders: {'X-XSRF-TOKEN': this.extractor.getToken()}}))
+        else
+            return next.handle(req)
+    }
+
+}

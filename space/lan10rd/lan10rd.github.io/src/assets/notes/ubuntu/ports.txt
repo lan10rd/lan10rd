@@ -1,0 +1,6 @@
+5900 vnc
+3389 rdp
+4713 pulse audio
+22 ssh
+80 http
+443 https

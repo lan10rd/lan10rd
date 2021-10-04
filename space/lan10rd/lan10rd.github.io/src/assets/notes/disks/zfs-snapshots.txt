@@ -1,0 +1,248 @@
+Overview of ZFS Snapshots
+A snapshot is a read-only copy of a file system or volume. Snapshots can be created almost instantly, and they initially consume no additional disk space within the pool. However, as data within the active dataset changes, the snapshot consumes disk space by continuing to reference the old data, thus preventing the disk space from being freed.
+
+ZFS snapshots include the following features:
+
+The persist across system reboots.
+
+The theoretical maximum number of snapshots is 264.
+
+Snapshots use no separate backing store. Snapshots consume disk space directly from the same storage pool as the file system or volume from which they were created.
+
+Recursive snapshots are created quickly as one atomic operation. The snapshots are created together (all at once) or not created at all. The benefit of atomic snapshot operations is that the snapshot data is always taken at one consistent time, even across descendent file systems.
+
+Snapshots of volumes cannot be accessed directly, but they can be cloned, backed up, rolled back to, and so on. For information about backing up a ZFS snapshot, see Sending and Receiving ZFS Data.
+
+Creating and Destroying ZFS Snapshots
+
+Displaying and Accessing ZFS Snapshots
+
+Rolling Back a ZFS Snapshot
+
+Creating and Destroying ZFS Snapshots
+Snapshots are created by using the zfs snapshot or the zfs snap command, which takes as its only argument the name of the snapshot to create. The snapshot name is specified as follows:
+
+filesystem@snapname
+volume@snapname
+The snapshot name must satisfy the naming requirements in ZFS Component Naming Requirements.
+
+In the following example, a snapshot of tank/home/matt that is named friday is created.
+
+# zfs snapshot tank/home/matt@friday
+You can create snapshots for all descendent file systems by using the -r option. For example:
+
+# zfs snapshot -r tank/home@snap1
+# zfs list -t snapshot -r tank/home
+zfs list -t snapshot -r tank/home
+NAME                   USED  AVAIL  REFER  MOUNTPOINT
+tank/home@snap1           0      -    34K  -
+tank/home/mark@snap1      0      -  2.00G  -
+tank/home/matt@snap1      0      -  1.00G  -
+tank/home/tom@snap1       0      -  2.00G  -
+Snapshots have no modifiable properties. Nor can dataset properties be applied to a snapshot. For example:
+
+# zfs set compression=on tank/home/matt@friday
+cannot set property for 'tank/home/matt@friday': 
+this property can not be modified for snapshots
+Snapshots are destroyed by using the zfs destroy command. For example:
+
+# zfs destroy tank/home/matt@friday
+A dataset cannot be destroyed if snapshots of the dataset exist. For example:
+
+# zfs destroy tank/home/matt
+cannot destroy 'tank/home/matt': filesystem has children
+use '-r' to destroy the following datasets:
+tank/home/matt@tuesday
+tank/home/matt@wednesday
+tank/home/matt@thursday
+In addition, if clones have been created from a snapshot, then they must be destroyed before the snapshot can be destroyed.
+
+For more information about the destroy subcommand, see Destroying a ZFS File System.
+
+Holding ZFS Snapshots
+If you have different automatic snapshot policies such that older snapshots are being inadvertently destroyed by zfs receive because they no longer exist on the sending side, you might consider using the snapshots hold feature.
+
+Holding a snapshot prevents it from being destroyed. In addition, this feature allows a snapshot with clones to be deleted pending the removal of the last clone by using the zfs destroy -d command. Each snapshot has an associated user-reference count, which is initialized to zero. This count increases by 1 whenever a hold is put on a snapshot and decreases by 1 whenever a hold is released.
+
+In the previous Oracle Solaris release, a snapshot could only be destroyed by using the zfs destroy command if it had no clones. In this Oracle Solaris release, the snapshot must also have a zero user-reference count.
+
+You can hold a snapshot or set of snapshots. For example, the following syntax puts a hold tag, keep, on tank/home/cindy/snap@1:
+
+# zfs hold keep tank/home/cindy@snap1
+You can use the -r option to recursively hold the snapshots of all descendent file systems. For example:
+
+# zfs snapshot -r tank/home@now
+# zfs hold -r keep tank/home@now
+This syntax adds a single reference, keep, to the given snapshot or set of snapshots. Each snapshot has its own tag namespace and hold tags must be unique within that space. If a hold exists on a snapshot, attempts to destroy that held snapshot by using the zfs destroy command will fail. For example:
+
+# zfs destroy tank/home/cindy@snap1
+cannot destroy 'tank/home/cindy@snap1': dataset is busy
+To destroy a held snapshot, use the -d option. For example:
+
+# zfs destroy -d tank/home/cindy@snap1
+Use the zfs holds command to display a list of held snapshots. For example:
+
+# zfs holds tank/home@now
+NAME           TAG   TIMESTAMP                 
+tank/home@now  keep  Fri May  6 06:34:03 2011 
+# zfs holds -r tank/home@now
+NAME                 TAG   TIMESTAMP                 
+tank/home/cindy@now  keep  Fri May  6 06:34:03 2011  
+tank/home/mark@now   keep  Fri May  6 06:34:03 2011  
+tank/home/matt@now   keep  Fri May  6 06:34:03 2011  
+tank/home/tom@now    keep  Fri May  6 06:34:03 2011  
+tank/home@now        keep  Fri May  6 06:34:03 2011 
+You can use the zfs release command to release a hold on a snapshot or set of snapshots. For example:
+
+# zfs release -r keep tank/home@now
+If the snapshot is released, the snapshot can be destroyed by using the zfs destroy command. For example:
+
+# zfs destroy -r tank/home@now
+Two new properties identify snapshot hold information.
+
+The defer_destroy property is on if the snapshot has been marked for deferred destruction by using the zfs destroy -d command. Otherwise, the property is off.
+
+The userrefs property is set to the number of holds on this snapshot, also referred to as the user-reference count.
+
+Renaming ZFS Snapshots
+You can rename snapshots, but they must be renamed within the same pool and dataset from which they were created. For example:
+
+# zfs rename tank/home/cindy@snap1 tank/home/cindy@today
+In addition, the following shortcut syntax is equivalent to the preceding syntax:
+
+# zfs rename tank/home/cindy@snap1 today
+The following snapshot rename operation is not supported because the target pool and file system name are different from the pool and file system where the snapshot was created:
+
+# zfs rename tank/home/cindy@today pool/home/cindy@saturday
+cannot rename to 'pool/home/cindy@today': snapshots must be part of same 
+dataset
+You can recursively rename snapshots by using the zfs rename -r command. For example:
+
+# zfs list -t snapshot -r users/home
+NAME                        USED  AVAIL  REFER  MOUNTPOINT
+users/home@now             23.5K      -  35.5K  -
+users/home@yesterday           0      -    38K  -
+users/home/lori@yesterday      0      -  2.00G  -
+users/home/mark@yesterday      0      -  1.00G  -
+users/home/neil@yesterday      0      -  2.00G  -
+# zfs rename -r users/home@yesterday @2daysago
+# zfs list -t snapshot -r users/home
+NAME                       USED  AVAIL  REFER  MOUNTPOINT
+users/home@now            23.5K      -  35.5K  -
+users/home@2daysago           0      -    38K  -
+users/home/lori@2daysago      0      -  2.00G  -
+users/home/mark@2daysago      0      -  1.00G  -
+users/home/neil@2daysago      0      -  2.00G  -
+Displaying and Accessing ZFS Snapshots
+By default, snapshots are no longer displayed in the zfs list output. You must use the zfs list -t snapshot command to display snapshot information. Or, enable the listsnapshots pool property. For example:
+
+# zpool get listsnapshots tank
+NAME  PROPERTY       VALUE      SOURCE
+tank  listsnapshots  off        default
+# zpool set listsnapshots=on tank
+# zpool get listsnapshots tank
+NAME  PROPERTY       VALUE      SOURCE
+tank  listsnapshots  on         local
+Snapshots of file systems are accessible in the .zfs/snapshot directory within the root of the file system. For example, if tank/home/matt is mounted on /home/matt, then the tank/home/matt@thursday snapshot data is accessible in the /home/matt/.zfs/snapshot/thursday directory.
+
+# ls /tank/home/matt/.zfs/snapshot
+tuesday wednesday thursday
+You can list snapshots as follows:
+
+# zfs list -t snapshot -r tank/home
+NAME                       USED  AVAIL  REFER  MOUNTPOINT
+tank/home/cindy@today         0      -  2.00G  -
+tank/home/mark@today          0      -  2.00G  -
+tank/home/matt@tuesday      20K      -  1.00G  -
+tank/home/matt@wednesday    20K      -  1.00G  -
+tank/home/matt@thursday       0      -  1.00G  -
+You can list snapshots that were created for a particular file system as follows:
+
+# zfs list -r -t snapshot -o name,creation tank/home
+NAME                      CREATION
+tank/home/cindy@today     Fri May  6  6:32 2011
+tank/home/mark@today      Fri May  6  6:22 2011
+tank/home/matt@tuesday    Tue May  3  6:27 2011
+tank/home/matt@wednesday  Wed May  4  6:28 2011
+tank/home/matt@thursday   Thu May  5  6:28 2011
+Disk Space Accounting for ZFS Snapshots
+When a snapshot is created, its disk space is initially shared between the snapshot and the file system, and possibly with previous snapshots. As the file system changes, disk space that was previously shared becomes unique to the snapshot, and thus is counted in the snapshot's used property. Additionally, deleting snapshots can increase the amount of disk space unique to (and thus used by) other snapshots.
+
+A snapshot's space referenced property value is the same as the file system's was when the snapshot was created.
+
+You can identify additional information about how the values of the used property are consumed. New read-only file system properties describe disk space usage for clones, file systems, and volumes. For example:
+
+$ zfs list -o space -r rpool
+NAME                      AVAIL   USED  USEDSNAP  USEDDS  USEDREFRESERV  USEDCHILD
+rpool                     60.0G  6.92G         0   40.5K              0      6.92G
+rpool/ROOT                60.0G  3.89G         0     31K              0      3.89G
+rpool/ROOT/solaris        60.0G  3.49G     40.4M   3.16G              0       306M
+rpool/ROOT/solaris-1      60.0G   403M         0    310M              0      92.7M
+rpool/ROOT/solaris-1/var  60.0G  92.7M         0   92.7M              0          0
+rpool/ROOT/solaris/var    60.0G   306M     89.9M    216M              0          0
+rpool/dump                60.1G  2.00G         0   1.94G          62.7M          0
+rpool/export              60.0G  96.5K         0     32K              0      64.5K
+rpool/export/home         60.0G  64.5K         0     32K              0      32.5K
+rpool/export/home/admin   60.0G  32.5K         0   32.5K              0          0
+rpool/swap                60.0G  1.03G         0   1.00G          32.5M          0
+For a description of these properties, see Table 6-1.
+
+Rolling Back a ZFS Snapshot
+You can use the zfs rollback command to discard all changes made to a file system since a specific snapshot was created. The file system reverts to its state at the time the snapshot was taken. By default, the command cannot roll back to a snapshot other than the most recent snapshot.
+
+To roll back to an earlier snapshot, all intermediate snapshots must be destroyed. You can destroy earlier snapshots by specifying the -r option.
+
+If clones of any intermediate snapshots exist, the -R option must be specified to destroy the clones as well.
+
+Note - The file system that you want to roll back is unmounted and remounted, if it is currently mounted. If the file system cannot be unmounted, the rollback fails. The -f option forces the file system to be unmounted, if necessary.
+
+In the following example, the tank/home/matt file system is rolled back to the tuesday snapshot:
+
+# zfs rollback tank/home/matt@tuesday
+cannot rollback to 'tank/home/matt@tuesday': more recent snapshots exist
+use '-r' to force deletion of the following snapshots:
+tank/home/matt@wednesday
+tank/home/matt@thursday
+# zfs rollback -r tank/home/matt@tuesday
+In this example, the wednesday and thursday snapshots are destroyed because you rolled back to the earlier tuesday snapshot.
+
+# zfs list -r -t snapshot -o name,creation tank/home/matt
+NAME                    CREATION
+tank/home/matt@tuesday  Tue May  3  6:27 2011
+Identifying ZFS Snapshot Differences (zfs diff)
+You can determine ZFS snapshot differences by using the zfs diff command.
+
+For example, assume that the following two snapshots are created:
+
+$ ls /tank/home/tim
+fileA
+$ zfs snapshot tank/home/tim@snap1
+$ ls /tank/home/tim
+fileA  fileB
+$ zfs snapshot tank/home/tim@snap2
+For example, to identify the differences between two snapshots, use syntax similar to the following:
+
+$ zfs diff tank/home/tim@snap1 tank/home/tim@snap2
+M       /tank/home/tim/
++       /tank/home/tim/fileB
+In the output, the M indicates that the directory has been modified. The + indicates that fileB exists in the later snapshot.
+
+The M in the following output indicates that a file in a snapshot has been renamed.
+
+$ mv /tank/cindy/fileB /tank/cindy/fileC
+$ zfs snapshot tank/cindy@snap2
+$ zfs diff tank/cindy@snap1 tank/cindy@snap2
+M       /tank/cindy/
+R       /tank/cindy/fileB -> /tank/cindy/fileC
+The following table summarizes the file or directory changes that are identified by the zfs diff command.
+
+File or Directory Change
+Identifier
+File or directory has been modified or file or directory link has changed
+M
+File or directory is present in the older snapshot but not in the more recent snapshot
+—
+File or directory is present in the more recent snapshot but not in the older snapshot
++
+File or directory has been renamed
+R

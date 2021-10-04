@@ -1,0 +1,16 @@
+1
+sudo cp entrust_g2_ca.cer /opt/Citrix/ICAClient/keystore/cacerts/.
+Magically, Citrix Receiver was happy again and I was able to connect.
+
+Some points to note for next time
+A colleague of mine had the same issue. He is running Debian.
+His solution was to :
+
+– delete the files in the Citrix Receiver certs directory :
+
+1
+/opt/Citrix/ICAClient/keystore/cacerts/
+– create a symlink in the directory from the certificates in
+
+1
+/etc/ssl/certs

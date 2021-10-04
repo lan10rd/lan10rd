@@ -1,0 +1,360 @@
+/* if on raspberry pi, to force headless mode, go into /boot/firmware/config.txt and add: */
+hdmi_force_hotplug=1
+/* this helped on ubuntu mate 20 beta
+hdmi_group=1
+hdmi_mode=74
+*/
+
+/* this helped on ubuntu 20 */
+hdmi_force_hotplug=1
+hdmi_drive=2
+
+/* also seems necessary for docker to use memory controls per container, very important, also for stats to show something other than 0/0
+sudo nano /boot/firmware/cmdline.txt
+
+
+net.ifnames=0 dwc_otg.lpm_enable=0 console=serial0,115200 cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 console=tty1 root=LABEL=writable rootfstype=ext4 elevator=deadline rootwait fixrtc
+
+NOTE: These are the 3 settings to add:
+
+cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1
+
+Save the file and reboot and the node status will change to ready.
+
+
+
+/* set up ssh, by scp -r somehostwithsshconfig:.ssh dotssh */
+/* need to find way to get fingerprint! or do ca ssh setup */
+
+/* optionally allow sudo commands without a password, 2 wasys to do that, per user, or for all in sudo group, sudo nano /etc/sudoers:
+%sudo ALL=NOPASSWD: ALL
+simba ALL=(ALL) NOPASSWD: ALL
+*/
+%sudo ALL=NOPASSWD: ALL
+
+/* setup ssh */
+/* if you need to create id_rsa, id_rsa.pub with a text editor, make sure each is chmod 600 before going further */
+/* from a client machine, comment the known_hosts so that you can ssh into the new machine and use a password.. this will add an entry, then you can put * as the first column of the entry, and bring back the entries that were there before
+on the new machine, setup: 
+.ssh/id_rsa  (600)  (can pick from ssh or create new ones)
+.ssh/id_rsa.pub (600) 
+.ssh/authorized_keys (use from client machine, or regenerate list of all known keys)
+.ssh/known_hosts  (use from client machine will all entries)
+*/
+
+/* from settings, user -> automatic login */
+/* from settings, sharing -> screen -> select network toggle, use password as password */ 
+/* from settings, power -> blank screen never */
+gsettings set org.gnome.Vino require-encryption false
+
+
+NOT AS REQUIRED AS!!!!!! when you get locked out, call this vino-setup.sh:
+
+#!/bin/sh
+# This assumes you have access to the system via SSH already, and need 
+# remote VNC access as the same user, and you want only the primary display.
+export DISPLAY=:0
+# Encoded password with http://www.motobit.com/util/base64-decoder-encoder.asp
+export VNC_PASSWORD="cGFzc3dvcmQ="  # password
+# Sadly many common VNC clients don't support encryption.
+export USE_ENCRYPTION=false  # alternatively "true"
+# Set a bunch of useful defaults. (for remote support cases.)
+gsettings reset org.gnome.Vino network-interface
+gsettings set org.gnome.Vino enabled true
+gsettings set org.gnome.Vino prompt-enabled false 
+gsettings set org.gnome.Vino notify-on-connect true
+gsettings set org.gnome.Vino require-encryption ${USE_ENCRYPTION}  
+gsettings set org.gnome.Vino vnc-password "${VNC_PASSWORD}"
+dconf write /org/gnome/settings-daemon/plugins/sharing/vino-server/enabled-connections "['']" 
+# gsettings set org.gnome.Vino vnc-password $(echo -n 'my_password'|base64)
+# gsettings set org.gnome.settings-daemon.plugins.sharing active true
+# gsettings set org.gnome.settings-daemon.plugins.sharing.service:/org/gnome/settings-daemon/plugins/sharing/vino-server/ enabled-connections "[ '' ]"
+
+# gsettings set org.gnome.Vino prompt-enabled false
+# gsettings set org.gnome.Vino authentication-methods "['vnc']"
+# gsettings set org.gnome.Vino require-encryption false
+# gsettings set org.gnome.Vino vnc-password $(echo -n 'mypasswd'|base64)
+# gsettings set org.gnome.settings-daemon.plugins.sharing active true
+# eths=$(nmcli -t -f uuid,type c s --active | grep 802 | awk -F  ":" '{ print "'\''" $1 "'\''" }' | paste -s -d, -)
+# gsettings set org.gnome.settings-daemon.plugins.sharing.service:/org/gnome/settings-daemon/plugins/sharing/vino-server/ enabled-connections "[ $eths ]"
+
+# gsettings set org.gnome.settings-daemon.plugins.sharing.service:/org/gnome/settings-daemon/plugins/sharing/vino-server/ enabled-connections "['UUID']"
+# where UUID is the UUID of the network connection you want to enable it for. Enabling it for multiple UUIDs/connections is also possible using the # format "['UUID1', 'UUID2']". You can find the list of all UUIDs using nmcli c., looks like we should iterate over this and add the UUID on startup automatically
+
+# List all current settings
+for i in `gsettings list-keys org.gnome.Vino`; do 
+  echo $i `gsettings get org.gnome.Vino $i`; 
+done
+# Run the server
+/usr/lib/vino/vino-server
+
+// the above can be replaced by installing x11vnc, following steps:
+// this worked, x11vnc ubuntu 21 (after editing the /etc/gdm3/custom.conf and rebooting).. my thinking is just run this in a pinch, zerp in, adjust settings in settings app, then reboot! (make sure to delete the bloody login keyring, and after upgrading beware it may go back to some earlier version ---- SO YOU cant delete the keyring as it will ask you again to create a new one, but you CAN set it as an empty value, then it shouldnt be a problem)
+
+sudo apt install x11vnc
+x11vnc -storepasswd
+x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/simba/.vnc/passwd -rfbport 5901 -shared
+
+
+
+/* download vscode, etcher, tweaks and lanlord tools */
+sudo apt update
+sudo apt install -y curl wget git zip unzip mergerfs sshfs rsync openssh-client openssh-server openssl dnsutils gconf-editor udftools sshpass exfat-utils exfat-fuse f2fs-tools xfsprogs btrfs-progs net-tools zfsutils-linux quota nfs-kernel-server zsh ksh gcc g++ make python3-pip build-essential chromium-browser locales vim apt-transport-https ca-certificates gnupg-agent software-properties-common gdebi x11vnc syststat libtool autoconf automake
+
+#supervisor
+
+/* next maybe do */
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+apt update
+apt install -y code
+#code --install-extension lanl0rd.celeste --user-data-dir /root/.vscode
+
+
+/* may consider */
+sudo apt install -y docker.io
+
+/* think about x11vnc or tightvncserver, really getting old to do vino */
+
+/* if you are missing software center */
+sudo apt install -y software-center
+sudo apt install -y software-center*
+
+/* E: if you see package has no installation candidate */
+sudo apt-get update
+sudo apt-get upgrade
+
+/* or if you just want to be able to double click .deb files to download */
+sudo apt install -y gdebi
+
+
+
+/* sshfs setup */
+sudo nano /etc/fuse.conf
+user_allow_other
+
+or
+
+addgroup simba fuse
+
+/* on amd64 
+gparted!!!!,  chromium-browser 
+*/
+
+// remmina?? does it come with ubuntu i dont remember?
+
+/* ?? maybe 
+ffmpeg - for vlc, seems vlc is not on arm yet :(, but also obs needs this
+*/
+
+/* need to get to apt repository or use snap:
+brave
+*/
+
+/* can find deb packages for :
+vscode
+opera
+vivaldi
+*/
+
+/* install docker (from web) */ // ive seen apt install -y docker.io work!
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://downloads.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+/* amd64 */
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+/* arm64 */
+sudo add-apt-repository \
+   "deb [arch=arm64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+/*
+Install from a package
+If you cannot use Docker’s repository to install Docker Engine, you can download the .deb file for your release and install it manually. You need to download a new file each time you want to upgrade Docker.
+Go to https://download.docker.com/linux/ubuntu/dists/, choose your Ubuntu version, then browse to pool/stable/, choose amd64, armhf, or arm64, and download the .deb file for the Docker Engine version you want to install.
+Note: To install a nightly or test (pre-release) package, change the word stable in the above URL to nightly or test. Learn about nightly and test channels.
+Install Docker Engine, changing the path below to the path where you downloaded the Docker package.
+sudo dpkg -i /path/to/package.deb
+*/
+
+/* docker groupadd */
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+/* requires restart or logout, though logout seems to not let me vnc back in... */
+/* enable experimental by opening $HOME/.docker/config.json and adding  */
+/* buildx setup */
+"experimental": "enabled"
+
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+docker buildx rm builder
+docker buildx create --name builder --driver docker-container --use
+docker buildx inspect --bootstrap
+
+/* fuse setup (mergerfs and sshfs) */
+// make sure /etc/fuse.conf has uncommented allow others 
+// sudo groupadd fuse
+// sudo usermod -a -G fuse simba
+
+/* ssh setup */
+
+ssh-keygen -f test -C "" -t rsa -q -N "" -b 2048
+cat test.pub >> ~/.ssh/authorized_keys
+
+# root user has its own .ssh, so:
+# first enable root user if it's not, on ubuntu it's not default
+# Enabling the root account:
+sudo -i
+#To enable the Root account (i.e. set a password) use:
+sudo passwd root
+
+sudo mkdir -P /root/.ssh
+sudo touch /root/.ssh/authorized_keys
+sudo chmod -R 777 /root/.ssh
+sudo cat test.pub >> root/.ssh/authorized_keys
+
+sudo nano /etc/ssh/sshd_config
+
+PermitRootLogin yes
+PubkeyAuthentication yes
+ChallengeResponseAuthentication no # erm not entirely sure what this does
+PasswordAuthentication yes # for security change to no
+UsePAM yes # default
+
+sudo service sshd restart
+sudo service ssh restart
+
+sudo systemctl restart sshd
+
+ssh root@server -o PreferredAuthentications=publickey -o "StrictHostKeyChecking no" -i ./test
+
+
+
+/* had a really rough time on of my boxes, it seems it was just the .ssh folder in /root , i just blew it away and cp -R /home/user/.ssh as that was working, and low and behold it started working... stay tuned gonna try from scratch i think authorized_keys is only supposed to have 600 permissions
+
+/* !!! many of the above steps can all be put into a script !!! */
+/* after docker is ready, load images, again scriptable !!! */
+
+/* steps to put heart of darkness cursor */
+
+/* steps to clone/backup !!! double check please if and of is so silly instead of src and dest... so if is input file, and of is output file */
+
+sudo dd if=/dev/sdc of=/dev/sdd bs=8192 status=progress
+
+/* when finally finished To backup a Partition : You can use the device name of a partition in the input file, and in the output either you can specify your target path or image file as shown in the dd command.
+# dd if=/dev/hda1 of=~/partition.img
+*/
+/*
+To create an image of a Hard Disk : Instead of taking a backup of the hard disk, you can create an image file of the hard disk and save it in other storage devices. There are many advantages of backing up your data to a disk image, one being the ease of use. This method is typically faster than other types of backups, enabling you to quickly restore data following an unexpected catastrophe.It creates the image of a hard disk /dev/hda.
+*/
+sudo dd if=/dev/hda of=~/hdadisk.img
+
+/*
+To restore using the Hard Disk Image : To restore a hard disk with the image file of an another hard disk, the following dd command can be used */
+sudo dd if=hdadisk.img of=/dev/hdb
+
+/* bloody keyring stuff */
+seems to be you can open apps and type keyring and click on that app, and then unlock and should be done.
+
+
+
+
+
+
+
+
+
+FUCKKKKKKKKKK vino server is a bitch about network connection it allows by default, the below didnt work but some of it might be useful
+
+/* in fact with new versions of ubuntu i see that you can just go to remote sharing and set a password and enable it for the current network, the only problem seems to be that when you hop networks you have to some how set the preferences again! looks like there is a dynamic way to do that, stay tuned */
+
+sooooo as long as xforwarding is on in ssh server /etc/ssh/sshd_config,  ssh -Y user@server 
+then you can type gnome-control-center 
+this will launch the settings app (only tested this on a fellow ubuntu machine)!! you can then change the settings!
+
+/* the below wasnt very fruitful */
+apt install -y vino dconf-editor
+
+Method 1 :
+This can be achieved with vino vnc server & remmina (both come default with ubuntu; if not install it by running sudo apt-get install remmina). Then Run Following commands from local computer in terminal prompt:
+
+ssh -Y gman@remote. Use trusted X11 forwarding, otherwise it wont work
+
+vino-preferences. It will open vino-preferences.
+
+vino-preference
+
+Also Click configure network automatically to accept connection. But don't enter any password, its base64 encoded. Then click close. Then run:
+
+sudo -s
+
+export DISPLAY=:0.0
+
+xhost +
+
+/usr/lib/vino/vino-server & 
+It will start the vino server.
+
+Logout from server:
+
+xhost -
+
+Press CTRL+C twice
+
+exit
+
+exit
+Then open remmina. Choose vnc under protocol.
+
+Under basic tab put server address in server field.
+
+On ssh tab click enable ssh tunnel. Under ssh authentication, it could be password or public key:
+
+remmina-preference
+
+Click save. And then double click connection-name(home-desktop as shown in the picture) to start browsing remote desktop.
+
+Method 2:
+x11vnc is a simple VNC server and you won't have to mess around with Gnome settings or 500 firewalls, just install x11vnc on all your computers (with puppet or whatever you're using for mass-control).
+
+Then from your local computer run:
+
+ssh user@host -L 5900:localhost:5900 "x11vnc -display :0 -noxdamage"
+Obviously swapping user@host for the username and hostname/IP of the remote computer.
+And then use a VNC client of your choice to connect to localhost:5900. The SSH command starts a vnc server on the remote computer and then tunnels back that port over SSH. You don't have to open up any ports (as long as you can already SSH).
+If your computers have funny display settings, you might do better to leave off the -display :0 segment in the SSH command. x11vnc will then automatically try to find the right display.
+
+
+/* steps to be able to vnc (may not be necessary anymore with above steps) */
+/*
+vnc viewer app on mac
+(should also probably get remote desktop for windows hosts)
+go into ubuntu settings and make sure under sharing that screen sharing is on for the network (so set it up with wired and it will always work wherever its plugged in, still trying to find a way to have it universally trust the wan setup!!)
+also its gonna be annoying if you have to be watching the screen prompt for allowing connections, a little easier to just set up a password like password
+after openining vnc viewer create a new connection with (what is hopefully a static ip on the host, you can set that up fairly easily by going to network, configure it to be static and choose a 192.168.0.x with usually the gateway as 192.168.0.1)
+youll probably if run into:
+Unable to connect to VNC Server using your chosen security setting. Either upgrade VNC Server to a more recent version from RealVNC, or select a weaker level of encryption.
+*/
+
+gsettings set org.gnome.Vino require-encryption false
+
+/*
+should work now with a message about it being not super secure, vnc protocol runs on port 5900 by default.... need to figure out a "secure" way to do this, probably ssh first or something
+so i read that you could try to do the secure way like:
+*/
+
+ssh -L 5959:127.0.0.1:5900 simba@192.168.0.119
+
+/*
+which from there i went to vnc and connected to localhost:5959 instead, which worked, but, it seems that its still unsecure, perhaps because i didnt use keys or something when ssh
+
+apprently -C compresses -R is for a reverse tunnel, and theres a few other ssh options like -X for unsecure x server and -Y for secure
+*/

@@ -1,0 +1,3 @@
+to get ubuntu install working i had to change the display to VBoxVGA instead of the default
+
+seems like after installing, it works on the default with 3d acceleration, vmsvga

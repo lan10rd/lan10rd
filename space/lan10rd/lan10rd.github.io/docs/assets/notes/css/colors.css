@@ -1,0 +1,556 @@
+Quackit Logo
+Home
+HTML
+CSS
+Scripting
+Database
+ 
+CSS Color Codes
+ CSS Reference
+CSS Color Tools 
+Use the following color picker or color charts to pick a color that you can use within your CSS code. The color picker provides the color values in hexadecimal and RGB. The color chart provides them in hexadecimal, RGB, and their color names.
+
+Color Picker
+ 
+Color Picker Background◯◯
+
+# 
+FFFFFF
+
+R 
+255
+ H 
+0
+
+G 
+255
+ S 
+0
+
+B 
+255
+ V 
+100
+
+
+ 
+Hex
+#FFFFFF
+RGB
+rgb(255, 255, 255)
+HSL
+hsl(0, 0%, 100%)
+HSV
+hsv(0, 0%, 100%)
+HWB
+hwb(0, 100%, 0%)
+CMYK
+cmyk(0%, 0%, 0%, 0%)
+Choose Multiple Colors
+Compare up to 3 colors. Click in a field below, then select a color from the color picker... Try it!
+
+Color 1
+Color 2
+Color 3
+Basic CSS Colors
+Here is a table of the basic color names that have been in CSS since CSS1 (except orange, which was added in CSS 2.1).
+
+Try clicking on a value. This will open the color in Quackit's online editor so you can see how it looks (and grab the code). There's also a link to a color tester where you can get another preview of the color.
+
+Color Name	Hex Code
+RGB	Decimal Code
+RGB
+Maroon	800000	128,0,0
+Red	FF0000	255,0,0
+Orange	FFA500	255,165,0
+Yellow	FFFF00	255,255,0
+Olive	808000	128,128,0
+Green	008000	0,128,0
+Color Name	Hex Code
+RGB	Decimal Code
+RGB
+Purple	800080	128,0,128
+Fuchsia	FF00FF	255,0,255
+Lime	00FF00	0,255,0
+Teal	008080	0,128,128
+Aqua	00FFFF	0,255,255
+Blue	0000FF	0,0,255
+Color Name	Hex Code
+RGB	Decimal Code
+RGB
+Navy	000080	0,0,128
+Black	000000	0,0,0
+Gray	808080	128,128,128
+Silver	C0C0C0	192,192,192
+White	FFFFFF	255,255,255
+CSS Color Names
+Here is a full list of the CSS named colors as specified in CSS3 (CSS Color Module Level 4). These are based on the X11 color set. The above basic colors are also included in this chart.
+
+Try clicking on a value. This will open the color in Quackit's online editor so you can see how it looks (and grab the code). There's also a link to a color tester where you can get another preview of the color.
+
+Color Name	Hex Code
+RGB	Decimal Code
+RGB
+Reds
+IndianRed	CD5C5C	205,92,92
+LightCoral	F08080	240,128,128
+Salmon	FA8072	250,128,114
+DarkSalmon	E9967A	233,150,122
+LightSalmon	FFA07A	255,160,122
+Crimson	DC143C	220,20,60
+Red	FF0000	255,0,0
+FireBrick	B22222	178,34,34
+DarkRed	8B0000	139,0,0
+Pinks
+Pink	FFC0CB	255,192,203
+LightPink	FFB6C1	255,182,193
+HotPink	FF69B4	255,105,180
+DeepPink	FF1493	255,20,147
+MediumVioletRed	C71585	199,21,133
+PaleVioletRed	DB7093	219,112,147
+Oranges
+Coral	FF7F50	255,127,80
+Tomato	FF6347	255,99,71
+OrangeRed	FF4500	255,69,0
+DarkOrange	FF8C00	255,140,0
+Orange	FFA500	255,165,0
+Yellows
+Gold	FFD700	255,215,0
+Yellow	FFFF00	255,255,0
+LightYellow	FFFFE0	255,255,224
+LemonChiffon	FFFACD	255,250,205
+LightGoldenrodYellow	FAFAD2	250,250,210
+PapayaWhip	FFEFD5	255,239,213
+Moccasin	FFE4B5	255,228,181
+PeachPuff	FFDAB9	255,218,185
+PaleGoldenrod	EEE8AA	238,232,170
+Khaki	F0E68C	240,230,140
+DarkKhaki	BDB76B	189,183,107
+Purples
+Lavender	E6E6FA	230,230,250
+Thistle	D8BFD8	216,191,216
+Plum	DDA0DD	221,160,221
+Violet	EE82EE	238,130,238
+Orchid	DA70D6	218,112,214
+Fuchsia	FF00FF	255,0,255
+Magenta	FF00FF	255,0,255
+MediumOrchid	BA55D3	186,85,211
+MediumPurple	9370DB	147,112,219
+BlueViolet	8A2BE2	138,43,226
+DarkViolet	9400D3	148,0,211
+DarkOrchid	9932CC	153,50,204
+DarkMagenta	8B008B	139,0,139
+Purple	800080	128,0,128
+RebeccaPurple	663399	102,51,153
+Indigo	4B0082	75,0,130
+MediumSlateBlue	7B68EE	123,104,238
+SlateBlue	6A5ACD	106,90,205
+DarkSlateBlue	483D8B	72,61,139
+Color Name	Hex Code
+RGB	Decimal Code
+RGB
+Greens
+GreenYellow	ADFF2F	173,255,47
+Chartreuse	7FFF00	127,255,0
+LawnGreen	7CFC00	124,252,0
+Lime	00FF00	0,255,0
+LimeGreen	32CD32	50,205,50
+PaleGreen	98FB98	152,251,152
+LightGreen	90EE90	144,238,144
+MediumSpringGreen	00FA9A	0,250,154
+SpringGreen	00FF7F	0,255,127
+MediumSeaGreen	3CB371	60,179,113
+SeaGreen	2E8B57	46,139,87
+ForestGreen	228B22	34,139,34
+Green	008000	0,128,0
+DarkGreen	006400	0,100,0
+YellowGreen	9ACD32	154,205,50
+OliveDrab	6B8E23	107,142,35
+Olive	808000	128,128,0
+DarkOliveGreen	556B2F	85,107,47
+MediumAquamarine	66CDAA	102,205,170
+DarkSeaGreen	8FBC8F	143,188,143
+LightSeaGreen	20B2AA	32,178,170
+DarkCyan	008B8B	0,139,139
+Teal	008080	0,128,128
+Blues/Cyans
+Aqua	00FFFF	0,255,255
+Cyan	00FFFF	0,255,255
+LightCyan	E0FFFF	224,255,255
+PaleTurquoise	AFEEEE	175,238,238
+Aquamarine	7FFFD4	127,255,212
+Turquoise	40E0D0	64,224,208
+MediumTurquoise	48D1CC	72,209,204
+DarkTurquoise	00CED1	0,206,209
+CadetBlue	5F9EA0	95,158,160
+SteelBlue	4682B4	70,130,180
+LightSteelBlue	B0C4DE	176,196,222
+PowderBlue	B0E0E6	176,224,230
+LightBlue	ADD8E6	173,216,230
+SkyBlue	87CEEB	135,206,235
+LightSkyBlue	87CEFA	135,206,250
+DeepSkyBlue	00BFFF	0,191,255
+DodgerBlue	1E90FF	30,144,255
+CornflowerBlue	6495ED	100,149,237
+RoyalBlue	4169E1	65,105,225
+Blue	0000FF	0,0,255
+MediumBlue	0000CD	0,0,205
+DarkBlue	00008B	0,0,139
+Navy	000080	0,0,128
+MidnightBlue	191970	25,25,112
+Color Name	Hex Code
+RGB	Decimal Code
+RGB
+Browns
+Cornsilk	FFF8DC	255,248,220
+BlanchedAlmond	FFEBCD	255,235,205
+Bisque	FFE4C4	255,228,196
+NavajoWhite	FFDEAD	255,222,173
+Wheat	F5DEB3	245,222,179
+BurlyWood	DEB887	222,184,135
+Tan	D2B48C	210,180,140
+RosyBrown	BC8F8F	188,143,143
+SandyBrown	F4A460	244,164,96
+Goldenrod	DAA520	218,165,32
+DarkGoldenrod	B8860B	184,134,11
+Peru	CD853F	205,133,63
+Chocolate	D2691E	210,105,30
+SaddleBrown	8B4513	139,69,19
+Sienna	A0522D	160,82,45
+Brown	A52A2A	165,42,42
+Maroon	800000	128,0,0
+Whites
+White	FFFFFF	255,255,255
+Snow	FFFAFA	255,250,250
+Honeydew	F0FFF0	240,255,240
+MintCream	F5FFFA	245,255,250
+Azure	F0FFFF	240,255,255
+AliceBlue	F0F8FF	240,248,255
+GhostWhite	F8F8FF	248,248,255
+WhiteSmoke	F5F5F5	245,245,245
+Seashell	FFF5EE	255,245,238
+Beige	F5F5DC	245,245,220
+OldLace	FDF5E6	253,245,230
+FloralWhite	FFFAF0	255,250,240
+Ivory	FFFFF0	255,255,240
+AntiqueWhite	FAEBD7	250,235,215
+Linen	FAF0E6	250,240,230
+LavenderBlush	FFF0F5	255,240,245
+MistyRose	FFE4E1	255,228,225
+Greys
+Gainsboro	DCDCDC	220,220,220
+LightGray	D3D3D3	211,211,211
+LightGrey	D3D3D3	211,211,211
+Silver	C0C0C0	192,192,192
+DarkGray	A9A9A9	169,169,169
+DarkGrey	A9A9A9	169,169,169
+Gray	808080	128,128,128
+Grey	808080	128,128,128
+DimGray	696969	105,105,105
+DimGrey	696969	105,105,105
+LightSlateGray	778899	119,136,153
+LightSlateGrey	778899	119,136,153
+SlateGray	708090	112,128,144
+SlateGrey	708090	112,128,144
+DarkSlateGray	2F4F4F	47,79,79
+DarkSlateGrey	2F4F4F	47,79,79
+Black	000000	0,0,0
+
+How to use these Colors
+Each color can be represented in many different ways. For example blue can also be represented as #0000ff, #00f, rgb(0,0,255) and many other ways. It doesn't matter which one you choose as long as it's a valid color.
+
+You can apply any of these colors to a website or blog by using the relevant CSS code.
+
+To set a background color, use background-color.
+To set the text color, use color
+To set a border color, use border-color.
+Take blue for example.
+
+Below are quick CSS code examples for applying this color to various HTML elements.
+
+/* Set a background color to the 'body' element */
+body { 
+    background-color: blue;
+    }
+    
+/* Same as above, but using the CSS 'background' property instead */
+body { 
+    background: blue;
+    }
+    
+/* Setting the text color for the 'h1' element */    
+h1 { 
+    color: blue;
+    }
+​
+/* Setting a border color on the 'article' element */
+article { 
+    border-color: blue;
+    }
+​
+/* Same as previous, but using the 'border' property instead (also sets border width and style) */    
+article { 
+    border: 1px solid blue;
+    }
+Check out some basic color code examples using color names in the online editor.
+
+Color names are case-insensitive (it doesn't matter whether you use UPPERCASE or lowercase).
+
+So blue, Blue, and BLUE all display the same color.
+
+In Hexadecimal Notation
+Here is the same color, but this time using hexadecimal notation instead of the color name.
+
+So the color code is now 0000ff.
+
+This needs to be prefixed with a hash symbol, so it will become #0000ff when written in the code.
+
+body { 
+    background-color: #0000ff;
+    }
+body { 
+    background: #0000ff;
+    }
+h1 { 
+    color: #0000ff;
+    }
+article { 
+    border-color: #0000ff;
+    }
+article { 
+    border: 1px solid #0000ff;
+    }
+Check out some basic color code examples using hexadecimal values in the online editor.
+
+Hex colors are case-insensitive (it doesn't matter whether you use UPPERCASE or lowercase).
+
+So 0000ff and 0000FF both display the same color.
+
+In RGB Functional Notation
+Here is the same color, but this time using RGB functional notation.
+
+So the color code is now 0,0,255. This needs to be placed inside the rgb() function, so it will look like this rgb(0,0,255).
+
+body { 
+    background-color: rgb(0,0,255);
+    }
+body { 
+    background: rgb(0,0,255);
+    }
+h1 { 
+    color: rgb(0,0,255);
+    }
+article { 
+    border-color: rgb(0,0,255);
+    }
+article { 
+    border: 1px solid rgb(0,0,255);
+    }
+Check out some basic color code examples using RGB functional notation in the online editor.
+
+Full-Page Example
+Here is an example of where CSS color codes can fit into an HTML document.
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Color Example</title>
+<style>
+    body {
+        background: darkslategrey;
+        font-family: sans-serif;
+        font-size: 1.3em;
+    }
+    section {
+        padding: 20px;
+        margin: 20px;
+        background-color: cornsilk;
+        border: 6px solid gold;
+    }
+    h1 {
+        color: coral;
+    }
+    p {
+        color: orange;
+    }
+    a:link,
+    a:visited {
+        color: darkorange;
+    }
+    a:hover {
+        color: orangered;
+    }
+    a:active {
+        background: orangered;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <section>
+        <h1>Basic Color Example</h1>
+        <p>This is a basic example to demonstrate how colors can be applied to a web page using CSS.</p>
+        <p><a href="/css/css_color_codes.cfm">More color codes &rarr;</a></p>
+    </section>
+</body>
+</html>
+
+This example uses embedded style sheets. You can also move the styles to an external style sheet so that you can apply the styles across the whole site from one file.
+
+Transparent Colors
+CSS also enables us to add transparent colors to our HTML elements. This means that you can add a color that's semi-transparent — so that you can see the element behind it.
+
+Here's an example of adding transparency to a color using the rgba() function.
+
+ Run
+Stack editor Unstack editor
+ Editor
+ Preview
+<!DOCTYPE html>
+<title>Example</title>
+<style>
+body {
+    background: url('/pix/samples/bg2.png') beige;
+    color: rgba(0, 0, 0, 1);
+    font-size: 2em;
+ }
+article { 
+    background-color: rgba(30, 255, 50, 0.5);
+    border: 5px solid olive;
+    margin: 20px;
+    text-align: center;
+    }
+</style>
+<article>
+<h1>Stars</h1>
+</article>
+
+List of Color Values
+Here's a list of color values you can use with CSS.
+
+CSS Named Colors
+CSS transparent Keyword
+CSS currentcolor Keyword
+CSS 3-Digit Hex Codes
+CSS 4-Digit Hex Codes
+CSS 6-Digit Hex Codes
+CSS 8-Digit Hex Codes
+CSS rgb() Function
+CSS rgba() Function
+CSS hsl() Function
+CSS hsla() Function
+CSS hwb() Function
+CSS System Colors
+List of Color Properties
+Here's a list of color-related properties you can use with CSS.
+
+background-color
+background
+border
+border-bottom-color
+border-color
+border-left-color
+border-right-color
+border-top-color
+box-shadow
+caret-color
+color
+column-rule
+column-rule-color
+filter
+opacity
+outline-color
+outline
+text-decoration
+text-decoration-color
+text-shadow
+Web Safe Colors
+This chart displays the 216 "web safe" colors. Click on a color to display it in a new page.
+
+With current day monitors being able to display millions of colors, there's little need to use the web safe colors any more. But it's a great way to pick some basic colors nice and quickly. And hey, it's still a nice looking chart!
+
+#FFFFFF	#FFFFCC	#FFFF99	#FFFF66	#FFFF33	#FFFF00
+#FFCCFF	#FFCCCC	#FFCC99	#FFCC66	#FFCC33	#FFCC00
+#FF99FF	#FF99CC	#FF9999	#FF9966	#FF9933	#FF9900
+#FF66FF	#FF66CC	#FF6699	#FF6666	#FF6633	#FF6600
+#FF33FF	#FF33CC	#FF3399	#FF3366	#FF3333	#FF3300
+#FF00FF	#FF00CC	#FF0099	#FF0066	#FF0033	#FF0000
+#CCFFFF	#CCFFCC	#CCFF99	#CCFF66	#CCFF33	#CCFF00
+#CCCCFF	#CCCCCC	#CCCC99	#CCCC66	#CCCC33	#CCCC00
+#CC99FF	#CC99CC	#CC9999	#CC9966	#CC9933	#CC9900
+#CC66FF	#CC66CC	#CC6699	#CC6666	#CC6633	#CC6600
+#CC33FF	#CC33CC	#CC3399	#CC3366	#CC3333	#CC3300
+#CC00FF	#CC00CC	#CC0099	#CC0066	#CC0033	#CC0000
+#99FFFF	#99FFCC	#99FF99	#99FF66	#99FF33	#99FF00
+#99CCFF	#99CCCC	#99CC99	#99CC66	#99CC33	#99CC00
+#9999FF	#9999CC	#999999	#999966	#999933	#999900
+#9966FF	#9966CC	#996699	#996666	#996633	#996600
+#9933FF	#9933CC	#993399	#993366	#993333	#993300
+#9900FF	#9900CC	#990099	#990066	#990033	#990000
+#66FFFF	#66FFCC	#66FF99	#66FF66	#66FF33	#66FF00
+#66CCFF	#66CCCC	#66CC99	#66CC66	#66CC33	#66CC00
+#6699FF	#6699CC	#669999	#669966	#669933	#669900
+#6666FF	#6666CC	#666699	#666666	#666633	#666600
+#6633FF	#6633CC	#663399	#663366	#663333	#663300
+#6600FF	#6600CC	#660099	#660066	#660033	#660000
+#33FFFF	#33FFCC	#33FF99	#33FF66	#33FF33	#33FF00
+#33CCFF	#33CCCC	#33CC99	#33CC66	#33CC33	#33CC00
+#3399FF	#3399CC	#339999	#339966	#339933	#339900
+#3366FF	#3366CC	#336699	#336666	#336633	#336600
+#3333FF	#3333CC	#333399	#333366	#333333	#333300
+#3300FF	#3300CC	#330099	#330066	#330033	#330000
+#00FFFF	#00FFCC	#00FF99	#00FF66	#00FF33	#00FF00
+#00CCFF	#00CCCC	#00CC99	#00CC66	#00CC33	#00CC00
+#0099FF	#0099CC	#009999	#009966	#009933	#009900
+#0066FF	#0066CC	#006699	#006666	#006633	#006600
+#0033FF	#0033CC	#003399	#003366	#003333	#003300
+#0000FF	#0000CC	#000099	#000066	#000033	#000000
+ CSS Reference
+CSS Color Tools 
+Related
+CSS Color Converter
+Color Scheme Generator
+Random Color Generator
+CSS Color Resources
+CSS Tutorial
+Introduction to CSS
+CSS Syntax - How to Code CSS
+How to add CSS to a Website
+CSS Class Selectors
+CSS ID Selectors
+CSS Font Properties
+CSS Text Properties
+CSS Height & Width Properties
+CSS Background Code
+CSS Border Properties
+CSS Margin Properties
+CSS Padding Properties
+How to Style Lists
+CSS Positioning
+CSS Float
+CSS Layers
+CSS Flexbox & Grid
+CSS Summary
+CSS Reference
+CSS Examples
+CSS Properties
+CSS Functions
+CSS Data Types
+CSS @-Rules
+CSS Selectors
+CSS Animatable Properties
+CSS Color
+CSS Color Codes
+CSS Tutorial
+Flexbox Tutorial
+Grid Tutorial
+CSS Media Types
+CSS Media Features
+Bootstrap Tutorial
+Sass Tutorial
+ 
+ Quackit on Facebook
+
+ Home | About | Contact | Terms of Use | Privacy Policy
+
+© Copyright 2000 - 2021 Quackit.com  

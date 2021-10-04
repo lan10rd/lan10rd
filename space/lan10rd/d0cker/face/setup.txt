@@ -1,0 +1,90 @@
+# base image from dorowu, https://hub.docker.com/r/dorowu/ubuntu-desktop-lxde-vnc
+docker pull dorowu/ubuntu-desktop-lxde-vnc:focal  # on amd device
+docker pull dorowu/ubuntu-desktop-lxde-vnc:focal-arm64 # on arm device
+# create repository in hub.docker 
+docker tag ddorowu/ubuntu-desktop-lxde-vnc:focal lanl0rd/face:amd
+docker tag ddorowu/ubuntu-desktop-lxde-vnc:focal-arm64 lanl0rd/face:arm
+docker push lanl0rd/face:amd
+docker push lanl0rd/face:arm
+docker manifest create lanl0rd/face:latest --amend lanl0rd/face:arm --amend lanl0rd/face:amd
+docker manifest push lanl0rd/face:latest
+docker pull lanl0rd/face
+docker run --shm-size=256m -p 6080:80 -p 5901:5900 lanl0rd/face
+
+# for shared memory, but not sure this is safe if you are letting other users:
+# docker run -v /dev/shm:/dev/shm -p 6080:80
+
+# of course you can do things like:
+docker run --privileged -v /dev/shm:/dev/shm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME:/root/home  -p 6080:80 -p 5091:5090 
+
+# if at any point while running the below you have time to make a checkpoint, you can do so with (note that it will copy the entire thing! so rip disk space):
+docker ps
+# to get the container id TODO: lookup fancy way to extract id and pass to next command
+docker commit 123 lanl0rd/face:checkpoint 
+# when finished you can run
+docker tag lanl0rd/face:checkpoint lanl0rd/face:amd # or arm
+docker save lanl0rd/face:amd | gzip > face-amd.tar.gz
+# then on a machine you wish to upload on (you can skip the save if you just wanna push directly without a backup)
+docker load < face-amd.tar.gz
+# check steps at the beginning to push arm and amd images and tie them together in a manifest!
+
+##########################
+#### here be dragons! ####
+##########################
+
+# adjusted look and feel to be adwaita dark, opened terminal gray and cyan and ubuntu monospace, firefox to 80%
+
+download sublime & opera & mysql workbench & 3t studio .deb /* curl + dpkg -i ... */ or just mount/download the .deb from local and dpkg -i
+
+wget -P /root/Downloads ‐o vscode.deb https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64 # https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-arm64
+dpkg -i /root/Downloads/vscode.deb
+rm vscode.deb
+
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" # add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+apt update
+apt install -y --fix-broken docker-ce docker-ce-cli containerd.io curl git wget rsync openssl mergerfs sshfs zip unzip python3-pip dnsutils dialog apt-utils apt-transport-https ca-certificates  gnupg-agent software-properties-common nano nginx certbot php openjdk-14-jre nano ruby-full openssh-server openssh-client apache2-utils
+apt update
+
+curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+apt -y install nodejs install gcc g++ make
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+
+wget -P /root/Downloads -o go.tar.gz https://golang.org/dl/go1.16.2.linux-amd64.tar.gz # https://golang.org/dl/go1.16.2.linux-arm64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf /root/Downloads/go.tar.gz
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc 
+rm /root/Downloads/go.tar.gz
+
+curl -L http://cpanmin.us | perl - --sudo Dancer2
+
+pip3 install docker-compose crossplane virtualenv requests cherrypy sanic flask django aiohttp[speedups] tornado dash falcon bottle
+pip3 install hug -U
+
+npm i -g npm typescript rimraf @nestjs/cli nx @vue/cli create-react-app express-generator svelte-cli
+npm i -g @angular/cli > /dev/null
+
+curl -s "https://get.sdkman.io" | bash && \
+    bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
+    yes | sdk install gradle 6.8.2 && \
+    yes | sdk install springboot && \
+    rm -rf $HOME/.sdkman/archives/* && \
+    rm -rf $HOME/.sdkman/tmp/*"
+
+go get -u github.com/gin-gonic/gin && \
+    go get github.com/beego/beego/v2@v2.0.0 && \
+    go get github.com/revel/revel && \
+    go get -u github.com/valyala/fasthttp && \
+    go get goji.io && \
+    go get github.com/go-martini/martini && \
+    go get github.com/gorilla/mux && \
+    go get github.com/labstack/echo/v4 && \
+    go get github.com/urfave/negroni && \
+    go get github.com/go-kit/kit && go get github.com/kujtimiihoxha/kit && \
+    wget https://github.com/gobuffalo/buffalo/releases/download/v0.16.21/buffalo_0.16.21_Linux_x86_64.tar.gz && tar -xvzf buffalo_0.16.21_Linux_x86_64.tar.gz && mv buffalo /usr/local/bin/buffalo
+
+gem install rails
+
+apt -y install php7.0-phalcon
+
+apt install -y --fix-broken snapd 

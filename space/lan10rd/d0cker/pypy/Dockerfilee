@@ -1,0 +1,29 @@
+FROM --platform=$BUILDPLATFORM node:latest AS build
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+
+FROM python:latest
+WORKDIR /app
+RUN apt-get update && \
+    apt-get install -y curl rsync openssl zip python3-pip dnsutils && \
+
+    apt-get install -y apt-transport-https ca-certificates gnupg-agent software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=${BUILDPLATFORM//linux\//}] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
+    apt-get update && \
+    apt-get install -y docker-ce docker-ce-cli containerd.io && \
+
+    pip3 install docker-compose && \
+    pip3 install crossplane && \
+    pip3 install virtualenv && \
+    pip3 install requests && \
+    pip3 install cherrypy && \
+    pip3 install sanic && \
+    pip3 install flask && \
+    pip3 install django && \
+    pip3 install aiohttp[speedups] && \
+    pip3 install tornado && \
+    pip3 install dash && \
+    pip3 install falcon && \
+    pip3 install bottle && \
+    pip3 install hug -U

@@ -1,0 +1,16 @@
+# docker service rm w0rks_js || true && docker stack deploy -c $(pwd)/js.yaml --resolve-image=never w0rks && docker service logs -f w0rks_js
+# i like to npm i in each framework/works folder then mount the entirety to a tmp folder like js-tmp then cp to js, then in the host open a terminal and commit the image! this leaves app wide open but references in js
+
+version: '3.7'
+
+services:
+
+  js:
+    image: lanl0rd/js
+    volumes:
+      - .:/js-tmp
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    command: rsync -avhri --progress /js-tmp/ /js && cd /js/ && ls -la && echo 'done with copy, ready to be committed' && tail -f /dev/null

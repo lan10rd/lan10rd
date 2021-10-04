@@ -1,0 +1,68 @@
+Introduction
+The angular application is a tree of several different components. Under the hood, the angular component consists of a view. One view consists of a component and vice versa. All the operations like DOM changes, property checks, and binding are performed on view. A view is a building block of Angular Application. A view consists of different elements which are created and destroyed in Angular. Properties of a view can change, but to change the structure of elements we can achieve it via a ViewContainerRef. Each view has two things:
+Links to child nodes - Each view has a link to its child views through the node property. So manipulations and actions can be performed on child views as well.
+Each view has a state associated with it - Based on the view state, the Angular will decide whether to perform change detection or not on a particular element.
+States of a view
+There are four states associated with each view in Angular. The view is the building block in an Angular project.
+Change detection will not work for a view and its child views if ChecksEnables is false. 
+FirstCheck 
+ChecksEnabled - By default, all views are instantiated with ChecksEnabled.
+Errored - In this state, the change detection will be skipped.
+Destroyed - In this state, the change detection will be skipped.
+Change Detection Operations
+ViewRef - It is a concept which is used to manipulate the views in Angular. According to this concept, it encapsulates the underlying component view and used a method detectChanges(). When any asynchronous event takes place, Angular triggers a change detection on the top ViewRef and then on its children. First, it will run the change detection on itself and then on its children. 
+
+The ViewRef can be injected into the component constructor using the following way:
+export class AppComponent {
+    constructor(cd: ChangeDetectorRef) { ... }
+}
+
+ChangeDetectorRef
+It is a base class in Angular which provides change detection functionality. The change-detection tree collects all views that need to be checked for changes. We can use the methods to add and remove views from the tree, initiate change-detection, and explicitly mark views as dirty, meaning that they have changed and need to be rerendered.
+abstract class ChangeDetectorRef {
+  abstract markForCheck(): void
+  abstract detach(): void
+  abstract detectChanges(): void
+  abstract checkNoChanges(): void
+  abstract reattach(): void
+}
+Methods
+markForCheck() - When a view uses the checkOnce change detection strategy, it explicitly mark the view as dirty so that it can be checked again and rerendered. Generally, views are marked as dirty when inputs have changed and events are fired. We can call this method to check the component even if these events are not triggered.
+detach() - This method will detach this view from the component tree. It will not be checked until it is reattached. Detached views are not checked during change detection even if they are marked as dirty. Use in combination with detectChanges() method to implement local change detection checks.
+detectChanges() - Checks the view and children.
+checkNoChanges() - It checks the change detector and its children. It throws if any changes are detected. It is used in development mode to verify that running change detection doesn't introduce any other changes.
+reattach() - It is used to reattach a detached view of the change detection tree. 
+Triggering change detection manually
+Using any of the following methods, we can trigger change detection manually in Angular:
+NgZone.run(callback) - It will evaluate the callback function inside the angular zone. NgZone is an injectable service for executing work inside or outside of Angular zone. 
+ApplicationRef.tick() -  This will check the full component tree for change detection in Angular.
+ChangeDetectorRef.detectChanges() - This will check only the component and its child views for change detection.
+You can inject NgZone, ApplicationRef or ChangeDetectorRef to manually trigger the change detection mechanism. 
+
+Using NgZone
+First, import it in your component:
+import { Component, NgZone } from '@angular/core';
+
+Add it to your component class constructor:
+private ngZone: NgZone,
+
+Run your code with ngZone run as below:
+  getUserDetails(id) {
+    this.userService.getAllUsersByCustomerId(id).then((res: any) => {
+      this.ngZone.run(() => {
+        this.userList = res;
+      })
+    })
+  }
+
+Using ChangeDetectorRef
+First, import it in your component:
+import { ChangeDetectorRef } from '@angular/core';
+
+Inject and instantiate it:
+constructor(private ref: ChangeDetectorRef) { 
+}
+
+Use ChnageDetectorRef methods as below:
+this.ref.detectChanges();
+this.ref.markForChanges();

@@ -1,0 +1,24 @@
+this.cd.detectChanges() /* supposed to use to broadcast change to children, only works once with custom change detector, ChangeDetectoryStrategy.OnPush seems to make the component detatched */
+this.cd.markForCheck() /* supposed to use to broadcast change to parents */
+
+
+@Component
+({
+    selector: 'common-select-element', 
+    templateUrl: './select.element.ng.html',
+    styleUrls: ['./select.element.ng.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush /* prevents cd.detectChanges() from working more than once :/ */
+})
+
+
+
+ran into nasty error about after view checked
+
+<common-select-element
+            [options]="json.keys(srv._magic.stacks.json.services)"
+            [(target)]="targetService"
+            (targetChange)="cd.detectChanges()"
+            ></common-select-element>
+
+
+was using common select element that had custom change detection, finally fixed by adding change detector ref to parent and running detect changes on event.... i think it's supposed to be fixed by using markForCheck in the child, but couldnt get it to work :/

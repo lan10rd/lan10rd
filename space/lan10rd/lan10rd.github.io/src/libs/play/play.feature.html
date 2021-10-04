@@ -1,0 +1,57 @@
+<!-- <div
+class="glo-drop p"
+>
+    play!
+</div> -->
+
+<div class="ubuntu">
+    <div style="text-align: center;">
+        <select
+        class="style"
+        style="border: 1px solid white;"
+        [(ngModel)]="principle"
+        >
+            <option
+            *ngFor="let principle of keys(star)"
+            [ngValue]="principle"
+            >
+                {{principle}}
+            </option>
+        </select>
+    </div>
+
+    <ng-container
+    *ngIf="principle in star"
+    >
+        <div
+        class="style"
+        style="color: white; border: 1px solid white;">
+            <div [innerHTML]="star[principle].description"></div>
+        </div>
+        <div
+        class="style"
+        style="color: orange; border: 1px solid orange;">
+            <h2>Situation</h2>
+            <div [innerHTML]="star[principle].Situation"></div>
+        </div>
+        <div
+        class="style"
+        style="color: yellow; border: 1px solid yellow;">
+            <h2>Task</h2>
+            <div [innerHTML]="star[principle].Task"></div>
+        </div>
+        <div
+        class="style"
+        style="color: hotpink; border: 1px solid hotpink;">
+            <h2>Action</h2>
+            <div [innerHTML]="star[principle].Action"></div>
+        </div>
+        <div
+        class="style"
+        style="color:cyan; border: 1px solid cyan;"
+        >
+            <h2>Result</h2>
+            <div [innerHTML]="star[principle].Result"></div>
+        </div>
+    </ng-container>
+</div>

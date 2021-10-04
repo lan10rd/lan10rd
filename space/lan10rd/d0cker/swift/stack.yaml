@@ -1,0 +1,14 @@
+# docker service rm lanl0rd_d0cker_swift || true && docker stack deploy -c $HOME/d0cker/swift/stack.yaml --resolve-image=never lanl0rd_d0cker
+
+version: '3.7'
+
+services:
+
+  ruby:
+    image: lanl0rd/swift
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    working_dir: /app
+    command: tail -f /dev/null

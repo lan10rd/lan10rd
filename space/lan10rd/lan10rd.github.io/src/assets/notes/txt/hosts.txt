@@ -1,0 +1,4 @@
+
+--- macos ---
+sudo /etc/hosts/
+sudo killall -HUP mDNSResponder

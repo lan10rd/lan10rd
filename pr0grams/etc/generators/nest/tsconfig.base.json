@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "paths": {
+            "@sp4ce/demo-lib": ["libs/demo-lib/src/index.ts"]
+        }
+    }
+}

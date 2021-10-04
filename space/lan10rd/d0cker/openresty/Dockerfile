@@ -1,0 +1,3 @@
+FROM --platform=$TARGETPLATFORM openresty/openresty AS build
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM

@@ -1,0 +1,96 @@
+Zpool
+Run diskutil list command to make sure you pick the correct disk before attempting to create your pool. Look under IDENTIFIER. Note that if you partition the disk yourself, and specify a slice for ZFS, you are responsible for making sure the partition table shows the partition type is ZFS. This can be done with OS X's built-in "gpt" command or the easier to use "gdisk" command, which can be downloaded here. For detailed instructions, see here. Partitions can also be made by resizing existing ones with diskutil.
+
+Creating a pool
+Start using ZFS by first creating a storage pool with the command zpool. As mentioned above, the disk partition on which the pool will be created must be specified before creation.
+
+Once the disk partition is decided, you may run the following command with a few preferred properties: Recommended pool creation command line
+
+sudo zpool create -f -o ashift=12 -O casesensitivity=insensitive -O normalization=formD $poolname mirror diskX diskY
+Or using "\" to show it broken up over multiple lines:
+
+sudo zpool create -f -o ashift=12 \
+-O casesensitivity=insensitive \
+-O normalization=formD \
+$poolname mirror diskX diskY
+Replace $poolname with the name of the pool you want. For example, "tank."
+If you want to use the entire disk for ZFS, replace diskX and diskY with the available disks. For example, disk1 and disk2.
+If you have already partitioned the disk, and wish to only use a slice, use diskXsN. For example, disk1s2.
+-f instructs ZFS to label the disk for you.
+-o ashift=12 instructs ZFS to use 4K sectors, as described here: http://wiki.illumos.org/display/illumos/ZFS+and+Advanced+Format+disks
+The default for ashift is 9, but you will most likely want to create pools with an ashift of 12, which is appropriate for 4096 (4k) disks (i.e., Advanced Format disks), even if your disks are still the older 512. If you are using SSDs in your pool now, or anticipate replacing any of your pool's disks with SSDs in the future, then an ashift of 13 is a better choice. It is important to get this right now because a vdev's ashift cannot be changed after the vdev is created.
+
+On OS X you will want to use NFD normalization, or quite a few applications won't work (e.g., iTunes). Read What on Earth is Unicode Normalization? helps understand why.
+
+You can also decide to disable access time, enable compression, and all those nice things. But that can be done at any time in ZFS. For example
+
+sudo zfs set compression=lz4 $poolname
+or for pool version 28 compatibility
+
+sudo zfs set compression=on $poolname
+If you do want compression, you should turn it on as soon as possible, or enable it at the time the pool is created. Turning compression on later will only apply to new data added to a dataset going forward, not the preexisting uncompressed data you already put in the dataset while compression was turned off.
+
+For example, you may want to use something like this
+
+sudo zpool create -f -o ashift=12 -O compression=lz4 -O casesensitivity=insensitive -O atime=off -O normalization=formD tank mirror disk3 disk4
+Or using "\" to show it broken up over multiple lines:
+
+sudo zpool create -f -o ashift=12 \
+-O compression=lz4 \
+-O casesensitivity=insensitive \
+-O atime=off \
+-O normalization=formD \
+tank mirror disk3 disk4
+If you absolutely must be compatible with non-OpenZFS implementations of ZFS (e.g., Oracle Solaris), you'd need to do
+
+sudo zpool create -f -o version=28 -o ashift=12 -O compression=on -O casesensitivity=insensitive -O atime=off -O normalization=formD tank mirror disk3 disk4
+Or using "\" to show it broken up over multiple lines:
+
+sudo zpool create -f -o version=28 -o ashift=12 \
+-O compression=on \
+-O casesensitivity=insensitive \
+-O atime=off \
+-O normalization=formD \
+tank mirror disk3 disk4
+For available properties to consider and set, see Introducing ZFS Properties.
+
+Unplugging a pool
+The equivalent of unmounting a device before unplugging it is exporting a pool in ZFS terminology.
+
+Before unplugging any devices you must export all pools using the device.
+
+sudo zpool export $poolname
+The export can sometimes fail if the mount is busy (as with all filesystems). So you might need to close any applications still accessing the pool. Also, there is an option "-f" to force unmount while exporting:
+
+sudo zpool export -f $poolname
+If you are just rebooting, you do not need to export first.
+
+Feature flags
+If you are creating a pool on another OpenZFS platform, and you want to make sure that pool is compatible with OpenZFS on OS X, you must not enable any feature flags not yet supported by OpenZFS on OS X.
+
+For instance, let's say you were creating a pool using OmniOS, which currently supports more feature flags than OpenZFS on OS X.
+
+To start out with all feature flags disabled, use the -d option when creating the pool:
+
+sudo zpool create -d $poolname c2t1d0
+To selectively enable only the feature flags supported by OpenZFS on OS X (as of 2014-08-01) use -d combined with -o feature@..., as follows:
+
+sudo zpool create -d -o feature@async_destroy=enabled -o feature@empty_bpobj=enabled -o feature@lz4_compress=enabled $poolname c2t1d0
+Or using "\" to show it broken up over multiple lines:
+
+sudo zpool create -d \
+-o feature@async_destroy=enabled \
+-o feature@empty_bpobj=enabled \
+-o feature@lz4_compress=enabled \
+$poolname c2t1d0
+And don't forget to specify the other options you want, as discussed above:
+
+sudo zpool create -d \
+-o feature@async_destroy=enabled \
+-o feature@empty_bpobj=enabled \
+-o feature@lz4_compress=enabled \
+-O compression=lz4 \
+-O casesensitivity=insensitive \
+-O atime=off \
+-O normalization=formD \
+$poolname c2t1d0

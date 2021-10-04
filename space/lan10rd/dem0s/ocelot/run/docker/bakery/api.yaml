@@ -1,0 +1,55 @@
+# docker service rm ocelot_bakery_api || true && docker stack deploy -c $(pwd)/api.yaml --resolve-image=never ocelot_bakery
+
+version: '3.7'
+
+services:
+
+  api-dev:
+    image: lanl0rd/js
+    networks:
+      - network_overlay
+    volumes:
+      - ../../../:/app
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.ocelot_bakery_api-dev.rule=Host(`bakery-api-dev.ocelot.work`)
+        - traefik.http.services.ocelot_bakery_api-dev.loadbalancer.server.port=3000
+        - traefik.http.services.ocelot_bakery_api-dev.loadbalancer.sticky.cookie.name=sticky
+        - traefik.http.services.ocelot_bakery_api-dev.loadbalancer.sticky.cookie.secure=true
+        - traefik.http.services.ocelot_bakery_api-dev.loadbalancer.sticky.cookie.httpOnly=true
+    working_dir: /app
+    ports:
+      - "3000"
+    command: nx serve bakery-api
+
+  api:
+    image: lanl0rd/js
+    networks:
+      - network_overlay
+    volumes:
+      - ../../../:/app
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.ocelot_bakery_api.rule=Host(`bakery-api.ocelot.work`)
+        - traefik.http.services.ocelot_bakery_api.loadbalancer.server.port=3000
+        - traefik.http.services.ocelot_bakery_api.loadbalancer.sticky.cookie.name=sticky
+        - traefik.http.services.ocelot_bakery_api.loadbalancer.sticky.cookie.secure=true
+        - traefik.http.services.ocelot_bakery_api.loadbalancer.sticky.cookie.httpOnly=true
+    working_dir: /app
+    ports:
+      - "3000"
+    command: cd dist/apps/bakery-api && node main.js
+
+networks:
+  network_overlay:
+    external: true

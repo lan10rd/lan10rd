@@ -1,0 +1,5 @@
+so far on arm only
+
+sudo snap install novnc
+
+sudo novnc --listen 6081 --vnc localhost:5901 

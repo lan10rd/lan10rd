@@ -1,0 +1,32 @@
+
+#!/usr/bin/python
+
+chmod +x script.py
+
+./script.py
+
+
+
+There are two things you need to do:
+
+Make sure the file is executable: chmod +x script.py
+Use a shebang to let the kernel know what interpreter to use. The top line of the script should read:
+
+#!/usr/bin/python
+This assumes that your script will run with the default python. If you need a specific version, just specify in the shebang:
+
+#!/usr/bin/python2.7
+Now you can type:
+
+    ./script.py
+if the script is in your current directory, or:
+
+    script.py
+if the location of the script happens to be in your PATH, or:
+
+    path/to/script.py
+otherwise.
+
+#!/usr/bin/env python
+#!/usr/bin/env python3
+Generally it's a better idea to use #!/usr/bin/env python, in case the user has a local build of python

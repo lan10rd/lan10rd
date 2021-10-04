@@ -1,0 +1,6 @@
+Just backgrounding your script (./myscript &) will not daemonize it. See http://www.faqs.org/faqs/unix-faq/programmer/faq/, section 1.7, which describes what's necessary to become a daemon. You must disconnect it from the terminal so that SIGHUP does not kill it. You can take a shortcut to make a script appear to act like a daemon;
+
+nohup ./myscript 0<&- &>/dev/null &
+will do the job. Or, to capture both stderr and stdout to a file:
+
+nohup ./myscript 0<&- &> my.admin.log.file &

@@ -1,0 +1,3 @@
+// sudo systemsetup -f -setremotelogin off
+
+sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist

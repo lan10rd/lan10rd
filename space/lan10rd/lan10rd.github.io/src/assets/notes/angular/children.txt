@@ -1,0 +1,57 @@
+
+
+
+
+There are times when a parent component needs access to his children. Let’s see how we can handle this with Angular.
+@ViewChildren —
+Returns the specified elements or directives from the view DOM as QueryList
+For example, let’s create a simple alert component.
+
+Now let’s use this component multiple times in our app component and use the @ViewChildren decorator.
+
+We can use the @ViewChildren decorator to grab elements from the host view.
+The @ViewChildren decorator supports directive or component type as parameter, or the name of a template variable.
+When the parameter is a component/directive the return value will be the component/directive instance.
+
+When the parameter is the name of a template variable, the return value will be a reference to the native element.
+
+
+Note: In this case, it will make more sense to use the @ViewChild decorator because this is only a single element.
+The read parameter —
+As we said by default, the ViewChildren decorator will return the component instance, but you can ask for other tokens:
+The native DOM element —
+
+
+ViewContainerRef — You need this token when you need to create templates or components dynamically
+
+
+QueryList —
+The return type of ViewChildren is QueryList. QueryList is just a fancy name for an object that stores a list of items. What is special about this object is when the state of the application changes Angular will automatically update the object items for you.
+QueryList implements an iterable interface, therefore, it can be used in Angular templates with the ngFor directive. ( you can read more about this topic here )
+QueryList API —
+Getters —
+first — get the first item
+last — get the last item
+length — get the items length
+Methods —
+map(), filter() , find(), reduce(), forEach(), some().
+toArray() — returns the items as javascript array
+changes() — Changes can be observed by subscribing to the changes Observable. Any time a child element is added, removed, or moved, the query list will be updated, and the changes observable of the query list will emit a new value.
+Remember —
+The QueryList is initialized only before the ngAfterViewInit lifecycle hook, therefore, is available only from this point.
+ViewChildren vs ContentChildren —
+ViewChildren don’t include elements that exist within the ng-content tag.
+ContentChildren includes only elements that exists within the ng-content tag.
+
+@ContentChildren —
+Returns the specified elements or directives from the content DOM as QueryList
+
+Remember —
+The QueryList is initialized only before the ngAfterContentInit lifecycle hook, therefore, is available only from this point.
+🚀 In Case You Missed It
+Akita: One of the leading state management libraries, used in countless production environments. Whether it’s entities arriving from the server or UI state data, Akita has custom-built stores, powerful tools, and tailor-made plugins, which all help to manage the data and negate the need for massive amounts of boilerplate code.
+Spectator: A library that runs as an additional layer on top of the Angular testing framework, that saves you from writing a ton of boilerplate.
+And of course, Transloco: The Internationalization library Angular 😀
+Follow me on Medium or Twitter to read more about Angular!
+Netanel Basal
+Articles for badass Angular Developers

@@ -1,0 +1,10 @@
+at work i kept running into eperm errors and timeouts very annoying.. so not sure what made it work but this is what happened:
+
+checked .npmrc in users and noticed that it had the wrong (public) register as well as auth user etc.. so went to artifactory, set me up and picked prereleases (which seemed to be the go to to), so ran npm config set registry ...
+then npm login
+a#
+password
+
+then, it seemed the proxy was actually required at this company, so local project had proxy, http-proxy, https-proxy all as http://http.proxy.company.com:8000, and no proxy as .company.com
+
+finally, actually removed package-lock.json, ran yarn in a elevated prompt (vscode / text editors must be closed!)

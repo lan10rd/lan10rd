@@ -1,0 +1,6 @@
+add steps to install docker compose!
+
+to remove child images that are dependent
+docker inspect --format=’{{.Id}} {{.Parent}}’ $(docker images --filter since=<image_id> -q)
+
+docker rmi <image_id>

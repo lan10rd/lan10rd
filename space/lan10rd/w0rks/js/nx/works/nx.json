@@ -1,0 +1,32 @@
+{
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    ".eslintrc.json": "*",
+    "nx.json": "*"
+  },
+  "affected": { "defaultBase": "master" },
+  "npmScope": "works",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+    }
+  },
+  "projects": {
+    "works-nest": { "tags": [] },
+    "works-angular": { "tags": [] },
+    "works-angular-e2e": {
+      "tags": [],
+      "implicitDependencies": ["works-angular"]
+    },
+    "works-react": { "tags": [] },
+    "works-react-e2e": { "tags": [], "implicitDependencies": ["works-react"] },
+    "works-express": { "tags": [] },
+    "works-web": { "tags": [] },
+    "works-web-e2e": { "tags": [], "implicitDependencies": ["works-web"] },
+    "works-node": { "tags": [] }
+  }
+}

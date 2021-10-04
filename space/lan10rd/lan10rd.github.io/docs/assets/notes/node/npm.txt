@@ -1,0 +1,14 @@
+-- for a nrwl monorepo lib to be publishable (and buildable, something else but might as well)
+nx g @nrwl/nest:lib common/ns --buildable --publishable --importPath=@lanl0rdjs/common-ns
+nx g @nrwl/angular:lib common/ng --publishable --buildable --importPath=@lanl0rdjs/common-ng
+
+(--buildable is for pre built stuff, publishable is to make it npm ready, at which point you can do npm build libname, then cd dist/libname and npm publish)
+
+--- then run these commands --
+
+nx build lib-name
+cd dist/libs/lib-name
+npm login // (if you havent already)
+npm publish --scope=@lanl0rdjs --access public
+
+* seems like package.json is all thats necessary mainly, i like to bump the versions then build then publish (from dist which puts a little package.json in there)

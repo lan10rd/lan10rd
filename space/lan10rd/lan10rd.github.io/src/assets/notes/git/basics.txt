@@ -1,0 +1,22 @@
+git clone https://github.com/lanl0rd/lanl0rd.github.io
+
+git checkout -b feature/some-new-feature
+
+git add .
+
+git commit -m "message seems to be required"
+
+git push // git push --set-upstream origin feature/some-new-feature
+
+... raise a pr for feature/some-new-feature to merge
+
+
+git pull origin master // pull latest from master into your branch
+
+
+// if your project has certain hooks for testing you want to skip
+git commit -m "" -n
+git push --no-verify
+
+// if you need to just kind of remove changes for a moment to start clean
+git stash

@@ -1,0 +1,67 @@
+sudo apt install x11vnc
+x11vnc -storepasswd
+x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth $HOME/.vnc/passwd -rfbport 5901 -shared
+
+
+// for start after user login add this line in /etc/gdm3/Init/Default right before exit 0... that didnt work, so actually just make a script somewhere, like lanl0rd/space/startup/x11.sh and then hit menu and type startup (startup applications), and add the x11.sh (make sure to chmod u+x x11.sh of course!)
+/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth $HOME/.vnc/passwd -rfbport 5901 -shared || true 
+
+
+-nopwd  // no password i think, see if you can do this instead of rfbauth or just run without rfbauth and password 
+
+actualy, just run with this!!!! no password on 5900 easy peeeasy (if you have video sharing enabled with vino (default gnome/ubuntu sharing method) turn it off so that x11vnc can have 5900, otherwise youll be stuck on 5901!)
+~~~~~~
+x11vnc -forever -loop -noxdamage -repeat -shared
+~~~~~~
+
+/boot/firmware/config.txt
+~~~~~~
+hdmi_force_hotplug=1
+dtoverlay=vc4-fkms-v3d
+hdmi_drive=2
+~~~~~~
+
+/etc/gdm3/custom.conf
+~~~~~~
+WaylandEnable=False
+~~~~~~
+
+
+-----------------------
+working /boot/firmware/config.txt ubuntu 20, this is vital, it seems lines were commented out in 21 and break it
+----------
+
+[pi4]
+max_framebuffers=2
+hdmi_force_hotplug=1
+#hdmi_safe=1
+
+[all]
+arm_64bit=1
+kernel=vmlinuz
+cmdline=cmdline.txt
+initramfs initrd.img followkernel
+
+# Enable the audio output, I2C and SPI interfaces on the GPIO header
+dtparam=audio=on
+dtparam=i2c_arm=on
+dtparam=spi=on
+
+# Enable the FKMS ("Fake" KMS) graphics overlay, enable the camera firmware
+# and allocate 128Mb to the GPU memory
+dtoverlay=vc4-fkms-v3d
+gpu_mem=128
+start_x=1
+
+# Comment out the following line if the edges of the desktop appear outside
+# the edges of your display
+disable_overscan=1
+
+# If you have issues with audio, you may try uncommenting the following line
+# which forces the HDMI output into HDMI mode instead of DVI (which doesn't
+# support audio output)
+hdmi_drive=2
+
+# If you have a CM4, uncomment the following line to enable the USB2 outputs
+# on the IO board (assuming your CM4 is plugged into such a board)
+#dtoverlay=dwc2,dr_mode=host

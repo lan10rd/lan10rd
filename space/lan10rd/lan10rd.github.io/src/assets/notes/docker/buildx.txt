@@ -1,0 +1,95 @@
+/* to add to a docker instance that says buildx command not recognized */
+export DOCKER_BUILDKIT=1
+docker build --platform=local -o . git://github.com/docker/buildx
+mkdir -p ~/.docker/cli-plugins
+mv buildx ~/.docker/cli-plugins/docker-buildx
+
+/* this may be necessary, it is if it ships with buildx (not defaulted or something) */
+.docker/config.json
+{"experimental": "enabled"}
+
+/* soooooo, docker desktop apparently does stuff for you, but if youre running on ubuntu or digital ocean or whatever, you need to do: */
+
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+docker buildx rm builder
+docker buildx create --name builder --driver docker-container --use
+docker buildx inspect --bootstrap
+
+
+
+for arch in amd64 arm64 arm  ; do 
+    docker buildx build \
+    --platform $arch \
+    --output type=docker \
+    --tag me/myimage:${version}-${arch} \
+    $version/
+done
+
+/* this is how docker guide recommends */
+
+nano $HOME/.docker/config.json
+
+add "experimental": "enabled" to json object
+
+/* soooooo, docker desktop apparently does stuff for you, but if youre running on ubuntu or digital ocean or whatever, you need to do: */
+
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+docker buildx rm builder
+docker buildx create --name builder --driver docker-container --use
+docker buildx inspect --bootstrap
+
+
+yay
+
+... so when doing the whole
+
+FROM --platform=$BUILDPLATFORM node:latest AS build // okay fuck the docs make sure --platform=$TARGETPLATFORM or it wont work!!!!!!!
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+
+WORKDIR /app
+RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM" && \
+
+it did run I am running linux/amd64 for earthjs, but it was blank for earthpy, must be because python doesnt support multiarch yet?
+
+docker buildx build --platform linux/arm64,linux/amd64 \
+    --rm --push --compress --cache-from=node:latest -t lanl0rd/earthjs:latest -f ./Dockerfile . \
+    && docker save lanl0rd/earthjs:latest | gzip > earthjs.tar.gz
+
+using --push after docker login, with username lanl0rd pass $*****
+
+
+
+/* this below didnt work but might be useful to know where daemon is */
+sudo nano /etc/docker/daemon.json
+
+{
+"experimental": true
+}
+
+sudo systemctl restart docker
+
+docker version
+
+
+---- straight from buildx github  NEWWWWW! ----
+
+with Docker 18.09+
+$ git clone git://github.com/docker/buildx && cd buildx
+$ make install
+
+with buildx or Docker 19.03
+$ export DOCKER_BUILDKIT=1
+$ docker build --platform=local -o . git://github.com/docker/buildx
+$ mkdir -p ~/.docker/cli-plugins
+$ mv buildx ~/.docker/cli-plugins/docker-buildx
+
+$ docker run --privileged --rm tonistiigi/binfmt --install all // i think this worked but the above 4 liners (above yay) i think is from docker as opposed from buildx
+
+Using multiple native nodes provides better support for more complicated cases not handled by QEMU and generally have better performance. Additional nodes can be added to the builder instance with --append flag.
+
+# assuming contexts node-amd64 and node-arm64 exist in "docker context ls"
+$ docker buildx create --use --name mybuild node-amd64
+mybuild
+$ docker buildx create --append --name mybuild node-arm64
+$ docker buildx build --platform linux/amd64,linux/arm64 .

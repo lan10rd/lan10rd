@@ -1,0 +1,309 @@
+Docker Swarm: It’s an embedded functionality of Docker itself for Container Cluster management. This would be a brief and Simplified guide for Deploying Application to the Docker Swarm Cluster. For more details please have a look at the official documentations.
+
+Setup master and Worker Nodes
+
+Launch an Ec2 instance, We will create a master and a worker nodes to form it a Swarm cluster. Let’s Initiate the node as a Docker Swarm master.
+
+# docker swarm init --advertise-addr <private_ip_of_localhost>
+Once you have executed the above command, you will get the token which you need to execute on the worker nodes, to Join them to the master as a part of swarm cluster.
+Just Grab the token and execute it to the Other node to Join that as a Worker Node.
+
+
+
+Now Just in case, if you forgot to make a note of the token and we wanted to retrieve the token again, then we can get the same token by using the below command.
+
+# docker swarm join-token worker
+Note: The token will always be remain same for the cluster.
+Now check whether the worker node Joined the master or not,
+
+# docker node ls
+The output will be as below,
+
+
+docker node ls
+Now If you want to add another node to the cluster as a Master then get the token using below command. this token can be used to add as much as of master nodes you want.
+
+# docker swarm join-token manager  // to join nodes as a secondary master
+Note: It’s Always Recommended to have at least 3 Master (odd) nodes regardless of its Instance Size, because the availability of the master is always required to be more than half.
+
+If the swarm loses the quorum of managers, the swarm cannot perform management tasks like managing worker, updating, creating etc. it’s all because Docker Swarm follows Raft consensus.
+
+To have a better Understanding of what Raft Consensus are, you can refer to the link here.
+
+Just for an example, If you have 2 master nodes and one out of it goes down then the size of master will be half, but ideally it should be more than half, and in this case you may probably not able to manager cluster from the master node, Just with and error below,
+Error response from daemon: rpc error: code = Unknown desc = The swarm does not have a leader. It’s possible that too few managers are online. Make sure more than half of the managers are online.
+
+Check All the nodes of the cluster. Also check the Cluster Info,
+
+# docker info
+Now, We will see how we can create a Service in the swarm Cluster. To create a Service check with the below command. here we are taking the example of a postgres database just for understanding.
+
+# docker service create --name postgres -p 5432:5432 --replicas 3 parrotstream/postgres:10.5
+Output:
+
+
+List the docker service, 
+
+# docker service ls
+
+ID                  NAME                MODE                REPLICAS            IMAGE                        PORTS
+ kmym9w8faaw0        postgres            replicated          3/3                 parrotstream/postgres:10.5   *:5432->5432/tcp
+To Scale the Service at any time we can use the below command,
+
+# docker service scale postgres=10
+Basically Services are of 2 types,
+
+Replicated Service 
+Global Service
+
+The Services we have created above for postgress is a Replicatd Service, for launching the global service we have to append with –mode global. lets have a look at the command below.
+
+# docker service create --mode global --name postgres -p 5432:5432 parrotstream/postgres:10.5
+Note: Docker swarm runs one task for the service on every available node in the cluster when the mode is global
+
+Deploying an Application in the form Stack in the Cluster.
+
+ 
+
+Based on the higher amount of parameters in the Application Which will include, Image, placement, replicas, Volume, Environment variables, Exposed Ports, Volumes, Drivers, network etc, It’s not recommended to create a service directly from the command line.
+
+So in order to Create and deploy all those service The deploy command accepts a stack description in the form of a compose file. Just for the demonstration, We are using the sample docker compose file for launching the postgres container on top of swarm cluster. Just have a look at the below docker compose file.
+
+version: '3.3'
+ services:
+   postgres:
+     image: parrotstream/postgres:10.5
+     ports:
+       - 5432:5432
+     environment:
+       - POSTGRES_DB=test_db
+       - POSTGRES_USER=test_user
+       - POSTGRES_PASSWORD=test_pass
+ 
+privileged: true 
+
+ 
+volumes:
+
+   
+- ./postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
+Above is the sample docker compose file for the postgress which you can find in the devopsage github. In order to use this docker compose file as a docker swarm stack, We need to add certain parameters to it. Just have a look at it below.
+
+deploy:
+   Mode: replicated 
+   replicas: 1
+   update_config:
+     parallelism: 5
+     delay: 10s
+   restart_policy:
+     condition: on-failure
+     delay: 5s
+     max_attempts: 3
+     window: 120s
+   placement:
+     constraints: [node.role == manager]
+All the above options are well explained below,
+deploy: allows you to specify configuration related to the deployment and running of services in swarm cluster
+
+mode: can be replicated or global as discussed above
+
+Replicas: number of container running for that perticular service
+
+Update Config: To configure how the service should be updated. It Should be useful for configuring the rolling updates
+
+ Parallelism: To Update the Container parallely at a time, by default it updates one by one
+Delay: It’s basically a time to wait between upating a number of replicas it has.
+failure_action: What to do if an update fails. Either continue or pause Default is pause.
+restart_policy: This configures, how you gonna manage your containers once gets exitted
+
+condition: on-failure, it will restart container, if failed
+delay: How long to wait between restart attempts. Default is 0sec  
+max_attempts: How many times to attempt to restart a container. By default, it will keep on restarting the conatiner
+window: How long to wait before deciding if a restart has succeeded. Default is         immediate
+ Placement:  It spin’s up the node, wither to the worker or manster based on the constrain     value we define.  “constraints: [node.role == manager or worker]”
+
+
+
+
+Volumes
+
+Services can be deployed on any of the Worker node based on the Swarm Schedular. Mounting a volume to container is important
+
+Volume:  It Created a docker volume and mount it to the Worker even if the file directory is not present there. If not present it will create and mount.
+               volumes:
+                  – type: volume
+                    source: data
+                    target: /app/data
+
+Bind: It Need to have a Directory Available on all the worker nodes in order to mount it to the Container, If Not available then the directory will not be mounted. Its representation is the same as it is in docker compose.
+              Volumes:  
+                 –  ./data:/app/data
+
+     3. Tmpfs: It’s a temporary File System and will get deleted once  container gets exitted. Not recommended.
+
+
+
+
+Now after adding few required parameters the final docker compose file will be something life below. Using which we will be creating the stack. 
+Note: It might not be well drafted here and can have some indentation issue, so please find the same yaml code here.
+
+version: '3.3'
+ services:
+   postgres:
+     image: parrotstream/postgres:10.5
+     deploy:
+       replicas: 1
+       restart_policy:
+         condition: on-failure
+       placement:
+         constraints: [node.role == manager]
+     ports:
+       - 5432:5432
+     environment:
+       - POSTGRES_DB=test_db
+       - POSTGRES_USER=test_user
+       - POSTGRES_PASSWORD=test_password
+    
+privileged: true 
+
+    
+volumes:
+
+   
+   - type: volume     
+
+    
+    source: postgres-data     
+
+    
+    target: /var/lib/postgresql/data
+
+ volumes:
+   postgres-data:
+So Now, Once we are done making changes to the docker compose file, Lets Deploy the Stack using the below command,
+
+# docker stack deploy --compose-file docker-compose-postgres.yml postgres
+Make Sure to add –with-registry-auth if you need to pull docker image from the private repository. In that case the command would be.
+
+ # docker stack deploy --with-registry-auth --compose-file docker-compose-postgres.yml postgres 
+Note: Also can use -c for docker compose file.
+Now, Just check the deployed Services,
+
+# docker service ls
+# docker stack ls
+Access Application from the Swarm Cluster
+
+ 
+
+Docker Swarm Support Mesh Routing, that means we can access any Service from any of the Nodes regardless of on which it is running. It could be either master or Worker.
+
+Route53 → ALB → Target Group (appPort) → Target=master Nodes:Port) → Application.
+
+Or We can also use any of the API gateway or HAproxy to access the deployed application.
+
+Some Operational Commands,
+
+ 
+
+Here is the summerised commands (cheat sheet)
+
+To list Nodes,
+
+    # docker nodes ls
+
+To list Services
+
+    # docker service ls
+
+To List Stack
+
+   # docker stack ls
+
+Get Join token for worker
+
+    # docker swarm join-token worker
+
+Get Joining token master
+
+    # docker swarm join-token manager
+
+To Create a Service
+
+    # docker create service –name postgres parrotstream/postgres:10.5
+
+To Deploy Stack
+
+    # docker stack deploy –compose-file docker-compose-postgress.yml postgres
+
+To Deploy Stack for private registry,
+
+    # docker stack deploy –with-registry-auth –compose-file docker-compose-postgres.yml postgres
+
+To get Cluster Info: You may not see the exposed port when doing docker ps, but taking the info of that perticular container you can find out the exposed port
+
+    # docker info
+
+    # docker system info
+
+To enforce a new cluster, below command can be used, It will create master to the node in which this command would be initiated.
+
+     # docker swarm init –force-new-cluster
+
+To List All Container for the Services,
+
+      # docker service ls redis
+
+To check the logs of service
+
+      # docker service logs <service_id>
+
+For extended O/P,
+
+     # docker service ps redis –no-trunc
+
+To Scale Conatiner
+
+     # docker service scale redis=2
+
+If stack configuration is split between 2 docker compose,
+
+# docker stack deploy –with-registry-auth –compose-file docker-compose-kong.yml -c docker-compose-konga.yml kong_qa
+
+To Inspect,
+
+     # docker service inspect <service_name>
+
+To Update the Stack, Same as for create
+
+     # docker stack deploy –with-registry-auth –compose-file docker-compose-kong.yml kong_qa
+
+To check event logs
+
+    # docker events
+
+To Leave Cluster 
+
+   # docker swarm leave
+
+Forcefully
+
+   # docker swarm leave –force
+
+Promote a worker node to manager
+
+   # docker node promote <node_name>
+
+Delete Stack,
+
+   # docker stack rm <stack_name>
+
+Delete Service,
+
+   # docker service rm <service_name>
+
+Delete node,
+
+  # docker node rm <node_name>

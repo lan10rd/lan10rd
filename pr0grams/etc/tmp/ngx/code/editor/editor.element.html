@@ -1,0 +1,6 @@
+<ngx-monaco-editor
+style="height: 100%"
+[options]="options"
+[(ngModel)]="model"
+(ngModelChange)="modelChange.emit(model)"
+></ngx-monaco-editor>

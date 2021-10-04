@@ -1,0 +1,12 @@
+Run cmd or git bash as admin (or elevated)
+
+/* all the commands after this can be run as one offs by starting the command with wmic */
+
+wmic
+product get name
+
+/* shows list of apps */
+
+product where name="Skype Meetings App" call uninstall
+
+Y

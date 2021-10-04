@@ -1,0 +1,8 @@
+docker pull dorowu/ubuntu-desktop-lxde-vnc:focal
+docker pull dorowu/ubuntu-desktop-lxde-vnc:focal-arm64
+docker tag dorowu/ubuntu-desktop-lxde-vnc:focal lanl0rd/face:dorowu-amd
+docker tag dorowu/ubuntu-desktop-lxde-vnc:focal-arm64 lanl0rd/face:dorowu-arm
+docker push lanl0rd/face:dorowu-amd
+docker push lanl0rd/face:dorowu-arm
+docker manifest create lanl0rd/face:dorowu --amend lanl0rd/face:dorowu-arm --amend lanl0rd/face:dorowu-amd
+docker manifest push lanl0rd/face:dorowu

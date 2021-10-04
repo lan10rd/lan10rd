@@ -1,0 +1,1 @@
+docker buildx build --platform linux/amd64 --rm --push --compress -t lanl0rd/novnc:latest -f ./Dockerfile .

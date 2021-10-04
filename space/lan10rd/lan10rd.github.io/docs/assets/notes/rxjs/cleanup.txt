@@ -1,0 +1,34 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+// RxJs 6.x+ import paths
+import { filter, startWith, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { BookService } from '../books.service';
+
+@Component({
+    selector: 'app-books',
+    templateUrl: './books.component.html'
+})
+export class BooksComponent implements OnDestroy, OnInit {
+    private ngUnsubscribe = new Subject();
+
+    constructor(private booksService: BookService) { }
+
+    ngOnInit() {
+        this.booksService.getBooks()
+            .pipe(
+               startWith([]),
+               filter(books => books.length > 0),
+               takeUntil(this.ngUnsubscribe)
+            )
+            .subscribe(books => console.log(books));
+
+        this.booksService.getArchivedBooks()
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(archivedBooks => console.log(archivedBooks));
+    }
+
+    ngOnDestroy() {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+    }
+}

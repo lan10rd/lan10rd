@@ -1,0 +1,13 @@
+# docker service rm d0cker_frp_build || true && docker stack deploy -c $(pwd)/build.yaml --resolve-image=never d0cker
+
+version: '3.7'
+
+services:
+
+  frp_build:
+    image: ubuntu
+    command: tail -f /dev/null
+
+networks:
+  host:
+    external: true

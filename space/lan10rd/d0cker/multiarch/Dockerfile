@@ -1,0 +1,3 @@
+FROM --platform=$TARGETPLATFORM multiarch/qemu-user-static AS build
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM

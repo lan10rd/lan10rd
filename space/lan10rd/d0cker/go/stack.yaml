@@ -1,0 +1,14 @@
+# docker service rm lanl0rd_d0cker_go || true && docker stack deploy -c $HOME/d0cker/go/stack.yaml --resolve-image=never lanl0rd_d0cker
+
+version: '3.7'
+
+services:
+
+  go:
+    image: lanl0rd/go
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    working_dir: /app
+    command: tail -f /dev/null

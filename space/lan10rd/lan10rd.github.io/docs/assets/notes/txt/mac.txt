@@ -1,0 +1,11 @@
+defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+sudo scutil --set HostName [NewHostNameHere]
+
+brew update && brew upgrade
+brew install git
+brew link --force git
+
+brew reinstall git
+brew unlink git && brew link git
+
+sudo chown -R $(whoami) /usr/local/share/man/man5 /usr/local/share/man/man7

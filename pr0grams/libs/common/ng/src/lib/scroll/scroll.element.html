@@ -1,0 +1,9 @@
+<div
+[class]="classes"
+[style]="styles"
+(scroll)="scroll.emit($event)"
+#child
+>
+    <ng-content
+    ></ng-content>
+<div>

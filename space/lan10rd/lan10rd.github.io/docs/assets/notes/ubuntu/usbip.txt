@@ -1,0 +1,90 @@
+sudo apt install -y linux-tools-generic
+
+
+Server side setup
+The server is the one that has the real USB device physically attached to it.
+
+1. Load the USBPIP kernel driver:
+
+sudo modprobe usbip_host
+
+2. Start the USB/IP daemon:
+
+sudo /usr/lib/linux-tools/$(uname -r)/usbipd &
+
+3. List all the devices connected:
+
+/usr/lib/linux-tools/$(uname -r)/usbip list -l
+
+
+In my case it lists:
+
+$ /usr/lib/linux-tools/4.2.0-16-generic/usbip list -l
+ - busid 1-10 (04f2:b446)
+   Chicony Electronics Co., Ltd : unknown product (04f2:b446)
+
+ - busid 1-2.2 (045e:071d)
+   Microsoft Corp. : unknown product (045e:071d)
+
+ - busid 1-2.4 (046d:c52b)
+   Logitech, Inc. : Unifying Receiver (046d:c52b)
+
+ - busid 1-3 (0458:706e)
+   KYE Systems Corp. (Mouse Systems) : unknown product (0458:706e)
+
+4. Select the device you want to share and bind it with the following command:
+
+sudo /usr/lib/linux-tools/$(uname -r)/usbip bind -b <device ID>
+In my case I want to share my Webcam which is the device with bus ID 1-3:
+
+sudo /usr/lib/linux-tools/$(uname -r)/usbip bind -b <Device bus ID>
+Now the device is ready to be accesed from a client computer!
+
+
+
+Client side setup
+Let's try to access our webcam from another computer on the same network.
+
+1. Mount the VHCI driver:
+
+sudo modprobe vhci-hcd
+2. List all devices available from the server:
+
+/usr/lib/linux-tools/$(uname -r)/usbip list -r <Server IP address>
+
+In my case:
+
+SERVER_IP=10.251.101.16
+/usr/lib/linux-tools/$(uname -r)/usbip list -r $SERVER_IP
+$ /usr/lib/linux-tools/4.4.0-83-generic/usbip list -r 10.251.101.16
+Exportable USB devices
+======================
+ - 10.251.101.16
+        1-3: KYE Systems Corp. (Mouse Systems) : unknown product (0458:706e)
+           : /sys/devices/pci0000:00/0000:00:14.0/usb1/1-3
+           : Miscellaneous Device / ? / Interface Association (ef/02/01)
+3. Let's attach to the selected device:
+
+sudo /usr/lib/linux-tools/$(uname -r)/usbip attach -r <server IP address> -b <Device bus ID>
+In my case I only have one device:
+
+sudo /usr/lib/linux-tools/$(uname -r)/usbip attach -r 10.251.101.16 -b 1-3
+Now you should have your device exposed on your client computer as if it was connected to it. You can now simply use it as usual e.g:
+
+gst-launch v4l2src device=/dev/video0 ! fakesink -v
+
+
+Disconnect the devices
+In order to disconnect the devices you must firt detach from your client:
+
+1. List all devices attached:
+
+sudo /usr/lib/linux-tools/$(uname -r)/usbip port
+2. Detach the corresponding port:
+
+sudo /usr/lib/linux-tools/$(uname -r)/usbip detach -p 00
+Then we just unbind the device from our server:
+
+3. Unbind device on server side:
+
+sudo /usr/lib/linux-tools/$(uname -r)/usbip unbind -b 1-3

@@ -1,0 +1,9 @@
+what im noticing is:
+
+mac/windows
+
+virtual box
+
+bridged networking, everything seems to work but for multiple instances you will need different vbi because each will have the same MAC address and the router will give it the same ip address
+
+NAT, cant join each other as manager but can join as worker (similar to docker desktop, where it seemed it could only join as a worker if at all)

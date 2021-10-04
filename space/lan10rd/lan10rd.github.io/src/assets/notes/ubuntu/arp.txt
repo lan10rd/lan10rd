@@ -1,0 +1,10 @@
+// use arp -a to list all lan boxes.
+
+arp -a
+
+setupmyrouter.net (192.168.0.1) at e4:90:7e:fe:88:d1 on en0 ifscope [ethernet]
+simbas-mbp (192.168.0.3) at 8c:85:90:37:97:f8 on en0 ifscope [ethernet]
+? (192.168.0.15) at 28:d2:44:69:80:bd on en0 ifscope [ethernet]
+demo-re.zoozoo.us (192.168.0.198) at dc:a6:32:bc:96:46 on en0 ifscope [ethernet]
+? (224.0.0.251) at 1:0:5e:0:0:fb on en0 ifscope permanent [ethernet]
+? (239.255.255.250) at 1:0:5e:7f:ff:fa on en0 ifscope permanent [ethernet]

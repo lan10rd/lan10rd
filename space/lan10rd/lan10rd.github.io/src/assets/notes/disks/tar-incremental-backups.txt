@@ -1,0 +1,90 @@
+tar --listed-incremental=/media/backup/snapshot.file -cJpf /media/backup/home-backup-`date +%d-%m-%Y`.tar.xz /home/user/{Documents,Downloads,Pictures,Music,.config,.Xresources,.xinitrc,.i3,.mozilla,.zshrc}
+
+tar --listed-incremental=/media/backup/snapshot.file -cJpf ./earth-`date +%d-%m-%Y`.tar.xz ~/lanl0rd/mounts/remote/192.168.0.37/zfspools/gold/earth
+
+Add It To Crontab
+By now, you should have a script that looks something like this.
+#! /bin/bash
+
+#
+# Home Directory Backup Script
+#
+tar --listed-incremental=/media/backup/snapshot.file -cJpf /media/backup/home-backup-`date +%d-%m-%Y`.tar.xz /home/user/{Documents,Downloads,Pictures,Music,.config,.Xresources,.xinitrc,.i3,.mozilla,.zshrc}
+Be sure to make the script executable.
+$ chmod +X /home/user/home-backup.sh
+If you're happy with that, you can move on to creating the crontablinux command as root.
+# crontab -u username -e
+An editor(probably nano) will open up for you to add your line. When you're done, it'll look something like this one.
+0 3 * * * /home/user/home-backup.sh
+
+
+
+/////
+
+
+#tar -czvg snapshot-file -f backup.tar.gz backup
+In this command;
+
+tar: - This is the main command.
+
+-czvg: - These are the options. These options are used to create backup, compress backup with the gzip utility, display progress of backup process and use the snapshot file to identify the modified files respectively.
+
+snapshot-file: - Name and location of the file that stores the list of files and directories which are added in the archive. You can use any descriptive name for this file. To store this file in other directory except the current directory, specify its full path. For example, to use the file name backup-list and store this file in /root directory, specify name and location as /root/backup-list.
+
+-f: - This is also an option. It specifies the name and location of the backup file. Backup file is also known as archive or tarball. An archive or a tarball is the collection of multiple files and directories that are grouped together as a single file in backup process.
+
+backup.tar.gz: - This is the name of archive or tarball file. Just like the snapshot file, you can use any name or location to store this file.
+
+backup: - This is the name of directory which files and directories we want to add in archive. You can specify single file, multiple files, single directory or multiple directories here. If a directory is specified, all of its files and sub-directories will be added in archive.
+
+Once full backup is created, you can verify the backup file with following command.
+
+#tar -tvf backup.tar.gz
+This command lists the files and directories stored in the archive file backup.tar.gz.
+
+creating full backup
+
+Creating incremental backup
+To create incremental backup, same command and options are used. While creating the backup, the snapshot file is used to determine whether it’s a full backup or an incremental backup. If the snapshot file exists, it’s an incremental backup otherwise it’s a full backup.
+
+While creating incremental backups, same snapshot file and different backup file are used each time.
+
+Since a snapshot file is used to identify what is changed, same snapshot file must be used each time.
+Since what is changed is stored in backup file, different backup file must be used each time.
+To understand it practically, let’s create a new file in the directory backup and run following command.
+
+#tar -czvg snapshot-file -f 1-backup.tar.gz backup
+Notice, this is the same command which we used to create the full backup except the name of backup file. This command uses the snapshot-file to determine what have been already backed up from the directory backup. If it finds any new file or directory, it adds that file or directory in the backup file 1-backup.tar.gz.
+
+Let’s modify a file from the directory backup and run above command again. Use new backup file to store the change.
+
+#tar -czvg snapshot-file -f 2-backup.tar.gz backup
+Same as above command, this command also uses the snapshot file to find the new or modified files. If it detects any new or modified file, write that file in the backup file 2-backup.tar.gz.
+
+To view what have been stored in both backup files, you can use following commands.
+
+#tar -tvf 1-backup.tar.gz
+#tar -tvf 2-backup.tar.gz
+Following figure illustrates above exercise.
+
+creating and listing incremental backup
+
+Restoring incremental backups
+Incremental backups are restored in the same order in which they were created. The full backup file is restored at the first place. After it, all sequential files are restored till the last backup file.
+
+To restore the backup file, use the options -xvf. For example, to restore the backup files created in preceding example, use following commands.
+
+#tar -xvf /root/practicelab/backup.tar.gz
+#tar -xvf /root/practicelab/1-backup.tar.gz
+#tar -xvf /root/practicelab/2-backup.tar.gz
+By default, tar command restores the backup in the directory from which it is executed. For example, if we execute above commands from the directory /home/test, backup will be restored in the directory /home/test. Or if we run the above commands from the directory /root/practicelab/restore, backup will be restored in the directory /root/practicelab/restore.
+
+In order to restore the backup in the correct directory, we must have to be in the correct directory before executing the tar command. For example, if we want to restore the backup in directory /var, we have to change current directory to /var before executing the tar command.
+
+Alternatively, we can specify the restore location with the option -C. For example, following commands restore backup in the directory /root/practicelab/restore in preceding example.
+
+#tar -xvf /root/practicelab/backup.tar.gz -C /root/practicelab/restore
+#tar -xvf /root/practicelab/1-backup.tar.gz -C /root/practicelab/restore
+#tar -xvf /root/practicelab/2-backup.tar.gz -C /root/practicelab/restore
+Since above commands use absolute path to specify the both source (location where the backup file is stored) and destination (location where you want to restore the backup), you can run these commands from any directory.
+

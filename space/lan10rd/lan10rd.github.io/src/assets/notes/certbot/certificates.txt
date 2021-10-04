@@ -1,0 +1,21 @@
+certbot certificates
+
+Found the following certs:
+  Certificate Name: doubletake.digital
+    Serial Number: 3d5c91c6827b4998a8c2f2523a9c0c6f73c
+    Domains: doubletake.digital
+    Expiry Date: 2021-01-16 21:58:15+00:00 (VALID: 87 days)
+    Certificate Path: /etc/letsencrypt/live/doubletake.digital/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/doubletake.digital/privkey.pem
+  Certificate Name: glass.beer
+    Serial Number: 468ea14a76d297bf988c9ba7b112ed84a17
+    Domains: glass.beer
+    Expiry Date: 2021-01-16 22:24:20+00:00 (VALID: 87 days)
+    Certificate Path: /etc/letsencrypt/live/glass.beer/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/glass.beer/privkey.pem
+  Certificate Name: ass.space
+    Serial Number: 47111fc7151ea1eb0ccbd78fbb505db52d3
+    Domains: *.ass.space ass.space
+    Expiry Date: 2021-01-18 21:32:32+00:00 (VALID: 89 days)
+    Certificate Path: /etc/letsencrypt/live/ass.space/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/ass.space/privkey.pem

@@ -1,0 +1,3 @@
+// use this in command: parameter of compose file to launch a docker container/service successfully (if using docker run also do -dit) so that you can zerp in with exec -it sh and work
+
+tail -f /dev/null

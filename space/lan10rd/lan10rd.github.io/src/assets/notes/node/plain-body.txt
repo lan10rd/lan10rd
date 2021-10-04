@@ -1,0 +1,47 @@
+
+I see that this question is pretty old, but it is listed in google among first, so I want to add answer here.
+
+If you don't want to add body-parser middleware (for example, you want plain text only in single controller method), you can use raw-body (which is already exists in your node_modules), something like this:
+
+import * as rawbody from 'raw-body';
+import { Controller, Post, Body, Req } from '@nestjs/common';
+
+@Controller('/')
+export class IndexController {
+
+  @Post()
+  async index(@Body() data, @Req() req) {
+
+    // we have to check req.readable because of raw-body issue #57
+    // https://github.com/stream-utils/raw-body/issues/57
+    if (req.readable) {
+      // body is ignored by NestJS -> get raw body from request
+      const raw = await rawbody(req);
+      const text = raw.toString().trim();
+      console.log('body:', text);
+
+    } else {
+      // body is parsed by NestJS
+      console.log('data:', data);
+    }
+
+    // ...
+  }
+
+}
+you could also create new parameter decorator
+
+import * as rawbody from 'raw-body';
+import { createParamDecorator, HttpException, HttpStatus } from '@nestjs/common';
+
+export const PlainBody = createParamDecorator(async (data, req) => {
+  if (req.readable) {
+    return (await rawbody(req)).toString().trim();
+  }
+  throw new HttpException('Body aint text/plain', HttpStatus.INTERNAL_SERVER_ERROR);
+});
+and use it like
+
+@Post()
+async index(@PlainBody() text: string) {
+  // ...

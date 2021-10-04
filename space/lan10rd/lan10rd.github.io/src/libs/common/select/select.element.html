@@ -1,0 +1,37 @@
+<ng-container
+*ngIf="options"
+>
+
+    <div
+    class="scrollable"
+    >
+
+        <div
+        *ngFor="let opt of renderOptions()"
+        (click)="option = opt; optionChange.emit(option); clicked.emit(opt)"
+        class="grow ib p"
+        [ngClass]="{'bold': opt === this.option}"
+        >
+            <div
+            [ngClass]="{'bold': opt === this.option}"
+            >
+                {{opt}}
+            </div>
+        </div>
+
+    </div>
+
+    <div
+    *ngIf="searchEnabled"
+    >
+
+        <input
+        style="width: 100%; border-radius: 10px; background-color: rgba(0, 0, 0, 0); color: white; font-size: 1rem; outline: none; backdrop-filter: blur(5px)"
+        class="tcenter p ubuntu-thin"
+        [(ngModel)]="search"
+        (ngModelChange)="searchChange.emit(search)"
+        >
+
+    </div>
+
+</ng-container>

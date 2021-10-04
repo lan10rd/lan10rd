@@ -1,0 +1,26 @@
+# docker service rm d0cker_frpc || true && docker stack deploy -c $(pwd)/frpc.yaml --resolve-image=never d0cker && docker service logs -f d0cker_frpc
+
+version: '3.7'
+
+services:
+
+  frpc:
+    # image: lanl0rd/frp
+    image: snowdreamtech/frpc
+    networks:
+      - host
+    environment:
+      - FRP_SERVER_ADDR=${FRP_SERVER_ADDR}
+      # - FRP_HTTP_PROXY_USER=${FRP_HTTP_PROXY_USER}
+      # - FRP_HTTP_PROXY_PASSWD=${FRP_HTTP_PROXY_PASSWD}
+      - FRP_TOKEN=${FRP_TOKEN:-token}
+      - FRP_LOCAL_IP=127.0.0.1
+      # - FRP_LOCAL_IP=host.docker.internal
+    volumes:
+      # - ./frpc.ini:/etc/frp/frpc-docker.ini
+      - ./frpc.ini:/etc/frp/frpc.ini
+    # command: /etc/frp/frpc -c /etc/frp/frpc-docker.ini
+
+networks:
+  host:
+    external: true

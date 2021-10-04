@@ -1,0 +1,184 @@
+so it seems if you already have a usb flashed with ubuntu installation (using etcher, btw on mac it makes you have a password cant be blank to use it lol),
+then you have either 
+1) an ssd that already had ubuntu
+ - all you have to do is boot to the installation (spam f2 / del), then pick usb (not the UEFI )
+ - ubuntu installation will actually prompt you if you want to erase ubuntu 18 and install 20, i chose this.
+2) a blank ssd
+ - this requires formatting and setting up the appropriate partitions.
+ - Connect External SSD onto your machine
+    Connect Ubuntu installation medium onto your machine
+    Enter BIOS, choose boot from Ubuntu installation medium
+    In Ubuntu Installation type, choose Something else
+    Find your external SSD on the list, look for drive other than /dev/sda. (Assuming you already had Ubuntu before)
+    Once you found it—you can partition it, the basic Ubuntu installation contain:
+
+    Root partition /
+
+    Swap partition swap
+
+    Click next --> continue.
+    The rest steps is related to username, timezone etc.
+    The next time you want to boot to external SSD, just choose your SSD from BIOS boot menu. It will redirect to your external SSD, in which you can use Ubuntu from there.
+
+----- some things to note ------
+(0) might be best to just wipe away everything using disks app in ubuntu and removing with - symbol (if this isnt working then disk may be corrupted?)
+
+(1) open up gparted, the main thing is 1) create fat32 partition of 100MB 2) create the remaining as a ex4  3) save 4) make sure fat32 partition has efi & boot flags
+
+(2) then open up installation app, and choose something else
+    choose the sdb1 (which should be the fat32, and make sure to make it the efi type, this should happen automatically but if its not an option then you will NEED TO restart the PC, go to the boot options and make sure legacy and safe boot are off such that only UEFI devices are shown in the boot menu, youll know if you booted in uefi if grub menu is black, and if you booted into BIOS mode if it starts purple)
+    choose the sdb2 (should be the ex4) as type ex4 journaled, and make the mount point / and DO NOT REFORMAT
+    MAKE SURE IN THE DROPDOWN that the DEVICE (not a partition) of the SSD you are trying to make portable is the one that is selected to boot to, otherwise (and sometimes anyway) the boot menu will be created on your main boot drive
+
+(3) once finished (goes faster if you dont have a network on), then restart as normal removing the boot media.. one of two things will have happened (1) either you will see a uefi selectable boot to your ssd (yayyy done) or (2) you will need to do step (4) and (5) (5 is optional if you dont want the dual boot bit on your windows bootup)
+
+(4)
+sudo umount /media/ubuntu/<the uuid of your media>  (can get this from gparted right click information)
+
+sudo mount /dev/sdb3 /mnt
+
+sudo nano /mnt/etc/fstab
+
+sudo mount /dev/sdb1 /mnt/boot/efi
+
+sudo mount -B /dev /mnt/dev
+sudo mount -B /dev/pts /mnt/dev/pts
+sudo mount -B /proc /mnt/proc 
+sudo mount -B /sys /mnt/sys
+
+sudo cp /etc/resolv.conf /mnt/etc/  (make sure to plug in ethernet first if you unplugged it earlier!)
+
+modprobe efivars
+
+sudo chroot /mnt
+
+grub-install -d /usr/lib/grub/x86_64-efi --efi-directory=/boot/efi/ --removable /dev/sdb
+
+(5) on windows (to cleanup dual boot)
+
+list disk
+select disk 0
+list partition
+select partition 1
+assign letter=Z:
+rmdir /S ubuntu
+
+----------- raw copy and paste of article here -----------
+A) what youll need
+
+A bootable USB thumb drive with the Ubuntu 19.10 installation media. You can create this from a Windows computer using Rufus or from an existing Ubuntu installation with ‘Startup Disk Creator’ - see How to Create a Bootable Linux USB Flash Drive, the Easy Way . Check that you can boot from this thumb drive on the computer you plan on working from. Choose the ‘Try Ubuntu’ option.
+Your target portable external hard drive (HDD, SATA SSD, M.2 NVMe SSD etc.). Note that we’ll re-partition this drive, so backup any data that may already be on the drive as it will be lost during re-partitioning.
+
+B) getting started
+
+Boot your computer using the thumb drive prepared above, and choose ‘Try  Ubuntu’.
+Plug in your target portable external hard drive.
+Start GParted. GParted is the partition manager application we’re going to use to prepare the portable hard drive. Once GParted is started - in the upper right corner, change the target drive to your external portable drive. It’s important that you correctly identify this drive as we’re going to re-partition the drive. In the screenshot below - my external and portable drive is identified as /dev/sdb - and it is currently unpartitioned. Unmount (right click and unmount) any currently mounted partitions on this drive and delete all partitions (again - be double sure you’re working on the correct drive).
+
+C) preparing the portable drive
+Again using GParted, right click on the unallocated volume, choose New, and create a 100MB fat32 partition. Click on the green checkmark to apply the pending operation. Once the partition has been created - right click on the newly created partition and select ‘Manage Flags’. Enable the boot and esp flags. When we're done, this partition will become the system ‘boot’ partition, and will include EFI information including the GNU GRUB boot loader. In fact, creating this partition as a working boot volume under EFI using GRUB is the heart of our problem in trying to create a truly portable external OS drive, and so there are a few more steps to complete before we can achieve this.
+
+Next create an 8GB linux-swap partition. The size of your swap partition may vary and so you’ll need to do a little research to determine the appropriate size for your expected workload. A rule of thumb for modern personal computers with plenty of RAM is to create a swap partition about ½ the size of available RAM if you DO NOT plan on supporting full hibernate (most computers will still suspend or sleep fine).
+
+Finally, create the main or root / partition for our target portable drive. Create an ext4 partition of whatever size you require for your system. Apply all pending operations and you should now have a disk partition layout that looks similar to the screenshot below. [Note that in my case I still have about 500GB unallocated space as this is a 1TB external drive. Also note that in my ‘real’ setup I created a 64GB ext4 volume for Ubuntu OS, and then when everything was up and running, I created an additional 256GB ext4 volume which I then encrypted with LUKS, and mounted as my /home directory]
+
+With the external drive all prepared, we now need to make a couple of notes, specifically -  note the device and partition numbers. In this example my external drive is identified as /dev/sdb with partitions located on /dev/sdb1 (fat32 system/boot), /dev/sdb2 (linux-swap), /dev/sdb3 (ext4 root volume). We also need to record the UUIDs of the system and root volumes for this drive. Double click on the fat32 system partition at /dev/sdb1, and from the ‘Information about’ screen that pops up - make a note of the UUID. In my case: ED3C-7CB8. Now do the same for the root volume - the ext4 partition on /dev/sdb3 - double click on the partition and note the UUID. In my case: dd8eed75-c315-420f-b208-92301cfbf300.
+
+We’re now almost ready to install Ubuntu 19.10 on this drive. Note first however, that in two attempts at this process, the system volume of the computer I was using for this process (my Windows 10 computer) was modified and left with a dual boot installation, which is NOT what we want (as that would effectively ‘bind’ our external hard drive to this computer). When we install Ubuntu 19.10 - we’ll mainly follow the instructions here - How to install Ubuntu on portable external Hard Drive? - however, during installation - Ubuntu 19.10 will use the first UEFI system partition it finds to install the modified bootloader, and so the instructions in the previous link that specify the following: “Very important: change the installation of the bootloader to the USB HD. This will most likely be /dev/sdb. This will prevent you from overwriting the master boot record on your hard drive. (If you do this by accident, it's easily fixed).” - simply won’t work. The only scenario I’ve not yet tried to prevent this is unplugging, or removing the computer’s internal hard drive before installing Ubuntu onto our target external drive. The remaining steps will show how to fix this, as well as how to correctly install a working GRUB bootloader onto our newly created /dev/sdb1 system fat32 ESP partition.
+
+D. INSTALL UBUNTU 19.10
+With your external target drive all prepared we’re now ready to install Ubuntu 19.10. As per the link in the previous section, we’re going to start a normal installation followed by ‘Something else’ when we get to the partition selection step. You should still be booted from your Ubuntu Installation media thumb drive.
+
+Close GParted and then double click on the Install Ubuntu 19.10 icon on your desktop. Choose your language settings, and optionally install third-party drivers. On the next screen, for ‘Installation Type’ - choose the last option ‘Something else’ before proceeding.
+
+Choose Something Else during Ubuntu Install
+Be sure to select 'Something else' during Ubuntu 19.10 installation.
+Now that we’re on the ‘Something else’ installation type screen - scroll down the list of available drive volumes until you see your device and the partitions we previously created. In this example /dev/sdb1, /dev/sdb2, and /dev/sdb3.
+
+Double click on the 100MB fat32 system efi partition we created (/dev/sdb1)and choose ‘Use as EFI system partition’ but do not format the partition.
+Double click on the /dev/sdb2 partition and choose ‘Use as swap area’.
+Then double click on the /dev/sdb3 partition - and choose use as 'Ext4 journaling file system’, and set the mount point to / or root, and again do not format this partition.
+Lastly - select the ‘Device for boot loader installations:’ to the name of the device for your external hard drive (although as noted above, this may not work and you’ll need to follow the remaining steps below). 
+Your settings should look like the following:
+
+Final partition selection during installation
+Final partition selections for installation of Ubuntu.
+Go ahead now and install Ubuntu 19.10 to your external drive - setting your timezone, and user account information as you would with a normal Ubuntu installation.
+
+E. INSTALL GRUB ONTO THE ESP PARTITION
+As previously mentioned, the Ubuntu 19.10 installation process will likely have created a ‘dual boot’ installation by modifying your host computer's main EFI / ESP partition, effectively ‘binding’ your external drive to this computer. If so, there are two remaining tasks.
+
+First, we need to correctly install the Grub bootloader onto the boot partition of our external portable drive - turning it into a truly portable installation.
+
+The second and last step will be to remove the ‘dual boot’ configuration from the computer you are using to create this new external and portable drive. You can check to see if any of this applies to you by rebooting your computer WITH the new external drive plugged in - but selecting your computers primary disk (not the external disk) to boot from. If you see a ‘dual boot’ Grub option screen - then everything that follows applies.
+
+Make sure you’re now booted from the Ubuntu installation thumb drive (in the ‘Try Ubuntu mode), and start the ‘Terminal’ application.
+
+First we’re going to unmount the media volume of the thumb drive (leaving ‘Try Now’ Ubuntu running in memory only). Replace the 'uuid of your media' text below with the uuid in your system. There should be only one under media/ubuntu.
+
+sudo umount /media/ubuntu/<the uuid of your media>
+Now we’ll mount our new Ubuntu installation root volume from our external drive..
+
+sudo mount /dev/sdb3 /mnt
+We now need to fixup the UUIDs of the mount points in fstab for our external Ubuntu installation using the UUIDs we made a note of earlier:
+
+sudo nano /mnt/etc/fstab
+Copy and then comment the line with the /boot/efi mount point. In your new line replace the current UUID with the one from above - in this case ED3C-7CB8
+
+The swap and root /mount points should be pointed to the correct volumes on our external drive.  Save and close the file
+
+Now we need to mount our new EFI / ESP system partition - our 100MB fat32 partition on /dev/sdb1
+
+sudo mount /dev/sdb1 /mnt/boot/efi
+We now need to create some special system process mount points in our ‘simulated’ Ubuntu system, so that we can chroot into this volume and install Grub from the Ubuntu installation of our external drive itself (it must be installed using the same OS as the loader will target at boot).
+
+sudo mount -B /dev /mnt/dev
+sudo mount -B /dev/pts /mnt/dev/pts
+sudo mount -B /proc /mnt/proc 
+sudo mount -B /sys /mnt/sys
+Next we’ll copy over our current DNS settings just in case we need network access...
+
+sudo cp /etc/resolv.conf /mnt/etc/
+Next we load efivars. The modprobe efivars command loads the efivars kernel module, which gives the kernel access to EFI variables stored in NVRAM
+
+modprobe efivars
+Finally we’ll switch into a chroot environment in our simulated OS on the external hard drive…
+
+sudo chroot /mnt
+And now after all that, we're ready to install Grub. As with all of the instructions above, be sure to change /dev/sdb with your own external drive device identifier.
+
+grub-install -d /usr/lib/grub/x86_64-efi --efi-directory=/boot/efi/ --removable /dev/sdb
+As Nicholas Dionysopoulos says in his excellent post "When you have an external drive it is critical that you use the –removable option in the last step. This installs the EFI bootloader under the special “fallback path” EFI\Boot\bootx64.efi in the ESP. Normally this not supposed to be used for permanently installed Operating Systems. It’s the mechanism used by EFI BIOS to boot arbitrary external media. Technically, that’s exactly what our external hard drive is: arbitrary external media"
+
+Your new external drive should now be bootable in any machine.
+
+F - CLEAN UP THE DUAL BOOT CONFIGURATION
+We now need to clean up the EFI / ESP partition on the computer you used to create the portable external drive. In order to boot this machine you’ll need to leave your new bootable external drive plugged in, or Grub will report an error and you won’t have any boot options. Reboot and choose your Windows installation to boot.
+
+I now have a confession to make. I must have tried four or five different methods for removing the Grub dual boot configuration from my Windows 10 machine, including creating a full recovery media thumb drive and booting from it in recovery mode and attempting several commands I'd seen documented elsewhere. If anyone knows of the correct way to do this, please leave a comment below!
+
+What worked in the end was the following:
+
+Boot Windows and start a cmd window with administrator privileges:
+
+Start the ‘DiskPart’ disk partition utility and list disks
+
+list disk
+Choose the hard disk that is your primary boot hard drive for this computer. Likely disk 0
+
+select disk 0
+Show the partitions on this disk
+
+list partition
+Select the EFI / ESP system partition (likely also 100MB)
+
+select partition 1
+Assign a free drive letter to this partition
+
+assign letter=Z:
+Exit DiskPart and change to the Z: drive Change into the EFI directory and remove the ubuntu sub-directory using:
+
+rmdir /S ubuntu
+Reboot your computer again, and your Windows installation should 'just start' as before - without any prompts from Grub or any sign of 'dual boot'.
+
+After that - happy booting anywhere you like with your new external and portable hard drive.

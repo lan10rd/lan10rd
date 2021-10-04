@@ -1,0 +1,11 @@
+{
+  "name": "@lanl0rdjs/common-ng",
+  "version": "0.0.239",
+  "peerDependencies": {
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.2.0"
+  }
+}

@@ -1,0 +1,32 @@
+Start VNC Server    Service systemctl start vncserver-x11-serviced.service #systemd
+/etc/init.d/vncserver-x11-serviced start #initd
+User    vncserver-x11
+Virtual vncserver-virtual
+Virtual daemon  systemctl start vncserver-virtuald.service #systemd
+/etc/init.d/vncserver-virtuald start #initd
+Start VNC Server at every boot  Service systemctl enable vncserver-x11-serviced.service #systemd
+update-rc.d vncserver-x11-serviced defaults #initd
+User    invalid operation
+Virtual invalid operation
+Virtual daemon  systemctl enable vncserver-virtuald.service #systemd
+update-rc.d vncserver-virtuald defaults #initd
+Reload license keys and parameters without stopping Service vncserver-x11 -service -reload
+User    vncserver-x11 -reload
+Virtual DISPLAY=:<display-number> Xvnc -reload
+Virtual daemon  invalid operation
+Get help    Service vncserver-x11-serviced -help and man vncserver-x11-serviced
+User    vncserver-x11 -help and man vncserver-x11
+Virtual vncserver-virtual -list and man vncserver-virtual
+Virtual daemon  vncserver-virtuald -help and man vncserver-virtuald
+Stop VNC Server Service systemctl stop vncserver-x11-serviced.service #systemd
+/etc/init.d/vncserver-x11-serviced stop #initd
+User    vncserver-x11 -stop
+Virtual vncserver-virtual -kill :<display-number>
+Virtual daemon  systemctl stop vncserver-virtuald.service #systemd
+/etc/init.d/vncserver-virtuald stop #initd
+Prevent VNC Server starting at boot Service systemctl disable vncserver-x11-serviced.service #systemd
+update-rc.d vncserver-x11-serviced disable #initd
+User    invalid operation
+Virtual invalid operation
+Virtual daemon  systemctl disable vncserver-virtuald.service #systemd
+update-rc.d vncserver-virtuald disable #initd

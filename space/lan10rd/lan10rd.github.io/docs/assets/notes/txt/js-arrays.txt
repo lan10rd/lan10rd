@@ -1,0 +1,23 @@
+function isOdd(element, index, array) {
+  return (element%2 == 1);
+}
+
+print([4, 6, 8, 12].find(isOdd));
+
+Output:
+
+undefined
+In this example the function find() finds all the odd numbers in the array. Since no odd numbers are present, therefore it returns undefined .
+
+Example 2:
+
+
+
+function isOdd(element, index, array) {
+  return (element%2 == 1);
+}
+
+print([4, 5, 8, 11].find(isOdd));
+Output:
+
+5

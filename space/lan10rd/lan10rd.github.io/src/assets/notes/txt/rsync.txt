@@ -1,0 +1,49 @@
+---- with compress (best for network) ----
+time rsync -zavhri --delete --progress ~/earth ~/../../Volumes/xtreme/
+time rsync -zavhri --delete --progress ~/../../Volumes/xtreme/earth ~/
+
+---- no compress (best for local) ----
+time rsync -avhri --progress --delete ~/earth ~/../../Volumes/blue/
+time rsync -avhri --progress --delete ~/../../Volumes/xtreme/blue ~/
+
+---- no compress (best for local) (whole) ----
+time rsync -avhWri --progress ~/earth ~/../../Volumes/blue/
+time rsync -avhWri --progress ~/../../Volumes/xtreme/earth ~/
+
+---- remote ----
+time rsync -zarvhi -e ssh ~/earth simba@192.168.0.22:/media/simba/red
+
+---- options ----
+-a is for archive, which preserves ownership, permissions etc.
+-h is for human-readable, so the transfer rate and file sizes are easier to read (optional)
+-W is for copying whole files only, without delta-xfer algorithm which should reduce CPU load
+-u is for preserving modified files on the destination
+-P resume files that were interrupted in a cp or something
+--max-size='500K' for setting a limit on file size
+--progress so I can see the progress of large files (optional)
+
+-v, –verbose                             Verbose output
+-q, –quiet                                  suppress message output
+-a, –archive                              archive files and directory while synchronizing ( -a equal to following options -rlptgoD)
+-r, –recursive                           sync files and directories recursively
+-b, –backup                              take the backup during synchronization
+-u, –update                              don’t copy the files from source to destination if destination files are newer
+-l, –links                                   copy symlinks as symlinks during the sync
+-n, –dry-run                             perform a trial run without synchronization
+-e, –rsh=COMMAND            mention the remote shell to use in rsync
+-z, –compress                          compress file data during the transfer
+-h, –human-readable            display the output numbers in a human-readable format
+–progress                                 show the sync progress during transfer
+-i see differenced: indicates change in destination file, f: indicates a file, t: indicates change in timestamps, s: indicates change in size
+ --dry-run ??
+ --bwlimit=600  set a bandwidth limit in kb/s
+ --remove-source-files
+ --include '*.pdf *.rpm'
+ --exclude '*.png'
+
+---- other ----
+rsync -aHAX source dest # Linux
+rsync -aHE source dest  # OS X
+
+---- cp ----
+cp -au source dest

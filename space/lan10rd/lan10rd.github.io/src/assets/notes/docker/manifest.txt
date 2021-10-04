@@ -1,0 +1,28 @@
+docker manifest create \
+lanl0rd/face:latest \
+--amend dorowu/ubuntu-desktop-lxde-vnc:focal-arm64 \
+--amend dorowu/ubuntu-desktop-lxde-vnc:focal
+
+docker manifest create \
+lanl0rd/face:latest \
+--amend lanl0rd/face:arm \
+--amend lanl0rd/face:amd
+
+docker manifest push lanl0rd/face:latest
+
+
+
+docker manifest create \
+lanl0rd/face:latest \
+--amend lanl0rd/face:arm \
+--amend lanl0rd/face:amd
+
+docker manifest push lanl0rd/face:latest
+
+
+docker manifest create \
+lanl0rd/w0rks:latest \
+--amend lanl0rd/w0rks:arm \
+--amend lanl0rd/w0rks:amd
+
+docker manifest push lanl0rd/w0rks:latest

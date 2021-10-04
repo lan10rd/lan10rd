@@ -1,0 +1,8 @@
+Use an ssh tunnel
+To use an ssh tunnel, we must start the vnc server using ssh, with this command (this assumes that the default port is used):
+
+$ ssh -t -L 5900:localhost:5900 remote-machine 'x11vnc -localhost -display :0'
+
+You are probably familiar with ssh, but let's analyze this command. First of all we ran ssh with the -t option, to allocate a pseudo-terminal, and with the -L one, we basically said to forward port 5900 on our local (client) machine to the same port on the remote machine. As you can see, the x11vnc command is launched with the -localhost option. What this basically does is to only allow connections from the same machine the server is running on. This option is also automatically used when using an ssl tunnel to avoid bypassing it. After that, we can start our vncviewer on the client:
+$ vncviewer -PreferredEncoding=ZRLE localhost:0
+Notice that we set the preferred encoding to ZRLE, this should help performance over ssh.

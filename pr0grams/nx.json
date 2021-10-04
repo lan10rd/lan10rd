@@ -1,0 +1,69 @@
+{
+    "npmScope": "sp4ce",
+    "affected": {
+        "defaultBase": "master"
+    },
+    "implicitDependencies": {
+        "package.json": {
+            "dependencies": "*",
+            "devDependencies": "*"
+        },
+        ".eslintrc.json": "*"
+    },
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "@nrwl/workspace/tasks-runners/default",
+            "options": {
+                "cacheableOperations": [
+                    "build",
+                    "lint",
+                    "test",
+                    "e2e"
+                ]
+            }
+        }
+    },
+    "targetDependencies": {
+        "build": [
+            {
+                "target": "build",
+                "projects": "dependencies"
+            }
+        ]
+    },
+    "projects": {
+        "amazon-api-ns": {
+            "tags": []
+        },
+        "amazon-app-ng": {
+            "tags": []
+        },
+        "amazon-app-ng-e2e": {
+            "tags": [],
+            "implicitDependencies": [
+                "amazon-app-ng"
+            ]
+        },
+        "common-ng": {
+            "tags": []
+        },
+        "common-ns": {
+            "tags": []
+        },
+        "copy-api-ns": {
+            "tags": []
+        },
+        "play-app-ng": {
+            "tags": []
+        },
+        "play-app-ng-e2e": {
+            "tags": [],
+            "implicitDependencies": [
+                "play-app-ng"
+            ]
+        },
+        "play-app-ns": {
+            "tags": []
+        }
+    }
+}

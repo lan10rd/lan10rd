@@ -1,0 +1,4 @@
+there is a place
+~/.config/monitors.xml
+
+where you can adjust resolutions and frame rate, soo maybe adjust there as long as the monitor supports it!

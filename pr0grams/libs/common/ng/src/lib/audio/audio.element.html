@@ -1,0 +1,35 @@
+<audio
+[controls]="controls"
+[autoplay]="autoplay"
+[loop]="loop"
+[muted]="muted"
+[preload]="preload"
+(play)="_playing = true; play.emit($event)"
+(pause)="_playing = false; pause.emit($event)"
+(ended)="_playing = false; ended.emit($event)"
+(playing)="playing.emit($event)"
+(audioprocess)="audioprocess.emit($event)"
+(canplay)="canplay.emit($event)"
+(canplaythrough)="canplaythrough.emit($event)"
+(complete)="complete.emit($event)"
+(durationchange)="durationchange.emit($event)"
+(emptied)="emptied.emit($event)"
+(loadeddata)="loadeddata.emit($event)"
+(loadedmetadata)="loadedmetadata.emit($event)"
+(ratechange)="ratechange.emit($event)"
+(seeked)="seeked.emit($event)"
+(seeking)="seeking.emit($event)"
+(stalled)="stalled.emit($event)"
+(suspend)="suspend.emit($event)"
+(timeupdate)="timeupdate.emit($event)"
+(volumechange)="volumechange.emit($event)"
+(waiting)="waiting.emit($event)"
+#child
+>
+    <source
+    src="{{src}}"
+    type="{{type}}"
+    #sourceChild
+    >
+    {{no_support}}
+</audio> 
