@@ -1,0 +1,158 @@
+<div>buttons</div>
+<!-- <commmon-ng-scroll-element
+> -->
+<div
+class="tcenter"
+>
+    <common-ng-button-element
+    class="bl glo-0-text-ani"
+    [text]="'ok'"
+    [color]="'silver'"
+    (click)="print('ok')"
+    ></common-ng-button-element>
+
+    <common-ng-button-element
+    [text]="'ok2'"
+    (click)="print('ok2')"
+    ></common-ng-button-element>
+</div>
+
+<!-- </commmon-ng-scroll-element> -->
+
+<div>logs</div>
+<!-- <common-ng-code-logs-element
+[logs]="logs"
+></common-ng-code-logs-element> -->
+
+
+
+
+<div>select</div>
+<div>basic</div>
+<common-ng-select-element
+class="glo-0-drop bl"
+[options]="select.basic_options"
+#selectBasicOptions
+></common-ng-select-element>
+{{selectBasicOptions.option}}
+
+<div>basic w/ (initial)</div>
+<common-ng-select-element
+[options]="select.basic_options"
+[initial]="true"
+#selectBasicOptionsDefault
+></common-ng-select-element>
+{{selectBasicOptionsDefault.option}}
+
+<div>basic w/ (initial string)</div>
+<common-ng-select-element
+[options]="select.basic_options"
+[initial]="'b'"
+#selectBasicOptionsDefaultString
+></common-ng-select-element>
+{{selectBasicOptionsDefaultString.option}}
+
+<div>object options</div>
+<common-ng-select-element
+[options]="select.object_options"
+#selectObjectOptions
+></common-ng-select-element>
+{{selectObjectOptions.option | json}}
+
+<div>object options (default)</div>
+<common-ng-select-element
+[options]="select.object_options"
+[initial]="'c'"
+#selectObjectOptionsDefault
+></common-ng-select-element>
+{{selectObjectOptionsDefault.option | json}}
+
+
+<div>array options (default)</div>
+<common-ng-select-element
+[options]="select.array_options"
+[initial]="'c'"
+[path]="'name'"
+#selectArrayOptionsDefault
+></common-ng-select-element>
+{{selectArrayOptionsDefault.option | json}}
+
+<div>search options (default)</div>
+<common-ng-select-element
+[options]="select.search_options"
+[searchEnabled]="true"
+#selectSearchOptionsDefault
+></common-ng-select-element>
+
+{{selectSearchOptionsDefault.option | json}}
+
+
+----------
+
+<common-ng-select-element
+[options]="select.example_options"
+#example
+></common-ng-select-element>
+
+yo
+<common-ng-select-element
+*ngIf="example.option"
+[options]="['hi', 'ay', 'abc', 'ayasd', 'b']"
+[(option)]="example.option.image"
+#exampleImage
+></common-ng-select-element>
+yoyo
+
+<common-ng-select-element
+[options]="['https://music.glass.earth/BlocBoy%20JB/Grape%20Juice/01%20-%20Crip.mp3', 'https://music.glass.earth/BlocBoy%20JB/Grape%20Juice/02%20-%20Is%20It%20Me.mp3', 'https://music.glass.earth/Trippie%20Redd/Awakening%20My%20InnerBeast%20EP/01%20-%20Green%20Thumbs%20%5BProduced%20by%20Solo%20Mitch%5D.mp3']"
+[initial]="true"
+#song
+></common-ng-select-element>
+
+<ng-container
+*ngIf="song.option"
+>
+
+    <common-ng-audio-element
+    [src]="song.option"
+    #audioo
+    ></common-ng-audio-element>
+
+    <common-ng-button-element
+    [text]="'play'"
+    (click)="audioo.child.nativeElement.play()"
+    ></common-ng-button-element>
+
+    <common-ng-button-element
+    [text]="'pause'"
+    (click)="audioo.child.nativeElement.pause()"
+    ></common-ng-button-element>
+
+</ng-container>
+
+<common-ng-select-element
+[options]="['https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4', 'https://download.samplelib.com/mp4/sample-5s.mp4']"
+[initial]="true"
+#movieSelect
+></common-ng-select-element>
+
+<ng-container
+*ngIf="movieSelect.option"
+>
+
+    <common-ng-video-element
+    [src]="movieSelect.option"
+    #moviee
+    ></common-ng-video-element>
+
+    <common-ng-button-element
+    [text]="'play'"
+    (click)="moviee.child.nativeElement.play()"
+    ></common-ng-button-element>
+
+    <common-ng-button-element
+    [text]="'pause'"
+    (click)="moviee.child.nativeElement.pause()"
+    ></common-ng-button-element>
+
+</ng-container>

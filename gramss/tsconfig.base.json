@@ -1,0 +1,24 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@lanl0rd/common/ng": ["libs/common/ng/src/index.ts"],
+      "@lanl0rd/common/ns": ["libs/common/ns/src/index.ts"],
+      "@grams/shared/ng": ["libs/shared/ng/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,527 @@
+{
+  "version": 2,
+  "projects": {
+    "amazon-api-ns": {
+      "root": "apps/amazon-api-ns",
+      "sourceRoot": "apps/amazon-api-ns/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/amazon-api-ns",
+            "main": "apps/amazon-api-ns/src/main.ts",
+            "tsConfig": "apps/amazon-api-ns/tsconfig.app.json",
+            "assets": ["apps/amazon-api-ns/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/amazon-api-ns/src/environments/environment.ts",
+                  "with": "apps/amazon-api-ns/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "amazon-api-ns:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/amazon-api-ns/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/amazon-api-ns"],
+          "options": {
+            "jestConfig": "apps/amazon-api-ns/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "amazon-app-ng": {
+      "projectType": "application",
+      "root": "apps/amazon-app-ng",
+      "sourceRoot": "apps/amazon-app-ng/src",
+      "prefix": "grams",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/amazon-app-ng",
+            "index": "apps/amazon-app-ng/src/index.html",
+            "main": "apps/amazon-app-ng/src/main.ts",
+            "polyfills": "apps/amazon-app-ng/src/polyfills.ts",
+            "tsConfig": "apps/amazon-app-ng/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/amazon-app-ng/src/favicon.ico",
+              "apps/amazon-app-ng/src/assets"
+            ],
+            "styles": ["apps/amazon-app-ng/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/amazon-app-ng/src/environments/environment.ts",
+                  "with": "apps/amazon-app-ng/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "amazon-app-ng:build:production"
+            },
+            "development": {
+              "browserTarget": "amazon-app-ng:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "amazon-app-ng:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/amazon-app-ng/src/**/*.ts",
+              "apps/amazon-app-ng/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/amazon-app-ng"],
+          "options": {
+            "jestConfig": "apps/amazon-app-ng/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "amazon-app-ng-e2e": {
+      "root": "apps/amazon-app-ng-e2e",
+      "sourceRoot": "apps/amazon-app-ng-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/amazon-app-ng-e2e/cypress.json",
+            "tsConfig": "apps/amazon-app-ng-e2e/tsconfig.e2e.json",
+            "devServerTarget": "amazon-app-ng:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "amazon-app-ng:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/amazon-app-ng-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "common-ng": {
+      "projectType": "library",
+      "root": "libs/common/ng",
+      "sourceRoot": "libs/common/ng/src",
+      "prefix": "grams",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:package",
+          "outputs": ["dist/libs/common/ng"],
+          "options": {
+            "project": "libs/common/ng/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/common/ng/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/common/ng/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/common/ng"],
+          "options": {
+            "jestConfig": "libs/common/ng/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/common/ng/src/**/*.ts",
+              "libs/common/ng/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "common-ns": {
+      "root": "libs/common/ns",
+      "sourceRoot": "libs/common/ns/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/common/ns",
+            "tsConfig": "libs/common/ns/tsconfig.lib.json",
+            "packageJson": "libs/common/ns/package.json",
+            "main": "libs/common/ns/src/index.ts",
+            "assets": ["libs/common/ns/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/common/ns/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/common/ns"],
+          "options": {
+            "jestConfig": "libs/common/ns/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "copy-api-ns": {
+      "root": "apps/copy-api-ns",
+      "sourceRoot": "apps/copy-api-ns/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/copy-api-ns",
+            "main": "apps/copy-api-ns/src/main.ts",
+            "tsConfig": "apps/copy-api-ns/tsconfig.app.json",
+            "assets": ["apps/copy-api-ns/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/copy-api-ns/src/environments/environment.ts",
+                  "with": "apps/copy-api-ns/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "copy-api-ns:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/copy-api-ns/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/copy-api-ns"],
+          "options": {
+            "jestConfig": "apps/copy-api-ns/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "play-app-ng": {
+      "projectType": "application",
+      "root": "apps/play-app-ng",
+      "sourceRoot": "apps/play-app-ng/src",
+      "prefix": "grams",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/play-app-ng",
+            "index": "apps/play-app-ng/src/index.html",
+            "main": "apps/play-app-ng/src/main.ts",
+            "polyfills": "apps/play-app-ng/src/polyfills.ts",
+            "tsConfig": "apps/play-app-ng/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/play-app-ng/src/favicon.ico",
+              "apps/play-app-ng/src/assets"
+            ],
+            "styles": ["apps/play-app-ng/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/play-app-ng/src/environments/environment.ts",
+                  "with": "apps/play-app-ng/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "play-app-ng:build:production"
+            },
+            "development": {
+              "browserTarget": "play-app-ng:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "play-app-ng:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/play-app-ng/src/**/*.ts",
+              "apps/play-app-ng/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/play-app-ng"],
+          "options": {
+            "jestConfig": "apps/play-app-ng/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "play-app-ng-e2e": {
+      "root": "apps/play-app-ng-e2e",
+      "sourceRoot": "apps/play-app-ng-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/play-app-ng-e2e/cypress.json",
+            "tsConfig": "apps/play-app-ng-e2e/tsconfig.e2e.json",
+            "devServerTarget": "play-app-ng:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "play-app-ng:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/play-app-ng-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "play-app-ns": {
+      "root": "apps/play-app-ns",
+      "sourceRoot": "apps/play-app-ns/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/play-app-ns",
+            "main": "apps/play-app-ns/src/main.ts",
+            "tsConfig": "apps/play-app-ns/tsconfig.app.json",
+            "assets": ["apps/play-app-ns/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/play-app-ns/src/environments/environment.ts",
+                  "with": "apps/play-app-ns/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "play-app-ns:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/play-app-ns/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/play-app-ns"],
+          "options": {
+            "jestConfig": "apps/play-app-ns/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-ng": {
+      "projectType": "library",
+      "root": "libs/shared/ng",
+      "sourceRoot": "libs/shared/ng/src",
+      "prefix": "grams",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:package",
+          "outputs": ["dist/libs/shared/ng"],
+          "options": {
+            "project": "libs/shared/ng/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/shared/ng/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/shared/ng/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ng"],
+          "options": {
+            "jestConfig": "libs/shared/ng/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/ng/src/**/*.ts",
+              "libs/shared/ng/src/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "amazon-app-ng"
+}

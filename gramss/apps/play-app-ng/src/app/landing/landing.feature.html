@@ -1,0 +1,81 @@
+<!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+    <div *cdkVirtualFor="let item of items" class="example-item">{{item}}</div>
+</cdk-virtual-scroll-viewport> -->
+<!-- 
+<cdk-virtual-scroll-viewport
+class="example-viewport"
+autosize
+[orientation]="'horizontal'"
+>
+    <div class="example-item" *cdkVirtualFor="let item of items">{{item}}</div>
+</cdk-virtual-scroll-viewport>
+
+<cdk-virtual-scroll-viewport
+autosize
+[orientation]="'vertical'"
+>
+    <div class="item" *cdkVirtualFor="let item of items">{{item}}</div>
+</cdk-virtual-scroll-viewport> -->
+
+
+<!-- <div class="cdk-virtual-scroll-data-source-example">
+    <cdk-virtual-scroll-viewport orientation="horizontal" itemSize="50" class="example-viewport">
+      <div *cdkVirtualFor="let item of items" class="example-item">{{item}}</div>
+    </cdk-virtual-scroll-viewport>
+  </div> -->
+
+<!-- <div class="viewport horizontal">
+    <div *uiScroll="let item of datasource">
+      <div class="item horizontal">{{item.text}}</div>
+    </div>
+  </div> -->
+
+
+
+  
+
+  <!-- <div class="viewport horizontal">
+    <div *uiScroll="let item of datasource">
+      <div class="item horizontal">{{item.text}}</div>
+    </div>
+  </div> -->
+  
+ 
+
+<!-- <cdk-virtual-scroll-viewport
+class="example-viewport-horizontal"
+autosize
+[orientation]="'horizontal'"
+>
+    <div class="example-item-horizontal" *cdkVirtualFor="let item of items">{{item}}</div>
+</cdk-virtual-scroll-viewport> -->
+
+<!-- <common-ng-select-element
+[options]="items"
+></common-ng-select-element> -->
+
+
+<!-- <div class="cdk-virtual-scroll-data-source-example">
+    <cdk-virtual-scroll-viewport orientation="horizontal" itemSize="50" class="example-viewport">
+      <div *cdkVirtualFor="let item of items" class="example-item">{{item}}</div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+
+  <div class="cdk-virtual-scroll-data-source-example">
+    <cdk-virtual-scroll-viewport orientation="horizontal" autosize class="example-viewport">
+      <div *cdkVirtualFor="let item of items" style="margin: 1rem; white-space: nowrap;">{{item}}</div>
+    </cdk-virtual-scroll-viewport>
+  </div> -->
+
+
+<common-ng-select-element
+[options]="['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']"
+[initial]="true"
+></common-ng-select-element>
+
+<common-ng-select-element
+[options]="items"
+#yo
+></common-ng-select-element>
+
+{{yo._option}}

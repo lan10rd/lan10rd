@@ -1,0 +1,17 @@
+{
+    "projects": {
+        "demo": {
+          "tags": []
+        },
+        "demo-e2e": {
+          "tags": [],
+          "implicitDependencies": ["demo"]
+        },
+        "demo-lib": {
+          "tags": []
+        },
+        "shared-ng": {
+          "tags": []
+        }
+    }
+}
