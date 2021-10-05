@@ -1,0 +1,100 @@
+Init System
+
+To run and manage your mongod process, you will be using your operating system's built-in init system. Recent versions of Linux tend to use systemd (which uses the systemctl command), while older versions of Linux tend to use System V init (which uses the service command).
+
+If you are unsure which init system your platform uses, run the following command:
+
+ps --no-headers -o comm 1
+
+Then select the appropriate tab below based on the result:
+
+systemd - select the systemd (systemctl) tab below.
+
+---
+looks like you cxan use systemd if newer else service
+
+---
+systemd example
+
+Start MongoDB.
+You can start the mongod process by issuing the following command:
+
+sudo systemctl start mongod
+
+If you receive an error similar to the following when starting mongod:
+
+Failed to start mongod.service: Unit mongod.service not found.
+
+Run the following command first:
+
+sudo systemctl daemon-reload
+
+Then run the start command above again.
+
+2
+Verify that MongoDB has started successfully.
+sudo systemctl status mongod
+
+You can optionally ensure that MongoDB will start following a system reboot by issuing the following command:
+
+sudo systemctl enable mongod
+
+3
+Stop MongoDB.
+As needed, you can stop the mongod process by issuing the following command:
+
+sudo systemctl stop mongod
+
+4
+Restart MongoDB.
+You can restart the mongod process by issuing the following command:
+
+sudo systemctl restart mongod
+
+You can follow the state of the process for errors or important messages by watching the output in the /var/log/mongodb/mongod.log file.
+
+5
+Begin using MongoDB.
+Start a mongosh session on the same host machine as the mongod. You can run mongosh without any command-line options to connect to a mongod that is running on your localhost with default port 27017.
+
+mongosh
+
+
+---- service example
+
+Start MongoDB.
+Issue the following command to start mongod:
+
+sudo service mongod start
+
+2
+Verify that MongoDB has started successfully
+Verify that the mongod process has started successfully:
+
+sudo service mongod status
+
+You can also check the log file for the current status of the mongod process, located at: /var/log/mongodb/mongod.log by default. A running mongod instance will indicate that it is ready for connections with the following line:
+
+[initandlisten] waiting for connections on port 27017
+
+3
+Stop MongoDB.
+As needed, you can stop the mongod process by issuing the following command:
+
+sudo service mongod stop
+
+4
+Restart MongoDB.
+Issue the following command to restart mongod:
+
+sudo service mongod restart
+
+5
+Begin using MongoDB.
+Start a mongosh session on the same host machine as the mongod. You can run mongosh without any command-line options to connect to a mongod that is running on your localhost with default port 27017.
+
+mongosh
+
+For more information on connecting using mongosh, such as to connect to a mongod instance running on a different host and/or port, see the mongosh documentation.
+
+To help you start using MongoDB, MongoDB provides Getting Started Guides in various driver editions. For the driver documentation, see Start Developing with MongoDB.

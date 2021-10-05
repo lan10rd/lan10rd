@@ -1,53 +1,142 @@
 echo "APT"
 echo "..."
 
+echo "\n"
+echo "updating"
 sudo apt update
+
+echo "\n"
+echo "http utils!"
 sudo apt install -y \
     curl \
-    wget \
-    git \
+    wget
+
+echo "\n"
+echo "filesystem and disks!"
+sudo apt install -y \
     zip \
     unzip \
     mergerfs \
     sshfs \
     rsync \
-    openssh-client \
-    openssh-server \
-    openssl \
-    dnsutils \ 
-    udftools \
-    sshpass \
     exfat-utils \
     exfat-fuse \
     f2fs-tools \
     xfsprogs \
     btrfs-progs \
-    net-tools \
     zfsutils-linux \
     quota \
     nfs-kernel-server \
+    bzip2
+
+echo "\n"
+echo "java!"
+sudo apt install -y \
+    default-jre
+
+echo "\n"
+echo "genv (go)!"
+sudo apt install -y \
+    mercurial \
+    binutils \
+    bison
+
+echo "\n"
+echo "shell, dev, compilers!"
+sudo apt install -y \
     zsh \
     ksh \
+    git-all \
     gcc \
     g++ \
     make \
-    python3-pip \
     build-essential \
-    chromium-browser \
-    locales \
+    python3-pip \
     vim \
+    autoconf \
+    automake \
+    libtool \
+    sysstat \
+    gnupg \
+    readline \
+    bats
+
+echo "\n"
+echo "browser and audio / video!"
+sudo apt install -y \
+    chromium-browser \
+    x11vnc
+
+echo "\n"
+echo "network!"
+sudo apt install -y \
+    dnsutils \
+    udftools \
+    net-tools
+
+echo "\n"
+echo "package management and security!"
+sudo apt install -y \
     apt-transport-https \
     ca-certificates \
     gnupg-agent \
     software-properties-common \
-    gdebi \
-    x11vnc \
-    sysstat \
-    libtool \
-    autoconf \
-    automake \
     linux-headers-generic \
+    gdebi \
+    locales
+
+echo "\n"
+echo "security!"
+sudo apt install -y \
+    openssh-client \
+    openssh-server \
+    openssl \
+    sshpass
+
+echo "\n"
+echo "ui custom, gnome!"
+sudo apt install -y \
     dconf-editor \
     gnome-tweak-tool \
     gnome-shell-extensions \
-    latte-dock \
+    latte-dock
+
+echo "\n"
+echo "pyenv (python)"
+sudo apt install -y \
+    libedit-dev \
+    make \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    wget \
+    curl \
+    llvm \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    libxml2-dev \
+    libxmlsec1-dev \
+    libffi-dev \
+    liblzma-dev
+
+# echo "\n"
+# echo "pyenv (python)"
+# sudo apt install -y \
+#     gcc \
+#     zlib-devel \
+#     bzip2 \
+#     bzip2-devel \
+#     readline-devel \
+#     sqlite \
+#     sqlite-devel \
+#     openssl-devel \
+#     xz \
+#     xz-devel \
+#     libffi-devel
+
+#     # yum \
+#     # install \

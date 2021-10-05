@@ -1,0 +1,2 @@
+cd ~ # cd $HOME
+cd - # cd back to previous directory
