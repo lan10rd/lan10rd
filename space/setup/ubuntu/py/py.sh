@@ -31,8 +31,9 @@ source ~/.profile
 source ~/.bashrc
 
 # echo 'eval "$(pyenv init -)"'
-pyenv install 2.7.8
+pyenv install 3.6.0
 pyenv install 3.10.0
+pyenv install 2.7.13
 pyenv global 3.10.0
 
 # for installer
@@ -42,3 +43,6 @@ pyenv global 3.10.0
 # pyenv update
 # pyenv install 2.7.8
 # pyenv install 3.10.0
+
+python3 -m pip install --user --upgrade pip
+python3 -m pip --version
