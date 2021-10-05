@@ -38,3 +38,5 @@ sudo sh -c 'echo {\"log-driver\": \"local\", \"log-opts\": {\"max-size\": \"10m\
 sudo sh -c "sed -i 's/-H fd:\/\// /g' /lib/systemd/system/docker.service"
 sudo systemctl daemon-reload
 sudo systemctl restart docker.service
+
+pip3 install docker-compose

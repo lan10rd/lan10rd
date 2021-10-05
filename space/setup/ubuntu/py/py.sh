@@ -44,5 +44,45 @@ pyenv global 3.10.0
 # pyenv install 2.7.8
 # pyenv install 3.10.0
 
-python3 -m pip install --user --upgrade pip
-python3 -m pip --version
+# python3 -m pip --version
+# pip3 install --user --upgrade pip
+
+
+
+# docker
+# pip3 install docker-compose
+
+# nginx
+pip3 install crossplane
+
+# utils
+pip3 install pipenv
+pip3 install virtualenv
+
+# frameworks
+pip3 install cherrypy
+pip3 install sanic
+pip3 install flask
+pip3 install django
+pip3 install aiohttp[speedups]
+pip3 install tornado
+pip3 install dash
+pip3 install falcon
+pip3 install bottle
+pip3 install hug -U
+
+# libs
+pip3 install urllib3
+pip3 install requests
+pip3 install six
+pip3 install python-dateutil
+pip3 install certifi
+pip3 install idna
+pip3 install pyyaml
+pip3 install pyasn1
+pip3 install docutils
+pip3 install chardet
+pip3 install rsa
+pip3 install jmespath
+pip3 install pytz
+pip3 install colorama
