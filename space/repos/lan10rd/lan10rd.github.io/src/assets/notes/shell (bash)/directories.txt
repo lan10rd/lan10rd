@@ -1,0 +1,6 @@
+If you installed via the package manager, the data directory /var/lib/mongodb and the log directory /var/log/mongodb are created during the installation.
+
+/var/lib/x should have data for x package
+/var/log/x/x.log should have logs for x package
+
+/etc/x.conf may have configs for x package
