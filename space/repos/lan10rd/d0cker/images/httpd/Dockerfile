@@ -1,3 +1,3 @@
-FROM --platform=$TARGETPLATFORM httpd AS build
+FROM --platform=$TARGETPLATFORM postgres AS build
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
