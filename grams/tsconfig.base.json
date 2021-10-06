@@ -15,9 +15,15 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@grams/how/deep/does/this/make": [
+        "libs/how/deep/does/this/make/src/index.ts"
+      ],
+      "@grams/how/deep/does/this/make/another": [
+        "libs/how/deep/does/this/make/another/src/index.ts"
+      ],
+      "@grams/shared/ng": ["libs/shared/ng/src/index.ts"],
       "@lanl0rd/common/ng": ["libs/common/ng/src/index.ts"],
-      "@lanl0rd/common/ns": ["libs/common/ns/src/index.ts"],
-      "@grams/shared/ng": ["libs/shared/ng/src/index.ts"]
+      "@lanl0rd/common/ns": ["libs/common/ns/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

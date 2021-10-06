@@ -12,3 +12,7 @@ npm login // (if you havent already)
 npm publish --scope=@lanl0rdjs --access public
 
 * seems like package.json is all thats necessary mainly, i like to bump the versions then build then publish (from dist which puts a little package.json in there)
+
+
+
+--- sometimes when publishing on a new account you may see Not Found - PUT https://registry.npmjs.org/@lan10rdjs%2fcommon-ng - Scope not found

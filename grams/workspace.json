@@ -293,6 +293,56 @@
         }
       }
     },
+    "how-deep-does-this-make": {
+      "projectType": "library",
+      "root": "libs/how/deep/does/this/make",
+      "sourceRoot": "libs/how/deep/does/this/make/src",
+      "prefix": "grams",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/how/deep/does/this/make"],
+          "options": {
+            "jestConfig": "libs/how/deep/does/this/make/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/how/deep/does/this/make/src/**/*.ts",
+              "libs/how/deep/does/this/make/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "how-deep-does-this-make-another": {
+      "projectType": "library",
+      "root": "libs/how/deep/does/this/make/another",
+      "sourceRoot": "libs/how/deep/does/this/make/another/src",
+      "prefix": "grams",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/how/deep/does/this/make/another"],
+          "options": {
+            "jestConfig": "libs/how/deep/does/this/make/another/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/how/deep/does/this/make/another/src/**/*.ts",
+              "libs/how/deep/does/this/make/another/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "play-app-ng": {
       "projectType": "application",
       "root": "apps/play-app-ng",
