@@ -47,19 +47,21 @@ npm install -g \
     nx \
     @nestjs/cli \
     @angular/cli \
-    http-server \
     create-react-app \
     create-react-library \
     react-native-cli \
     express-generator \
     svelte-cli \
+    vue-native-cli \
+    @vue/cli
 
 # dev
 npm i -g \
     puppeteer \
     tinypng-cli \
     nodemon \
-    sort-package-json
+    sort-package-json \
+    http-server
 
 # rarely used nowadays, but still useful to have
 npm install -g \
