@@ -6,11 +6,19 @@ This library was generated with [Nx](https://nx.dev).
 
 Run `nx test common-ng` to execute the unit tests.
 
+nx build common-ng --prod && cd dist/libs/common/ng && npm publish --scope=@lan10rdjs --access public
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+npm publish --scope=@lan10rdjs --access public
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 nx build common-ng --prod && cd dist/libs/common/ng && npm publish --scope=@lanl0rdjs --access public
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 npm publish --scope=@lanl0rdjs --access public
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+npm logout
+
+npm login
 
 
 added "allowSyntheticDefaultImports": true to tsconfig.json because of ansi-to-html dependency,
