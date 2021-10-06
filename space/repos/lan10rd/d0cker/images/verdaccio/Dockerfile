@@ -1,0 +1,3 @@
+FROM --platform=$TARGETPLATFORM verdaccio/verdaccio AS build
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
