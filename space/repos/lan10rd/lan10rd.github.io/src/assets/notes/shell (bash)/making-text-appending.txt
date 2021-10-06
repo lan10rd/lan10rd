@@ -1,0 +1,4 @@
+Run shell command:
+echo 'This is a test' > data.txt
+Append text to existing file in Linux:
+echo 'yet another line' >> data.txt

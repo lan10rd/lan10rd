@@ -17,16 +17,27 @@ mkdir ~/lanl0rd/mounts/remote/zpools
 
 # if online
 
-# docker pull lanl0rd/js
-# docker pull lanl0rd/certbot
-# docker pull lanl0rd/acme
-# docker pull lanl0rd/nginx
-# docker pull lanl0rd/traefik
-# docker pull lanl0rd/mongo
-# docker pull lanl0rd/mongo-express
-# docker pull lanl0rd/frpc
-# docker pull lanl0rd/frps
-# docker pull lanl0rd/buildx
+docker pull lan10rd/js
+docker pull lan10rd/py
+docker pull lan10rd/certbot
+docker pull lan10rd/acme
+docker pull lan10rd/nginx
+docker pull lan10rd/traefik
+docker pull lan10rd/mongo
+docker pull lan10rd/mongo-express
+docker pull lan10rd/frpc
+docker pull lan10rd/frps
+docker pull lan10rd/buildx
+docker pull lan10rd/openresty
+docker pull lan10rd/verdaccio
+docker pull lan10rd/super
+docker pull lan10rd/java
+docker pull lan10rd/go
+docker pull lan10rd/multiarch
+docker pull lan10rd/face
+docker pull lan10rd/ruby
+
+docker pull lan10rd/haproxy
 
 # if offline
 # loop through each image.tar.gz in arm/amd and load
