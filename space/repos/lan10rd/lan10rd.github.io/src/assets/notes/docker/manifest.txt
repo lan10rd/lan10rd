@@ -26,3 +26,12 @@ lanl0rd/w0rks:latest \
 --amend lanl0rd/w0rks:amd
 
 docker manifest push lanl0rd/w0rks:latest
+
+==================
+
+
+docker manifest create lan10rd/guacamole:latest \
+--amend oznu/guacamole:armhf \
+--amend oznu/guacamole:latest
+
+docker manifest push lan10rd/guacamole:latest

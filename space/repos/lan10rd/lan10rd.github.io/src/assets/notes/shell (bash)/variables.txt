@@ -5,6 +5,10 @@ echo $MYVAR // hihi
 unset MYVAR
 echo $MYVAR // 
 
+# capture example 
+current_date=$(date)
+echo "Today is $current_date"
+
 
 Next Previous Contents
 5. Variables

@@ -1,2 +1,24 @@
 docker save angular | gzip > angular.tar.gz
 docker load < angular.tar.gz
+
+
+Transferring a Docker image via SSH, bzipping the content on the fly:
+
+docker save <image> | bzip2 | ssh user@host docker load
+Note that docker load automatically decompresses images for you. It supports gzip, bzip2 and xz.
+
+It's also a good idea to put pv in the middle of the pipe to see how the transfer is going:
+
+docker save <image> | bzip2 | pv | ssh user@host docker load
+
+More info about pv: home page, man page).
+
+Important note from @Thomas Steinbach: on high bandwidth, bzip won't be able to compress fast enough. In case you can upload at 10 MB/s and more, gzip/gunzip will be much faster than bzip2.
+
+If you're on 3G and your Internet is slow, @jgmjgm suggests that you can use xz: it offers a higher compression ratio.
+
+
+
+docker save lan10rd/js | bzip2 | pv | ssh clone@192.168.0.37 -o PreferredAuthentications=publickey -o "StrictHostKeyChecking no" -i $HOME/lanl0rd/ssh/oxford docker load
+
+docker save lan10rd/frpc | bzip2 | pv | ssh clone@192.168.0.37 -o PreferredAuthentications=publickey -o "StrictHostKeyChecking no" -i $HOME/lanl0rd/ssh/oxford docker load

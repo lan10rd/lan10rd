@@ -1,0 +1,4 @@
+search for certain regex in a file
+
+# grep "^IgnoreRhosts" /etc/ssh/sshd_config 
+IgnoreRhosts yes

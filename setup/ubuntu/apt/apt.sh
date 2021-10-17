@@ -83,7 +83,8 @@ sudo apt install -y \
     software-properties-common \
     linux-headers-generic \
     gdebi \
-    locales
+    locales \
+    pv
 
 echo "\n"
 echo "security!"
