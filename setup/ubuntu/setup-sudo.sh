@@ -10,13 +10,14 @@ sudo sh ./snap/snap.sh
 
 # sudo sh ./rpi/rpi.sh # todo
 
-bash ./js/js.sh # dont think you need sudo for here?
-bash ./java/java.sh
-bash ./go/go.sh
-bash ./py/py.sh
+# these moved to normal setup.sh
+# bash ./js/js.sh # dont think you need sudo for here?
+# bash ./java/java.sh
+# bash ./go/go.sh
+# bash ./py/py.sh
 
 sudo sh ./docker/docker.sh
 sudo sh ./downloads/downloads.sh
 sudo sh ./lan10rd/lan10rd.sh
 
-sudo reboot
+# sudo reboot

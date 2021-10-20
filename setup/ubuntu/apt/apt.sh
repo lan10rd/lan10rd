@@ -35,7 +35,7 @@ echo "java!"
 sudo apt install -y \
     openjdk-8-jdk \
     openjdk-12-jdk \
-    openjdk-16-jdk \
+    # openjdk-16-jdk \
     openjdk-17-jdk
 
 echo "\n"
