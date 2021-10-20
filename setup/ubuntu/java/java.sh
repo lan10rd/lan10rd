@@ -20,16 +20,25 @@ git clone https://github.com/jenv/jenv.git ~/.jenv
 # brew install jenv
 
 # Installation
+# Dash
+echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.profile
+echo 'eval "$(jenv init -)"' >> ~/.profile
+exec $SHELL -i
+# Plugins
+# ensure that JAVA_HOME is correct
+jenv enable-plugin export
+# make Maven aware of the Java version in use (and switch when your project does)
+jenv enable-plugin maven
+exec $SHELL -i
 # Bash
-
-echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
-echo 'eval "$(jenv init -)"' >> ~/.bash_profile
+# echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+# echo 'eval "$(jenv init -)"' >> ~/.bash_profile
 # Zsh
 # echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
 # echo 'eval "$(jenv init -)"' >> ~/.zshrc
 
 # Configure
-jenv add /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+# jenv add /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 # oracle64-1.6.0.39 added
 # jenv add /Library/Java/JavaVirtualMachines/jdk17011.jdk/Contents/Home
 # oracle64-1.7.0.11 added
@@ -46,8 +55,3 @@ jenv add /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 # Configure shell instance version
 # $ jenv shell oracle64-1.6.0.39
 
-# Plugins
-# ensure that JAVA_HOME is correct
-jenv enable-plugin export
-# make Maven aware of the Java version in use (and switch when your project does)
-jenv enable-plugin maven

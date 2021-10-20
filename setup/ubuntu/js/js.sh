@@ -1,5 +1,10 @@
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-source ~/.profile  
+
+# source ~/.profile
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # this loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # this loads nvm bash_completion
+
 nvm install node 
 nvm install 14.18.0
 nvm use 14.18.0
@@ -46,7 +51,6 @@ npm install -g \
 npm install -g \
     nx \
     @nestjs/cli \
-    @angular/cli \
     create-react-app \
     create-react-library \
     react-native-cli \
@@ -54,6 +58,8 @@ npm install -g \
     svelte-cli \
     vue-native-cli \
     @vue/cli
+
+echo n | npm i -g --silent @angular/cli
 
 # dev
 npm i -g \
