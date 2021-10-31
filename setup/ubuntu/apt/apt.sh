@@ -34,7 +34,7 @@ echo "java!"
 # default-jre
 sudo apt install -y \
     openjdk-8-jdk \
-    openjdk-12-jdk \
+    openjdk-11-jdk \
     # openjdk-16-jdk \
     openjdk-17-jdk
 
@@ -62,7 +62,7 @@ sudo apt install -y \
     libtool \
     sysstat \
     gnupg \
-    readline \
+    # readline \ libreadline-dev ?
     bats
 
 echo "\n"

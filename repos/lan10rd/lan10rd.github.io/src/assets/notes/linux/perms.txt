@@ -1,0 +1,139 @@
+Please, don't use 777 for permissions, it's a security risk.
+
+You must be the owner of all files and folders
+In your project folder run (replacing <user> with your username):
+
+chown <user>:<user> -R .
+If any file is owned by root, then it'll require sudo.
+
+All folders must have permission 755
+find . -type d -exec chmod 755 {} +
+All source code files must have permission 644
+Let's start changing only the source files. As my project is a Python project, let's apply the change initially only for .py source files (change the extension to your source files):
+
+find -name "*.py" -exec chmod 644 {} +
+Done
+Check if it works.
+
+If this is not enough, you can additionally change permission of all project files to 644, but maybe this will change the permission for images and some executables.
+
+So, being warned that you can change images and binaries permissions:
+
+find . -type f -exec chmod 644 {} +
+
+
+
+
+
+
+Linuxize
+Ubuntu
+Centos
+Debian
+Commands
+Series
+Donate
+
+
+How to Recursively Change the File's Permissions in Linux
+Posted  Dec 20, 2019
+
+•
+3 min read
+
+Ezoicreport this ad
+CONTENTS
+
+Chmod Recursive
+Using the find Command
+Conclusion
+SHARE:
+
+Chmod Recursive
+If you are using Linux as your main operating system or managing Linux servers, you will come across a situation when you try to create or edit a file and receive a “Permission deny” error. Typically, errors related to insufficient permissions can be solved by setting the correct file permissions or ownership .
+
+Linux is a multi-user system, and access to the files is controlled through the file permissions, attributes, and ownership. This ensures that only authorized users and processes can access files and directories.
+For more information about file permissions, see “Umask Command in Linux” .
+In this article, we’ll explain how to recursively change permissions of files and directories.
+
+Chmod Recursive
+The chmod command allows you to change the permissions of files using symbolic or numeric mode.
+
+To recursively operate on all files and directories under a given directory, use the chmod command with the -R, (--recursive) option. The general syntax to recursively change the file’s permissions is as follows:
+chmod -R MODE DIRECTORY
+Copy
+For example, to change the permissions of all files and subdirectories under the /var/www/html directory to 755 you would use:
+chmod -R 755 /var/www/html
+Copy
+The mode can also be specified using the symbolic method:
+
+chmod -R u=rwx,go=rx /var/www/html
+Copy
+Only root, the file owner, or user with sudo privileges can change the permissions of a file. Be extra careful when recursively changing the files' permissions.
+
+Using the find Command
+In general, the files and directories should not have the same permissions. Most files do not require the execute permission, whereas you must set execute permissions on the directories in order to change into them.
+
+The most common scenario is to recursively change the website file’s permissions to 644 and directory’s permissions to 755.
+
+Using the numeric method:
+find /var/www/html -type d -exec chmod 755 {} \;
+find /var/www/html -type f -exec chmod 644 {} \;
+CopyCopy
+Using the symbolic method:
+
+find /var/www/html -type d -exec chmod u=rwx,go=rx {} \;
+find /var/www/html -type f -exec chmod u=rw,go=r {} \;
+CopyCopy
+The find command searches for files or directories under /var/www/html and passes each found file or directory to the chmod command to set the permissions.
+
+When using find with -exec, the chmod command is run for each found entry. Use the xargs command to speed up the operation by passing multiple entries at once:
+
+find /var/www/html -type d -print0 | xargs -0 chmod 755 
+find /var/www/html -type f -print0 | xargs -0 chmod 644
+CopyCopy
+Conclusion
+The chmod command with the -R options allows you to recursively change the file’s permissions.
+
+To recursively set permissions of files based on their type, use chmod in combination with the find command.
+
+If you have any questions or feedback, feel free to leave a comment.
+
+chmod
+terminal
+Ezoicreport this ad
+RELATED TUTORIALS
+
+Chmod Command in Linux (File Permissions)
+Understanding Linux File Permissions
+What Does chmod 777 Mean
+Understanding the /etc/shadow File
+Basic Linux Commands
+Bash: Append to File
+SSH Command
+Ezoicreport this ad
+If you like our content, please consider buying us a coffee.
+Thank you for your support!
+
+BUY ME A COFFEE
+Sign up to our newsletter and get our latest tutorials and news straight to your mailbox.
+
+Your email...
+Subscribe
+We’ll never share your email address or spam you.
+
+Related Articles
+SEP 16, 2019
+
+Chmod Command in Linux (File Permissions)
+Linux Chmod Command
+APR 30, 2021
+
+Understanding Linux File Permissions
+Linux File Permissions
+MAR 8, 2020
+
+What Does chmod 777 Mean
+Linux Chmod Command
+Show comments (3)
+© 2021 Linuxize.com Privacy Policy Terms Contact Advertise on Linuxize

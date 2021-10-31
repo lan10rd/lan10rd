@@ -86,3 +86,10 @@ pip3 install rsa
 pip3 install jmespath
 pip3 install pytz
 pip3 install colorama
+
+# autogluon ml
+# python3 -m pip install -U pip
+# python3 -m pip install -U setuptools wheel
+# python3 -m pip install -U "mxnet<2.0.0"
+# python3 -m pip install autogluon
+# python3 -m pip install pandas

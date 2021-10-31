@@ -55,3 +55,10 @@ exec $SHELL -i
 # Configure shell instance version
 # $ jenv shell oracle64-1.6.0.39
 
+
+# usage / guide
+# ls /usr/lib/jvm
+# jenv add /usr/lib/jvm/java-17-openjdk-arm64/
+# jenv versions
+# jenv global 17
+# jenv version
