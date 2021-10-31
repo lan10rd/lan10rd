@@ -46,6 +46,12 @@
     "copy-api-ns": {
       "tags": []
     },
+    "host-api-ns": {
+      "tags": []
+    },
+    "host-app-ng": {
+      "tags": []
+    },
     "how-deep-does-this-make": {
       "tags": []
     },
