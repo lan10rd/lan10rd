@@ -17,6 +17,19 @@ npm i -g \
     npm-name-cli \
     npm-check
 
+# frameworks
+npm install -g \
+    nx \
+    @nestjs/cli \
+    create-react-app \
+    create-react-library \
+    react-native-cli \
+    express-generator \
+    svelte-cli \
+    vue-native-cli \
+    @vue/cli
+echo n | npm i -g --silent @angular/cli
+
 # linting
 npm install -g \
     eslint \
@@ -46,20 +59,6 @@ npm install -g \
     github-is-starred-cli \
     rimraf \
     vtop
-
-# frameworks
-npm install -g \
-    nx \
-    @nestjs/cli \
-    create-react-app \
-    create-react-library \
-    react-native-cli \
-    express-generator \
-    svelte-cli \
-    vue-native-cli \
-    @vue/cli
-
-echo n | npm i -g --silent @angular/cli
 
 # dev
 npm i -g \
