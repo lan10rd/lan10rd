@@ -9,7 +9,8 @@ echo "\n"
 echo "http utils!"
 sudo apt install -y \
     curl \
-    wget
+    wget \
+    nmap
 
 echo "\n"
 echo "filesystem and disks!"

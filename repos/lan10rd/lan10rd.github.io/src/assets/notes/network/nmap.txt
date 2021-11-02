@@ -1,0 +1,23 @@
+nmap -T5 -sP 192.168.0.0-255
+
+# output
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-10-31 17:43 EDT
+Nmap scan report for 192.168.0.1
+Host is up (0.018s latency).
+Nmap scan report for 192.168.0.102
+Host is up (0.00036s latency).
+Nmap scan report for 192.168.0.115
+Host is up (0.0085s latency).
+Nmap done: 256 IP addresses (3 hosts up) scanned in 15.58 seconds
+
+or (faster)
+
+for i in {1..254} ;do (ping 192.168.1.$i -c 1 -w 5  >/dev/null && echo "192.168.1.$i" &) ;done
+
+
+
+PING:
+for ip in $(seq 1 254); do ping -c 1 10.185.0.$ip > /dev/null; [ $? -eq 0 ] && echo "10.185.0.$ip UP" || : ; done
+
+ARP:
+for ip in $(seq 1 254); do arp -n 10.185.0.$ip | grep Address; [ $? -eq 0 ] && echo "10.185.0.$ip UP" || : ; done
