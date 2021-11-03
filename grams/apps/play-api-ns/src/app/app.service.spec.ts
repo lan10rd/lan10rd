@@ -14,8 +14,8 @@ describe('AppService', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to play-app-ns!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to play-app-ns!' });
+    it('should return "Welcome to play-api-ns!"', () => {
+      expect(service.getData()).toEqual({ message: 'Welcome to play-api-ns!' });
     });
   });
 });

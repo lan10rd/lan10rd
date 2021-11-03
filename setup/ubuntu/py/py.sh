@@ -50,7 +50,7 @@ pyenv global 3.10.0
 
 
 # docker
-# pip3 install docker-compose
+pip3 install docker-compose
 
 # nginx
 pip3 install crossplane

@@ -189,9 +189,28 @@ mkdir ~/.themes
 gsettings set org.gnome.shell.extensions.dash-to-dock transparency-mode 'FIXED'
 gsettings set org.gnome.shell.extensions.dash-to-dock background-opacity 0.2
 
+// found an interesting way to achieve a clear one,
+gsettings set org.gnome.shell.extensions.dash-to-dock apply-custom-theme 'true'
+
+/**** do this? ****/
+after install tweaks and enabling user themes and reloading
+1) turn off trash, home, drives on desktop by right clicking desktop > settings
+2) in ~/.themes drop big sur light/dark and in tweaks > appearance > applications select light
+3) change cursor after dropping cursor in ~/.icons
+4) shell can be made the light one
+5) icons can be light sur once you drop light sur icons in .icons
+6) 
+    a)gsettings set org.gnome.shell.extensions.dash-to-dock apply-custom-theme 'true'
+    b) i think you can also open dconf, navigate to org.gnome.shell.extensions.dash-to-dock and look for 
+        - extend-height  'false'
+        - dock-fixed 'true'
+        - dash-max-icon-size '20'
+    c) can also play with latte-dock but i think its not worth it necessarily, might be a little bloaty
+
 I actually went in using dconf editor and transparency mode was already fixed, and i set opacity to 0
 
 now you can have clear side bar and cool cursors, last thing left is the top bar
+
 
 
 // audio

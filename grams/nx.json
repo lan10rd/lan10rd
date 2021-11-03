@@ -58,15 +58,15 @@
     "how-deep-does-this-make-another": {
       "tags": []
     },
+    "play-api-ns": {
+      "tags": []
+    },
     "play-app-ng": {
       "tags": []
     },
     "play-app-ng-e2e": {
       "tags": [],
       "implicitDependencies": ["play-app-ng"]
-    },
-    "play-app-ns": {
-      "tags": []
     },
     "shared-ng": {
       "tags": []

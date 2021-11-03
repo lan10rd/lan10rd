@@ -486,6 +486,56 @@
         }
       }
     },
+    "play-api-ns": {
+      "root": "apps/play-api-ns",
+      "sourceRoot": "apps/play-api-ns/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/play-api-ns",
+            "main": "apps/play-api-ns/src/main.ts",
+            "tsConfig": "apps/play-api-ns/tsconfig.app.json",
+            "assets": ["apps/play-api-ns/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/play-api-ns/src/environments/environment.ts",
+                  "with": "apps/play-api-ns/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "play-api-ns:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/play-api-ns/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/play-api-ns"],
+          "options": {
+            "jestConfig": "apps/play-api-ns/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "play-app-ng": {
       "projectType": "application",
       "root": "apps/play-app-ng",
@@ -601,56 +651,6 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/play-app-ng-e2e/**/*.{js,ts}"]
-          }
-        }
-      }
-    },
-    "play-app-ns": {
-      "root": "apps/play-app-ns",
-      "sourceRoot": "apps/play-app-ns/src",
-      "projectType": "application",
-      "targets": {
-        "build": {
-          "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/play-app-ns",
-            "main": "apps/play-app-ns/src/main.ts",
-            "tsConfig": "apps/play-app-ns/tsconfig.app.json",
-            "assets": ["apps/play-app-ns/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/play-app-ns/src/environments/environment.ts",
-                  "with": "apps/play-app-ns/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "executor": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "play-app-ns:build"
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/play-app-ns/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/play-app-ns"],
-          "options": {
-            "jestConfig": "apps/play-app-ns/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }

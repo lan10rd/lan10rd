@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'play-app-ns',
+  displayName: 'play-api-ns',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/play-app-ns',
+  coverageDirectory: '../../coverage/apps/play-api-ns',
 };

@@ -14,10 +14,10 @@ describe('AppController', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to play-app-ns!"', () => {
+    it('should return "Welcome to play-api-ns!"', () => {
       const appController = app.get<AppController>(AppController);
       expect(appController.getData()).toEqual({
-        message: 'Welcome to play-app-ns!',
+        message: 'Welcome to play-api-ns!',
       });
     });
   });

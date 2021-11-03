@@ -1,0 +1,7 @@
+# backup to data_dir
+sudo chown -R -c $USER:$USER data_dir
+
+# likely that mongo database is now corrupt as it expected certain user/perms
+# so if you see "InvalidPath","errmsg":"error opening file: /data/key: bad file"
+
+sudo chown -R -c systemd-coredump:systemd-coredump mongo_db_folder
