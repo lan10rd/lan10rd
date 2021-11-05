@@ -1,0 +1,57 @@
+so it looks like there is an update to react since last look. typically a component was setup using classes, and it was necessary to extend React.Component and implement render method.  this breaks a lot of out of the box stuff in the new style (useState), so try to use the new syntax (functional).
+
+try to use capitals, something about elements in html starting with lowercase, react recommends uppercase.
+
+use React.Fragment as a return as jsx render expects just one element to return, so if you have a composite component and dont want to bloat the dom, return <React.Fragment>...</React.Fragment>, i think  <> </> also works!
+
+props.children has inner children!   <SomeWidget><div>child stuff</div></SomeWidget>
+
+
+
+/* old class style (some-widget.jsx) */
+import React from 'react'
+export default class SomeWidget {
+
+    constructor(props){
+        super(props)
+        console.log('props.children', props.children)
+        this.anyExtraMethods = this.anyExtraMethods.bind(this) // so that other references in render and otherwise can use it.
+
+        this.setState({someDefaultItem: 'hi'})  // use set state to use classwide variables, normal variables at the top dont work like in angular it complains!, use set state when you update items or else the view wont refresh!
+    }
+
+    anyExtraMethods(){}
+    handle($event:any){
+        this.state.someDefaultItem += '!'
+        this.setState(this.state)
+    }
+
+    render(){
+        return (<React.Fragment>
+                <button onClick={handle}>button!</button>
+                <div>some default item: {this.someDefaultItem}</div>
+        </React.Fragment>)
+    }
+
+}
+
+// usage
+import SomeWidget from './some-widget'
+
+
+
+/* new functional style */
+import React from 'react'
+export const SomeWidget = (props) => {
+
+    const [someDefaultItem, setSomeDefaultItem] = React.useState()
+
+    return (<React.Fragment>
+        <button onClick={setSomeDefaultItem(someDefaultItem + '!')}>button!</button>
+        <div>some default item: {this.someDefaultItem}</div>
+    </React.Fragment>)
+
+}
+
+// in another component
+import { SomeWidget } from './some-widget'

@@ -1,0 +1,3 @@
+apple does this weird thing with multiple desktop (spaces) and it automatically rearranges its really annoying, but you can change that!
+
+system preferences -> mission control -> automatically rearrange spaces based on recenct usage
