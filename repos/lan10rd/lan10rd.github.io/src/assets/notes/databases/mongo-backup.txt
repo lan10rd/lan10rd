@@ -1,0 +1,182 @@
+Keep your MongoDB staging server up to date with rsync and crontab
+Tom Nagle
+Tom Nagle
+
+Apr 1, 2019·2 min read
+
+
+
+
+
+In this post you will learn how to automatically dump your MongoDB database, rsync it across to your staging server and restore it on your staging server.
+Step 1) Setup SSH
+On your production server, create a new public key and print it to the console.
+ssh-keygen -f ~/.ssh/id_rsa -q -P ""
+cat ~/.ssh/id_rsa.pub
+You will see a row of output that begins with ‘ssh-rsa’, copy the whole row to your clipboard.
+On the staging server open up the authorized keys file and past the key that you generated in the previous step. Save and close the file.
+~/.ssh/authorized_keys
+Test that rsync is working by syncing a test directory. In the command below I am syncing a directory called db_backups where I will later dump the MongoDB database to.
+rsync -avz ssh ~/db_backups/ root@staging.example.com:~/db_backups
+The output from the command should tell you how many bytes were sent, how many were received ect…
+Step 2) Automate the dump with crontab
+In this step we will create a shell script and tell crontab to execute the script.
+nano ~/scripts/backup.sh
+Add the following commands to your shell script
+
+In this command we dump the database into a folder, rsync it across to our staging server and delete the backup folder. I like to name the backup folder by the current date because I also sync the backups to an Amazon S3 bucket.
+Finally execute your script with crontab.
+crontab -e
+00 18 * * 1-5 ~/scripts/backup.sh >> /root/temp/backup.txt
+I have set the crontab to run every week day at 6pm. You can easily generate crontab schedule expressions with crontab guru.
+Step 3) Restore the database to the fresh version
+Now that you now have the fresh database on your staging server can can drop your old collections and insert the new ones. We’re going to use the same setup, a shell scrip and crontab.
+nano ~/scripts/restore.sh
+
+You want to execute the script when you know you have the latest database in the backups folder so I run the script 15 minutes after the script on the production server.
+crontab -e
+15 18 * * 1-5 ~/scripts/restore.sh >> /root/temp/restore.txt
+🌎 Let’s keep in touch
+Subscribe on YouTube
+Discord
+Twitter
+TikTok
+FaceBook
+Instagram
+Buy me a Coffee
+Tom Nagle
+I am a full stack JavaScript developer, living in Melbourne, Australia. My preferred stack is Mongoose, TypeScript, Node.js, React & GraphQL.
+
+Follow
+
+TOM NAGLE FOLLOWS
+Eric Elliott
+Eric Elliott
+David McDonald
+David McDonald
+David Thorpe
+David Thorpe
+Yves Sinkgraven
+Yves Sinkgraven
+See all (5)
+
+35
+
+
+1
+
+Related
+
+
+Creating SSL certificate for XAMPP to load pages in localhost under secure HTTPS connection
+
+
+RabbitMQ setup in local using Docker.
+
+In this article, you are going to learn rabbitMQ installation on your local machine using the Docker container platform.
+
+
+TLS Explained — Issuer Authorization, Certificate Transparency, DANE, CAA
+
+
+Configure Basic Authentication with Nginx
+
+on HPCC
+
+Git
+Mongodb
+Backup
+Ssh
+35
+
+
+1
+
+
+
+
+
+More from Tom Nagle
+Follow
+
+I am a full stack JavaScript developer, living in Melbourne, Australia. My preferred stack is Mongoose, TypeScript, Node.js, React & GraphQL.
+
+Published in ITNEXT
+
+·Mar 27, 2019
+
+Build a CSS syntax highlighter with React and Styled Components
+
+I recently created a style guide with GatsbyJS and needed to provide blocks of CSS as examples. I wanted the blocks to have syntax highlighting, be easy to read and have a quick copy function for those using the guide. …
+Read more · 2 min read
+
+27
+
+
+
+Share your ideas with millions of readers.
+
+Write on Medium
+Feb 11, 2019
+
+Strongly typed models with Mongoose and TypeScript
+
+Mongoose provides a layer of abstraction over MongoDB that makes validation, casting & business logic boilerplate more enjoyable. Creating your models with a TypeScript interface extends these benefits by creating a strongly typed model that increases developer confidence, development speed and reduces bugs.
+
+How to create strongly typed Mongoose models with TypeScript
+There are two main ways to…
+Read more · 4 min read
+
+1.8K
+
+
+8
+
+
+Aug 8, 2018
+
+Create email templates with EJS and send them with Mailgun
+In this article we will create a HTML generator using EJS and send the HTML email with mailgun -js.
+What we’re going to do:
+Create a function to generate HTML given some parameters and an EJS template
+Create a mailgun-js configuration file
+Create a function to send an email given…
+Read more · 2 min read
+
+65
+
+
+
+Apr 23, 2018
+
+Adding findOneOrCreate to a Mongoose model
+Step one: Define your schema
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
+const mySchema = new Schema({
+ title: {type: String, required: true},
+ description: String
+}, {collection: 'MyModel', timestamp: true});
+Step two: Add a static method to your schema
+mySchema.statics.findOneOrCreate = function findOneOrCreate(condition, doc) {
+ const self = this;
+ const newDocument = doc;
+ return new Promise((resolve, reject) => {
+ return self.findOne(condition)
+ .then((result) => {
+ if (result) {
+ return resolve(result);
+ }
+ return self.create(newDocument)
+ .then((result) => {
+ return resolve(result);
+ }).catch((error) => {
+ return reject(error);
+ })
+ }).catch((error) => {
+ return reject(error);
+ })
+ });
+};
+Step 3: Export your model
+export default mongoose.model('MyModel', mySchema);

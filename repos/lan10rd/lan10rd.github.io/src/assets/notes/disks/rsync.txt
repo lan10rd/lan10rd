@@ -1,3 +1,8 @@
+/* from mac to clear */
+// sudo for db files timeout for not getting hung, z for zipping for transfer speeds, p is for partial i believe restarts an interrupted transfer, r is for recursive
+sudo rsync -avhrizup --progress --delete --timeout=0 -e "ssh -i /Users/simba/lanl0rd/ssh/oxford -o StrictHostKeyChecking=no" /Volumes/zfspools/elite/earth clone@192.168.0.37:/zfspools/tarheel
+
+
 rsync -avhri --progress --delete --exclude= .git/  lanl0rd/* 192.168.0.198:lanl0rd/fuse_zzzz/earth/systems/lanl0rd-space
 
 rsync -avhrizup --progress --stats /home/simba/lanl0rd/lanl0rd .
