@@ -6,7 +6,7 @@ use React.Fragment as a return as jsx render expects just one element to return,
 
 props.children has inner children!   <SomeWidget><div>child stuff</div></SomeWidget>
 
-
+TODO: how to emit extra events, also what are slots?
 
 /* old class style (some-widget.jsx) */
 import React from 'react'
@@ -55,3 +55,5 @@ export const SomeWidget = (props) => {
 
 // in another component
 import { SomeWidget } from './some-widget'
+
+<SomeWidget prop1={'hi'} style={{height: '10rem', color: 'blue'}}></div>
