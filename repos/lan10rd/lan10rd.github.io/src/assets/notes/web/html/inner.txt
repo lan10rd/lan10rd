@@ -1,0 +1,28 @@
+What is the Difference Between textContents, innerText, and innerHtml?
+
+textContents is all text contained by an element and all its children that are for formatting purposes only.
+innerText returns all text contained by an element and all its child elements.
+innerHtml returns all text, including html tags, that is contained by an element.
+
+Consider the following html code.
+
+<div id="mylinks">
+  This is my <b>link collection</b>:
+  <ul>
+    <li><a href="www.borland.com">Bye bye <b>Borland</b> </a></li>
+    <li><a href="www.microfocus.com">Welcome to <b>Micro Focus</b></a></li>
+  </ul>
+</div>
+The following table details the different properties that return.
+
+Code	Returned Value
+browser.DomElement("//div[@id='mylinks']").GetProperty("textContents")	
+This is my link collection:
+browser.DomElement("//div[@id='mylinks']").GetProperty("innerText")	
+This is my link collection:Bye bye Borland Welcome to Micro Focus
+browser.DomElement("//div[@id='mylinks']").GetProperty("innerHtml")	
+This is my <b>link collection</b>:
+<ul> 
+  <li><a href="www.borland.com">Bye bye <b>Borland</b></a></li>
+  <li><a href="www.microfocus.com">Welcome to <b>Micro Focus</b></a></li> 
+</ul>
