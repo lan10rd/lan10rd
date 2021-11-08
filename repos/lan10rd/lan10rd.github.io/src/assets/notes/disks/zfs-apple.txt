@@ -1,3 +1,8 @@
+# seems like if the original mountpoint was /zfspools/tarheel, then the following will put it in /Volumes/zfspools/tarheel on apple zfs
+sudo zpool import -R /Volumes tarheel
+
+
+
 Zpool
 Run diskutil list command to make sure you pick the correct disk before attempting to create your pool. Look under IDENTIFIER. Note that if you partition the disk yourself, and specify a slice for ZFS, you are responsible for making sure the partition table shows the partition type is ZFS. This can be done with OS X's built-in "gpt" command or the easier to use "gdisk" command, which can be downloaded here. For detailed instructions, see here. Partitions can also be made by resizing existing ones with diskutil.
 

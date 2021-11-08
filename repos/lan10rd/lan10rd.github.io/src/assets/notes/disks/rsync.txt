@@ -1,3 +1,6 @@
+/* seems necessary if you have files that require sudo (not sure if its a problem on client or host) */
+sudo rsync -avhrizup --progress --delete --rsync-path="sudo rsync" -e "ssh -i /Users/simba/lanl0rd/ssh/oxford -o StrictHostKeyChecking=no" earth clone@192.168.0.37:/zfspools/tarheel
+
 /* from mac to clear */
 // sudo for db files timeout for not getting hung, z for zipping for transfer speeds, p is for partial i believe restarts an interrupted transfer, r is for recursive
 sudo rsync -avhrizup --progress --delete --timeout=0 -e "ssh -i /Users/simba/lanl0rd/ssh/oxford -o StrictHostKeyChecking=no" /Volumes/zfspools/elite/earth clone@192.168.0.37:/zfspools/tarheel

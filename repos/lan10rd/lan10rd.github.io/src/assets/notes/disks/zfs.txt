@@ -1,3 +1,6 @@
+
+
+
 -- install (ubuntu) --
 sudo apt install -y zfsutils-linux
 
@@ -6,6 +9,13 @@ whereis zfs
 sudo fdisk -l
 
 -- quick commands --
+
+sudo zfs (or zpool?) scrub tarheel
+sudo zfs import 
+// lists importable zpools (-f is needed if the zpool was previously on another system)
+sudo zpool import -f tarheel
+
+
 
 **to list disks on ubuntu: **
 * i believe you really need to do by-id (seems like a manufacturer name + uuid) or by-uuid, as just using /dev/sda is not reliable on restarts or changing ports!!*
