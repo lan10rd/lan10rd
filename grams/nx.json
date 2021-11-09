@@ -27,16 +27,6 @@
     ]
   },
   "projects": {
-    "amazon-api-ns": {
-      "tags": []
-    },
-    "amazon-app-ng": {
-      "tags": []
-    },
-    "amazon-app-ng-e2e": {
-      "tags": [],
-      "implicitDependencies": ["amazon-app-ng"]
-    },
     "common-ng": {
       "tags": []
     },
