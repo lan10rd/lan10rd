@@ -3,7 +3,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpXsrfTokenExtr
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 
-import { CommonNgStreamsService } from '@lanl0rd/common/ng'
+import { CommonNgStreamsService } from '@grams/common/ng'
 
 @Injectable
 ({

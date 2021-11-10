@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 
 import { CommonPopPopop } from './pop.popop'
 
-import { CommonNgSelectElementModule } from '@lanl0rd/common/ng'
+import { CommonNgSelectElementModule } from '@grams/common/ng'
 
 @NgModule
 ({

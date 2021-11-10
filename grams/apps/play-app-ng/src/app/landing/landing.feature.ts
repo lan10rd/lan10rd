@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 
-import { CommonNgUtilityService } from '@lanl0rd/common/ng'
+import { CommonNgUtilityService } from '@grams/common/ng'
 
 @Component
 ({

@@ -244,6 +244,10 @@ export class CommonNgThemesService
             word-wrap: break-word;
         }
 
+        audio {
+            max-width: 100%;
+        }
+
         html { box-sizing: border-box; }
         *, *:before, *:after { box-sizing: inherit; }
 

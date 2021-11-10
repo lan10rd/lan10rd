@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 
-import { CommonFeature } from './common.feature'
+import { PlayFeature } from './play.feature'
 
 import { CommonNgSelectElementModule, CommonNgCodeLogsElementModule, CommonNgScrollElementModule, CommonNgButtonElementModule, CommonNgAudioElementModule, CommonNgVideoElementModule } from '@grams/common/ng'
 
@@ -14,7 +14,7 @@ import { CommonNgSelectElementModule, CommonNgCodeLogsElementModule, CommonNgScr
         RouterModule.forChild
         ([{
             path: '',
-            component: CommonFeature,
+            component: PlayFeature,
             data: {
                 CommonRouterService: {
                     routes: ['..']
@@ -30,10 +30,10 @@ import { CommonNgSelectElementModule, CommonNgCodeLogsElementModule, CommonNgScr
     ],
     declarations:
     [
-        CommonFeature
+        PlayFeature
     ]
 })
-export class CommonFeatureModule
+export class PlayFeatureModule
 {
     
 }

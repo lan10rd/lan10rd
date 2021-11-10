@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 
 import { AppInitElement } from './init.element'
 
-import { CommonNgRouterElementModule, CommonNgPopopElementModule, CommonNgThemesElementModule } from '@lanl0rd/common/ng'
+import { CommonNgRouterElementModule, CommonNgPopopElementModule, CommonNgThemesElementModule, CommonNgButtonElementModule, CommonNgAppBarElementModule } from '@grams/common/ng'
 
 @NgModule
 ({
@@ -12,7 +12,9 @@ import { CommonNgRouterElementModule, CommonNgPopopElementModule, CommonNgThemes
         CommonModule,
         CommonNgRouterElementModule,
         CommonNgPopopElementModule,
-        CommonNgThemesElementModule
+        CommonNgThemesElementModule,
+        CommonNgButtonElementModule,
+        CommonNgAppBarElementModule
     ],
     declarations:
     [

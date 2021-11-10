@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core'
 
-import { CommonNgUtilityService, CommonNgThemesService, CommonNgPopopService, CommonNgCodeService } from '@lanl0rd/common/ng'
+import { CommonNgUtilityService, CommonNgThemesService, CommonNgPopopService, CommonNgCodeService } from '@grams/common/ng'
 
 @Component
 ({

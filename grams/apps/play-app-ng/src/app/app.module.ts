@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router'
 
 import { environment } from '../environments/environment'
 
-import { CommonNgDynamicElementModule, CommonNgStreamsService } from '@lanl0rd/common/ng'
+import { CommonNgDynamicElementModule, CommonNgStreamsService } from '@grams/common/ng'
 
 import { AppComponent } from './app.component'
 import { AppInitService } from './init/init.service'
