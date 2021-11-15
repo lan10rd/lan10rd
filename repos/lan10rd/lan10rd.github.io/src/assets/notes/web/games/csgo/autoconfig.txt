@@ -1,0 +1,53 @@
+// launch settings
+// either add extra options to launch properties in steam or
+// C:/SteamLibrary/steamapps/common/Counter-Strike Global Offensive/csgo/cfg/autoexec.cfg
+// right click game in steam -> properties -> browse local files -> "find the cfg folder" -> new text document (autoexec.cfg)
+
+On occasion, these settings won’t automatically load when you start the game. If this happens, all you need to do is to press” ~” to open your console. Then, type in “exec autoexec” to apply your settings.
+
+Now your autoexec needs to launch every time you launch the game, so navigate to your Steam library again.
+
+    Right click ‘Counter-Strike: Global Offensive’.
+    Click ‘Properties’.
+    Click ‘Set Launch Options’.
+    Write ‘+exec autoexec.cfg’ and then click ‘OK’.
+
+
+
+// left hand
+cl_righthand 0
+
+
+
+/* example pro players */
+
+Launch options
+
+-freq 240 
+-console 
+-novid 
+-high 
+-tickrate 128
+
+Crosshair
+Console Commands
+
+cl_crosshairalpha "200";
+cl_crosshaircolor "1";
+cl_crosshaircolor_b "50";
+cl_crosshaircolor_r "250";
+cl_crosshaircolor_g "250";
+cl_crosshairdot "0";
+cl_crosshair_t "0";
+cl_crosshairgap "-1";
+
+Autoexec.cfg File
+
+cl_crosshairalpha "200"
+cl_crosshaircolor "1"
+cl_crosshaircolor_b "50"
+cl_crosshaircolor_r "250"
+cl_crosshaircolor_g "250"
+cl_crosshairdot "0"
+cl_crosshair_t "0"
+cl_crosshairgap "-1"

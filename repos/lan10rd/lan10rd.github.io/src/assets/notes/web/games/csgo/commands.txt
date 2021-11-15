@@ -1,0 +1,107 @@
+CS:GO Commands List
+Below is Total CS:GO's searchable list of all 3057 CS:GO console commands. Each command in our database has detailed documentation, with help and argument explanation (hover over a command to view). Click on a command's name to visit its individual page, on which you can find more information including working examples and its default setting or value.
+
+Type the name of a command into the search box to instantly filter 3057 commands. Toggle between different views by pressing the "Card View" and "Table View" buttons. If you are looking for a more specific selection of commands, you may prefer to sort by category.
+
+Type to search...
+Name	Syntax	Description
+bot_add	bot_add [T / CT] [Difficulty] [Name]	This command adds a bot to your current game. If you specify a team (T or CT), the bot will be added to that team. You can also optionally specify a difficulty and a name (if there is an existing profile).
+bot_add_ct	bot_add_ct [Difficulty] [Name]	This console command adds a bot to the CT side. If the bot spawns dead, it will respawn at the start of the next round. You can optionally specify a difficulty and a name (if there is an existing profile).
+bot_add_t	bot_add_t [Difficulty] [Name]	This command adds a bot to the T side. If the bot spawns dead, it will respawn at the start of the next round. You can optionally specify a difficulty and a name (if there is an existing profile).
+cl_crosshairgap	cl_crosshairgap [Gap]	This console command will adjust the size of the gap in the middle of your crosshair. The smaller the value, the smaller the gap.
+cl_crosshairsize	cl_crosshairsize [Size]	This command controls the length and size of the 4 lines that make up a standard crosshair. Using a low value will give your crosshair very slight lines, and using a large value makes your crosshair have very long lines.
+cl_crosshairstyle	cl_crosshairstyle [Style]	This command sets the style of your crosshair such as its general shape and whether or not it opens up whenever your character moves around.
+cl_crosshairthickness	cl_crosshairthickness [Thickness]	This console command customizes the thickness of your in game crosshair.
+cl_hud_color	cl_hud_color [HUD Color]	This is the console command used to change and customize the color of your HUD (heads up display). It can be changed to a variety of colors, which we have listed examples for.
+cl_hud_playercount_showcount	cl_hud_playercount_showcount [0 / 1]	This useful console command customizes your HUD by changing the display of players alive on each team from showing each of their Steam avatars to just showing a number for how many of each team is alive.
+cl_hud_radar_scale	cl_hud_radar_scale [Radar Scale]	This useful console command controls how much room in your HUD your radar takes up. You can choose to make it a smaller feature or larger than the default value.
+cl_radar_scale	cl_radar_scale [Radar Scale]	This command adjusts the scale of your radar, which affects how zoomed in or out the radar is. A lot of players use this command to zoom the radar out and have a complete view of the map.
+cl_righthand	cl_righthand [0 / 1]	This is the command that moves your gun to your left hand, also known as the switch hand command. Your gun and other weapons will be on the left side of your screen, which some people prefer.
+cl_showfps	cl_showfps [0 / 1]	This command produces a simple FPS (frames per second) count in the top left corner of your screen. Unlike the net_graph command, the only value shown is your FPS, which some players like for its simplicity.
+demo_pause	demo_pause	This useful console command is used to pause the demo you're watching. Playback can be resumed with the command demo_resume.
+demo_resume	demo_resume	This useful command is used to resume the demo you're watching, if you have previously paused it. To pause demos, use the command demo_pause.
+demo_timescale	demo_timescale [Playback speed]	This command sets how quickly the demo is played. In other words, it can be used to fast forward through rounds you're not interested in watching.
+demo_togglepause	demo_togglepause	Use this command when watching demos to toggle between being paused or not. The good thing about this command is then it will pause or play the demo, depending on if its running when the command is entered.
+game_mode	game_mode [Game Mode]	This command can be used in conjunction with the game_type command to change the type of game you are playing (casual, deathmatch, etc). See argument information for help.
+game_type	game_type [Game Type]	This command can be used with the game_mode command to change the game you are playing (e.g. arms race, competitive, etc). See argument information for combinations and help.
+give	give [Weapon Code]	This command will give you the item with the specified item code. Find item codes on our give command list.
+hurtme	hurtme [Damage]	This command will hurt your character with the specified amount of damage (1 = 1HP).
+mp_ignore_round_win_conditions	mp_ignore_round_win_conditions [0 / 1]	This command can be used to enable and disable round win conditions. If round win conditions are disabled (ignored), then the conditions that would usually make a round end (e.g. bomb exploding, team being eliminated) will no longer make the round end - the round would last forever, until manually ended. By default, this command is disabled (meaning win conditions are not ignored).
+mp_warmup_end	mp_warmup_end	This command ends the warmup.
+noclip	noclip	This command will toggle noclip for your player. When in noclip, you can fly and will pass through solid objects like walls.
+say	say [Message]	This command will make you say the specified message in chat.
+say_team	say_team [Message]	This command will make you say the specified message in team chat.
+sensitivity	sensitivity [Sensitivity]	This command sets your mouse sensitivity to the specified value.
+unbind	unbind [Key]	This command removes any bind bound to the specified key.
+viewmodel_fov	viewmodel_fov [FOV]	This command sets your client's FOV to the specified number. You can set your FOV to a maximum of 68 using this command. The default field of view is 60.
+viewmodel_offset_x	viewmodel_offset_x [X Offset]	This command sets the X offset of your view model - i.e. how far left or right it is. Your view model is your hand (and the gun in it) that displays in first person mode. The maximum value is 2.5 and the minimum value is -2.5.
+viewmodel_offset_y	viewmodel_offset_y [Y Offset]	This command sets the Y offset of your view model - i.e. how close or far from your character is. Your view model is your hand (and the gun in it) that displays in first person mode. The maximum value is 2 and the minimum value is -2.
+viewmodel_offset_z	viewmodel_offset_z [Z Offset]	This command sets the Z offset of your view model - i.e. how far up or down it is. Your view model is your hand (and the gun in it) that displays in first person mode. The maximum value is 2 and the minimum value is -2.
+voice_enable	voice_enable [0 / 1]	This command sets whether or not voice communication is enabled for your client. Setting this to 0 will disable voice. Default is 1 (enabled).
+bind	bind [Bind Key] ["Bind Command"]	This command will bind a command, or list of commands, to a key on your keyboard or button on your mouse. Binds can make your CS:GO experience much more convenient, and is a very important command in the game.
+bind_osx	bind_osx [Bind Key] ["Bind Command"]	This command will bind a command, or list of commands, to a key on your keyboard or button on your mouse. This command is for OSX (Mac).
+bot_difficulty	bot_difficulty [Difficulty]	This console command sets the difficulty of any bots you add to a private server. Set this to 0 for easy bots, 1 for normal bots, 2 for hard bots and 3 for expert bots.
+bot_quota	bot_quota [Amount]	This command adjusts the maximum number of bots you can have in your server. The default value is 10.
+cl_crosshair_drawoutline	cl_crosshair_drawoutline [0 / 1]	This console command can be used to enable and disable the small black outline that is around your crosshair. This can enhance crosshair visibility for some players.
+cl_crosshair_outlinethickness	cl_crosshair_outlinethickness [Thickness]	This useful console command adjusts how thick the outline of your crosshair is. It is an important command to adjust to ensure your aim is as good as it can be.
+cl_crosshaircolor	cl_crosshaircolor [Color]	This console command sets the color that your crosshair shows up as. You can set a value between 0 and 4.
+cl_draw_only_deathnotices	cl_draw_only_deathnotices [0 / 1]	This console command is especially useful for CS:GO fragmovie makers, as it strips down the UI to only include the crosshair and the kill feed. These are the two things needed in videos.
+cl_radar_always_centered	cl_radar_always_centered [0 / 1]	This command decided whether or not your radar is always centered to your location. Turning this feature off can be useful, as when you're by the edge of the map less of the radar's space is taken up by empty space, meaning you can see your surroundings more clearly.
+cl_radar_rotate	cl_radar_rotate [0 / 1]	This command toggles whether or not your radar rotates as you rotate and look around with your camera. Some players find disabling this feature makes it easier to use the radar.
+joy_inverty	joy_inverty [0 / 1]	This console command is used to set whether you want to invert the Y axis for looking around on a joystick. When this command is turned on, moving the joystick up, or forward, will make your character look down.
+joy_movement_stick	joy_movement_stick [0 / 1 / 2]	This console command is used to determine which stick on the joystick controls the movement of your player model.
+key_listboundkeys	key_listboundkeys	This console command lists all of the keys and buttons you have that have a specific action bound to them (e.g. the space bar being bound to jump).
+sv_infinite_ammo	sv_infinite_ammo [0 / 1 / 2]	This command, if set to 1, will give you infinite ammunition for your weapon allowing you to fire your gun continuously. If you set this command to 2, you will have infinite ammo to reload with, but you will still run out of ammo after firing all of the bullets in your gun's clip.
+cl_autowepswitch	cl_autowepswitch [0 / 1]	This command changes whether or not you automatically equip a weapon you just picked up.
+cl_color	cl_color [Color Value]	This useful command sets your preference for what color you like to be in matchmaking. This color is shown on the radar and on your Steam avatar when in the lobby.
+cl_crosshairalpha	cl_crosshairalpha [Alpha Value]	This command sets how transparent your crosshair is on your screen. The lower the value, the less visible your crosshair is.
+cl_hud_playercount_pos	cl_hud_playercount_pos [0 / 1]	Use this command to adjust where the player count (players who are in the server) menu is shown on your HUD. This also changes where the scoreboard is, that shows rounds won by each team. You can place it at the top of your screen or at the bottom.
+cl_pitchdown	cl_pitchdown [Degrees]	This fun command controls how many degrees down from eye level you can move your camera. That means you can edit this command to allow you to look under you, effectively looking through your character model's legs at what is behind you.
+cl_pitchup	cl_pitchup [Degrees]	This fun console command controls how many degrees from eye level you can look up into the sky. This can be adjusted to let you look so far around that you end up seeing behind you.
+cl_radar_icon_scale_min	cl_radar_icon_scale_min [Icon Scale]	This console command changes how large your character dot appears on the radar.
+cl_showpos	cl_showpos [0 / 1]	This command will show you values for where exactly on the map you are located. This will appear in the top left of your screen by default. It also shows your velocity (run speed).
+clear	clear	This console command clears all of the previous entries and data from the developer console. It is good to do every so often to make the console more readable.
+inferno_damage	inferno_damage [Damage Per Second]	This fun console command is used to change how much damage molotov and incendiary grenades do . When cheats are activated, you can set this value to be incredibly high or incredibly low.
+inferno_flame_lifetime	inferno_flame_lifetime [Burn Time]	This console command changes how long the fires burn from molotov and incendiary grenades. It allows you to make them last for just a moment, or for an extended period of time.
+inferno_max_range	inferno_max_range [Range]	This command sets the maximum distance that flames from a molotov or incendiary grenade can spread from their initial point of impact with the ground.
+jpeg	jpeg [File Name]	This command is used to take a screenshot. You can specify the file name in the command.
+map	map [Map Code]	Use this console command to instantly change the map you're currently playing to a different map.
+mp_afterroundmoney	mp_afterroundmoney [Amount]	This command sets the amount of money that is award to every player on every team at the end of each round, regardless of win/loss. Default is 0 (win/loss bonus is set with a different command).
+mp_autokick	mp_autokick [0 / 1]	This command sets whether or not the auto kick feature should be enabled. The auto kick feature kicks people for being idle (AFK) and team damage. Default is 1 (enabled).
+mp_autoteambalance	mp_autoteambalance [0 / 1]	This command can be used to enable or disable the auto team balance feature. This feature will swap players around teams at the end of a round if there are an unequal amount of players on either time (i.e. if team A has 1 player and team B has 3, at the end of the round, 1 player from team B would be automatically moved over to team A).
+net_graph	net_graph [0 / 1 / 2 / 3]	This command will enable (set to 1) and disable (set to 0) the net graph display, which shows ping, FPS and other client variables.
+notarget	notarget	This command toggles whether or not bots are aware of your player. When this is enabled, bots will not attack you (or even react to you).
+sv_grenade_trajectory	sv_grenade_trajectory [0 / 1]	This command, if enabled (1), shows the trajectory of grenades (as colored lines). Default is 0 (disabled).
+viewmodel_presetpos	viewmodel_presetpos [1 / 2 / 3]	This command will set your X/Y/Z viewmodel offsets to a preset configuration. See argument information for help.
+-cl_show_team_equipment	-cl_show_team_equipment	This command disables the effect of the +cl_show_team_equipment, which puts the names/equipment of the members of your team permanently above their head.
++cl_show_team_equipment	+cl_show_team_equipment	This command puts the names of your teammates and the equipment they're carrying above their head permanently (usually just shows at the start of the round). Use -cl_show_team_equipment to disable.
+mp_drop_knife_enable	mp_drop_knife_enable [0 / 1]	This command allows players to drop their knives.
+sv_autobunnyhopping	sv_autobunnyhopping [0 / 1]	This command, if set to 1, will make you automatically bunny hop by holding down the space bar. Default is disabled (1).
+snd_mvp_volume	snd_mvp_volume [Volume]	This useful console command sets how long the MVP music is when a player with a MVP kit wins MVP award that round.
+sv_ledge_mantle_helper	sv_ledge_mantle_helper [0 / 1 / 2]	This console command, when enabled, makes it easier to crouch jump into windows or ledges.
+sv_prime_accounts_only	sv_prime_accounts_only [0 / 1]	This command, if set to 1, makes it so that only prime accounts can connect to the server. Default on most servers is 0 (meaning non-prime players can connect).
+BindToggle	BindToggle [Bind Key] ["Bind Command"]	This command assigns a hotkey (key on your keyboard, or button on your mouse) to switch through the various values a specified console command has (when pressed or clicked). This is useful for setting up binds that toggle a certain feature. For example,"voice_enable" would be toggled between 0 and 1 (disabled and enabled).
+cl_autobuy	cl_autobuy [Weapon codes]	This command is used to set up your autobuy preferences, meaning you can purchase the most vital gear each round by just typing "autobuy" into your console once this is set up.
+cl_crosshaircolor_b	cl_crosshaircolor_b [Blue Value]	This console command allows you to set the color of your crosshair with detail, by adjusting its level of blue. The same command exists for red and green.
+cl_crosshaircolor_g	cl_crosshaircolor_g [Green Value]	This console command allows you to set the color of your crosshair with detail, by adjusting its level of green. The same command exists for red and blue.
+cl_crosshaircolor_r	cl_crosshaircolor_r [Red Value]	This console command allows you to set the color of your crosshair with detail, by adjusting its level of red. The same command exists for green and blue.
+cl_crosshairgap_useweaponvalue	cl_crosshairgap_useweaponvalue [0 / 1]	When activated, this command will dynamically adjust the size of your crosshair depending on what weapon you have equipped at the time.
+cl_disablehtmlmotd	cl_disablehtmlmotd [0 / 1]	This command can be used to disable HTML "messages of the day" (MOTDs)in the client (by setting it to 1). HTML MOTDs are the the web pages/text that pops up when you join a server, sometimes they play volume or loud ads. Default is 0, which makes HTML MOTDs enabled.
+cl_forwardspeed	cl_forwardspeed [Speed]	This movement console command is used to set the speed you run at when moving forward.
+cl_hideserverip	cl_hideserverip [0 / 1]	This console command is used to hide the IP of your server in your console. This is particularly useful if you're streaming and don't want viewers to be able to catch your IP address, giving them the chance the DDoS the server.
+cl_hud_healthammo_style	cl_hud_healthammo_style [0 / 1]	This command is used to toggle between whether or not you want your health & armor bars at the bottom of your screen to show their numeric value (e.g 80 health) and a bar to represent this, or just show the number.
+cl_idealpitchscale	cl_idealpitchscale [Pitch Value]	This console command adjusts the pitch of the sound in game, and can cause shooting bullets sound different to usual.
+cl_rebuy	cl_rebuy [Item Order]	This console command sets the order in which the game client rebuys your gear. It can be adjusted to give priority to other purchases, such as defuse kits, grenades and more.
+cl_sidespeed	cl_sidespeed [Speed]	This movement console command sets how quickly you can move while running sideways.
+inferno_friendly_fire_duration	inferno_friendly_fire_duration [Duration]	This command sets how long after you've damaged a teammate with a molotov or an incendiary grenade the server tells you that you've damaged someone on your team.
+inferno_scorch_decals	inferno_scorch_decals [0 / 1]	You can use this console command to prevent molotovs and incendiary grenades you throw from leaving scorch decals (scorch marks) on the ground once they burn out.
+listissues	listissues	This useful console command produces a list in your developer console of the different things you can vote for in your server . This includes voting to change the map and voting to kick a player.
+m_rawinput	m_rawinput [0 / 1]	This command enables raw input from your mouse, if set to 1 (default). When raw input is enabled, input is taken directly from your mouse and your operating system settings (like acceleration, delay, etc) will not come into play.
+mm_dedicated_search_maxping	mm_dedicated_search_maxping [Max Ping]	This console command is used to set your max preferred ping when connecting to matchmaking servers. It can be beneficial to adjust this command if you find yourself being put in laggy servers.
+mp_buy_allow_grenades	mp_buy_allow_grenades [0 / 1]	This command sets whether or not players can purchase any form of grenade from the buy menu. Default is 1 (enabled).
+mp_buy_anywhere	mp_buy_anywhere [0 / 1 / 2 / 3]	This command can be used to set whether or not players can access the buy menu when they are outside of the buyzone. Note that they still need to be within the buy time period - you can change the buy time period with mp_buytime.
+mp_buy_during_immunity	mp_buy_during_immunity [0 / 1 / 2 / 3]	This command makes it so that players can buy when they are immune, regardless of the current buy time. This is used commonly in deathmatch servers. See argument information for options. Default is 0 (disabled).
+mp_buytime	mp_buytime [Seconds]	This command sets the amount of time (in seconds) that players have after a round starts to purchase items. This is the time period AFTER the round countdown. So players have the countdown at the start of the round (usually 15 seconds), plus this time period to buy.
+mp_c4timer	mp_c4timer [Seconds]	This command sets how many seconds it takes for the bomb to explode after it has been planted by the terrorists. Default is 40 seconds or 35 seconds, depending on gamemode.
+mp_competitive_endofmatch_extra_time	mp_competitive_endofmatch_extra_time [Seconds]	This command sets the amount of time (in seconds) that the scoreboard will show for (or voting time there will be) after a competitive match ends. Default is 15 seconds.
+mp_ct_default_grenades	mp_ct_default_grenades [Grenade Code(s)]	This command sets the default grenades that counter terrorists spawn with. Default is none (0). Separate multiple grenades with spaces.
