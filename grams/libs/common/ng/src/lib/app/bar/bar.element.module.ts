@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { CommonNgAppBarElement } from './app-bar.element'
+import { CommonNgAppBarElement } from './bar.element'
+
+import { CommonNgDynamicElementModule } from '../../dynamic/dynamic.element.module'
 
 @NgModule
 ({
     imports:
     [
-        CommonModule
+        CommonModule,
+        CommonNgDynamicElementModule
     ],
     exports:
     [

@@ -1,0 +1,125 @@
+What does a CSRF attack look like in Angular? Learn how to use Angular's built-in module for CSRF protection in your own web applications.
+
+What Is a CSRF Attack, and Why Should You Care?
+Example of a CSRF Attack
+CSRF Protection in Angular
+Server-Side
+Enabling CSRF in Angular
+Custom Interceptor Class
+Don't Let Your App Fall Victim to a Rookie Attack
+Cross-site request forgery (also known as CSRF, XSRF, one-click attack, and session riding) is an attack that doesn't break into the software system but can cause unwanted actions for application users. The consequences can be devastating in applications where state change causes irreversible results, such as in financial applications. So, how do you protect against such attacks? If your application uses Angular, CSRF protection comes built-in. 
+
+Angular is a front-end framework that uses TypeScript. It became popular in enterprise applications where consistent design pattern is crucial to productive development. Paired with a back-end framework, Angular provides built-in CSRF protection. How, you ask?
+
+In a CSRF attack, the attacker uses methods like phishing that will cause the user to perform requests to the server. The server cannot distinguish the request because the session cookies are sent automatically with the request and thus authenticates the action. But Angular's HttpClient module has all the interfaces needed for this authentication from happening on the client side. We use HttpClientXsrfModule to firewall connections to the server that originate anywhere outside our Angular application.
+
+In this post, we'll look at what a CSRF attack is and an example. We'll then use Node.js to write a server with an endpoint and make use of an npm library for CSRF middleware. You'll learn how to use Angular's built-in module for CSRF protection and implement it in your own web applications. 
+
+What Is a CSRF Attack, and Why Should You Care?
+When building web applications, authentication is an integral part of the structure if the application serves private activities and actions available to the user. When authentication is present, security becomes a crucial part of the application. You don’t want to compromise your users' security and data, especially in data-critical applications.
+
+CSRF is one such attack that will exploit the user’s security by sending an unwanted request to the server that is beneficial to the attacker. CSRF attacks are relevant only in cookie-based session handling because the attacker exploits the session's ID stored in cookies to perform tasks that require session tokens.
+
+Example of a CSRF Attack
+If you've used any banking or banking-integrated applications, you've probably come across the flow of money transfer. Let's say you need to transfer $10 to Maxwell. 
+
+Your API request might look like this: POST https://money123.com/transfer with acct=Maxwell123&amount=10. 
+
+The parameter acct is the receiving account ID, which is Maxwell123 for the sake of convenience. The amount parameter is the amount you are sending to him. 
+
+An attacker, Kevin, is also a user of the same banking application. When you log in to the bank application, the cookie stores the session token. If Kevin manages to send a request that looks like this from your browser, 
+
+POST https://money123.com/transfer with acct=Kevin123&amount=100000 
+
+he is able to transfer $100,000 to himself because the session cookie is present along with the request. The server is then unable to differentiate whether the action was made willingly, so it acts like a legitimate request. To achieve this, Kevin can devise an HTML form like this:
+
+<form action="https://money123.com/transfer?acct=Kevin123&AccctId&amount=100000" method="POST">
+<input type="hidden" name="acct" value="Kevin123" />
+<input type="hidden" name="amount" value="100000" />
+<button type="submit" value="Check My Horoscope Today!" ></button>
+</form>
+Social-engineering attacks like sending the link through an email will cause the victim to perform the action themselves. 
+
+If the request is a simple, like GET https://money123.com/transfer?acct=Kevin123&amount=100000, then simply including the link is enough: 
+
+<a href="https://money123.com/transfer?acct=Kevin123&amount=100000">Check My Horoscope Today!</a>
+In the next section, we'll learn how to protect your Angular application from CSRF attacks.
+
+CSRF Protection in Angular
+Angular supports CSRF protection through a mechanism called cookie-to-header token. To protect against CSRF attacks, the server-side program should cooperate with Angular. We'll look at a sample implementation of the API in Node.js as an example. 
+
+Server-Side
+In a server-side program, the program sends a random token in a cookie. Angular reads the token from the cookie. Now, while making every request to an API endpoint, it sends the cookie in the headers. The server compares the token that is sent with the token that it received from the client. If the tokens match, the server verifies the action. If the tokens don't match, it won’t. 
+
+Let’s look at our basic server-side program in Node.js. We’ll use a library called csurf, which is a CSRF middleware that provides the option to store the CSRF token in a cookie or a session. There are other libraries like:
+
+import cookieParser from 'cookie-parser';
+import csurf from 'csurf';
+var csrfProtection = csurf({ cookie: true })
+// We need cookie-parser to be initialized as well.
+app.use(cookieParser())
+app.get('/csrfEndpoint', csrfProtection, (req, res, next) => {
+res.cookie('XSRF-TOKEN', req.csrfToken(), { httpOnly: false });
+}
+csurf({ cookie: true }) specifies that the token should be stored in a cookie. The default value of false states that the token should be stored in a session. csurf uses the double submit cookie method that sets the CSRF token under the hood. It sends a random value in the cookie and the request value. To prevent login-form CSRF, the site should generate a value and store it on the user's browser. It also implements the verification middleware to check if both values match from the client-side. 
+
+We set XSRF-TOKEN as the CSRF cookie name as per the Angular conventions, which are sent in the header.
+
+Enabling CSRF in Angular
+Since our application server is sending us a token named XSRF-TOKEN, we'll use Angular's HttpClientXsrfModule to protect every outgoing request from CSRF attacks. 
+
+We'll add the HttpClientXsrfModule in the import section of the module where our component is declared:
+
+imports:[
+HttpClientXsrfModule
+]
+Now, any request sent from this component automatically sends the cookie XSRF-TOKEN as the default value and header as X-XSRF-TOKEN. 
+
+If you wish to use a different cookie and header name, HttpClientXsrfModule has a method called withOptions. The usage looks like this:
+
+imports: [
+HttpClientModule,
+HttpClientXsrfModule.withOptions({
+cookieName: 'your-custom-Xsrf-Cookie',
+headerName: 'your-custom-Xsrf-Header'
+})
+]
+HttpClientXsrfModule implements its default HttpXsrfInterceptor as its interceptor. An interceptor is a service that transforms an outgoing HTTP request. 
+
+We can also disable the CSRF protection using HttpClientXsrfModule.disable(). 
+
+Custom Interceptor Class
+We have an endpoint where we can set CSRF cookie /csrfEndpoint in our server program. You need a custom interceptor implementation in such cases.
+
+@Injectable()
+export class CustomInterceptor implements HttpInterceptor {
+constructor(private tokenExtractor: HttpXsrfTokenExtractor) {
+}
+intercept(req: HttpRequest, next: HttpHandler): Observable<HttpEvent> {
+const cookieheaderName = 'X-XSRF-TOKEN';
+let csrfToken = this.tokenExtractor.getToken() as string;
+if (csrfToken !== null && !req.headers.has(cookieheaderName)) {
+req = req.clone({ headers: req.headers.set(cookieheaderName, csrfToken) });
+}
+return next.handle(req);
+}
+}
+We extend the HttpInterceptor class. HttpXsrfTokenExtractor is also provided in HttpClientXsrfModule. It has a method called getToken() that extracts the token needed to be sent with every outgoing request. HttpInterceptor comes with a method called intercept() that takes an HttpRequest object and a HttpHandler object that handles the request next once every request is successfully intercepted. 
+
+We then check if the request's headers have the cookie header has X-XSRF-TOKEN per default Angular values. Then, we set the outgoing request with the token and the cookie header. Every request now contains the token and the cookie name so it can compare them with the values it sent. Now, in the provider section of the module, add the following if you use the default HttpInterceptor:
+
+providers: [
+{ provide: HTTP_INTERCEPTORS, useExisting: HttpXsrfInterceptor, multi: true }
+]
+If you're using the custom interceptor, add the following in the provider section:
+
+{ provide: HTTP_INTERCEPTORS, useClass: CustomInterceptor, multi: true }
+{ provide: HttpXsrfTokenExtractor, useClass: HttpXsrfCookieExtractor }
+Many people tend to ignore CSRF protection in the login form because no session is present when the person is not logged in. But let's say an attacker has a user's password and username. The attacker can then log in to the application with the victim's credentials. You can avoid this attack for a critical application by storing the previous session ID and including it as the CSRF token in the login form. Every time a user creates a new session, be sure to update the old session ID with the new one.
+
+
+Find and Fix Application Security Vulnerabilities with Automated Testing
+Don't Let Your App Fall Victim to a Rookie Attack
+In this post, we inspected a tiny Node.js server application that sets CSRF token in the cookie and header. You also learned how Angular sets the cookie and header values in every outgoing request. We looked at how to implement our own custom interceptor class when we have a custom URL for setting CSRF tokens. The csurf middleware checks for the CSRF token and allows it to proceed once it verifies the request is coming from the user. 
+
+Even though CSRF attacks don't cause any state change, they can cause victims to perform unwanted actions. If your web application doesn't use the measures to avoid it, your users can be tricked into performing unwanted actions without their knowledge. It's best for the developer to handle the scenario since most of the frameworks come with an implementation of their CSRF protection. For more information about CSRF attacks, check out this post. 

@@ -1,12 +1,13 @@
 import { Component, ElementRef, Input, ContentChildren } from '@angular/core'
 import { fromEvent } from 'rxjs'
-import { CommonNgStylesService } from '../styles/styles.service'
+
+import { CommonNgStylesService } from '../../styles/styles.service'
 
 @Component
 ({
     selector : 'common-ng-app-bar-element',
-    templateUrl : './app-bar.element.html',
-    styleUrls : ['./app-bar.element.scss']
+    templateUrl : './bar.element.html',
+    styleUrls : ['./bar.element.scss']
 })
 export class CommonNgAppBarElement
 {

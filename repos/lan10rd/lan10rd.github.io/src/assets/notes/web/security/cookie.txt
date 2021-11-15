@@ -1,0 +1,2 @@
+httpOnly - can value be accessed via client javascript?
+secure - https
