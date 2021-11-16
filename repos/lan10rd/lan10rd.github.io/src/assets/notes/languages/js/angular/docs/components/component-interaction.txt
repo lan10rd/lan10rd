@@ -1,0 +1,734 @@
+Component interaction
+This cookbook contains recipes for common component communication scenarios in which two or more components share information.
+
+See the live example / download example.
+
+Pass data from parent to child with input binding
+HeroChildComponent has two input properties, typically adorned with @Input() decorator.
+
+component-interaction/src/app/hero-child.component.ts
+content_copy
+import { Component, Input } from '@angular/core';
+
+import { Hero } from './hero';
+
+@Component({
+  selector: 'app-hero-child',
+  template: `
+    <h3>{{hero.name}} says:</h3>
+    <p>I, {{hero.name}}, am at your service, {{masterName}}.</p>
+  `
+})
+export class HeroChildComponent {
+  @Input() hero!: Hero;
+  @Input('master') masterName = ''; // tslint:disable-line: no-input-rename
+}
+The second @Input aliases the child component property name masterName as 'master'.
+
+The HeroParentComponent nests the child HeroChildComponent inside an *ngFor repeater, binding its master string property to the child's master alias, and each iteration's hero instance to the child's hero property.
+
+component-interaction/src/app/hero-parent.component.ts
+content_copy
+import { Component } from '@angular/core';
+
+import { HEROES } from './hero';
+
+@Component({
+  selector: 'app-hero-parent',
+  template: `
+    <h2>{{master}} controls {{heroes.length}} heroes</h2>
+
+    <app-hero-child
+      *ngFor="let hero of heroes"
+      [hero]="hero"
+      [master]="master">
+    </app-hero-child>
+  `
+})
+export class HeroParentComponent {
+  heroes = HEROES;
+  master = 'Master';
+}
+The running application displays three heroes:
+
+Parent-to-child
+Test it
+E2E test that all children were instantiated and displayed as expected:
+
+component-interaction/e2e/src/app.e2e-spec.ts
+content_copy
+// ...
+const heroNames = ['Dr IQ', 'Magneta', 'Bombasto'];
+const masterName = 'Master';
+
+it('should pass properties to children properly', async () => {
+  const parent = element(by.tagName('app-hero-parent'));
+  const heroes = parent.all(by.tagName('app-hero-child'));
+
+  for (let i = 0; i < heroNames.length; i++) {
+    const childTitle = await heroes.get(i).element(by.tagName('h3')).getText();
+    const childDetail = await heroes.get(i).element(by.tagName('p')).getText();
+    expect(childTitle).toEqual(heroNames[i] + ' says:');
+    expect(childDetail).toContain(masterName);
+  }
+});
+// ...
+Back to top
+
+Intercept input property changes with a setter
+Use an input property setter to intercept and act upon a value from the parent.
+
+The setter of the name input property in the child NameChildComponent trims the whitespace from a name and replaces an empty value with default text.
+
+component-interaction/src/app/name-child.component.ts
+content_copy
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-name-child',
+  template: '<h3>"{{name}}"</h3>'
+})
+export class NameChildComponent {
+  @Input()
+  get name(): string { return this._name; }
+  set name(name: string) {
+    this._name = (name && name.trim()) || '<no name set>';
+  }
+  private _name = '';
+}
+Here's the NameParentComponent demonstrating name variations including a name with all spaces:
+
+component-interaction/src/app/name-parent.component.ts
+content_copy
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-name-parent',
+  template: `
+    <h2>Master controls {{names.length}} names</h2>
+
+    <app-name-child *ngFor="let name of names" [name]="name"></app-name-child>
+  `
+})
+export class NameParentComponent {
+  // Displays 'Dr IQ', '<no name set>', 'Bombasto'
+  names = ['Dr IQ', '   ', '  Bombasto  '];
+}
+Parent-to-child-setter
+Test it
+E2E tests of input property setter with empty and non-empty names:
+
+component-interaction/e2e/src/app.e2e-spec.ts
+content_copy
+// ...
+it('should display trimmed, non-empty names', async () => {
+  const nonEmptyNameIndex = 0;
+  const nonEmptyName = '"Dr IQ"';
+  const parent = element(by.tagName('app-name-parent'));
+  const hero = parent.all(by.tagName('app-name-child')).get(nonEmptyNameIndex);
+
+  const displayName = await hero.element(by.tagName('h3')).getText();
+  expect(displayName).toEqual(nonEmptyName);
+});
+
+it('should replace empty name with default name', async () => {
+  const emptyNameIndex = 1;
+  const defaultName = '"<no name set>"';
+  const parent = element(by.tagName('app-name-parent'));
+  const hero = parent.all(by.tagName('app-name-child')).get(emptyNameIndex);
+
+  const displayName = await hero.element(by.tagName('h3')).getText();
+  expect(displayName).toEqual(defaultName);
+});
+// ...
+Back to top
+
+Intercept input property changes with ngOnChanges()
+Detect and act upon changes to input property values with the ngOnChanges() method of the OnChanges lifecycle hook interface.
+
+You might prefer this approach to the property setter when watching multiple, interacting input properties.
+
+Learn about ngOnChanges() in the Lifecycle Hooks chapter.
+
+This VersionChildComponent detects changes to the major and minor input properties and composes a log message reporting these changes:
+
+component-interaction/src/app/version-child.component.ts
+content_copy
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+@Component({
+  selector: 'app-version-child',
+  template: `
+    <h3>Version {{major}}.{{minor}}</h3>
+    <h4>Change log:</h4>
+    <ul>
+      <li *ngFor="let change of changeLog">{{change}}</li>
+    </ul>
+  `
+})
+export class VersionChildComponent implements OnChanges {
+  @Input() major = 0;
+  @Input() minor = 0;
+  changeLog: string[] = [];
+
+  ngOnChanges(changes: SimpleChanges) {
+    const log: string[] = [];
+    for (const propName in changes) {
+      const changedProp = changes[propName];
+      const to = JSON.stringify(changedProp.currentValue);
+      if (changedProp.isFirstChange()) {
+        log.push(`Initial value of ${propName} set to ${to}`);
+      } else {
+        const from = JSON.stringify(changedProp.previousValue);
+        log.push(`${propName} changed from ${from} to ${to}`);
+      }
+    }
+    this.changeLog.push(log.join(', '));
+  }
+}
+The VersionParentComponent supplies the minor and major values and binds buttons to methods that change them.
+
+component-interaction/src/app/version-parent.component.ts
+content_copy
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-version-parent',
+  template: `
+    <h2>Source code version</h2>
+    <button (click)="newMinor()">New minor version</button>
+    <button (click)="newMajor()">New major version</button>
+    <app-version-child [major]="major" [minor]="minor"></app-version-child>
+  `
+})
+export class VersionParentComponent {
+  major = 1;
+  minor = 23;
+
+  newMinor() {
+    this.minor++;
+  }
+
+  newMajor() {
+    this.major++;
+    this.minor = 0;
+  }
+}
+Here's the output of a button-pushing sequence:
+
+Parent-to-child-onchanges
+Test it
+Test that both input properties are set initially and that button clicks trigger the expected ngOnChanges calls and values:
+
+component-interaction/e2e/src/app.e2e-spec.ts
+content_copy
+// ...
+// Test must all execute in this exact order
+it('should set expected initial values', async () => {
+  const actual = await getActual();
+
+  const initialLabel = 'Version 1.23';
+  const initialLog = 'Initial value of major set to 1, Initial value of minor set to 23';
+
+  expect(actual.label).toBe(initialLabel);
+  expect(actual.count).toBe(1);
+  expect(await actual.logs.get(0).getText()).toBe(initialLog);
+});
+
+it('should set expected values after clicking \'Minor\' twice', async () => {
+  const repoTag = element(by.tagName('app-version-parent'));
+  const newMinorButton = repoTag.all(by.tagName('button')).get(0);
+
+  await newMinorButton.click();
+  await newMinorButton.click();
+
+  const actual = await getActual();
+
+  const labelAfter2Minor = 'Version 1.25';
+  const logAfter2Minor = 'minor changed from 24 to 25';
+
+  expect(actual.label).toBe(labelAfter2Minor);
+  expect(actual.count).toBe(3);
+  expect(await actual.logs.get(2).getText()).toBe(logAfter2Minor);
+});
+
+it('should set expected values after clicking \'Major\' once', async () => {
+  const repoTag = element(by.tagName('app-version-parent'));
+  const newMajorButton = repoTag.all(by.tagName('button')).get(1);
+
+  await newMajorButton.click();
+  const actual = await getActual();
+
+  const labelAfterMajor = 'Version 2.0';
+  const logAfterMajor = 'major changed from 1 to 2, minor changed from 23 to 0';
+
+  expect(actual.label).toBe(labelAfterMajor);
+  expect(actual.count).toBe(2);
+  expect(await actual.logs.get(1).getText()).toBe(logAfterMajor);
+});
+
+async function getActual() {
+  const versionTag = element(by.tagName('app-version-child'));
+  const label = await versionTag.element(by.tagName('h3')).getText();
+  const ul = versionTag.element((by.tagName('ul')));
+  const logs = ul.all(by.tagName('li'));
+
+  return {
+    label,
+    logs,
+    count: await logs.count(),
+  };
+}
+// ...
+Back to top
+
+Parent listens for child event
+The child component exposes an EventEmitter property with which it emits events when something happens. The parent binds to that event property and reacts to those events.
+
+The child's EventEmitter property is an output property, typically adorned with an @Output() decorator as seen in this VoterComponent:
+
+component-interaction/src/app/voter.component.ts
+content_copy
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-voter',
+  template: `
+    <h4>{{name}}</h4>
+    <button (click)="vote(true)"  [disabled]="didVote">Agree</button>
+    <button (click)="vote(false)" [disabled]="didVote">Disagree</button>
+  `
+})
+export class VoterComponent {
+  @Input()  name = '';
+  @Output() voted = new EventEmitter<boolean>();
+  didVote = false;
+
+  vote(agreed: boolean) {
+    this.voted.emit(agreed);
+    this.didVote = true;
+  }
+}
+Clicking a button triggers emission of a true or false, the boolean payload.
+
+The parent VoteTakerComponent binds an event handler called onVoted() that responds to the child event payload $event and updates a counter.
+
+component-interaction/src/app/votetaker.component.ts
+content_copy
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-vote-taker',
+  template: `
+    <h2>Should mankind colonize the Universe?</h2>
+    <h3>Agree: {{agreed}}, Disagree: {{disagreed}}</h3>
+
+    <app-voter
+      *ngFor="let voter of voters"
+      [name]="voter"
+      (voted)="onVoted($event)">
+    </app-voter>
+  `
+})
+export class VoteTakerComponent {
+  agreed = 0;
+  disagreed = 0;
+  voters = ['Narco', 'Celeritas', 'Bombasto'];
+
+  onVoted(agreed: boolean) {
+    agreed ? this.agreed++ : this.disagreed++;
+  }
+}
+The framework passes the event argument—represented by $event—to the handler method, and the method processes it:
+
+Child-to-parent
+Test it
+Test that clicking the Agree and Disagree buttons update the appropriate counters:
+
+component-interaction/e2e/src/app.e2e-spec.ts
+content_copy
+// ...
+it('should not emit the event initially', async () => {
+  const voteLabel = element(by.tagName('app-vote-taker')).element(by.tagName('h3'));
+  expect(await voteLabel.getText()).toBe('Agree: 0, Disagree: 0');
+});
+
+it('should process Agree vote', async () => {
+  const voteLabel = element(by.tagName('app-vote-taker')).element(by.tagName('h3'));
+  const agreeButton1 = element.all(by.tagName('app-voter')).get(0)
+    .all(by.tagName('button')).get(0);
+
+  await agreeButton1.click();
+
+  expect(await voteLabel.getText()).toBe('Agree: 1, Disagree: 0');
+});
+
+it('should process Disagree vote', async () => {
+  const voteLabel = element(by.tagName('app-vote-taker')).element(by.tagName('h3'));
+  const agreeButton1 = element.all(by.tagName('app-voter')).get(1)
+    .all(by.tagName('button')).get(1);
+
+  await agreeButton1.click();
+
+  expect(await voteLabel.getText()).toBe('Agree: 0, Disagree: 1');
+});
+// ...
+Back to top
+
+Parent interacts with child using local variable
+A parent component cannot use data binding to read child properties or invoke child methods. Do both by creating a template reference variable for the child element and then reference that variable within the parent template as seen in the following example.
+
+The following is a child CountdownTimerComponent that repeatedly counts down to zero and launches a rocket. The start and stop methods control the clock and a countdown status message displays in its own template.
+
+component-interaction/src/app/countdown-timer.component.ts
+content_copy
+import { Component, OnDestroy } from '@angular/core';
+
+@Component({
+  selector: 'app-countdown-timer',
+  template: '<p>{{message}}</p>'
+})
+export class CountdownTimerComponent implements OnDestroy {
+
+  intervalId = 0;
+  message = '';
+  seconds = 11;
+
+  ngOnDestroy() { this.clearTimer(); }
+
+  start() { this.countDown(); }
+  stop()  {
+    this.clearTimer();
+    this.message = `Holding at T-${this.seconds} seconds`;
+  }
+
+  private clearTimer() { clearInterval(this.intervalId); }
+
+  private countDown() {
+    this.clearTimer();
+    this.intervalId = window.setInterval(() => {
+      this.seconds -= 1;
+      if (this.seconds === 0) {
+        this.message = 'Blast off!';
+      } else {
+        if (this.seconds < 0) { this.seconds = 10; } // reset
+        this.message = `T-${this.seconds} seconds and counting`;
+      }
+    }, 1000);
+  }
+}
+The CountdownLocalVarParentComponent that hosts the timer component is as follows:
+
+component-interaction/src/app/countdown-parent.component.ts
+content_copy
+import { Component } from '@angular/core';
+import { CountdownTimerComponent } from './countdown-timer.component';
+
+@Component({
+  selector: 'app-countdown-parent-lv',
+  template: `
+    <h3>Countdown to Liftoff (via local variable)</h3>
+    <button (click)="timer.start()">Start</button>
+    <button (click)="timer.stop()">Stop</button>
+    <div class="seconds">{{timer.seconds}}</div>
+    <app-countdown-timer #timer></app-countdown-timer>
+  `,
+  styleUrls: ['../assets/demo.css']
+})
+export class CountdownLocalVarParentComponent { }
+The parent component cannot data bind to the child's start and stop methods nor to its seconds property.
+
+Place a local variable, #timer, on the tag <countdown-timer> representing the child component. That gives you a reference to the child component and the ability to access any of its properties or methods from within the parent template.
+
+This example wires parent buttons to the child's start and stop and uses interpolation to display the child's seconds property.
+
+Here, the parent and child are working together.
+
+countdown timer
+Test it
+Test that the seconds displayed in the parent template match the seconds displayed in the child's status message. Test also that clicking the Stop button pauses the countdown timer:
+
+component-interaction/e2e/src/app.e2e-spec.ts
+content_copy
+// ...
+// The tests trigger periodic asynchronous operations (via `setInterval()`), which will prevent
+// the app from stabilizing. See https://angular.io/api/core/ApplicationRef#is-stable-examples
+// for more details.
+// To allow the tests to complete, we will disable automatically waiting for the Angular app to
+// stabilize.
+beforeEach(() => browser.waitForAngularEnabled(false));
+afterEach(() => browser.waitForAngularEnabled(true));
+
+it('timer and parent seconds should match', async () => {
+  const parent = element(by.tagName(parentTag));
+  const startButton = parent.element(by.buttonText('Start'));
+  const seconds = parent.element(by.className('seconds'));
+  const timer = parent.element(by.tagName('app-countdown-timer'));
+
+  await startButton.click();
+
+  // Wait for `<app-countdown-timer>` to be populated with any text.
+  await browser.wait(() => timer.getText(), 2000);
+
+  expect(await timer.getText()).toContain(await seconds.getText());
+});
+
+it('should stop the countdown', async () => {
+  const parent = element(by.tagName(parentTag));
+  const startButton = parent.element(by.buttonText('Start'));
+  const stopButton = parent.element(by.buttonText('Stop'));
+  const timer = parent.element(by.tagName('app-countdown-timer'));
+
+  await startButton.click();
+  expect(await timer.getText()).not.toContain('Holding');
+
+  await stopButton.click();
+  expect(await timer.getText()).toContain('Holding');
+});
+// ...
+Back to top
+
+Parent calls an @ViewChild()
+The local variable approach is straightforward. But it is limited because the parent-child wiring must be done entirely within the parent template. The parent component itself has no access to the child.
+
+You can't use the local variable technique if the parent component's class relies on the child component's class. The parent-child relationship of the components is not established within each components respective class with the local variable technique. Because the class instances are not connected to one another, the parent class cannot access the child class properties and methods.
+
+When the parent component class requires that kind of access, inject the child component into the parent as a ViewChild.
+
+The following example illustrates this technique with the same Countdown Timer example. Neither its appearance nor its behavior changes. The child CountdownTimerComponent is the same as well.
+
+The switch from the local variable to the ViewChild technique is solely for the purpose of demonstration.
+
+Here is the parent, CountdownViewChildParentComponent:
+
+component-interaction/src/app/countdown-parent.component.ts
+content_copy
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { CountdownTimerComponent } from './countdown-timer.component';
+
+@Component({
+  selector: 'app-countdown-parent-vc',
+  template: `
+    <h3>Countdown to Liftoff (via ViewChild)</h3>
+    <button (click)="start()">Start</button>
+    <button (click)="stop()">Stop</button>
+    <div class="seconds">{{ seconds() }}</div>
+    <app-countdown-timer></app-countdown-timer>
+  `,
+  styleUrls: ['../assets/demo.css']
+})
+export class CountdownViewChildParentComponent implements AfterViewInit {
+
+  @ViewChild(CountdownTimerComponent)
+  private timerComponent!: CountdownTimerComponent;
+
+  seconds() { return 0; }
+
+  ngAfterViewInit() {
+    // Redefine `seconds()` to get from the `CountdownTimerComponent.seconds` ...
+    // but wait a tick first to avoid one-time devMode
+    // unidirectional-data-flow-violation error
+    setTimeout(() => this.seconds = () => this.timerComponent.seconds, 0);
+  }
+
+  start() { this.timerComponent.start(); }
+  stop() { this.timerComponent.stop(); }
+}
+It takes a bit more work to get the child view into the parent component class.
+
+First, you have to import references to the ViewChild decorator and the AfterViewInit lifecycle hook.
+
+Next, inject the child CountdownTimerComponent into the private timerComponent property using the @ViewChild property decoration.
+
+The #timer local variable is gone from the component metadata. Instead, bind the buttons to the parent component's own start and stop methods and present the ticking seconds in an interpolation around the parent component's seconds method.
+
+These methods access the injected timer component directly.
+
+The ngAfterViewInit() lifecycle hook is an important wrinkle. The timer component isn't available until after Angular displays the parent view. So it displays 0 seconds initially.
+
+Then Angular calls the ngAfterViewInit lifecycle hook at which time it is too late to update the parent view's display of the countdown seconds. Angular's unidirectional data flow rule prevents updating the parent view's in the same cycle. The application must wait one turn before it can display the seconds.
+
+Use setTimeout() to wait one tick and then revise the seconds() method so that it takes future values from the timer component.
+
+Test it
+Use the same countdown timer tests as before.
+
+Back to top
+
+Parent and children communicate using a service
+A parent component and its children share a service whose interface enables bi-directional communication within the family.
+
+The scope of the service instance is the parent component and its children. Components outside this component subtree have no access to the service or their communications.
+
+This MissionService connects the MissionControlComponent to multiple AstronautComponent children.
+
+component-interaction/src/app/mission.service.ts
+content_copy
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+
+@Injectable()
+export class MissionService {
+
+  // Observable string sources
+  private missionAnnouncedSource = new Subject<string>();
+  private missionConfirmedSource = new Subject<string>();
+
+  // Observable string streams
+  missionAnnounced$ = this.missionAnnouncedSource.asObservable();
+  missionConfirmed$ = this.missionConfirmedSource.asObservable();
+
+  // Service message commands
+  announceMission(mission: string) {
+    this.missionAnnouncedSource.next(mission);
+  }
+
+  confirmMission(astronaut: string) {
+    this.missionConfirmedSource.next(astronaut);
+  }
+}
+The MissionControlComponent both provides the instance of the service that it shares with its children (through the providers metadata array) and injects that instance into itself through its constructor:
+
+component-interaction/src/app/missioncontrol.component.ts
+content_copy
+import { Component } from '@angular/core';
+
+import { MissionService } from './mission.service';
+
+@Component({
+  selector: 'app-mission-control',
+  template: `
+    <h2>Mission Control</h2>
+    <button (click)="announce()">Announce mission</button>
+
+    <app-astronaut
+      *ngFor="let astronaut of astronauts"
+      [astronaut]="astronaut">
+    </app-astronaut>
+
+    <h3>History</h3>
+    <ul>
+      <li *ngFor="let event of history">{{event}}</li>
+    </ul>
+  `,
+  providers: [MissionService]
+})
+export class MissionControlComponent {
+  astronauts = ['Lovell', 'Swigert', 'Haise'];
+  history: string[] = [];
+  missions = ['Fly to the moon!',
+              'Fly to mars!',
+              'Fly to Vegas!'];
+  nextMission = 0;
+
+  constructor(private missionService: MissionService) {
+    missionService.missionConfirmed$.subscribe(
+      astronaut => {
+        this.history.push(`${astronaut} confirmed the mission`);
+      });
+  }
+
+  announce() {
+    const mission = this.missions[this.nextMission++];
+    this.missionService.announceMission(mission);
+    this.history.push(`Mission "${mission}" announced`);
+    if (this.nextMission >= this.missions.length) { this.nextMission = 0; }
+  }
+}
+The AstronautComponent also injects the service in its constructor. Each AstronautComponent is a child of the MissionControlComponent and therefore receives its parent's service instance:
+
+component-interaction/src/app/astronaut.component.ts
+content_copy
+import { Component, Input, OnDestroy } from '@angular/core';
+
+import { MissionService } from './mission.service';
+import { Subscription } from 'rxjs';
+
+@Component({
+  selector: 'app-astronaut',
+  template: `
+    <p>
+      {{astronaut}}: <strong>{{mission}}</strong>
+      <button
+        (click)="confirm()"
+        [disabled]="!announced || confirmed">
+        Confirm
+      </button>
+    </p>
+  `
+})
+export class AstronautComponent implements OnDestroy {
+  @Input() astronaut = '';
+  mission = '<no mission announced>';
+  confirmed = false;
+  announced = false;
+  subscription: Subscription;
+
+  constructor(private missionService: MissionService) {
+    this.subscription = missionService.missionAnnounced$.subscribe(
+      mission => {
+        this.mission = mission;
+        this.announced = true;
+        this.confirmed = false;
+    });
+  }
+
+  confirm() {
+    this.confirmed = true;
+    this.missionService.confirmMission(this.astronaut);
+  }
+
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
+  }
+}
+Notice that this example captures the subscription and unsubscribe() when the AstronautComponent is destroyed. This is a memory-leak guard step. There is no actual risk in this application because the lifetime of a AstronautComponent is the same as the lifetime of the application itself. That would not always be true in a more complex application.
+
+You don't add this guard to the MissionControlComponent because, as the parent, it controls the lifetime of the MissionService.
+
+The History log demonstrates that messages travel in both directions between the parent MissionControlComponent and the AstronautComponent children, facilitated by the service:
+
+bidirectional-service
+Test it
+Tests click buttons of both the parent MissionControlComponent and the AstronautComponent children and verify that the history meets expectations:
+
+component-interaction/e2e/src/app.e2e-spec.ts
+content_copy
+// ...
+it('should announce a mission', async () => {
+  const missionControl = element(by.tagName('app-mission-control'));
+  const announceButton = missionControl.all(by.tagName('button')).get(0);
+  const history = missionControl.all(by.tagName('li'));
+
+  await announceButton.click();
+
+  expect(await history.count()).toBe(1);
+  expect(await history.get(0).getText()).toMatch(/Mission.* announced/);
+});
+
+it('should confirm the mission by Lovell', async () => {
+  await testConfirmMission(1, 'Lovell');
+});
+
+it('should confirm the mission by Haise', async () => {
+  await testConfirmMission(3, 'Haise');
+});
+
+it('should confirm the mission by Swigert', async () => {
+  await testConfirmMission(2, 'Swigert');
+});
+
+async function testConfirmMission(buttonIndex: number, astronaut: string) {
+  const missionControl = element(by.tagName('app-mission-control'));
+  const announceButton = missionControl.all(by.tagName('button')).get(0);
+  const confirmButton = missionControl.all(by.tagName('button')).get(buttonIndex);
+  const history = missionControl.all(by.tagName('li'));
+
+  await announceButton.click();
+  await confirmButton.click();
+
+  expect(await history.count()).toBe(2);
+  expect(await history.get(1).getText()).toBe(`${astronaut} confirmed the mission`);
+}

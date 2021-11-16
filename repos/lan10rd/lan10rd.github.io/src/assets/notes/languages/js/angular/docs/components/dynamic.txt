@@ -1,33 +1,3 @@
-You can create a module and a component on-the-fly, apply decorators to it and then compile it all. Then you will be able to access the compiled components:
-
-@ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
-
-constructor(private _compiler: Compiler,
-            private _injector: Injector,
-            private _m: NgModuleRef<any>) {
-}
-
-ngAfterViewInit() {
-  const template = '<span>generated on the fly: {{name}}</span>';
-
-  const tmpCmp = Component({template: template})(class {
-  });
-  const tmpModule = NgModule({declarations: [tmpCmp]})(class {
-  });
-
-  this._compiler.compileModuleAndAllComponentsAsync(tmpModule)
-    .then((factories) => {
-      const f = factories.componentFactories[0];
-      const cmpRef = f.create(this._injector, [], null, this._m);
-      cmpRef.instance.name = 'dynamic';
-      this.vc.insert(cmpRef.hostView);
-    })
-}
-For this approach to work you need to bring compiler to the runtime. For more details on dynamic components read the article:
-
-
-
-
 Dynamic component loader
 Component templates are not always fixed. An application might need to load new components at runtime. This cookbook shows you how to add components dynamically.
 
@@ -166,5 +136,3 @@ The final ad banner looks like this:
 
 Ads
 See the live example / download example.
-
-
