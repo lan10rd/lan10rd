@@ -1,0 +1,99 @@
+
+Name	Min/Max	Description	Best Setting
+viewmodel_offset_x	-2.5 to 2.5	Changes how far right or left your gun is	viewmodel_offset_x 2.5 
+viewmodel_offset_y	-2 to 2	Changes how close your gun is to your character	viewmodel_offset_y -2 
+viewmodel_offset_z	-2 to 2	Changes how far up or down your gun is	viewmodel_offset_z -2 
+viewmodel_fov	54 to 68	Changes the field of view of your viewmodel	viewmodel_fov 54 
+
+
+The most useful console commands for CS:GO
+Make the most of your console.
+
+You’re missing out if you’re not using console commands in Counter-Strike. The tactical shooter features a long list of options to personalize your game, dwarfing its competitors.
+
+You can use the console to add, tweak, and replace elements of the game’s user interface, including your mini-map, HUD, crosshair, and much more. 
+
+To use the console, press the tilde (`) key on your keyboard when you’re in a game. If you haven’t already, you can enable your console by heading to your settings and checking the “enable developer console” box.
+
+When you open the console, type in any one of these commands.
+
+net_graph 1
+This command allows you to see a ton of useful information on your screen, including FPS, ping, and tick rate. 
+
+fps_max 0
+This command helps you maximize your frames per second (FPS). It takes away the restriction on your FPS and allows your PC to reach its maximum potential. Instead of being stuck behind the barrier of 60 FPS, you can go above and beyond.
+
+cl_radar_always_centered
+The radar is often misleading. When a red dot shows up on the edge of the map, it can put you into a false sense of security. This commend centers the radar, allowing you to see all over the map. It might take some time to get used to, but it’s well worth the effort. 
+
+cl_use_opens_buy_menu 0
+Have you ever gone to pick up a weapon off the ground in spawn and accidentally opened up your buy menu? This helpful command will prevent your “use” key (default E) from opening up the buy menu.
+
++cl_show_team_equipment
+This command allows you to see your teammate’s weapons and utility loadout above their heads, giving you a bigger picture of the game. It can be used to single out a teammate and gather information about smokes or flashbangs. 
+
+voice_scale 0.3
+This command will help you counteract your noisy teammates that enjoy screaming rather than playing. It lowers the volume of your teammates to a suitable level, allowing you to focus on the game.
+
+novid
+This command turns off Valve’s annoying pre-game intros, saving you a few seconds when you load up a new map.
+
+language
+This command switches your client to another language. If you speak French, for example, type language [french] in the console. 
+
+bot_add
+This command will add a bot into your private game, allowing you to practice your aim before you jump into matchmaking.
+
+cl_hud_color
+You can personalize your HUD with this command. Write cl_hud_color [HUD Color] and choose a color. Green, Cyan, Red, and Blue are just a few available options.
+
+cl_lefthand
+If you’re a lefty or you want a change of pace, this command will allow you to move your gun to the left side of your screen. If you want to change it back to default, type cl_righthand.
+
+sv_cheats 1
+This command will give you the ability to experiment with your own personal server. You can use it to activate almost any client-sided or server-sided console command you please.  
+
+sv_grenade_trajectory 1 and sv_grenade_trajectory_time 10
+This command is excellent for practicing grenades. You can use it to execute pop-flashes, smokes, and get to grips with the game’s physics.
+
+cl_drawonlydeathnotices 1
+For the frag movie makers out there, this command turns off the heads-up display (HUD) and replaces them with your victims’ aliases in your clips.
+
+r_drawtracers_firstperson 0
+This command turns off the client-side bullet tracers from weapons like the M4A4 and the AK-47. It’s useful for improving your spray control and practicing your favorite guns. 
+
+spec_show_xray 1
+You can use this command while watching demos. It shows player models movements through walls, allowing you to pick up on player behaviorisms. It’s especially useful for catching out wallhackers in Valve’s Overwatch system.
+
+cl_show_team_equipment
+This command lets you view your teammate’s utility. Instead of asking them if they have a couple of flashbangs and a smoke at hand, you can simply look at your screen. 
+
+voice_enable 0
+If you’re sick and tired of listening to your teammates rambling on about nonsense, this command will give you some peace and quiet. It mutes all of the players on your team.
+
+net_graph
+This command will enable (set to 1) and disable (set to 0) a table on your screen, showing your ping, FPS, and other useful information.
+
+cl_showfps
+This command adds a simple frames per sound count in the top left corner of your screen. It takes up much less room than net_graph and is generally less distracting.
+
+demoui
+This command brings up a small rectangular interface for watching demos. It’s helpful for speeding up viewing, slowing down highlights, and manually loading demo files from third-party server hosts like FACEIT or ESEA.
+
+god
+This command gives you “god mode,” making you indestructible in private servers. It requires the sv_cheats 1 command.
+
+noclip
+If you’ve ever fancied flying around the map, noclip is the command for you. It requires the sv_cheats 1 command and only works in private servers.
+
+kill
+This command kills you on the spot.
+
+exec
+Exec is great for enabling private server configurations (.cfg files for practice, one-on-ones, etc.) that you can create or download from third-party websites.
+
+disconnect
+This command allows you to immediately leave a server, saving you a few extra clicks. It’s particularly useful at the end of a match.
+
+quit
+This command closes CS:GO, taking you back to the desktop.
