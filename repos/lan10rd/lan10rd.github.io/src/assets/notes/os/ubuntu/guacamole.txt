@@ -6,6 +6,10 @@ apache guacamole rocks my socks, vnc/rdp/ssh to any computer on the network, jus
 
 so anyway you can do vnc or rdp, rdp is best easy for windows sound + audio out of the box, but you gotta put in the user name and pass in the configurations. you can leave pass blank if you configured windows not to need a password for remote connections
 
+// to open options (dekstop)
+shift + ctl + alt
+// (mobile)
+swipe in left corner
 
 // rdp sample
 name: seven
