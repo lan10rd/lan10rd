@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { AppInitElement } from './init.element'
+import { AppBarElementModule } from '../bar/bar.element.module'
 
 import { CommonNgRouterElementModule, CommonNgPopopElementModule, CommonNgThemesElementModule, CommonNgButtonElementModule, CommonNgAppBarElementModule } from '@grams/common/ng'
 
@@ -14,7 +15,8 @@ import { CommonNgRouterElementModule, CommonNgPopopElementModule, CommonNgThemes
         CommonNgPopopElementModule,
         CommonNgThemesElementModule,
         CommonNgButtonElementModule,
-        CommonNgAppBarElementModule
+        CommonNgAppBarElementModule,
+        AppBarElementModule
     ],
     declarations:
     [

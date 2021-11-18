@@ -1,0 +1,58 @@
+<common-ng-app-bar-element
+class="fixed-top bl glo-0-drop"
+style="max-height: 100vh"
+>
+
+    <div
+    class="flex"
+    #header
+    >
+        <div
+        class="ib"
+        style="width: 15%;"
+        >
+        <!-- (click)="util.functions.appbar.openLeft()" -->
+            <common-ng-button-element
+            (click)="open('left')"
+            class="tcenter p glo-0-text-ani bl scrollable glo-0-text-trim"
+            [text]="'hihihihihi'"
+            ></common-ng-button-element>
+
+        </div>
+        <div
+        class="ib"
+        style="width: 70%;"
+        >
+            <common-ng-router-element
+            [ngClass]="{'hidden': util.router._renderedRoutes.length === 0}"
+            class="tcenter glo-0-text-trim bl"
+            style="border-radius: 0; border-right: 0; border-left: 0; box-shadow: none; backdrop-filter: blur(5px);"
+            ></common-ng-router-element>
+        </div>
+        <div 
+        class="ib"
+        style="width: 15%; overflow: auto"
+        >
+            <common-ng-button-element
+            (click)="open('right')"
+            class="tcenter p glo-0-text-ani bl scrollable glo-0-text-trim"
+            [text]="'user'"
+            ></common-ng-button-element>
+        </div>
+    </div>
+
+    <app-bar-left-element
+    class="bl"
+    [ngStyle]="{'height' : height()}"
+    style="overflow: auto"
+    *ngIf="show === 'left'"
+    ></app-bar-left-element>
+
+    <app-bar-right-element
+    class="bl"
+    [ngStyle]="{'height' : height()}"
+    style="overflow: auto"
+    *ngIf="show === 'right'"
+    ></app-bar-right-element>
+
+</common-ng-app-bar-element>

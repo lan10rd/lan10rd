@@ -1,41 +1,5 @@
-<common-ng-app-bar-element
-class="fixed-top bl glo-0-drop"
->
-    <div
-    class="flex"
-    >
-        <div
-        class="ib"
-        style="width: 15%;"
-        >
-
-            <common-ng-button-element
-            class="tcenter p glo-0-text-ani bl scrollable"
-            [text]="'hihihihihi'"
-            ></common-ng-button-element>
-
-        </div>
-        <div
-        class="ib"
-        style="width: 70%;"
-        >
-            <common-ng-router-element
-            [ngClass]="{'hidden': util.router._renderedRoutes.length === 0}"
-            class="tcenter"
-            style="border-radius: 0; border-right: 0; border-left: 0; box-shadow: none; backdrop-filter: blur(5px);"
-            ></common-ng-router-element>
-        </div>
-        <div 
-        class="ib"
-        style="width: 15%; overflow: auto"
-        >
-            <common-ng-button-element
-            class="tcenter p glo-0-text-ani bl scrollable"
-            [text]="'user'"
-            ></common-ng-button-element>
-        </div>
-    </div>
-</common-ng-app-bar-element>
+<app-bar-element
+></app-bar-element>
 
 <common-ng-popop-element
 ></common-ng-popop-element>

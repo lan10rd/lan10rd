@@ -43,19 +43,22 @@ export class CommonNgDynamicElement
     (
     )
     {
-        if (this.module)
+        if (this.component)
         {
-            let factory = this.module instanceof NgModuleFactory ? this.module : await this.compiler.compileModuleAsync(this.module)
-            let compFactory = factory.create(this.injector).componentFactoryResolver.resolveComponentFactory(this.component)
-            this.host.ref.clear()
-            this.compRef = this.host.ref.createComponent(compFactory)
+            if (this.module)
+            {
+                let factory = this.module instanceof NgModuleFactory ? this.module : await this.compiler.compileModuleAsync(this.module)
+                let compFactory = factory.create(this.injector).componentFactoryResolver.resolveComponentFactory(this.component)
+                this.host.ref.clear()
+                this.compRef = this.host.ref.createComponent(compFactory)
+            }
+            else
+            {
+                this.host.ref.clear()
+                this.compRef = this.host.ref.createComponent(this.resolver.resolveComponentFactory(this.component))            
+            }
+            this.setData()
         }
-        else
-        {
-            this.host.ref.clear()
-            this.compRef = this.host.ref.createComponent(this.resolver.resolveComponentFactory(this.component))            
-        }
-        this.setData()
     }
 
     setData

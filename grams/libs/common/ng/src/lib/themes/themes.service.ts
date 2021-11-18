@@ -340,6 +340,7 @@ export class CommonNgThemesService
             color: rgba(255, 255, 255, 1);
             font-family: trebuchet ms;
         }
+
         .glo-0-back {
             background-color: purple;
         }
@@ -368,11 +369,14 @@ export class CommonNgThemesService
         .glo-0-text-ani:focus-within {
             transform: scale(1.33);
         }
+        // .glo-0-text-trim {
+        //     text-shadow: 0px 0px 1px rgb(0 0 0);
+        // }
+        // .glo-1-text-trim {
+        //     text-shadow: 0px 0px 1px rgb(255 255 255);
+        // }
         .glo-0-text-trim {
-            text-shadow: 0px 0px 1px rgb(0 0 0);
-        }
-        .glo-1-text-trim {
-            text-shadow: 0px 0px 1px rgb(255 255 255);
+            filter: drop-shadow(0 0 1px rgba(0, 0, 0, 1));
         }
         `
 
