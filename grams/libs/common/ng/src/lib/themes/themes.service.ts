@@ -280,6 +280,11 @@ export class CommonNgThemesService
             overflow-x: auto;
             overflow-y: hidden;
         }
+        .scrollable-y {
+            white-space: nowrap;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
         .tcenter { text-align: center; }
         .tleft { text-align: left; }
         .tright { text-align: right; }
@@ -302,6 +307,7 @@ export class CommonNgThemesService
             visibility: hidden;
         }
 
+        .sticky { position: sticky; position: -webkit-sticky; }
         .flex { display: flex; }
         .jcc { justify-content: center; }
 

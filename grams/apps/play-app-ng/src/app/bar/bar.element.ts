@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 
 import { CommonNgUtilityService } from '@grams/common/ng'
 
@@ -11,7 +11,6 @@ import { CommonNgUtilityService } from '@grams/common/ng'
 export class AppBarElement
 {
 
-    @ViewChild('header') header : any
     show: string = ''
 
     constructor
@@ -24,17 +23,13 @@ export class AppBarElement
 
     async open
     (
-        leftOrRight: string
+        incoming: string
     )
     { 
-        if (this.show === '')
-            this.show = leftOrRight
-        else
+        if (this.show === incoming)
             this.show = ''
-    }
-
-    height(){
-        return 'calc(100vh - ' + this.header.nativeElement.offsetHeight + 'px)'
+        else
+            this.show = incoming
     }
 
 }

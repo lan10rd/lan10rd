@@ -1,0 +1,11 @@
+/* The element which contains one/many content sections */
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* The container's content you want to add an overflow to */
+  .container .scrollable-content {
+    flex-grow: 1;  
+    overflow: auto;
+  }
