@@ -1,4 +1,4 @@
-<div
+<!-- <div
 [ngStyle]="{'filter': toggle ? 'drop-shadow(0 0 ' + radius + ' ' + color + ')' : 'none'}"
 (click)="click()"
 >
@@ -11,4 +11,12 @@
         >{{text}}</button>
     </div>
 
-</div>
+</div> -->
+
+<button
+(click)="click()"
+>
+    {{text}}
+    <ng-content
+    ></ng-content>
+</button>

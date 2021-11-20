@@ -18,7 +18,7 @@ export class AppInitService
     (
         public router: Router,
         public http: HttpClient,
-        public cookie: CommonNgCookieService,
+        // public cookie: CommonNgCookieService,
         @Inject('API') public api: string
     )
     {
@@ -38,7 +38,7 @@ export class AppInitService
     )
     {
         this._xsrf = await this.http.get(this.api + '/common/http/xsrf', {withCredentials: true, responseType: 'text'}).toPromise() as any
-        this.cookie.set('XSRF-TOKEN', this._xsrf)
+        // this.cookie.set('XSRF-TOKEN', this._xsrf)
     }
 
 }

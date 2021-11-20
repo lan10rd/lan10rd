@@ -1,16 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { APP_INITIALIZER, NgModule } from '@angular/core'
-import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http'
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
 
 import { environment } from '../environments/environment'
 
-import { CommonNgDynamicElementModule, CommonNgStreamsService } from '@grams/common/ng'
+import { CommonNgDynamicElementModule } from '@grams/common/ng'
 
 import { AppComponent } from './app.component'
 import { AppInitService } from './init/init.service'
-import { AppHttpInterceptor } from './app.http.interceptor'
+
+// import { AppHttpInterceptor } from './app.http.interceptor'
 
 @NgModule
 ({
@@ -41,10 +42,10 @@ import { AppHttpInterceptor } from './app.http.interceptor'
         //     multi: true,
         //     deps: [HttpXsrfTokenExtractor, CommonNgStreamsService]
         // },
-        {
-            provide: 'COMMON_CODE_SERVICE_MONACO_LOCATION',
-            useValue: 'https://resources.glass.earth/static/js'
-        }
+        // {
+        //     provide: 'COMMON_CODE_SERVICE_MONACO_LOCATION',
+        //     useValue: 'https://resources.glass.earth/static/js'
+        // }
     ],
     exports:
     [

@@ -1,0 +1,42 @@
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
+
+import { ListFeature } from './list.feature'
+
+import { CommonNgSelectElementModule, CommonNgCodeLogsElementModule, CommonNgScrollElementModule, CommonNgButtonElementModule, CommonNgAudioElementModule, CommonNgVideoElementModule } from '@grams/common/ng'
+
+// import {ScrollingModule} from '@angular/cdk/scrolling';
+// import {ScrollingModule as ExperimentalScrollingModule} from '@angular/cdk-experimental/scrolling';
+
+@NgModule
+({
+    imports:
+    [
+        CommonModule,
+        RouterModule.forChild
+        ([{
+            path: '',
+            component: ListFeature,
+            data: {
+                CommonRouterService: {
+                    routes: ['..']
+                }
+            }
+        }]),
+        CommonNgSelectElementModule,
+        CommonNgCodeLogsElementModule,
+        CommonNgScrollElementModule,
+        CommonNgButtonElementModule,
+        CommonNgAudioElementModule,
+        CommonNgVideoElementModule
+    ],
+    declarations:
+    [
+        ListFeature
+    ]
+})
+export class ListFeatureModule
+{
+    
+}

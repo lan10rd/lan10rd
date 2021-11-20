@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common'
 
 import { AppBarLeftElement } from './left.element'
 
-import { CommonNgButtonElementModule } from '@grams/common/ng'
+import { CommonNgButtonElementModule, CommonNgVisualDropShadowElementModule } from '@grams/common/ng'
 
 @NgModule
 ({
     imports:
     [
         CommonModule,
-        CommonNgButtonElementModule
+        CommonNgButtonElementModule,
+        CommonNgVisualDropShadowElementModule
     ],
     declarations:
     [

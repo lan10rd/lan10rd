@@ -13,8 +13,9 @@ import { CommonNgUtilityService } from '@grams/common/ng'
 export class AppLandingFeature
 {
 
-    items = Array.from({length: 100001}).map((_, i) => `Item #${i}`);
-
+    // items = Array.from({length: 100001}).map((_, i) => `Item #${i}`);
+    items = []
+    
     constructor
     (
         public util: CommonNgUtilityService

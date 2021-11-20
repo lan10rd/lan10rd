@@ -1,13 +1,8 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {ScrollingModule as ExperimentalScrollingModule} from '@angular/cdk-experimental/scrolling';
-import { CommonNgSelectElementModule, CommonNgScrollElementModule } from '@grams/common/ng'
 
 import { AppLandingFeature } from './landing.feature'
-
-// import { UiScrollModule } from 'ngx-ui-scroll';
 
 @NgModule
 ({
@@ -20,15 +15,10 @@ import { AppLandingFeature } from './landing.feature'
             component: AppLandingFeature,
             data: {
                 CommonRouterService: {
-                    routes: ['common', 'play']
+                    routes: ['common', 'play', 'list']
                 }
             }
-        }]),
-        ScrollingModule,
-        ExperimentalScrollingModule,
-        CommonNgSelectElementModule,
-        CommonNgScrollElementModule,
-        // UiScrollModule
+        }])
     ],
     declarations:
     [

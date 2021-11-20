@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router'
 
-import { CommonNgDynamicFeatureModule } from '@grams/common/ng'
+// import { CommonNgDynamicFeatureModule } from '@grams/common/ng'
 
 export const routes: Routes = [
     {
@@ -14,6 +14,10 @@ export const routes: Routes = [
     {
         path: 'play',
         loadChildren: async () => (await import('../libs/play/play.feature.module')).PlayFeatureModule
+    },
+    {
+        path: 'list',
+        loadChildren: async () => (await import('../libs/list/list.feature.module')).ListFeatureModule
     },
     {
         path: '**',

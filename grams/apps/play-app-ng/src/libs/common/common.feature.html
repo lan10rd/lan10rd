@@ -6,15 +6,17 @@ class="tcenter"
 >
     <common-ng-button-element
     class="bl glo-0-text-ani"
-    [text]="'ok'"
-    [color]="'silver'"
+    style="color: silver"
     (click)="print('ok')"
-    ></common-ng-button-element>
+    >
+        ok
+    </common-ng-button-element>
 
     <common-ng-button-element
-    [text]="'ok2'"
     (click)="print('ok2')"
-    ></common-ng-button-element>
+    >
+        ok2
+    </common-ng-button-element>
 </div>
 
 <!-- </commmon-ng-scroll-element> -->
@@ -119,14 +121,16 @@ yoyo
     ></common-ng-audio-element>
 
     <common-ng-button-element
-    [text]="'play'"
     (click)="audioo.child.nativeElement.play()"
-    ></common-ng-button-element>
+    >
+        play
+    </common-ng-button-element>
 
     <common-ng-button-element
-    [text]="'pause'"
     (click)="audioo.child.nativeElement.pause()"
-    ></common-ng-button-element>
+    >
+        pause
+    </common-ng-button-element>
 
 </ng-container>
 

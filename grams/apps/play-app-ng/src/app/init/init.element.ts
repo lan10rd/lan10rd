@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core'
 
-import { CommonNgUtilityService, CommonNgThemesService, CommonNgPopopService, CommonNgCodeService } from '@grams/common/ng'
+import { CommonNgUtilityService, CommonNgThemesService, CommonNgPopopService, 
+    // CommonNgCodeService
+ } from '@grams/common/ng'
 
 @Component
 ({
@@ -16,13 +18,13 @@ export class AppInitElement
         public util : CommonNgUtilityService,
         public themes : CommonNgThemesService,
         public popop : CommonNgPopopService,
-        public code : CommonNgCodeService,
+        // public code : CommonNgCodeService,
         @Inject('API') public api: string
     )
     {
         util.services.themes = themes
         util.services.popop = popop
-        util.services.code = code
+        // util.services.code = code
         util.streams.change('api', api)
     }
 
@@ -38,7 +40,8 @@ export class AppInitElement
                 }
             }
         })
-        this.util.services.code.setTheme(this.util.services.code.themes.celeste.name, this.util.services.code.themes.celeste.options)
+        
+        // this.util.services.code.setTheme(this.util.services.code.themes.celeste.name, this.util.services.code.themes.celeste.options)
     }
 
 }

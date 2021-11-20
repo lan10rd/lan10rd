@@ -60,6 +60,13 @@
     },
     "shared-ng": {
       "tags": []
+    },
+    "simple-app-ng": {
+      "tags": []
+    },
+    "simple-app-ng-e2e": {
+      "tags": [],
+      "implicitDependencies": ["simple-app-ng"]
     }
   }
 }
