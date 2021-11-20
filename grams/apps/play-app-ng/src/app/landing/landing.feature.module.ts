@@ -15,7 +15,12 @@ import { AppLandingFeature } from './landing.feature'
             component: AppLandingFeature,
             data: {
                 CommonRouterService: {
-                    routes: ['common', 'play', 'list']
+                    routes: ['common', 'play', 'list'],
+                    seo: {
+                        title: 'App - Landing',
+                        keywords: 'keywords',
+                        description: 'description'
+                    }
                 }
             }
         }])

@@ -2,6 +2,7 @@ import { Injectable, ComponentFactoryResolver } from '@angular/core'
 import { Router, RouterEvent, GuardsCheckEnd, GuardsCheckStart, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, ResolveEnd, ResolveStart, RoutesRecognized, ActivationStart, ActivationEnd } from '@angular/router'
 
 import { CommonNgJsonService } from '../json/json.service'
+import { CommonNgSeoService } from '../seo/seo.service'
 
 @Injectable
 ({
@@ -18,10 +19,11 @@ export class CommonNgRouterService
     (
         public router: Router,
         public json: CommonNgJsonService,
-        public resolver: ComponentFactoryResolver
+        public resolver: ComponentFactoryResolver,
+        public seo: CommonNgSeoService
     )
     {
-        router.events.subscribe($event => {
+        router.events.subscribe(($event:any) => {
             if ($event instanceof ActivationEnd)
             {
                 let dynamicRoutes = this.json.pathToValue($event, 'snapshot.routeConfig.data.data.CommonRouterService.routes')
@@ -29,6 +31,11 @@ export class CommonNgRouterService
                 if (dynamicRoutes)
                     routes = dynamicRoutes
                 this.activations.push(routes ? routes : [])
+                let seo = this.json.pathToValue($event, 'snapshot.data.CommonRouterService.seo')
+                if (seo)
+                {
+                    this.seo.bind(this.router.url, seo.title, seo.description, seo.keywords, seo.tags)
+                }
             }
             else if ($event instanceof NavigationEnd)
             {

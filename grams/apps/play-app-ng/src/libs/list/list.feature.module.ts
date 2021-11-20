@@ -20,7 +20,11 @@ import { CommonNgSelectElementModule, CommonNgCodeLogsElementModule, CommonNgScr
             component: ListFeature,
             data: {
                 CommonRouterService: {
-                    routes: ['..']
+                    routes: ['..'],
+                    seo: {
+                        keywords: 'list',
+                        description: 'list'
+                    }
                 }
             }
         }]),
