@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 
-import { CommonNgUtilityService, CommonNgAppBarService } from '@grams/common/ng'
+import { CommonNgUtilityService } from '@grams/common/ng'
 
 @Component
 ({
@@ -11,26 +11,12 @@ import { CommonNgUtilityService, CommonNgAppBarService } from '@grams/common/ng'
 export class AppBarElement
 {
 
-    show: string = ''
-
     constructor
     (
-        public util : CommonNgUtilityService,
-        public appBarService : CommonNgAppBarService
+        public util : CommonNgUtilityService
     )
     {
 
-    }
-
-    async open
-    (
-        incoming: string
-    )
-    { 
-        if (this.show === incoming)
-            this.show = ''
-        else
-            this.show = incoming
     }
 
 }

@@ -15,10 +15,13 @@ style="max-height: 100vh"
         class="ib"
         style="width: 15%;"
         >
-
-            <ng-content
-            select="[left-button]"
-            ></ng-content>
+            <div
+            (click)="srv.open('left')"
+            >
+                <ng-content
+                select="[left-button]"
+                ></ng-content>
+            </div>
 
         </div>
 
@@ -52,10 +55,13 @@ style="max-height: 100vh"
         class="ib"
         style="width: 15%; overflow: auto"
         >
-
-            <ng-content
-            select="[right-button]"
-            ></ng-content>
+            <div
+            (click)="srv.open('right')"
+            >
+                <ng-content
+                select="[right-button]"
+                ></ng-content>
+            </div>
 
         </div>
 
