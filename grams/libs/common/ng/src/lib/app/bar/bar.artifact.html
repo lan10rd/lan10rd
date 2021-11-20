@@ -1,0 +1,95 @@
+<common-ng-app-bar-element
+class="fixed-top bl scrollable-y glo-0-drop"
+style="max-height: 100vh"
+>
+    
+    <div
+    class="sticky"
+    style="top: 0"
+    >
+    <div
+    class="flex"
+    >
+
+        <div
+        class="ib"
+        style="width: 15%;"
+        >
+
+            <ng-content
+            select="[left-button]"
+            ></ng-content>
+
+        </div>
+
+        <div
+        class="ib"
+        style="width: 70%;"
+        >
+            <ng-container
+            [ngSwitch]="srv.show"
+            >
+
+                <ng-content
+                *ngSwitchCase="''"
+                select="[left-bar]"
+                ></ng-content>
+
+                <ng-content
+                *ngSwitchCase="''"
+                select="[middle-bar]"
+                ></ng-content>
+
+                <ng-content
+                *ngSwitchCase="''"
+                select="[right-bar]"
+                ></ng-content>
+
+            </ng-container>
+        </div>
+
+        <div 
+        class="ib"
+        style="width: 15%; overflow: auto"
+        >
+
+            <ng-content
+            select="[right-button]"
+            ></ng-content>
+
+        </div>
+
+    </div>
+    </div>
+
+    <div
+    class="container"
+    >
+
+        <ng-container
+        [ngSwitch]="srv.show"
+        >
+
+            <div
+            *ngSwitchCase="'left'"
+            class="scrollable-content"
+            >
+                <ng-content
+                select="[left-content]"
+                ></ng-content>
+            </div>
+
+            <div
+            *ngSwitchCase="'right'"
+            class="scrollable-content"
+            >
+                <ng-content
+                select="[right-content]"
+                ></ng-content>
+            </div>
+
+        </ng-container>
+
+    </div>
+
+</common-ng-app-bar-element>

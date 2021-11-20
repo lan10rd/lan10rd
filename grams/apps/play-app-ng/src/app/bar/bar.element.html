@@ -1,4 +1,4 @@
-<common-ng-app-bar-element
+<!-- <common-ng-app-bar-element
 class="fixed-top bl scrollable-y glo-0-drop"
 style="max-height: 100vh"
 >
@@ -14,7 +14,7 @@ style="max-height: 100vh"
         class="ib"
         style="width: 15%;"
         >
-        <!-- (click)="util.functions.appbar.openLeft()" -->
+
             <common-ng-button-element
             (click)="open('left')"
             class="tcenter p glo-0-text-ani bl scrollable glo-0-text-trim"
@@ -59,4 +59,40 @@ style="max-height: 100vh"
         ></app-bar-right-element>
     </div>
 
-</common-ng-app-bar-element>
+</common-ng-app-bar-element> -->
+
+<common-ng-app-bar-artifact
+>
+
+    <common-ng-button-element
+    (click)="appBarService.open('left')"
+    class="tcenter p glo-0-text-ani bl scrollable glo-0-text-trim"
+    [text]="'hihihihihi'"
+    left-button
+    ></common-ng-button-element>
+
+    <common-ng-button-element
+    (click)="appBarService.open('right')"
+    class="tcenter p glo-0-text-ani bl scrollable glo-0-text-trim"
+    [text]="'user'"
+    right-button
+    ></common-ng-button-element>
+
+    <common-ng-router-element
+    [ngClass]="{'hidden': util.router._renderedRoutes.length === 0}"
+    class="tcenter glo-0-text-trim bl"
+    style="border-radius: 0; border-right: 0; border-left: 0; box-shadow: none; backdrop-filter: blur(5px);"
+    middle-bar
+    ></common-ng-router-element>
+
+    <app-bar-left-element
+    class="bl scrollable-content"
+    left-content
+    ></app-bar-left-element>
+
+    <app-bar-right-element
+    class="bl scrollable-content"
+    right-content
+    ></app-bar-right-element>
+
+</common-ng-app-bar-artifact>

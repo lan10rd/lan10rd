@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 
-import { CommonNgUtilityService } from '@grams/common/ng'
+import { CommonNgUtilityService, CommonNgAppBarService } from '@grams/common/ng'
 
 @Component
 ({
@@ -15,7 +15,8 @@ export class AppBarElement
 
     constructor
     (
-        public util : CommonNgUtilityService
+        public util : CommonNgUtilityService,
+        public appBarService : CommonNgAppBarService
     )
     {
 
