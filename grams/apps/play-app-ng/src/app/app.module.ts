@@ -13,6 +13,8 @@ import { AppInitService } from './init/init.service'
 
 // import { AppHttpInterceptor } from './app.http.interceptor'
 
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 @NgModule
 ({
     imports:
@@ -22,7 +24,13 @@ import { AppInitService } from './init/init.service'
         RouterModule.forRoot([]),
         HttpClientModule,
         HttpClientXsrfModule,
-        CommonNgDynamicElementModule
+        CommonNgDynamicElementModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the app is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        })
     ],
     providers: 
     [

@@ -5,6 +5,7 @@
   "scripts": {
     "nx": "nx",
     "start": "nx serve",
+    "serve": "http-server -p 8080 -c-1 dist/apps/",
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
@@ -35,12 +36,13 @@
     "@angular/compiler": "^12.1.0",
     "@angular/core": "^12.1.0",
     "@angular/forms": "^12.1.0",
-    "@angular/localize": "^12.2.1",
-    "@angular/material": "^12.2.1",
+    "@angular/localize": "12.1.0",
+    "@angular/material": "12.1.0",
     "@angular/platform-browser": "^12.1.0",
     "@angular/platform-browser-dynamic": "^12.1.0",
-    "@angular/pwa": "^12.2.1",
+    "@angular/pwa": "12.1.0",
     "@angular/router": "^12.1.0",
+    "@angular/service-worker": "^12.1.0",
     "@casl/ability": "^5.4.3",
     "@grpc/grpc-js": "^1.3.6",
     "@grpc/proto-loader": "^0.6.4",
@@ -241,8 +243,11 @@
     "ng-packagr": "^12.1.0",
     "nx-electron": "^11.1.3",
     "prettier": "^2.3.1",
+    "sw-precache-webpack-plugin": "^1.0.0",
     "ts-jest": "27.0.3",
     "ts-node": "~9.1.1",
-    "typescript": "~4.3.2"
+    "typescript": "~4.3.2",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "workbox-webpack-plugin": "^6.4.1"
   }
 }
