@@ -5,7 +5,8 @@
   "scripts": {
     "nx": "nx",
     "start": "nx serve",
-    "serve": "http-server -p 8080 -c-1 dist/apps/",
+    "serve": "http-server -p 8080 -c-1 dist/apps/play-app-ng",
+    "analyze": "nx build play-app-ng && npm run webpack-bundle-analyzer dist/apps/play-app-ng",
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
