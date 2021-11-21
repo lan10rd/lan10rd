@@ -1,4 +1,5 @@
-import * as entities from 'entities'
+// import { encodeXML } from 'entities'
+import { encodeXML } from './entities/entities'
 
 // export class Convert {
 //     constructor(options?:{
@@ -277,7 +278,7 @@ function categoryForCode(code: any) {
  */
 function pushText(text: any, options: any) {
     if (options.escapeXML) {
-        return entities.encodeXML(text);
+        return encodeXML(text);
     }
 
     return text;

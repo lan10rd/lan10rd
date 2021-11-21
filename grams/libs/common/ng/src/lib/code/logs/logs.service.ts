@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { CommonNgSanitizerService } from '../../sanitizer/sanitizer.service'
 
 // import Convert from 'ansi-to-html'
-import { Convert } from './logs.ansi-to-html.converter'
+import { Convert } from './helper/convert'
 
 @Injectable({ providedIn : 'root'})
 export class CommonNgCodeLogsService
