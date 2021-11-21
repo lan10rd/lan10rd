@@ -29,7 +29,26 @@ export class CommonNgJsonElement
         changes: any
     )
     {
-        this.keys = Object.keys(this.object)
+        console.log('changes', changes)
+        try { 
+            this.keys = Object.keys(this.object)
+         } catch(e) {
+            console.log(e)
+        }
+    }
+
+    changeKey
+    (
+        $event: any,
+        i: number
+    )
+    {
+        if ($event.trim().length > 0 && !($event in this.object))
+        {
+            this.object[$event] = this.object[this.keys[i]]
+            delete this.object[this.keys[i]]
+            this.keys = Object.keys(this.object)
+        }
     }
 
 }

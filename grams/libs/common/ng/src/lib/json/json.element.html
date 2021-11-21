@@ -37,13 +37,14 @@
 </ul> -->
 
 <ul
-*ngFor = "let key of keys; let i=index"
+*ngFor = "let key of keys; let i=index; trackBy: json.trackBy"
 >
     <li>
         {{key}}
-        <!-- <input
-        [(ngModel)]="key"
-        > -->
+        <input
+        [ngModel]="keys[i]"
+        (ngModelChange)="changeKey($event, i)"
+        >
 
         <ng-container
         [ngSwitch]="json.typeOf(object[key])"

@@ -14,9 +14,9 @@ export class ListFeature
     items: any = Array.from({length: 100001}).map((_, i) => `Item #${i}`);
     obj: any = {
         jo: {
-            name: 'joseph',
+            name_uno: 'joseph',
             jojo: {
-                name: 'joey'
+                name_dos: 'joey'
             }
         }
     }
