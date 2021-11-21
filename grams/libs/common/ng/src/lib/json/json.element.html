@@ -1,0 +1,78 @@
+<!-- <ul
+*ngFor = "let list of object | keyvalue; let i=index"
+>
+    <li>
+        {{list.key}}
+
+        <ng-container
+        [ngSwitch]="json.typeOf(list.value)"
+        >
+
+            <input
+            *ngSwitchCase="'str'"
+            [(ngModel)]="list.value"
+            placeholder="{{list.key}}"
+            >
+
+            <input
+            *ngSwitchCase="'num'"
+            [(ngModel)]="list.value"
+            type="number"
+            >
+
+            <ng-container
+            *ngSwitchCase="'boo'"
+            >
+                {{list.value}}
+            </ng-container>
+
+            <common-ng-json-element
+            *ngSwitchDefault
+            [(object)]="list.value"
+            ></common-ng-json-element>
+
+        </ng-container>
+
+    </li>
+</ul> -->
+
+<ul
+*ngFor = "let key of keys; let i=index"
+>
+    <li>
+        {{key}}
+        <!-- <input
+        [(ngModel)]="key"
+        > -->
+
+        <ng-container
+        [ngSwitch]="json.typeOf(object[key])"
+        >
+
+            <input
+            *ngSwitchCase="'str'"
+            [(ngModel)]="object[key]"
+            placeholder="{{key}}"
+            >
+
+            <input
+            *ngSwitchCase="'num'"
+            [(ngModel)]="object[key]"
+            type="number"
+            >
+
+            <ng-container
+            *ngSwitchCase="'boo'"
+            >
+                {{object[key]}}
+            </ng-container>
+
+            <common-ng-json-element
+            *ngSwitchDefault
+            [(object)]="object[key]"
+            ></common-ng-json-element>
+
+        </ng-container>
+
+    </li>
+</ul>

@@ -79,3 +79,10 @@ autosize
       <div *cdkVirtualFor="let item of items" style="margin: 1rem; white-space: nowrap;">{{item}}</div>
     </cdk-virtual-scroll-viewport>
   </div> -->
+
+
+<common-ng-json-element
+[(object)]="obj"
+></common-ng-json-element>
+
+{{obj | json}}

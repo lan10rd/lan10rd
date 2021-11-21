@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router'
 
 import { ListFeature } from './list.feature'
 
-import { CommonNgSelectElementModule, CommonNgCodeLogsElementModule, CommonNgScrollElementModule, CommonNgButtonElementModule, CommonNgAudioElementModule, CommonNgVideoElementModule } from '@grams/common/ng'
+import { CommonNgSelectElementModule, CommonNgCodeLogsElementModule, CommonNgScrollElementModule, CommonNgButtonElementModule, CommonNgAudioElementModule, CommonNgVideoElementModule, CommonNgJsonElementModule } from '@grams/common/ng'
 
 // import {ScrollingModule} from '@angular/cdk/scrolling';
 // import {ScrollingModule as ExperimentalScrollingModule} from '@angular/cdk-experimental/scrolling';
@@ -33,7 +33,8 @@ import { CommonNgSelectElementModule, CommonNgCodeLogsElementModule, CommonNgScr
         CommonNgScrollElementModule,
         CommonNgButtonElementModule,
         CommonNgAudioElementModule,
-        CommonNgVideoElementModule
+        CommonNgVideoElementModule,
+        CommonNgJsonElementModule
     ],
     declarations:
     [

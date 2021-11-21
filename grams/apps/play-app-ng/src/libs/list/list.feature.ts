@@ -11,7 +11,15 @@ import { CommonNgUtilityService } from '@grams/common/ng'
 export class ListFeature
 {
 
-    items = Array.from({length: 100001}).map((_, i) => `Item #${i}`);
+    items: any = Array.from({length: 100001}).map((_, i) => `Item #${i}`);
+    obj: any = {
+        jo: {
+            name: 'joseph',
+            jojo: {
+                name: 'joey'
+            }
+        }
+    }
 
     constructor
     (
