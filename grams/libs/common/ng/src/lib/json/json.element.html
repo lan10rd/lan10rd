@@ -37,41 +37,80 @@
 </ul> -->
 
 <ul
-*ngFor = "let key of keys; let i=index; trackBy: json.trackBy"
+*ngFor="let key of keys; let i=index; trackBy: json.trackBy"
 >
     <li>
-        {{key}}
+        <div
+        *ngIf="!editing.keys.includes(key)"
+        (click)="editing.keys.push(key)"
+        >
+            {{key}} 
+        </div>
         <input
+        *ngIf="editing.keys.includes(key)"
         [ngModel]="keys[i]"
         (ngModelChange)="changeKey($event, i)"
+        (keyup.enter)="editing.keys = json.remove(editing.keys, key)"
         >
+
+        <select [(ngModel)]="mode" (ngModelChange)="handleMode($event, key)">
+            <option [ngValue]="'pretty'">pretty</option>
+            <option [ngValue]="'raw'">raw</option>
+        </select>
 
         <ng-container
-        [ngSwitch]="json.typeOf(object[key])"
+        [ngSwitch]="mode"
         >
-
-            <input
-            *ngSwitchCase="'str'"
-            [(ngModel)]="object[key]"
-            placeholder="{{key}}"
-            >
-
-            <input
-            *ngSwitchCase="'num'"
-            [(ngModel)]="object[key]"
-            type="number"
-            >
-
+        
             <ng-container
-            *ngSwitchCase="'boo'"
+            *ngSwitchCase="'pretty'"
             >
-                {{object[key]}}
+                <ng-container
+                [ngSwitch]="json.typeOf(object[key])"
+                >
+
+                    <!-- <input
+                    *ngSwitchCase="'str'"
+                    [(ngModel)]="object[key]"
+                    placeholder="{{key}}"
+                    > -->
+
+                    <textarea
+                    *ngSwitchCase="'str'"
+                    [(ngModel)]="object[key]"
+                    ></textarea>
+
+                    <input
+                    *ngSwitchCase="'num'"
+                    [(ngModel)]="object[key]"
+                    type="number"
+                    >
+
+                    <ng-container
+                    *ngSwitchCase="'boo'"
+                    >
+                        {{object[key]}}
+                    </ng-container>
+
+                    <common-ng-json-element
+                    *ngSwitchDefault
+                    [(object)]="object[key]"
+                    ></common-ng-json-element>
+
+                </ng-container>
             </ng-container>
 
-            <common-ng-json-element
-            *ngSwitchDefault
-            [(object)]="object[key]"
-            ></common-ng-json-element>
+            <ng-container
+            *ngSwitchCase="'raw'"
+            >
+
+                <textarea
+                [(ngModel)]="editing.values[key]"
+                ></textarea>
+
+                <button (click)="object[key] = json.parse(editing.values[key])">save</button>
+
+            </ng-container>
 
         </ng-container>
 
