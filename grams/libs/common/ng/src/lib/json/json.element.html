@@ -39,6 +39,7 @@
 <ul
 *ngFor="let key of keys; let i=index; trackBy: json.trackBy"
 >
+
     <li>
         <div
         *ngIf="!editing.keys.includes(key)"
@@ -46,17 +47,26 @@
         >
             {{key}} 
         </div>
-        <input
+        <div
         *ngIf="editing.keys.includes(key)"
-        [ngModel]="keys[i]"
-        (ngModelChange)="changeKey($event, i)"
-        (keyup.enter)="editing.keys = json.remove(editing.keys, key)"
         >
+            <input
+            class="bl"
+            #keysi
+            (focusout)="editing.keys = json.remove(editing.keys, key)"
+            [ngModel]="keys[i]"
+            (keyup.enter)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)"
+            >
 
-        <select [(ngModel)]="mode" (ngModelChange)="handleMode($event, key)">
-            <option [ngValue]="'pretty'">pretty</option>
-            <option [ngValue]="'raw'">raw</option>
-        </select>
+            <select [(ngModel)]="mode" (ngModelChange)="handleMode($event, key)">
+                <option [ngValue]="'pretty'">pretty</option>
+                <option [ngValue]="'raw'">raw</option>
+            </select>
+
+            <button (click)="object[key] = json.parse(editing.values[key])" *ngIf="mode === 'raw'">save</button>
+
+            <button>add</button>
+        </div>
 
         <ng-container
         [ngSwitch]="mode"
@@ -107,8 +117,6 @@
                 <textarea
                 [(ngModel)]="editing.values[key]"
                 ></textarea>
-
-                <button (click)="object[key] = json.parse(editing.values[key])">save</button>
 
             </ng-container>
 

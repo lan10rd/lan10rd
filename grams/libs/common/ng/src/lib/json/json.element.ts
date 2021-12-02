@@ -50,6 +50,7 @@ export class CommonNgJsonElement
         i: number
     )
     {
+        console.log('change key $event', $event)
         let new_key = $event
         let old_key = this.keys[i]
         if (new_key.length > 0 && !(new_key in this.object))
