@@ -33,6 +33,9 @@
     "common-ns": {
       "tags": []
     },
+    "docs-app-ng": {
+      "tags": []
+    },
     "host-api-ns": {
       "tags": []
     },
@@ -44,10 +47,6 @@
     },
     "play-app-ng": {
       "tags": []
-    },
-    "play-app-ng-e2e": {
-      "tags": [],
-      "implicitDependencies": ["play-app-ng"]
     }
   }
 }
