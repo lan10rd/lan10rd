@@ -9,7 +9,8 @@ import { environment } from '../environments/environment'
 import { CommonNgDynamicElementModule } from '@grams/common/ng'
 
 import { AppComponent } from './app.component'
-import { AppInitService } from './init/init.service'
+import { AppInitService } from './init/init.service';
+import { ServiceWorkerModule } from '@angular/service-worker'
 
 // import { AppHttpInterceptor } from './app.http.interceptor'
 
@@ -25,10 +26,10 @@ import { AppInitService } from './init/init.service'
         HttpClientModule,
         HttpClientXsrfModule,
         CommonNgDynamicElementModule,
-        // ServiceWorkerModule.register('ngsw-worker.js', {
-        //     enabled: environment.production,
-        //     registrationStrategy: 'registerWhenStable:30000'
-        // })
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            registrationStrategy: 'registerWhenStable:30000'
+        })
     ],
     providers: 
     [

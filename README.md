@@ -5,8 +5,8 @@ This product is intended to help facilitate web development via a few programs a
 It is advised that you keep the name of the project as **lan10rd** and that you keep it in the $HOME or ~ folder on your system.  The suggested path is then  ~/lan10rd .
 
 The project has a few major folders:
- - pr0grams
-	 - This houses the apps needed for LANl0rd. The host ui and api, and other useful utilities and configurations.
+ - grams
+	 - This houses the apps and programs needed for LAN10rd. The host ui and api, and other useful utilities and configurations.
  - mounts
 	 - This is where the all mountable drives will end up.
  - space
