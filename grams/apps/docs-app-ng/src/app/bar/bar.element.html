@@ -1,0 +1,61 @@
+<common-ng-app-bar-artifact
+>
+
+    <div
+    left-button
+    [ngClass]="{'glo-0-shadow' : leftButton.toggle}"
+    >
+        <common-ng-button-element
+        class="tcenter p glo-0-text-ani bl scrollable glo-0-text-trim"
+        [ngClass]="{'glo-0-shadow' : leftButton.toggle}"
+        #leftButton
+        >
+            menu
+        </common-ng-button-element>
+    </div>
+
+    <div
+    right-button
+    [ngClass]="{'glo-0-shadow' : rightButton.toggle}"
+    >
+        <common-ng-button-element
+        class="tcenter p glo-0-text-ani bl scrollable glo-0-text-trim"
+        [ngClass]="{'glo-0-shadow' : rightButton.toggle}"
+        #rightButton
+        >
+            user
+        </common-ng-button-element>
+    </div>
+
+    <common-ng-router-element
+    [ngClass]="{'hidden': util.router._renderedRoutes.length === 0}"
+    class="tcenter glo-0-text-trim bl"
+    style="border-radius: 0; border-right: 0; border-left: 0; box-shadow: none; backdrop-filter: blur(5px);"
+    middle-bar
+    ></common-ng-router-element>
+
+    <div
+    left-bar
+    class="tcenter bl p"
+    >
+        left bar
+    </div>
+
+    <div
+    right-bar
+    class="tcenter bl p"
+    >
+        right bar
+    </div>
+
+    <app-bar-left-element
+    class="bl scrollable-content"
+    left-content
+    ></app-bar-left-element>
+
+    <app-bar-right-element
+    class="bl scrollable-content"
+    right-content
+    ></app-bar-right-element>
+
+</common-ng-app-bar-artifact>

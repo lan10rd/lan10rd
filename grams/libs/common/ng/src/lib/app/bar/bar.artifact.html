@@ -29,12 +29,13 @@ style="max-height: 100vh"
         class="ib"
         style="width: 70%;"
         >
+
             <ng-container
             [ngSwitch]="srv.show"
             >
 
                 <ng-content
-                *ngSwitchCase="''"
+                *ngSwitchCase="'left'"
                 select="[left-bar]"
                 ></ng-content>
 
@@ -44,7 +45,7 @@ style="max-height: 100vh"
                 ></ng-content>
 
                 <ng-content
-                *ngSwitchCase="''"
+                *ngSwitchCase="'right'"
                 select="[right-bar]"
                 ></ng-content>
 
