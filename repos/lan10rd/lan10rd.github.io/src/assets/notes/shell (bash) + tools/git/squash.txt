@@ -1,0 +1,11 @@
+---- if you already have multiple commits ---
+git rebase -i
+
+--- replace all but the most recent (top) with squash ---
+
+git commit --amend
+
+---- if you need to have all your changes in one commit for pipeline reasons, --
+git commit -m "first"
+git commit -am "second, but replaces the last commit essentially so that you can continue to work"
+git commit -am ""

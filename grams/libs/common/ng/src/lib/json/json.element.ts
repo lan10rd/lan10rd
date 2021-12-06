@@ -15,6 +15,7 @@ export class CommonNgJsonElement
     @Output() objectChange: any = new EventEmitter()
     @Input() mode : any = 'pretty'
 
+    type: string = 'obj'
     keys: any = []
     editing: any = {
         keys: [],
@@ -29,6 +30,13 @@ export class CommonNgJsonElement
 
     }
 
+    ngOnInit
+    (
+    )
+    {
+        this.type = this.json.typeOf(this.object)
+    }
+
     ngOnChanges
     (
         changes: any
@@ -36,7 +44,15 @@ export class CommonNgJsonElement
     {
         try
         { 
-            this.keys = Object.keys(this.object)
+            if (this.type === 'obj')
+                this.keys = Object.keys(this.object)
+            else if (this.type === 'arr')
+            {
+                let indexes: any[] = []
+                for (let i = 0; i < this.object.length; i++)
+                    indexes.push(i)
+                this.keys = indexes
+            }
         }
         catch(e)
         {

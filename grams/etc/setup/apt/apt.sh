@@ -34,6 +34,7 @@ sudo apt install -y \
     python3-pip \
     build-essential \
     chromium-browser \
+    firefox \
     locales \
     vim \
     apt-transport-https \

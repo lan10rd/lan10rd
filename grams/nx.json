@@ -33,19 +33,10 @@
     "common-ns": {
       "tags": []
     },
-    "copy-api-ns": {
-      "tags": []
-    },
     "host-api-ns": {
       "tags": []
     },
     "host-app-ng": {
-      "tags": []
-    },
-    "how-deep-does-this-make": {
-      "tags": []
-    },
-    "how-deep-does-this-make-another": {
       "tags": []
     },
     "play-api-ns": {
@@ -57,16 +48,6 @@
     "play-app-ng-e2e": {
       "tags": [],
       "implicitDependencies": ["play-app-ng"]
-    },
-    "shared-ng": {
-      "tags": []
-    },
-    "simple-app-ng": {
-      "tags": []
-    },
-    "simple-app-ng-e2e": {
-      "tags": [],
-      "implicitDependencies": ["simple-app-ng"]
     }
   }
 }

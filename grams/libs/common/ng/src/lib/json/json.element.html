@@ -41,6 +41,13 @@
 >
 
     <li>
+        <ng-container
+        [ngSwitch]="type"
+        >
+            <ng-container
+            >
+            </ng-container>
+        </ng-container>
         <div
         *ngIf="!editing.keys.includes(key)"
         (click)="editing.keys.push(key)"
