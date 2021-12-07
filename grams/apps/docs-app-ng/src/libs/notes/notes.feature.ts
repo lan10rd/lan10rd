@@ -10,6 +10,8 @@ import { CommonNgUtilityService } from '@grams/common/ng'
 })
 export class NotesFeature
 {
+
+    note: any
     
     constructor
     (
@@ -23,8 +25,25 @@ export class NotesFeature
     (
     )
     {
-        let page = await this.util.http.get('https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/lan10rd.github.io/src/assets/notes/os/docker/save-load.txt', {responseType: 'text'})
-        console.log('page', page)
+        let paths = await this.util.http.get(this.util.functions.assets('index.json'))
+        this.util.data.notes = {
+            paths: paths.filter((path: string) => path.includes('/notes/')).map((path: string) => path.split('assets/notes/').join(''))
+        }
+    }
+
+    async fetchNote
+    (
+        $event: string
+    )
+    {
+        if ($event)
+        {
+            this.note = await this.util.http.get(this.util.functions.assets('notes/' + $event), {responseType: 'text'})
+        }
+        else
+        {
+            this.note = undefined
+        }
     }
 
 }

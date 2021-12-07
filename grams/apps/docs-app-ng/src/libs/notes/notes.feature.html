@@ -1,1 +1,11 @@
-notes!
+<common-ng-select-element
+*ngIf="util.data.notes"
+[options]="util.data.notes.paths"
+(optionChange)="fetchNote($event)"
+></common-ng-select-element>
+
+<div
+*ngIf="note"
+>
+    {{note}}
+</div>

@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router'
 
 import { NotesFeature } from './notes.feature'
 
+import { CommonNgSelectElementModule } from '@grams/common/ng'
+
 @NgModule
 ({
     imports:
@@ -23,7 +25,8 @@ import { NotesFeature } from './notes.feature'
                     }
                 }
             }
-        }])
+        }]),
+        CommonNgSelectElementModule
     ],
     declarations:
     [
