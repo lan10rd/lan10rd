@@ -4,9 +4,9 @@ import { CommonNgUtilityService } from '@grams/common/ng'
 
 @Component
 ({
-  selector: 'app-landing-feature',
-  templateUrl: './landing.feature.html',
-  styleUrls: ['./landing.feature.scss']
+    selector: 'app-landing-feature',
+    templateUrl: './landing.feature.html',
+    styleUrls: ['./landing.feature.scss']
 })
 export class AppLandingFeature
 {
