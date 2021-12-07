@@ -294,7 +294,7 @@ export class CommonNgSelectElement
         emit : boolean = true
     )
     {
-        if (index < 0)
+        if (index < 0 || this.selected === index)
         {
             this.selected = -7
             this.option = undefined

@@ -1,11 +1,12 @@
 <common-ng-select-element
+class="bl glo-0-drop glo-0-text-trim"
 *ngIf="util.data.notes"
 [options]="util.data.notes.paths"
 (optionChange)="fetchNote($event)"
 ></common-ng-select-element>
 
 <div
-
+class="glo-0-drop mt glo-0-text-trim"
 *ngIf="note"
 >
     {{note}}
