@@ -22,7 +22,7 @@ import { ServiceWorkerModule } from '@angular/service-worker'
     [
         BrowserModule,
         BrowserAnimationsModule,
-        RouterModule.forRoot([]),
+        RouterModule.forRoot([], {useHash: true}),
         HttpClientModule,
         HttpClientXsrfModule,
         CommonNgDynamicElementModule,
