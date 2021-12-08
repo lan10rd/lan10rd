@@ -11,8 +11,8 @@ import { CommonNgJsonService } from './json.service'
 export class CommonNgJsonElement
 {
 
-    @Input() object: any
-    @Output() objectChange: any = new EventEmitter()
+    @Input() model: any
+    @Output() modelChange: any = new EventEmitter()
     @Input() mode : any = 'pretty'
 
     type: string = 'obj'
@@ -34,7 +34,7 @@ export class CommonNgJsonElement
     (
     )
     {
-        this.type = this.json.typeOf(this.object)
+        this.type = this.json.typeOf(this.model)
     }
 
     ngOnChanges
@@ -45,11 +45,11 @@ export class CommonNgJsonElement
         try
         { 
             if (this.type === 'obj')
-                this.keys = Object.keys(this.object)
+                this.keys = Object.keys(this.model)
             else if (this.type === 'arr')
             {
                 let indexes: any[] = []
-                for (let i = 0; i < this.object.length; i++)
+                for (let i = 0; i < this.model.length; i++)
                     indexes.push(i)
                 this.keys = indexes
             }
@@ -66,19 +66,18 @@ export class CommonNgJsonElement
         i: number
     )
     {
-        console.log('change key $event', $event)
         let new_key = $event
         let old_key = this.keys[i]
-        if (new_key.length > 0 && !(new_key in this.object))
+        if (new_key.length > 0 && !(new_key in this.model))
         {
-            this.object[new_key] = this.object[old_key]
-            delete this.object[old_key]
+            this.model[new_key] = this.model[old_key]
+            delete this.model[old_key]
             if (this.editing.keys.includes(old_key))
             {
                 this.editing.keys = this.json.remove(this.editing.keys, old_key)
                 this.editing.keys.push(new_key)
             }
-            this.keys = Object.keys(this.object)
+            this.keys = Object.keys(this.model)
         }
     }
 
@@ -88,11 +87,12 @@ export class CommonNgJsonElement
         key: string
     )
     {
+        console.log('handleMode', $event, key)
         switch($event)
         {
             case 'raw':
             {
-                this.editing.values[key] = this.json.stringify(this.object[key])
+                this.editing.values[key] = this.json.stringify(this.model[key])
                 break
             }
             case 'pretty':

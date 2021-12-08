@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common'
 
 import { AppBarRightElement } from './right.element'
 
+import { CommonNgSelectElementModule, CommonNgThemesEditorArtifactModule } from '@grams/common/ng'
+
 @NgModule
 ({
     imports:
     [
-        CommonModule
+        CommonModule,
+        CommonNgSelectElementModule,
+        CommonNgThemesEditorArtifactModule
     ],
     declarations:
     [

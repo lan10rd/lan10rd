@@ -1,5 +1,5 @@
 <!-- <ul
-*ngFor = "let list of object | keyvalue; let i=index"
+*ngFor = "let list of model | keyvalue; let i=index"
 >
     <li>
         {{list.key}}
@@ -28,7 +28,7 @@
 
             <common-ng-json-element
             *ngSwitchDefault
-            [(object)]="list.value"
+            [(model)]="list.value"
             ></common-ng-json-element>
 
         </ng-container>
@@ -36,8 +36,14 @@
     </li>
 </ul> -->
 
-<ul
+<ng-container
 *ngFor="let key of keys; let i=index; trackBy: json.trackBy"
+>
+<!-- <ng-template
+let-mode="mode"
+[ngTemplateOutletContext]="{mode: 'pretty'}"
+> -->
+<ul
 >
 
     <li>
@@ -55,7 +61,7 @@
             {{key}} 
         </div>
         <div
-        *ngIf="editing.keys.includes(key)"
+        [ngClass]="{'hidden': !editing.keys.includes(key)}"
         >
             <input
             class="bl"
@@ -64,54 +70,54 @@
             [ngModel]="keys[i]"
             (keyup.enter)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)"
             >
-
-            <select [(ngModel)]="mode" (ngModelChange)="handleMode($event, key)">
+            
+            <select (ngModelChange)="handleMode($event, key);" #modeSelect>
                 <option [ngValue]="'pretty'">pretty</option>
                 <option [ngValue]="'raw'">raw</option>
             </select>
 
-            <button (click)="object[key] = json.parse(editing.values[key])" *ngIf="mode === 'raw'">save</button>
+            <button (click)="model[key] = json.parse(editing.values[key])" *ngIf="modeSelect.value === 'raw'">save</button>
 
             <button>add</button>
         </div>
 
         <ng-container
-        [ngSwitch]="mode"
+        [ngSwitch]="modeSelect.value"
         >
         
             <ng-container
             *ngSwitchCase="'pretty'"
             >
                 <ng-container
-                [ngSwitch]="json.typeOf(object[key])"
+                [ngSwitch]="json.typeOf(model[key])"
                 >
 
                     <!-- <input
                     *ngSwitchCase="'str'"
-                    [(ngModel)]="object[key]"
+                    [(ngModel)]="model[key]"
                     placeholder="{{key}}"
                     > -->
 
                     <textarea
                     *ngSwitchCase="'str'"
-                    [(ngModel)]="object[key]"
+                    [(ngModel)]="model[key]"
                     ></textarea>
 
                     <input
                     *ngSwitchCase="'num'"
-                    [(ngModel)]="object[key]"
+                    [(ngModel)]="model[key]"
                     type="number"
                     >
 
                     <ng-container
                     *ngSwitchCase="'boo'"
                     >
-                        {{object[key]}}
+                        {{model[key]}}
                     </ng-container>
 
                     <common-ng-json-element
                     *ngSwitchDefault
-                    [(object)]="object[key]"
+                    [(model)]="model[key]"
                     ></common-ng-json-element>
 
                 </ng-container>
@@ -131,3 +137,5 @@
 
     </li>
 </ul>
+<!-- </ng-template> -->
+</ng-container>

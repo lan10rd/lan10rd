@@ -36,7 +36,6 @@ export class NotesFeature
         $event: string
     )
     {
-        console.log('$event', $event)
         if ($event)
         {
             this.note = await this.util.http.get(this.util.functions.assets('notes/' + $event), {responseType: 'text'})

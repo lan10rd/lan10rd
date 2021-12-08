@@ -17,10 +17,10 @@ export class CommonNgThemesService
 
     materials: any = []
 
-    themes: any = []
+    themes: any = {}
     theme: any
 
-    globalDefaultStyles: any
+    // globalDefaultStyles: any
 
     constructor
     (
@@ -30,7 +30,7 @@ export class CommonNgThemesService
         public http: CommonNgHttpService,
         public storage: CommonNgStorageService,
         public json: CommonNgJsonService,
-        @Inject('COMMON_THEMES_REAL_OPTIONS') @Optional() public options: any
+        // @Inject('COMMON_THEMES_REAL_OPTIONS') @Optional() public options: any
     )
     {
         // let app$: any = app.isStable
@@ -42,6 +42,11 @@ export class CommonNgThemesService
         //         app$.unsubscribe()
         //     }
         // })
+
+        /* get app wide options if any */
+        // if (!this.options)
+        //     this.options = { global: 'default' }
+
         this.initialize()
     }
 
@@ -49,20 +54,17 @@ export class CommonNgThemesService
     (
     )
     {
-        if (!this.options)
-            this.options = { global: 'default' }
-        let loaded = this.getTheme()
-        if (loaded) this.addThemes([loaded])
-        if (this.options.global === 'default')
+        let themes = this.getLocalThemes()
+        if (!themes)
         {
-            this.addThemes([this.defaultTheme()])
-            this.globalDefaultStyles = this.defaultGlobalStyles()
+            this.modifyThemes([this.defaultTheme()])
+            this.setLocalThemes()
         }
-        this.setTheme(this.themes[0])
+        this.themes = themes
+        this.setTheme(this.getTheme(), true)
     }
 
     /* materials */
-
     async enable
     (
         materialName: string,
@@ -107,32 +109,14 @@ export class CommonNgThemesService
         }
     )
     {
-        let theme = this.getTheme()
-        if (mod?._id) theme._id = mod._id
-        if (mod?.theme) theme.theme = mod.theme
-        if (mod?.author) theme.author = mod.author
-        if (mod?.addClasses)
-        {
-            for (let element of Object.keys(mod.addClasses))
-            {
-                let themeAddClasses = theme.addClasses[element] ? theme.addClasses[element] : {}
-                theme.addClasses[element] = { ...themeAddClasses, ...mod.addClasses[element] }
-            }
-        }
-        if (mod?.addStyles)
-        {
-            for (let element of Object.keys(mod.addStyles))
-            {
-                let themeAddStyles = theme.addStyles[element] ? theme.addStyles[element] : {}
-                theme.addStyles[element] = { ...themeAddStyles, ...mod.addStyles[element] }
-            }
-        }
-        if (mod?.materials)
-        {
-            
-        }
+        let theme = {...this.theme, ...mod}
         this.setTheme(theme)
     }
+
+    setLocalThemes() { this.storage.setLocal('themes', this.themes) }
+    setLocalTheme() { this.storage.setLocal('theme', this.theme) }
+    getLocalThemes() { return this.storage.getLocal('themes') }
+    getLocalTheme() { return this.storage.getLocal('theme') }
 
     getTheme
     (
@@ -144,9 +128,11 @@ export class CommonNgThemesService
 
     async setTheme
     (
-        theme: any
+        theme: any,
+        store: boolean = false
     )
     {
+        if (!theme) theme = this.defaultTheme()
         if ('classes' in theme && 'body' in theme.classes)
         {
             
@@ -176,10 +162,6 @@ export class CommonNgThemesService
         }
         if ('addStyles' in theme && 'body' in theme.addStyles)
             this.applyBodyStyles(theme.addStyles.body)
-        
-        let globally = 'global' in theme ? theme.global : this.globalDefaultStyles
-        if ('addGlobal' in theme) globally += '\n' + theme.addGlobal
-        this.css.resetGlobal(globally, 'GlobalAppStyles')
 
         if ('materials' in theme)
         {
@@ -190,18 +172,36 @@ export class CommonNgThemesService
                 for (let material of Object.keys(theme.materials[renderer]))
                     this.enable(material, renderer, theme.materials[renderer][material])
         }
-
-        this.storage.setLocal('theme', theme)
+        if ('stylesheets' in theme)
+        {
+            for (let sheet_key of Object.keys(theme.stylesheets))
+            {
+                let sheet = theme.stylesheets[sheet_key]
+                if (sheet.startsWith('http'))
+                {
+                    /* add sheet with link and id as sheet_key */
+                }
+                else
+                {
+                    this.css.addGlobal(this.defaultGlobalStyles(), 'ThemesService:' + sheet_key)
+                }
+            }
+        }
+        // let globally = 'global' in theme ? theme.global : this.globalDefaultStyles
+        // if ('addGlobal' in theme) globally += '\n' + theme.addGlobal
+        // this.css.resetGlobal(globally, 'GlobalAppStyles')
         this.theme = theme
+        if (store)
+            this.setLocalTheme()
     }
 
-    addThemes
+    modifyThemes
     (
         themes: any[]
     )
     {
-        this.themes = this.json.mergeArrays(this.themes, themes)
-        this.json.removeDuplicateObjects(this.themes, true)
+        for (let theme of themes)
+            this.themes[theme.theme] = theme
     }
 
     defaultTheme
@@ -209,9 +209,9 @@ export class CommonNgThemesService
     )
     {
         return {
-            "_id": 0,
-            "theme": "default",
-            "author": "app",
+            "_id": 777,
+            "theme": "ThemesService.default",
+            "author": "grams",
             "addClasses": {
                 "body": ["parallax", "glo-0-text", "glo-0-back", "p"],
                 "app": []
@@ -224,6 +224,9 @@ export class CommonNgThemesService
                 "css": {},
                 "canvas": {},
                 "webgl": {}
+            },
+            "stylesheets": {
+                "default": ""
             }
         }
     }
@@ -384,6 +387,13 @@ export class CommonNgThemesService
         .glo-0-text-trim {
             filter: drop-shadow(0 0 1px rgba(0, 0, 0, 1));
         }
+        .z1 { z-index: 1; }
+        .z2 { z-index: 2; }
+        .z3 { z-index: 3; }
+        .zm1 { z-index: -1; }
+        .zm2 { z-index: -2; }
+        .zm3 { z-index: -3; }
+        .top0 { top: 0; }
         `
 
         // for glo-0-drop, removed border, also idea for how to achieve effect in firefox, though with svg element, is there inline styles with svg background?

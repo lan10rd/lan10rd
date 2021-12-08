@@ -1,0 +1,19 @@
+<common-ng-select-element
+[options]="themes.themes"
+[initial]="themes.theme.theme"
+#themesSelect
+></common-ng-select-element>
+
+<common-ng-scroll-element
+>
+    <common-ng-button-element
+    class="ib p glo-0-text-ani glo-0-text-trim"
+    [text]="'save'"
+    ></common-ng-button-element>
+
+</common-ng-scroll-element>
+
+<common-ng-json-element
+*ngIf="themesSelect.option"
+[(model)]="themesSelect.option"
+></common-ng-json-element>

@@ -43,9 +43,12 @@
 
     <div
     right-bar
-    class="tcenter bl p"
     >
-        right bar
+        <common-ng-select-element
+        [options]="['preferences']"
+        [initial]="true"
+        #rightBarMenu
+        ></common-ng-select-element>
     </div>
 
     <app-bar-left-element
@@ -55,6 +58,7 @@
 
     <app-bar-right-element
     class="bl scrollable-content"
+    [menu]="rightBarMenu"
     right-content
     ></app-bar-right-element>
 
