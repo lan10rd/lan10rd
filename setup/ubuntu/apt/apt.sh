@@ -28,7 +28,8 @@ sudo apt install -y \
     zfsutils-linux \
     quota \
     nfs-kernel-server \
-    bzip2
+    bzip2 \
+    gparted
 
 echo "\n"
 echo "java!"
