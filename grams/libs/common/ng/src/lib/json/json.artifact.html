@@ -37,107 +37,130 @@
             *ngSwitchCase="'arr'"
             >
                 <common-ng-select-element
+                class="bl glo-0-text-trim"
                 [options]="['add', 'remove', 'swap']"
+                #arrOptions
                 ></common-ng-select-element>
+
+                <div
+                class="flex"
+                [ngSwitch]="arrOptions._option"
+                >
+
+                    <ng-container
+                    *ngSwitchCase="'add'"
+                    >
+                        add
+                    </ng-container>
+
+                    <ng-container
+                    *ngSwitchCase="'remove'"
+                    >
+                        remove
+                    </ng-container>
+
+                    <ng-container
+                    *ngSwitchCase="'swap'"
+                    >
+                        swap
+                    </ng-container>
+
+                </div>
+
             </ng-container>
 
         </ng-container>
 
     </ng-container>
 
-<ng-container
-*ngFor="let key of keys; let i=index; trackBy: json.trackBy"
->
+    <ng-container
+    *ngFor="let key of keys; let i=index; trackBy: json.trackBy"
+    >
 
 
-        <li>
-            <div
-            [ngClass]="{'hover': type === 'obj'}"
-            *ngIf="!editing.keys.includes(key)"
-            (click)="toggleEditKey(key)"
-            (keyup.enter)="toggleEditKey(key)"
-            style="width: fit-content"
-            tabindex="0"
-            >
-                {{key}} 
-            </div>
-            <div
-            [ngClass]="{'hidden': !editing.keys.includes(key)}"
-            >
-
-                <input
-                class="bl"
-                #keysi
-                (focusout)="editing.keys = json.remove(editing.keys, key)"
-                [ngModel]="keys[i]"
-                (keyup.enter)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)"
+            <li>
+                <div
+                [ngClass]="{'hover': type === 'obj'}"
+                *ngIf="!editing.keys.includes(key)"
+                (click)="toggleEditKey(key)"
+                (keyup.enter)="toggleEditKey(key)"
+                style="width: fit-content"
+                tabindex="0"
                 >
-                
-                <select (change)="handleMode(modeSelect.value, key);" #modeSelect>
-                    <option [ngValue]="'pretty'">pretty</option>
-                    <option [ngValue]="'raw'">raw</option>
-                </select>
+                    {{key}} 
+                </div>
+                <div
+                [ngClass]="{'hidden': !editing.keys.includes(key)}"
+                >
 
-                <button (click)="model[key] = json.parse(editing.values[key])" *ngIf="modeSelect.value === 'raw'">save</button>
+                    <input
+                    class="bl"
+                    #keysi
+                    (focusout)="editing.keys = json.remove(editing.keys, key)"
+                    [ngModel]="keys[i]"
+                    (keyup.enter)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)"
+                    >
+                    
+                    <select (change)="handleMode(modeSelect.value, key);" #modeSelect>
+                        <option [ngValue]="'pretty'">pretty</option>
+                        <option [ngValue]="'raw'">raw</option>
+                    </select>
 
-                
-            </div>
+                    <button (click)="model[key] = json.parse(editing.values[key])" *ngIf="modeSelect.value === 'raw'">save</button>
 
-            <ng-container
-            [ngSwitch]="modeSelect.value"
-            >
-            
+                    
+                </div>
+
                 <ng-container
-                *ngSwitchCase="'pretty'"
+                [ngSwitch]="modeSelect.value"
                 >
+                
                     <ng-container
-                    [ngSwitch]="json.typeOf(model[key])"
+                    *ngSwitchCase="'pretty'"
+                    >
+                        <ng-container
+                        [ngSwitch]="json.typeOf(model[key])"
+                        >
+
+                            <textarea
+                            *ngSwitchCase="'str'"
+                            [(ngModel)]="model[key]"
+                            ></textarea>
+
+                            <input
+                            *ngSwitchCase="'num'"
+                            [(ngModel)]="model[key]"
+                            type="number"
+                            >
+
+                            <ng-container
+                            *ngSwitchCase="'boo'"
+                            >
+                                {{model[key]}}
+                            </ng-container>
+
+                            <common-ng-json-artifact
+                            *ngSwitchDefault
+                            [(model)]="model[key]"
+                            ></common-ng-json-artifact>
+
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container
+                    *ngSwitchCase="'raw'"
                     >
 
-                        <!-- <input
-                        *ngSwitchCase="'str'"
-                        [(ngModel)]="model[key]"
-                        placeholder="{{key}}"
-                        > -->
-
                         <textarea
-                        *ngSwitchCase="'str'"
-                        [(ngModel)]="model[key]"
+                        [(ngModel)]="editing.values[key]"
                         ></textarea>
 
-                        <input
-                        *ngSwitchCase="'num'"
-                        [(ngModel)]="model[key]"
-                        type="number"
-                        >
-
-                        <ng-container
-                        *ngSwitchCase="'boo'"
-                        >
-                            {{model[key]}}
-                        </ng-container>
-
-                        <common-ng-json-artifact
-                        *ngSwitchDefault
-                        [(model)]="model[key]"
-                        ></common-ng-json-artifact>
-
                     </ng-container>
-                </ng-container>
-
-                <ng-container
-                *ngSwitchCase="'raw'"
-                >
-
-                    <textarea
-                    [(ngModel)]="editing.values[key]"
-                    ></textarea>
 
                 </ng-container>
 
-            </ng-container>
+            </li>
 
-        </li>
+    </ng-container>
 
-</ng-container>
 </ul>

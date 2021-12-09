@@ -3,28 +3,36 @@
 
     <div
     left-button
-    [ngClass]="{'glo-0-shadow' : leftButton.toggle}"
+    class="glo-0-text-trim"
     >
-        <common-ng-button-element
-        class="tcenter p glo-0-text-ani bl scrollable glo-0-text-trim"
+        <div
         [ngClass]="{'glo-0-shadow' : leftButton.toggle}"
-        #leftButton
         >
-            menu
-        </common-ng-button-element>
+            <common-ng-button-element
+            class="tcenter p glo-0-text-ani bl scrollable"
+            [ngClass]="{'glo-0-shadow' : leftButton.toggle}"
+            #leftButton
+            >
+                menu
+            </common-ng-button-element>
+        </div>
     </div>
 
     <div
     right-button
-    [ngClass]="{'glo-0-shadow' : rightButton.toggle}"
+    class="glo-0-text-trim"
     >
-        <common-ng-button-element
-        class="tcenter p glo-0-text-ani bl scrollable glo-0-text-trim"
+        <div
         [ngClass]="{'glo-0-shadow' : rightButton.toggle}"
-        #rightButton
         >
-            user
-        </common-ng-button-element>
+            <common-ng-button-element
+            class="tcenter p glo-0-text-ani bl scrollable"
+            [ngClass]="{'glo-0-shadow' : rightButton.toggle}"
+            #rightButton
+            >
+                user
+            </common-ng-button-element>
+        </div>
     </div>
 
     <common-ng-router-element

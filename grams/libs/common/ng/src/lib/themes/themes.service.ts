@@ -328,12 +328,12 @@ export class CommonNgThemesService
             font-family: trebuchet ms;
             font-size: 24px;
             color: white;
-            width: 100%;
+            // width: 100%;
         }
 
         input:focus {
-            background-color: rgba(255, 255, 255, 1);
-            color: purple;
+            // background-color: rgba(255, 255, 255, 1);
+            // color: purple;
         }
 
         .auto { margin: auto; }
