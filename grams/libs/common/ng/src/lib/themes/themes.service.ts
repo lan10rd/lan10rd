@@ -354,7 +354,7 @@ export class CommonNgThemesService
             background-color: purple;
         }
         .glo-0-shadow {
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1));
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1)) drop-shadow(0 0 5px rgba(255, 255, 255, 1));
         }
         .glo-0-drop {
             backdrop-filter: blur(5px);
