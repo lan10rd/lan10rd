@@ -6,7 +6,7 @@ import { CommonNgThemesEditorArtifact } from './editor.artifact'
 import { CommonNgSelectElementModule } from '../../select/select.element.module'
 import { CommonNgButtonElementModule } from '../../button/button.element.module'
 import { CommonNgScrollElementModule } from '../../scroll/scroll.element.module'
-import { CommonNgJsonElementModule } from '../../json/json.element.module'
+import { CommonNgJsonArtifactModule } from '../../json/json.artifact.module'
 
 @NgModule
 ({
@@ -16,7 +16,7 @@ import { CommonNgJsonElementModule } from '../../json/json.element.module'
         CommonNgSelectElementModule,
         CommonNgButtonElementModule,
         CommonNgScrollElementModule,
-        CommonNgJsonElementModule
+        CommonNgJsonArtifactModule
     ],
     declarations:
     [

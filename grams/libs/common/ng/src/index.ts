@@ -78,8 +78,8 @@ export * from './lib/visual/drop-shadow/drop-shadow.element'
 
 export * from './lib/seo/seo.service'
 
-export * from './lib/json/json.element.module'
-export * from './lib/json/json.element'
+export * from './lib/json/json.artifact.module'
+export * from './lib/json/json.artifact'
 
 export * from './lib/themes/editor/editor.artifact.module'
 export * from './lib/themes/editor/editor.artifact'

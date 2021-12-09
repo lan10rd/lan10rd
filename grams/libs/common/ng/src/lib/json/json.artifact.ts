@@ -4,11 +4,11 @@ import { CommonNgJsonService } from './json.service'
 
 @Component
 ({
-    selector: 'common-ng-json-element',
-    templateUrl: './json.element.html',
-    styleUrls: ['./json.element.scss']
+    selector: 'common-ng-json-artifact',
+    templateUrl: './json.artifact.html',
+    styleUrls: ['./json.artifact.scss']
 })
-export class CommonNgJsonElement
+export class CommonNgJsonArtifact
 {
 
     @Input() model: any
@@ -21,6 +21,9 @@ export class CommonNgJsonElement
         keys: [],
         values: {}
     }
+    inputs: any = {
+        addKey: ''
+    }
 
     constructor
     (
@@ -30,20 +33,21 @@ export class CommonNgJsonElement
 
     }
 
-    ngOnInit
-    (
-    )
-    {
-        this.type = this.json.typeOf(this.model)
-    }
-
     ngOnChanges
     (
         changes: any
     )
     {
+        this.setup()
+    }
+
+    setup
+    (
+    )
+    {
         try
         { 
+            this.type = this.json.typeOf(this.model)
             if (this.type === 'obj')
                 this.keys = Object.keys(this.model)
             else if (this.type === 'arr')
@@ -87,7 +91,6 @@ export class CommonNgJsonElement
         key: string
     )
     {
-        console.log('handleMode', $event, key)
         switch($event)
         {
             case 'raw':
@@ -106,6 +109,27 @@ export class CommonNgJsonElement
             default:
                 break
         }
+    }
+
+    addKey
+    (
+    )
+    {
+        if (this.inputs.addKey.length > 0 && !(this.inputs.addKey in this.model))
+        {
+            this.model[this.inputs.addKey] = ''
+            this.setup()
+            this.inputs.addKey = ''
+        }
+    }
+
+    toggleEditKey
+    (
+        key: string
+    )
+    {
+        if (this.type === 'obj')
+            this.editing.keys.push(key)
     }
 
 }
