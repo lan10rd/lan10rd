@@ -13,7 +13,6 @@ import { CommonNgJsonService } from '../../json/json.service'
 export class CommonNgThemesEditorArtifact
 {
 
-    theme_copy: any
     themes_theme_copy: any
 
     constructor
@@ -33,21 +32,53 @@ export class CommonNgThemesEditorArtifact
         /* get styles */
     }
 
-    adjust
+    copy
     (
         theme: any
     )
     {
-        console.log('theme', theme)
-        this.themes.setTheme(theme)
+        let copy: any = this.json.copy(theme)
+        copy[this.themes.theme_identifier] += 'copy'
+        let copy_id = copy[this.themes.theme_identifier]
+        if (!(copy_id in this.themes))
+        {
+            this.themes.themes[copy_id] = copy
+            this.themes.setThemes(this.themes.themes)
+        }
     }
 
-    handleMenuChange
+
+    store
     (
-        option: any
+        theme: any
     )
     {
-        this.theme_copy = this.json.copy(this.themes.theme)
+        let stored = this.themes.getStored()
+        stored.themes[theme[this.themes.theme_identifier]] = theme
+        this.themes.setStored(stored)
+    }
+
+    unstore
+    (
+        theme: any
+    )
+    {
+        let stored = this.themes.getStored()
+        let theme_key: string = theme[this.themes.theme_identifier]
+        if (theme_key in stored.themes)
+            delete stored.themes[theme_key]
+        this.themes.setStored(stored)
+    }
+
+    remove
+    (
+        theme: any
+    )
+    {
+        let theme_key = theme[this.themes.theme_identifier]
+        if (theme_key in this.themes.themes)
+            delete this.themes.themes[theme_key]
+        this.themes.setThemes(this.themes.themes)
     }
 
     handleThemesChange

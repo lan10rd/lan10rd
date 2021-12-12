@@ -37,14 +37,15 @@ export class AppInitElement
         }
         this.util.functions.assets = (suffix: string) => this.util.data.config.locations.ASSETS + suffix
         // this.util.services.code.setTheme(this.util.services.code.themes.celeste.name, this.util.services.code.themes.celeste.options)
-        this.util.services.themes.modifyTheme
-        ({
-            addStyles: {
-                body: {
-                    'background-image': 'url(https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/lan10rd.github.io/src/assets/photos/cute-lions.jpg)'
-                }
-            }
-        })
+        
+        // this.util.services.themes.modifyTheme
+        // ({
+        //     addStyles: {
+        //         body: {
+        //             'background-image': 'url(https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/lan10rd.github.io/src/assets/photos/cute-lions.jpg)'
+        //         }
+        //     }
+        // })
     }
 
 }

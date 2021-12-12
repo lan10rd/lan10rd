@@ -1,63 +1,112 @@
-<common-ng-select-element
+<!-- <common-ng-select-element
 class="bl glo-0-text-trim"
 [options]="['adjust', 'themes']"
 [initial]="'adjust'"
 (optionChange)="handleMenuChange($event)"
 #mode
-></common-ng-select-element>
+></common-ng-select-element> -->
 
-<ng-container
+<!-- <ng-container
 [ngSwitch]="mode._option"
->
+> -->
 
-    <ng-container
+    <!-- <ng-container
     *ngSwitchCase="'adjust'"
     >
-
-        <common-ng-json-artifact
-        *ngIf="theme_copy"
-        [(model)]="theme_copy"
-        ></common-ng-json-artifact>
 
         <common-ng-scroll-element
         >
 
             <common-ng-button-element
-            class="bl glo-0-text-ani glo-0-text-trim"
-            [text]="'adjust'"
-            (click)="adjust(theme_copy)"
-            ></common-ng-button-element>
+            class="ib glo-0-text-ani glo-0-text-trim p"
+            (click)="apply(theme_copy)"
+            >
+                apply
+            </common-ng-button-element>
+
+            <common-ng-button-element
+            class="ib glo-0-text-ani glo-0-text-trim p"
+            (click)="store(theme_copy)"
+            >
+                store
+            </common-ng-button-element>
+
+            <common-ng-button-element
+            class="ib glo-0-text-ani glo-0-text-trim p"
+            (click)="add(theme_copy)"
+            >
+                add
+            </common-ng-button-element>
+
+            <common-ng-json-artifact
+            class="bl scrollable"
+            *ngIf="theme_copy"
+            [(model)]="theme_copy"
+            ></common-ng-json-artifact>
 
         </common-ng-scroll-element>
 
-    </ng-container>
+    </ng-container> -->
 
-    <ng-container
+    <!-- <ng-container
     *ngSwitchCase="'themes'"
-    >
+    > -->
 
         <common-ng-select-element
         class="glo-0-text-trim bl"
         [options]="themes.themes"
-        [initial]="themes.theme.theme"
+        [initial]="themes.theme_key_index"
+        [path]="'theme'"
         (optionChange)="handleThemesChange($event)"
         #themesSelect
         ></common-ng-select-element>
-        
-        <common-ng-json-artifact
-        *ngIf="themes_theme_copy"
-        [(model)]="themes_theme_copy"
-        ></common-ng-json-artifact>
 
         <common-ng-scroll-element
         >
+
             <common-ng-button-element
             class="ib p glo-0-text-ani glo-0-text-trim"
-            [text]="'save'"
-            ></common-ng-button-element>
+            (click)="themes.setTheme(themes_theme_copy)"
+            >
+                apply
+            </common-ng-button-element>
+
+            <common-ng-button-element
+            class="ib p glo-0-text-ani glo-0-text-trim"
+            (click)="copy(themes_theme_copy); themesSelect.cd.detectChanges();"
+            >
+                copy
+            </common-ng-button-element>
+
+            <common-ng-button-element
+            class="ib p glo-0-text-ani glo-0-text-trim"
+            (click)="remove(themes_theme_copy)"
+            >
+                remove
+            </common-ng-button-element>
+
+            <common-ng-button-element
+            class="ib p glo-0-text-ani glo-0-text-trim"
+            (click)="store(themes_theme_copy)"
+            >
+                store
+            </common-ng-button-element>
+
+            <common-ng-button-element
+            class="ib p glo-0-text-ani glo-0-text-trim"
+            (click)="unstore(themes_theme_copy)"
+            >
+                unstore
+            </common-ng-button-element>
         
         </common-ng-scroll-element>
-    
-    </ng-container>
 
-</ng-container>
+        <common-ng-json-artifact
+        class="bl scrollable"
+        *ngIf="themes_theme_copy"
+        [(model)]="themes_theme_copy"
+        ></common-ng-json-artifact>
+    
+    <!-- </ng-container> -->
+
+<!-- </ng-container> -->

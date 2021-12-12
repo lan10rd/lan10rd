@@ -4,9 +4,10 @@
     <common-ng-button-element
     style="width: fit-content"
     class="bl hover"
-    [text]="'...'"
     #dotdotdot
-    ></common-ng-button-element>
+    >
+        ...
+    </common-ng-button-element>
 
     <ng-container
     *ngIf="dotdotdot.toggle"
@@ -23,13 +24,20 @@
                 class="flex"
                 >
                     <input
-                    [(ngModel)]="inputs.addKey"
+                    #addFieldKey
+                    (keyup.enter)="addField(addFieldKey.value, addFieldValue.value)"
                     >
-                    <button
-                    (click)="addKey()"
+
+                    <textarea
+                    #addFieldValue
+                    ></textarea>
+
+                    <common-ng-button-element
+                    (click)="addField(addFieldKey.value, addFieldValue.value)"
                     >
-                        add key
-                    </button>
+                        add
+                    </common-ng-button-element>
+
                 </div>
             </ng-container>
 
@@ -38,25 +46,41 @@
             >
                 <common-ng-select-element
                 class="bl glo-0-text-trim"
-                [options]="['add', 'remove', 'swap']"
+                [options]="['insert', 'remove', 'swap']"
                 #arrOptions
                 ></common-ng-select-element>
 
                 <div
-                class="flex"
                 [ngSwitch]="arrOptions._option"
                 >
 
                     <ng-container
-                    *ngSwitchCase="'add'"
+                    *ngSwitchCase="'insert'"
                     >
-                        add
+                        <textarea
+                        #insertTextarea
+                        ></textarea>
+
+                        <div>inserted at position (index): <input min="0" max="{{keys.length}}" step="1" type="number" value="0" #insertIndex></div>
+
+                        <common-ng-button-element
+                        class="bl glo-0-text-ani glo-0-text-trim tcenter"
+                        (click)="insert(insertTextarea.value, insertIndex.value)"
+                        >
+                            insert
+                        </common-ng-button-element>
+
                     </ng-container>
 
                     <ng-container
                     *ngSwitchCase="'remove'"
                     >
-                        remove
+                        <div>remove at position (index): <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #removeIndex></div>
+                        <common-ng-button-element
+                        class="bl glo-0-text-ani glo-0-text-trim tcenter"
+                        [text]="'remove'"
+                        (click)="remove"
+                        ></common-ng-button-element>
                     </ng-container>
 
                     <ng-container

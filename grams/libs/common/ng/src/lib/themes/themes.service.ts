@@ -19,6 +19,8 @@ export class CommonNgThemesService
 
     themes: any = {}
     theme: any
+    theme_identifier: string = '_id'
+    theme_key_index : number = -7
 
     // globalDefaultStyles: any
 
@@ -54,14 +56,36 @@ export class CommonNgThemesService
     (
     )
     {
-        let themes = this.getLocalThemes()
-        if (!themes)
+        let stored = this.getStored()
+        if (!stored)
         {
-            this.modifyThemes([this.defaultTheme()])
-            this.setLocalThemes()
+            let default_theme: any = this.defaultTheme()
+            let default_stored = {
+                theme_identifier: this.theme_identifier,
+                theme: default_theme[this.theme_identifier],
+                themes: {[default_theme[this.theme_identifier]]: default_theme}
+            }
+            stored = this.setStored(default_stored)
         }
-        this.themes = themes
-        this.setTheme(this.getTheme(), true)
+        this.setThemes(stored.themes)
+        this.setTheme(this.themes[stored.theme])
+
+        // let themes = this.getLocalThemes()
+        // if (!themes)
+        // {
+        //     this.modifyThemes([this.defaultTheme()])
+        //     this.setLocalThemes()
+        // }
+        // this.themes = themes
+
+        // let theme = this.getLocalTheme()
+        // if (!theme || !(theme['_id'] in this.themes))
+        // {
+        //     theme = this.themes[Object.keys(this.themes)[0]]
+        //     this.setLocalTheme(theme)
+        // }
+        // this.setTheme(theme)
+        // this.theme = theme
     }
 
     /* materials */
@@ -106,17 +130,38 @@ export class CommonNgThemesService
             "addClasses"?: any,
             "addStyles"?: any,
             "materials"?: any
-        }
+        } | any
     )
     {
         let theme = {...this.theme, ...mod}
         this.setTheme(theme)
     }
 
-    setLocalThemes() { this.storage.setLocal('themes', this.themes) }
-    setLocalTheme() { this.storage.setLocal('theme', this.theme) }
-    getLocalThemes() { return this.storage.getLocal('themes') }
-    getLocalTheme() { return this.storage.getLocal('theme') }
+
+    stored_key: string = 'CommonThemesService'
+    getStored(){
+        return this.storage.getLocal(this.stored_key)
+    }
+    setStored(stored: {theme: string, themes: any, theme_identifier?: string}){
+        if (!stored.theme_identifier)
+            stored.theme_identifier = this.theme_identifier
+        return this.storage.setLocal(this.stored_key, stored)
+    }
+
+    setLocalThemes(themes?: any) {
+        if (!themes)
+            themes = this.themes
+        this.storage.setLocal('CommonThemesService.themes', themes)
+    }
+    setLocalTheme(theme?: any) {
+        this.storage.setLocal('CommonThemesService.theme', theme ? theme : this.theme)
+    }
+    getLocalThemes() {
+        return this.storage.getLocal('CommonThemesService.themes')
+    }
+    getLocalTheme() {
+        return this.storage.getLocal('CommonThemesService.theme')
+    }
 
     getTheme
     (
@@ -128,8 +173,7 @@ export class CommonNgThemesService
 
     async setTheme
     (
-        theme: any,
-        store: boolean = false
+        theme: any
     )
     {
         if (!theme) theme = this.defaultTheme()
@@ -190,18 +234,24 @@ export class CommonNgThemesService
         // let globally = 'global' in theme ? theme.global : this.globalDefaultStyles
         // if ('addGlobal' in theme) globally += '\n' + theme.addGlobal
         // this.css.resetGlobal(globally, 'GlobalAppStyles')
+        
         this.theme = theme
-        if (store)
-            this.setLocalTheme()
+        this.theme_key_index = Object.values(this.themes).findIndex((theme: any) => { return theme[this.theme_identifier] === this.theme[this.theme_identifier] })
     }
 
-    modifyThemes
+    setThemes
     (
-        themes: any[]
+        themes: any,
+        identifier: string = this.theme_identifier
     )
     {
-        for (let theme of themes)
-            this.themes[theme.theme] = theme
+        let new_themes: any = {}
+        for (let theme of (Object.values(themes) as any))
+        {
+            let key = theme[identifier]
+            new_themes[key] = theme
+        }
+        this.themes = new_themes
     }
 
     defaultTheme
@@ -209,8 +259,8 @@ export class CommonNgThemesService
     )
     {
         return {
-            "_id": 777,
-            "theme": "ThemesService.default",
+            "_id": '777',
+            "theme": "default",
             "author": "grams",
             "addClasses": {
                 "body": ["parallax", "glo-0-text", "glo-0-back", "p"],

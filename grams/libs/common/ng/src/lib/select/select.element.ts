@@ -114,14 +114,15 @@ export class CommonNgSelectElement
                     this.big = false
             }
 
-            // try to set initial if its undefined
-            if ( !this.option && this.initial && this._options && this._options.length > 0)
+            if ( this.json.isDefined(this.initial) && !this.option && this._options?.length > 0 )
             {
                 let type = this.json.typeOf(this.initial)
                 if (type === 'boo')
                     this.select(0)
                 else if (type === 'num')
+                {
                     this.select(this.initial)
+                }
                 else if (type === 'str')
                 {
                     for (let i = 0; i < this._options.length; i++)

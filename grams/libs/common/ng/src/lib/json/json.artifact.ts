@@ -21,9 +21,6 @@ export class CommonNgJsonArtifact
         keys: [],
         values: {}
     }
-    inputs: any = {
-        addKey: ''
-    }
 
     constructor
     (
@@ -111,15 +108,17 @@ export class CommonNgJsonArtifact
         }
     }
 
-    addKey
+    addField
     (
+        key: string,
+        value: string,
+        type: string = 'string'
     )
     {
-        if (this.inputs.addKey.length > 0 && !(this.inputs.addKey in this.model))
+        if (key.length > 0 && !(key in this.model))
         {
-            this.model[this.inputs.addKey] = ''
+            this.model[key] = this.json.parse(value)
             this.setup()
-            this.inputs.addKey = ''
         }
     }
 
@@ -130,6 +129,31 @@ export class CommonNgJsonArtifact
     {
         if (this.type === 'obj')
             this.editing.keys.push(key)
+    }
+
+    insert
+    (
+        value: any,
+        index: any
+    )
+    {
+        this.model.splice(index, 0, this.json.parse(value))
+        this.setup()
+    }
+
+    remove
+    (
+
+    )
+    {
+
+    }
+
+    swap
+    (
+    )
+    {
+
     }
 
 }

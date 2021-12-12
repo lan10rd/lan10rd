@@ -222,6 +222,10 @@ export class CommonNgJsonService
         return a
     }
 
+    isDefined(a: any){
+        return this.typeOf(a) !== 'und' && a != null
+    }
+
     typeOf
     (
         a: any
@@ -237,8 +241,9 @@ export class CommonNgJsonService
             return 'num'
         else if (typeof a === 'boolean')
             return 'boo'
-        // else if (typeof a === 'undefined')
+        else if (typeof a === 'undefined')
             return 'und'
+        else return typeof a
     }
 
     equals
