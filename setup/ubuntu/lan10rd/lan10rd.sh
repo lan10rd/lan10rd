@@ -1,19 +1,19 @@
 echo "LAN10rd"
 echo "..."
 
-mkdir -p ~/lanl0rd
-mkdir -p ~/lanl0rd/ssh
-mkdir -p ~/lanl0rd/space
-mkdir -p ~/lanl0rd/mounts
-mkdir -p ~/lanl0rd/mounts/fuse
-mkdir -p ~/lanl0rd/mounts/fuse/media
-mkdir -p ~/lanl0rd/mounts/fuse/zpools
-mkdir -p ~/lanl0rd/mounts/local
-mkdir -p ~/lanl0rd/mounts/local/media
-mkdir -p ~/lanl0rd/mounts/local/zpools
-mkdir -p ~/lanl0rd/mounts/remote
-mkdir -p ~/lanl0rd/mounts/remote/media
-mkdir -p ~/lanl0rd/mounts/remote/zpools
+# mkdir -p ~/lanl0rd
+# mkdir -p ~/lanl0rd/ssh
+# mkdir -p ~/lanl0rd/space
+# mkdir -p ~/lanl0rd/mounts
+# mkdir -p ~/lanl0rd/mounts/fuse
+# mkdir -p ~/lanl0rd/mounts/fuse/media
+# mkdir -p ~/lanl0rd/mounts/fuse/zpools
+# mkdir -p ~/lanl0rd/mounts/local
+# mkdir -p ~/lanl0rd/mounts/local/media
+# mkdir -p ~/lanl0rd/mounts/local/zpools
+# mkdir -p ~/lanl0rd/mounts/remote
+# mkdir -p ~/lanl0rd/mounts/remote/media
+# mkdir -p ~/lanl0rd/mounts/remote/zpools
 
 # if online
 
