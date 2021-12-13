@@ -500,6 +500,7 @@ export class CommonNgThemesService
         .zm2 { z-index: -2; }
         .zm3 { z-index: -3; }
         .top0 { top: 0; }
+        .contain { overscroll-behavior: contain; }
         `
 
         // for glo-0-drop, removed border, also idea for how to achieve effect in firefox, though with svg element, is there inline styles with svg background?
