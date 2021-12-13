@@ -4,11 +4,14 @@ import { RouterModule } from '@angular/router'
 
 import { AppLandingFeature } from './landing.feature'
 
+import { CommonNgSelectElementModule } from '@grams/common/ng'
+
 @NgModule
 ({
     imports:
     [
         CommonModule,
+        CommonNgSelectElementModule,
         RouterModule.forChild
         ([{
             path: '',
