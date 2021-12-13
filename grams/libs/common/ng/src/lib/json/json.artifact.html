@@ -20,9 +20,9 @@
             *ngSwitchCase="'obj'"
             >
                 <div
-                class="flex"
                 >
                     <input
+                    class="bl"
                     #addFieldKey
                     (keyup.enter)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = '';"
                     >
@@ -32,7 +32,7 @@
                     ></textarea>
 
                     <common-ng-button-element
-                    (click)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = '';"
+                    (click)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = ''; dotdotdot.toggle = false"
                     >
                         add
                     </common-ng-button-element>

@@ -1,6 +1,7 @@
 <common-ng-select-element
 class="bl"
 [options]="srv._renderedRoutes"
-(optionChange)="srv.route($event)"
+(optionChange)="srv.route($event); unfocus(routerSelect)"
 [toggleable]="false"
+#routerSelect
 ></common-ng-select-element>

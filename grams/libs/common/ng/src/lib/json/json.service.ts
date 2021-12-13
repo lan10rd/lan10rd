@@ -222,7 +222,11 @@ export class CommonNgJsonService
         return a
     }
 
-    isDefined(a: any){
+    isDefined
+    (
+        a: any
+    )
+    {
         return this.typeOf(a) !== 'und' && a != null
     }
 

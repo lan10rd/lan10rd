@@ -4,9 +4,9 @@
 >
 
     <common-ng-scroll-element
+    *ngIf="!big"
     [classes]="scrollClasses"
     [styles]="scrollStyles"
-    *ngIf="!big"
     (scroll)="focus(wrapper, scrollElement, $event)"
     (click)="focus(wrapper, scrollElement, $event)"
     (focus)="focus(wrapper,scrollElement, $event)"

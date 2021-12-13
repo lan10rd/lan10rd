@@ -9,7 +9,7 @@ import { CommonNgJsonService } from '../json/json.service'
     selector : 'common-ng-select-element',
     templateUrl : './select.element.html',
     styleUrls : ['./select.element.scss'],
-    encapsulation: ViewEncapsulation.None
+    // encapsulation: ViewEncapsulation.None commented out on 12/13/21 not sure why it as here
 })
 export class CommonNgSelectElement
 {
@@ -48,6 +48,7 @@ export class CommonNgSelectElement
 
     @ViewChild('bigScrollElement', {static: false}) bigScrollElement: any
     @ViewChildren('buttons') buttons : any
+    @ViewChild('scrollElement', {static: false}) scrollElement: any
 
     show_search : boolean = false
     has_focus : boolean = false
@@ -83,8 +84,13 @@ export class CommonNgSelectElement
         setTimeout(() => {
             if ('options' in changes)
             {
-                if (!changes.options.firstChange) // this was done to reset select if options change but it then had to do dont emit undefined for one of the particular usages, sooo
+                if (!changes.options.firstChange)
+                { 
+                    // this was done to reset select if options change but it then had to do dont emit undefined for one of the particular usages, sooo
                     this.select(-7)
+                    // this.unfocus()
+                }
+                
                 if (changes.options.currentValue)
                 {
                     let optionsType = this.json.typeOf(changes.options.currentValue)
@@ -283,6 +289,12 @@ export class CommonNgSelectElement
     (
     )
     {
+        // this.document.document.body.focus()
+        // if (this.scrollElement)
+        // {
+        //     console.log('this.scrollElement', this.scrollElement)
+        // }
+        
         this.show_search = false
         if (this.has_focus$)
             this.has_focus$.unsubscribe()

@@ -287,7 +287,7 @@ export class CommonNgThemesService
         this.theme = theme
         this.theme_key_index = Object.values(this.themes).findIndex((theme: any) => { return theme[this.theme_identifier] === this.theme[this.theme_identifier] })
 
-        console.log('done setting theme', this.theme)
+        // console.log('done setting theme', this.theme)
     }
 
     setThemes
