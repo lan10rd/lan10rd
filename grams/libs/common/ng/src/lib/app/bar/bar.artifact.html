@@ -4,8 +4,8 @@ style="max-height: 100vh; border-radius: 0;"
 >
     
     <div
-    class="sticky"
     style="top: 0"
+    class="z1 sticky glo-0-drop"
     >
         <div
         class="flex"
@@ -69,32 +69,31 @@ style="max-height: 100vh; border-radius: 0;"
         </div>
     </div>
 
-    <!-- <div
-    class="container"
-    > -->
+    <div
+    >
 
         <ng-container
         [ngSwitch]="srv.show"
         >
 
-            <div
+            <ng-container
             *ngSwitchCase="'left'"
             >
                 <ng-content
                 select="[left-content]"
                 ></ng-content>
-            </div>
+            </ng-container>
 
-            <div
+            <ng-container
             *ngSwitchCase="'right'"
             >
                 <ng-content
                 select="[right-content]"
                 ></ng-content>
-            </div>
+            </ng-container>
 
         </ng-container>
 
-    <!-- </div> -->
+    </div>
 
 </common-ng-app-bar-element>

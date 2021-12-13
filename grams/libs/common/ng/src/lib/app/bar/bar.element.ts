@@ -38,16 +38,14 @@ export class CommonNgAppBarElement
             // this.ref.nativeElement.style.top = this.scrollPos > current_pos ? '0' : '-' + current_height + 'px' 
             // this.scrollPos = current_pos
             // this.styles.applyStyles(this.styles.document.document.documentElement, {['padding-top']: current_height + 'px'})
-            
+
             if (this.scrollPos > current_pos || this.styles.document.document.documentElement.scrollTop === 0)
             {
                 this.ref.nativeElement.style.top = '0'
-                // console.log('a')
             }
             else
             {
                 this.ref.nativeElement.style.top = `-${current_height}px`
-                // console.log('b')
             }
 
             this.scrollPos = current_pos
