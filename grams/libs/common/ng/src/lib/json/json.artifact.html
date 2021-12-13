@@ -25,7 +25,7 @@
                 >
                     <input
                     #addFieldKey
-                    (keyup.enter)="addField(addFieldKey.value, addFieldValue.value)"
+                    (keyup.enter)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = '';"
                     >
 
                     <textarea
@@ -33,7 +33,7 @@
                     ></textarea>
 
                     <common-ng-button-element
-                    (click)="addField(addFieldKey.value, addFieldValue.value)"
+                    (click)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = '';"
                     >
                         add
                     </common-ng-button-element>

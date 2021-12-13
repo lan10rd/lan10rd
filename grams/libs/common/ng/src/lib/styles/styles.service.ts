@@ -65,6 +65,17 @@ export class CommonNgStylesService
         this.setStyles(element, currentStyles)
     }
 
+    unApplyStyles
+    (
+        element: HTMLElement,
+        styles: any
+    )
+    {
+        let currentStyles = this.getStyles(element)
+        Object.keys(styles).forEach(style => { delete currentStyles[style] })
+        this.setStyles(element, currentStyles)
+    }
+
     clearStyles
     (
         element: HTMLElement

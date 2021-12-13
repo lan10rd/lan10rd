@@ -81,6 +81,14 @@ export class CommonNgThemesEditorArtifact
         this.themes.setThemes(this.themes.themes)
     }
 
+    update
+    (
+        theme: any
+    )
+    {
+        
+    }
+
     handleThemesChange
     (
         option: any

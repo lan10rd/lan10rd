@@ -176,38 +176,68 @@ export class CommonNgThemesService
         theme: any
     )
     {
-        if (!theme) theme = this.defaultTheme()
-        if ('classes' in theme && 'body' in theme.classes)
-        {
-            
-        }
-        if ('addClasses' in theme && 'body' in theme.addClasses)
-            this.addBodyClasses(theme.addClasses.body)
-            
-        if ('classes' in theme && 'app' in theme.classes)
-        {
+        let current = this.json.copy(this.theme)
+        if (!theme)
+            theme = this.defaultTheme()
 
-            
-        }
-        if ('addClasses' in theme && 'app' in theme.addClasses)
-            this.addAppClasses(theme.addClasses.app)
-        
-        if ('styles' in theme && 'app' in theme.styles)
-        {
-
-            
-        }
-        if ('addStyles' in theme && 'app' in theme.addStyles)
-            this.applyAppStyles(theme.addStyles.app)
-
-        if ('styles' in theme && 'body' in theme.styles)
+        /* classes */
+        if (current?.classes?.app)
         {
 
         }
-        if ('addStyles' in theme && 'body' in theme.addStyles)
-            this.applyBodyStyles(theme.addStyles.body)
+        if (theme?.classes?.app)
+        {
 
-        if ('materials' in theme)
+        }
+        if (current?.classes?.body)
+        {
+            
+        }
+        if (theme?.classes?.body)
+        {
+            
+        }
+
+        /* add body */
+        if (current?.addClasses?.body)
+            this.css.removeClasses(this.css.document.document.body, current.addClasses.body)
+        if (theme?.addClasses?.body)
+            this.css.addClasses(this.css.document.document.body, theme.addClasses.body)
+
+        /* add app */
+        if (current?.addClasses?.app)
+            this.css.removeClasses(this.app?.components[0]?.injector.get(ElementRef).nativeElement, current.addClasses.app)
+        if (theme?.addClasses?.app)
+            this.css.addClasses(this.app?.components[0]?.injector.get(ElementRef).nativeElement, theme.addClasses.app)
+
+
+
+        /* styles */
+        if (theme?.styles?.app)
+        {
+
+        }
+        if (theme?.styles?.body)
+        {
+
+        }
+
+        if (current?.addStyles?.app)
+            this.css.unApplyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, current.addStyles.app)
+        if (theme?.addStyles?.app)
+            this.css.applyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, theme.addStyles.app)
+
+        if (current?.addStyles?.body)
+            this.css.unApplyStyles(this.document.document.body, current.addStyles.body)
+        if (theme?.addStyles?.body)
+            this.css.applyStyles(this.document.document.body, theme.addStyles.body)
+
+
+        if (current?.materials)
+        {
+
+        }
+        if (theme?.materials)
         {
             for (let renderer of Object.keys(this.materials))
                 for (let material of Object.keys(this.materials[renderer]))
@@ -216,7 +246,23 @@ export class CommonNgThemesService
                 for (let material of Object.keys(theme.materials[renderer]))
                     this.enable(material, renderer, theme.materials[renderer][material])
         }
-        if ('stylesheets' in theme)
+
+        if (current?.stylesheets)
+        {
+            for (let sheet_key of Object.keys(current.stylesheets))
+            {
+                let sheet = theme.stylesheets[sheet_key]
+                if (sheet.startsWith('http'))
+                {
+                    /* add sheet with link and id as sheet_key */
+                }
+                else
+                {
+                    this.css.removeGlobal('ThemesService:' + sheet_key)
+                }
+            }
+        }
+        if (theme?.stylesheets)
         {
             for (let sheet_key of Object.keys(theme.stylesheets))
             {
@@ -231,6 +277,7 @@ export class CommonNgThemesService
                 }
             }
         }
+        
         // let globally = 'global' in theme ? theme.global : this.globalDefaultStyles
         // if ('addGlobal' in theme) globally += '\n' + theme.addGlobal
         // this.css.resetGlobal(globally, 'GlobalAppStyles')

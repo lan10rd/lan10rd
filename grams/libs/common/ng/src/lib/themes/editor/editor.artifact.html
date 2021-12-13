@@ -73,6 +73,13 @@ class="bl glo-0-text-trim"
 
             <common-ng-button-element
             class="ib p glo-0-text-ani glo-0-text-trim"
+            (click)="update(themes_theme_copy)"
+            >
+                update
+            </common-ng-button-element>
+
+            <common-ng-button-element
+            class="ib p glo-0-text-ani glo-0-text-trim"
             (click)="copy(themes_theme_copy); themesSelect.cd.detectChanges();"
             >
                 copy
