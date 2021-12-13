@@ -432,7 +432,7 @@ export class CommonNgThemesService
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             font-family: trebuchet ms;
-            font-size: 24px;
+            font-size: 16px;
             color: white;
             // width: 100%;
         }
@@ -440,6 +440,24 @@ export class CommonNgThemesService
         input:focus {
             // background-color: rgba(255, 255, 255, 1);
             // color: purple;
+        }
+        input[type="color"],
+        input[type="date"],
+        input[type="datetime"],
+        input[type="datetime-local"],
+        input[type="email"],
+        input[type="month"],
+        input[type="number"],
+        input[type="password"],
+        input[type="search"],
+        input[type="tel"],
+        input[type="text"],
+        input[type="time"],
+        input[type="url"],
+        input[type="week"],
+        select:focus,
+        textarea {
+            font-size: 16px;
         }
 
         .auto { margin: auto; }
