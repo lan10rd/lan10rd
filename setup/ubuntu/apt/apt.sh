@@ -104,7 +104,8 @@ echo "\n"
 echo "ui custom, gnome!"
 sudo apt install -y \
     dconf-editor \
-    gnome-tweak-tool \
+    gnome-tweaks \
+    # gnome-tweak-tool \
     gnome-shell-extensions \
     latte-dock
 

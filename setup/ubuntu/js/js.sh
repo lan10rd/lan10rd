@@ -1,86 +1,89 @@
-curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+bash nvm.sh
+bash npm.sh
 
-# source ~/.profile
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # this loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # this loads nvm bash_completion
+# curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
-nvm install node 
-nvm install 14.18.0
-nvm use 14.18.0
+# # source ~/.profile
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # this loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # this loads nvm bash_completion
 
-# npm
-npm i -g \
-    yarn \
-    npx \
-    np \
-    npm-name-cli \
-    npm-check
+# nvm install node 
+# nvm install 14.18.0
+# nvm use 14.18.0
 
-# frameworks
-npm install -g \
-    nx \
-    @nestjs/cli \
-    create-react-app \
-    create-react-library \
-    react-native-cli \
-    express-generator \
-    svelte-cli \
-    vue-native-cli \
-    @vue/cli
-echo n | npm i -g --silent @angular/cli
+# # npm
+# npm i -g \
+#     yarn \
+#     npx \
+#     np \
+#     npm-name-cli \
+#     npm-check
 
-# linting
-npm install -g \
-    eslint \
-    babel-eslint \
-    eslint-config-standard \
-    eslint-config-standard-react \
-    eslint-config-standard-jsx \
-    eslint-plugin-react \
-    eslint-config-prettier \
-    eslint-plugin-prettier \
-    prettier \
-    standard \
-    typescript
+# # frameworks
+# npm install -g \
+#     nx \
+#     @nestjs/cli \
+#     create-react-app \
+#     create-react-library \
+#     react-native-cli \
+#     express-generator \
+#     svelte-cli \
+#     vue-native-cli \
+#     @vue/cli
+# echo n | npm i -g --silent @angular/cli
 
-# debugging
-npm install -g \
-    ndb \
-    node-inspector
+# # linting
+# npm install -g \
+#     eslint \
+#     babel-eslint \
+#     eslint-config-standard \
+#     eslint-config-standard-react \
+#     eslint-config-standard-jsx \
+#     eslint-plugin-react \
+#     eslint-config-prettier \
+#     eslint-plugin-prettier \
+#     prettier \
+#     standard \
+#     typescript
 
-# general utilities
-npm install -g \
-    tldr \
-    now \
-    spoof \
-    fkill-cli \
-    castnow \
-    github-is-starred-cli \
-    rimraf \
-    vtop
+# # debugging
+# npm install -g \
+#     ndb \
+#     node-inspector
 
-# dev
-npm i -g \
-    puppeteer \
-    tinypng-cli \
-    nodemon \
-    sort-package-json \
-    http-server
+# # general utilities
+# npm install -g \
+#     tldr \
+#     now \
+#     spoof \
+#     fkill-cli \
+#     castnow \
+#     github-is-starred-cli \
+#     rimraf \
+#     vtop
 
-# rarely used nowadays, but still useful to have
-npm install -g \
-    gulp \
-    less
+# # dev
+# npm i -g \
+#     puppeteer \
+#     tinypng-cli \
+#     nodemon \
+#     sort-package-json \
+#     http-server
+
+# # rarely used nowadays, but still useful to have
+# npm install -g \
+#     gulp \
+#     less
 
 
-# Check for outdated, incorrect and unused dependencies. The -u arg gives you an interactive tool. If you're using yarn this feature is built in - yarn upgrade-interactive --latest
-# npm-check -u
-# npm-check -ug
+# # Check for outdated, incorrect and unused dependencies. The -u arg gives you an interactive tool. If you're using yarn this feature is built in - yarn upgrade-interactive --latest
+# # npm-check -u
+# # npm-check -ug
 
-# nodemon app.js
+# # nodemon app.js
 
-# sort-package-json
+# # sort-package-json
 
-# List globally installed packages
-npm ls -g --depth=0
+# # List globally installed packages
+# npm ls -g --depth=0

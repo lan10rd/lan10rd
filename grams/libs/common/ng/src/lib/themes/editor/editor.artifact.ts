@@ -47,14 +47,17 @@ export class CommonNgThemesEditorArtifact
         }
     }
 
-
     store
     (
-        theme: any
+        theme: any,
+        default_theme: boolean = false
     )
     {
         let stored = this.themes.getStored()
-        stored.themes[theme[this.themes.theme_identifier]] = theme
+        let theme_key = theme[this.themes.theme_identifier]
+        stored.themes[theme_key] = theme
+        if (default_theme)
+            stored.theme = theme_key
         this.themes.setStored(stored)
     }
 
@@ -76,9 +79,10 @@ export class CommonNgThemesEditorArtifact
     )
     {
         let theme_key = theme[this.themes.theme_identifier]
-        if (theme_key in this.themes.themes)
-            delete this.themes.themes[theme_key]
-        this.themes.setThemes(this.themes.themes)
+        let themes = this.themes.themes
+        if (theme_key in themes)
+            delete themes[theme_key]
+        this.themes.setThemes(themes)
     }
 
     update
@@ -86,7 +90,9 @@ export class CommonNgThemesEditorArtifact
         theme: any
     )
     {
-        
+        let new_themes = this.json.copy(this.themes.themes)
+        new_themes[theme[this.themes.theme_identifier]] = theme
+        this.themes.themes = new_themes
     }
 
     handleThemesChange

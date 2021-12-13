@@ -79,7 +79,6 @@ style="max-height: 100vh; border-radius: 0;"
 
             <div
             *ngSwitchCase="'left'"
-            class="scrollable-content"
             >
                 <ng-content
                 select="[left-content]"
@@ -88,7 +87,6 @@ style="max-height: 100vh; border-radius: 0;"
 
             <div
             *ngSwitchCase="'right'"
-            class="scrollable-content"
             >
                 <ng-content
                 select="[right-content]"

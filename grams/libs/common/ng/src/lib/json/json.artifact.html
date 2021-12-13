@@ -2,8 +2,7 @@
 >
 
     <common-ng-button-element
-    style="width: fit-content"
-    class="bl hover"
+    class="bl point fit"
     #dotdotdot
     >
         ...
@@ -76,11 +75,13 @@
                     *ngSwitchCase="'remove'"
                     >
                         <div>remove at position (index): <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #removeIndex></div>
+
                         <common-ng-button-element
                         class="bl glo-0-text-ani glo-0-text-trim tcenter"
-                        [text]="'remove'"
                         (click)="remove"
-                        ></common-ng-button-element>
+                        >
+                            remove
+                        </common-ng-button-element>
                     </ng-container>
 
                     <ng-container
@@ -103,7 +104,14 @@
 
 
             <li>
-                <div
+                <common-ng-button-element
+                *ngIf="!editing.keys.includes(key)"
+                class="bl point"
+                (click)="toggleEditKey(key)"
+                >
+                    {{key}}
+                </common-ng-button-element>
+                <!-- <div
                 [ngClass]="{'hover': type === 'obj'}"
                 *ngIf="!editing.keys.includes(key)"
                 (click)="toggleEditKey(key)"
@@ -112,7 +120,7 @@
                 tabindex="0"
                 >
                     {{key}} 
-                </div>
+                </div> -->
                 <div
                 [ngClass]="{'hidden': !editing.keys.includes(key)}"
                 >

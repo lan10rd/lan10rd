@@ -3,3 +3,4 @@
 brew install curl
 brew install wget
 brew install nmap
+brew install nvm

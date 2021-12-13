@@ -5,6 +5,7 @@ import { CommonNgDocumentService } from '../document/document.service'
 import { CommonNgHttpService } from '../http/http.service'
 import { CommonNgStorageService } from '../storage/storage.service'
 import { CommonNgJsonService } from '../json/json.service'
+// import { BehaviorSubject } from 'rxjs'
 
 // import { materials } from './materials/materials.imports'
 
@@ -18,6 +19,7 @@ export class CommonNgThemesService
     materials: any = []
 
     themes: any = {}
+    // themes$: any = new BehaviorSubject({})
     theme: any
     theme_identifier: string = '_id'
     theme_key_index : number = -7
@@ -148,20 +150,20 @@ export class CommonNgThemesService
         return this.storage.setLocal(this.stored_key, stored)
     }
 
-    setLocalThemes(themes?: any) {
-        if (!themes)
-            themes = this.themes
-        this.storage.setLocal('CommonThemesService.themes', themes)
-    }
-    setLocalTheme(theme?: any) {
-        this.storage.setLocal('CommonThemesService.theme', theme ? theme : this.theme)
-    }
-    getLocalThemes() {
-        return this.storage.getLocal('CommonThemesService.themes')
-    }
-    getLocalTheme() {
-        return this.storage.getLocal('CommonThemesService.theme')
-    }
+    // setLocalThemes(themes?: any) {
+    //     if (!themes)
+    //         themes = this.themes
+    //     this.storage.setLocal('CommonThemesService.themes', themes)
+    // }
+    // setLocalTheme(theme?: any) {
+    //     this.storage.setLocal('CommonThemesService.theme', theme ? theme : this.theme)
+    // }
+    // getLocalThemes() {
+    //     return this.storage.getLocal('CommonThemesService.themes')
+    // }
+    // getLocalTheme() {
+    //     return this.storage.getLocal('CommonThemesService.theme')
+    // }
 
     getTheme
     (
@@ -299,6 +301,7 @@ export class CommonNgThemesService
             new_themes[key] = theme
         }
         this.themes = new_themes
+        // this.themes$.next(new_themes)
     }
 
     defaultTheme
@@ -401,6 +404,9 @@ export class CommonNgThemesService
             right: 0;
         }
         .corners { border-radius: 10px; }
+        
+        .point:hover { cursor: pointer; }
+        .fit {width: fit-content}
 
         .hidden {
             display: none;
@@ -422,6 +428,7 @@ export class CommonNgThemesService
             background-color: rgba(0, 0,0,0);
             border-radius: 5px;
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             font-family: trebuchet ms;
             font-size: 24px;
             color: white;
@@ -455,11 +462,13 @@ export class CommonNgThemesService
         }
         .glo-0-drop {
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border-radius: 10px;
             background-color: rgba(0, 0, 0, 0);
         }
         .glo-1-drop {
             backdrop-filter: blur(2.5px);
+            -webkit-backdrop-filter: blur(2.5px);
             border: solid white 1px;
             border-radius: 5px;
             -webkit-box-shadow: 0px 0px 5px 0px rgba(255, 255, 255);
