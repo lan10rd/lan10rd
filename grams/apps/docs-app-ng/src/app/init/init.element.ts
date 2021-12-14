@@ -20,7 +20,17 @@ export class AppInitElement
         @Inject('API') public api: string
     )
     {
-
+        console.log('app init element')
+        this.util.services.themes = this.themes
+        this.util.services.popop = this.popop
+        this.util.streams.change('api', this.api)
+        this.util.data.config = {
+            locations: {
+                ASSETS_SRC: 'https://github.com/lan10rd/lan10rd/tree/main/repos/lan10rd/lan10rd.github.io/src/assets',
+                ASSETS: 'https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/lan10rd.github.io/src/assets/'
+            }
+        }
+        this.util.functions.assets = (suffix: string) => this.util.data.config.locations.ASSETS + suffix
     }
 
     ngOnInit
@@ -39,17 +49,7 @@ export class AppInitElement
         //     }
         // })
 
-        console.log('app init element')
-        this.util.services.themes = this.themes
-        this.util.services.popop = this.popop
-        this.util.streams.change('api', this.api)
-        this.util.data.config = {
-            locations: {
-                ASSETS_SRC: 'https://github.com/lan10rd/lan10rd/tree/main/repos/lan10rd/lan10rd.github.io/src/assets',
-                ASSETS: 'https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/lan10rd.github.io/src/assets/'
-            }
-        }
-        this.util.functions.assets = (suffix: string) => this.util.data.config.locations.ASSETS + suffix
+        
     }
 
 }

@@ -1,8 +1,9 @@
 <common-ng-dynamic-element
-*ngIf="init.module && init.component"
 [component]="init.component"
 [module]="init.module"
+#initDynamic
 ></common-ng-dynamic-element>
 
 <router-outlet
+*ngIf="initDynamic.compRef"
 ></router-outlet>

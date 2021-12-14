@@ -1,11 +1,11 @@
-import { Component, Input, ViewChild, ComponentFactoryResolver, NgModuleFactory, Injector, Compiler } from '@angular/core'
+import { Component, Input, ViewChild, ComponentFactoryResolver, NgModuleFactory, Injector, Compiler, Renderer2 } from '@angular/core'
 
 import { CommonNgDynamicDirective } from './dynamic.directive'
 
 @Component
 ({
     selector: 'common-ng-dynamic-element',
-    template: `<ng-template dynamic-host></ng-template>`
+    template: `<ng-template dynamic-host></ng-template><ng-content></ng-content>` // <ng-content></ng-content>
 })
 export class CommonNgDynamicElement
 {
@@ -22,7 +22,8 @@ export class CommonNgDynamicElement
     (
         public resolver: ComponentFactoryResolver,
         public compiler: Compiler,
-        public injector: Injector
+        public injector: Injector,
+        public renderer: Renderer2
     )
     {
         
@@ -62,6 +63,9 @@ export class CommonNgDynamicElement
                 this.compRef = this.host.ref.createComponent(this.resolver.resolveComponentFactory(component))            
             }
             this.setData()
+            // console.log('this.compRef', this.compRef, 'this.host', this.host.ref)
+            // this.renderer.appendChild(this.host.ref.element.nativeElement, this.renderer.createElement('ng-content'))
+
         }
     }
 
