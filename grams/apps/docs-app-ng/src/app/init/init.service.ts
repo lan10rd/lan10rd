@@ -1,8 +1,7 @@
 import { Injectable, Inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
-
-import { CommonNgCookieService } from '@grams/common/ng'
+// import { CommonNgCookieService } from '@grams/common/ng'
 
 
 @Injectable

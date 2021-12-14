@@ -1,7 +1,5 @@
 import { Component, Inject } from '@angular/core'
-
-import { CommonNgUtilityService, CommonNgThemesService, CommonNgPopopService
- } from '@grams/common/ng'
+import { CommonNgUtilityService, CommonNgThemesService, CommonNgPopopService } from '@grams/common/ng'
 
 @Component
 ({
@@ -20,6 +18,13 @@ export class AppInitElement
         @Inject('API') public api: string
     )
     {
+        
+    }
+
+    async ngOnInit
+    (
+    )
+    {
         console.log('app init element')
         this.util.services.themes = this.themes
         this.util.services.popop = this.popop
@@ -31,15 +36,8 @@ export class AppInitElement
             }
         }
         this.util.functions.assets = (suffix: string) => this.util.data.config.locations.ASSETS + suffix
-    }
-
-    ngOnInit
-    (
-    )
-    {
-        
+        // this.util.router.router.resetConfig((await import('../app.routes')).routes)
         // this.util.services.code.setTheme(this.util.services.code.themes.celeste.name, this.util.services.code.themes.celeste.options)
-        
         // this.util.services.themes.modifyTheme
         // ({
         //     addStyles: {
@@ -48,8 +46,6 @@ export class AppInitElement
         //         }
         //     }
         // })
-
-        
     }
 
 }

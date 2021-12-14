@@ -3,18 +3,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
-
-import { environment } from '../environments/environment'
-
-import { CommonNgDynamicElementModule } from '@grams/common/ng'
-
-import { AppComponent } from './app.component'
-import { AppInitService } from './init/init.service';
 import { ServiceWorkerModule } from '@angular/service-worker'
 
+import { environment } from '../environments/environment'
+import { AppComponent } from './app.component'
 // import { AppHttpInterceptor } from './app.http.interceptor'
-
-// import { ServiceWorkerModule } from '@angular/service-worker';
+import { AppInitService } from './init/init.service';
+import { CommonNgDynamicElementModule } from '@grams/common/ng'
 
 @NgModule
 ({
