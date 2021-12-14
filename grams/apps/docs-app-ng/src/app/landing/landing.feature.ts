@@ -19,9 +19,4 @@ export class AppLandingFeature
 
     }
 
-    print(wtf: any)
-    {
-        console.log('wtf', wtf)
-    }
-
 }

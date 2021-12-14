@@ -406,6 +406,7 @@ export class CommonNgThemesService
             right: 0;
         }
         .corners { border-radius: 10px; }
+        .corners0 { border-radius: 0;}
         
         .point:hover { cursor: pointer; }
         .fit {width: fit-content}
@@ -417,7 +418,10 @@ export class CommonNgThemesService
 
         .sticky { position: sticky; position: -webkit-sticky; }
         .flex { display: flex; }
+        .column { flex-direction: column;}
         .jcc { justify-content: center; }
+        .max-height-100vh {max-height: 100vh;}
+        
 
         pre {
             overflow-wrap: break-word;
@@ -513,6 +517,7 @@ export class CommonNgThemesService
         .glo-0-text-trim {
             filter: drop-shadow(0 0 1px rgba(0, 0, 0, 1));
         }
+        .flex1 { flex: 1 }
         .z1 { z-index: 1; }
         .z2 { z-index: 2; }
         .z3 { z-index: 3; }

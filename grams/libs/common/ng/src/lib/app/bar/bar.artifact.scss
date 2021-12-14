@@ -1,0 +1,9 @@
+.flex1 { flex: 1 }
+.scrollable-y {
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.column { flex-direction: column;}
+.corners0 { border-radius: 0;}
+.max-height-100vh {max-height: 100vh;}

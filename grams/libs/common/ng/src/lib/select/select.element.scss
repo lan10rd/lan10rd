@@ -10,6 +10,11 @@ button {
     margin: 0;
 }
 
+.zen:focus {
+    outline: none !important;
+    outline: none -webkit-focus-ring-color;
+}
+
 // div[data-sid] {
 //     display: inline-block;
 // }

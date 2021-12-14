@@ -44,7 +44,7 @@ export class CommonNgSelectElement
 
     @Input() height : any = '3.25rem'
     @Input() big : any = false
-    @Input() big_threshold : number = 50
+    @Input() big_threshold : number = 77
 
     @ViewChild('bigScrollElement', {static: false}) bigScrollElement: any
     @ViewChildren('buttons') buttons : any
@@ -178,12 +178,16 @@ export class CommonNgSelectElement
     cycleButton
     (
         $event: any,
-        scroller: any
+        scroller: any,
+        button?: any
     )
     {
+        console.log('button', button)
         if ($event?.key === 'Tab')
         {
+            console.log('cycleButton', $event)
             $event.preventDefault()
+            console.log('this.focused_button')
             let next_focus = this.focused_button + 1
             if ($event.shiftKey)
                 next_focus = this.focused_button - 1
@@ -227,17 +231,20 @@ export class CommonNgSelectElement
     async buttonFocus
     (
         i: number,
-        $event: any
+        $event: any,
+        button: any
     )
     {
         this.focused_button = i
+        button.focus()
     }
 
     async focus
     (
         wrapper: any,
         scroller: any,
-        $event: any
+        $event: any,
+        extra?: any
     )
     {
         let srcElement = $event.srcElement

@@ -20,22 +20,14 @@ export class AppInitElement
         @Inject('API') public api: string
     )
     {
-        util.services.themes = themes
-        util.services.popop = popop
-        util.streams.change('api', api)
+
     }
 
     ngOnInit
     (
     )
     {
-        this.util.data.config = {
-            locations: {
-                ASSETS_SRC: 'https://github.com/lan10rd/lan10rd/tree/main/repos/lan10rd/lan10rd.github.io/src/assets',
-                ASSETS: 'https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/lan10rd.github.io/src/assets/'
-            }
-        }
-        this.util.functions.assets = (suffix: string) => this.util.data.config.locations.ASSETS + suffix
+        
         // this.util.services.code.setTheme(this.util.services.code.themes.celeste.name, this.util.services.code.themes.celeste.options)
         
         // this.util.services.themes.modifyTheme
@@ -46,6 +38,18 @@ export class AppInitElement
         //         }
         //     }
         // })
+
+        console.log('app init element')
+        this.util.services.themes = this.themes
+        this.util.services.popop = this.popop
+        this.util.streams.change('api', this.api)
+        this.util.data.config = {
+            locations: {
+                ASSETS_SRC: 'https://github.com/lan10rd/lan10rd/tree/main/repos/lan10rd/lan10rd.github.io/src/assets',
+                ASSETS: 'https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/lan10rd.github.io/src/assets/'
+            }
+        }
+        this.util.functions.assets = (suffix: string) => this.util.data.config.locations.ASSETS + suffix
     }
 
 }

@@ -23,19 +23,19 @@ export class CommonNgRouterElement
     }
 
     /* for webkit */
-    unfocus
-    (
-        ele: any
-    )
-    {
-        if (ele)
-            ele.unfocus()
-        if (this?.ref?.nativeElement)
-        {
-            let scroll = this.ref.nativeElement.querySelector('common-ng-scroll-element')
-            if (scroll)
-                scroll.blur()
-        }
-    }
+    // unfocus
+    // (
+    //     ele: any
+    // )
+    // {
+    //     if (ele)
+    //         ele.unfocus()
+    //     if (this?.ref?.nativeElement)
+    //     {
+    //         let scroll = this.ref.nativeElement.querySelector('common-ng-scroll-element')
+    //         if (scroll)
+    //             scroll.blur()
+    //     }
+    // }
 
 }
