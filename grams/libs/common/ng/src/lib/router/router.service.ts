@@ -55,7 +55,6 @@ export class CommonNgRouterService
             newRenderedRoutes.push(typeof r === 'string' ? r : r.name)
         this._routes = routes
         this._renderedRoutes = newRenderedRoutes
-        console.log('renderedRoutes', this._renderedRoutes)
     }
 
     addRoutes
