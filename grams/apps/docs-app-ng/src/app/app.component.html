@@ -1,9 +1,7 @@
 <common-ng-dynamic-element
 [component]="init.component"
 [module]="init.module"
-#initDynamic
 ></common-ng-dynamic-element>
 
 <router-outlet
-*ngIf="initDynamic?.compRef?.instance?.initialized"
 ></router-outlet>

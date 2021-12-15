@@ -30,7 +30,7 @@ export class CommonNgThemesService
     (
         public css: CommonNgStylesService,
         public document: CommonNgDocumentService,
-        public app: ApplicationRef,
+        // public app: ApplicationRef,
         public http: CommonNgHttpService,
         public storage: CommonNgStorageService,
         public json: CommonNgJsonService,
@@ -118,9 +118,13 @@ export class CommonNgThemesService
 
     /* themes */
     /* helpers */
-    addAppClasses ( classes: string[] ) { this.css.addClasses(this.app?.components[0]?.injector.get(ElementRef).nativeElement, classes) }
+    addAppClasses ( classes: string[] ) { 
+        // this.css.addClasses(this.app?.components[0]?.injector.get(ElementRef).nativeElement, classes) 
+    }
     addBodyClasses ( classes: string[] ) { this.css.addClasses(this.css.document.document.body, classes) }
-    applyAppStyles ( styles: any ) { this.css.applyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, styles)}
+    applyAppStyles ( styles: any ) {
+        // this.css.applyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, styles)
+    }
     applyBodyStyles ( styles: any ) { this.css.applyStyles(this.document.document.body, styles) }
 
     modifyTheme
@@ -208,9 +212,13 @@ export class CommonNgThemesService
 
         /* add app */
         if (current?.addClasses?.app)
-            this.css.removeClasses(this.app?.components[0]?.injector.get(ElementRef).nativeElement, current.addClasses.app)
+        {
+            // this.css.removeClasses(this.app?.components[0]?.injector.get(ElementRef).nativeElement, current.addClasses.app)
+        }
         if (theme?.addClasses?.app)
-            this.css.addClasses(this.app?.components[0]?.injector.get(ElementRef).nativeElement, theme.addClasses.app)
+        {
+            // this.css.addClasses(this.app?.components[0]?.injector.get(ElementRef).nativeElement, theme.addClasses.app)
+        }
 
 
 
@@ -224,10 +232,10 @@ export class CommonNgThemesService
 
         }
 
-        if (current?.addStyles?.app)
-            this.css.unApplyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, current.addStyles.app)
-        if (theme?.addStyles?.app)
-            this.css.applyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, theme.addStyles.app)
+        // if (current?.addStyles?.app)
+        //     this.css.unApplyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, current.addStyles.app)
+        // if (theme?.addStyles?.app)
+        //     this.css.applyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, theme.addStyles.app)
 
         if (current?.addStyles?.body)
             this.css.unApplyStyles(this.document.document.body, current.addStyles.body)
