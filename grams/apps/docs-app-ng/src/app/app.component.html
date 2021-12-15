@@ -4,8 +4,6 @@
 #initDynamic
 ></common-ng-dynamic-element>
 
-<!-- <app-init-blank-element
-></app-init-blank-element>
-     -->
 <router-outlet
+*ngIf="initDynamic?.compRef?.instance?.initialized"
 ></router-outlet>

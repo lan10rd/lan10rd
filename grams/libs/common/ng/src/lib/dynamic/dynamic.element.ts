@@ -1,6 +1,8 @@
 import {
     Component,
     Input,
+    Output,
+    EventEmitter,
     ViewChild,
     ComponentFactoryResolver,
     NgModuleFactory,
@@ -23,6 +25,8 @@ export class CommonNgDynamicElement
     @Input() component: any
     @Input() data: any
 
+    @Output() load: any = new EventEmitter()
+
     @ViewChild(CommonNgDynamicDirective, {static: true}) host: CommonNgDynamicDirective | any
 
     compRef: any
@@ -44,12 +48,12 @@ export class CommonNgDynamicElement
     )
     {
         if ('component' in changes || 'module' in changes)
-            this.load()
+            this.handleLoad()
         if ('data' in changes && this.compRef)
             this.setData()
     }
 
-    async load
+    async handleLoad
     (
     )
     {
@@ -74,8 +78,8 @@ export class CommonNgDynamicElement
             this.setData()
             // console.log('this.compRef', this.compRef, 'this.host', this.host.ref)
             // this.renderer.appendChild(this.host.ref.element.nativeElement, this.renderer.createElement('ng-content'))
-
         }
+        this.load.emit(this.compRef.instance)
     }
 
     setData

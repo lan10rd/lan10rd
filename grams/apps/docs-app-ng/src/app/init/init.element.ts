@@ -10,6 +10,8 @@ import { CommonNgUtilityService, CommonNgThemesService, CommonNgPopopService } f
 export class AppInitElement
 {
 
+    initialized: boolean = false
+
     constructor
     (
         public util : CommonNgUtilityService,
@@ -25,6 +27,10 @@ export class AppInitElement
     (
     )
     {
+
+        setTimeout(() => {
+
+
         console.log('app init element')
         this.util.services.themes = this.themes
         this.util.services.popop = this.popop
@@ -46,6 +52,9 @@ export class AppInitElement
         //         }
         //     }
         // })
+        this.initialized = true
+
+        },0)
     }
 
 }
