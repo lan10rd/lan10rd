@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { APP_INITIALIZER, NgModule } from '@angular/core'
-import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http'
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
 import { ServiceWorkerModule } from '@angular/service-worker'
 
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
-// import { AppHttpInterceptor } from './app.http.interceptor'
+import { AppHttpInterceptor } from './app.http.interceptor'
 import { AppInitService } from './init/init.service';
 import { CommonNgDynamicElementModule } from '@grams/common/ng'
 
@@ -37,6 +37,16 @@ import { CommonNgDynamicElementModule } from '@grams/common/ng'
         {
             provide: 'API',
             useValue: (environment.production ? location.origin : !isNaN(+location.host.split('.')[0]) ? location.origin.split('4200').join('3000') : location.protocol + '//' + location.host.split('.')[0] + '-api' + location.host.split(location.host.split('.')[0])[1])
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AppHttpInterceptor,
+            multi: true,
+            deps: [HttpXsrfTokenExtractor]
+        },
+        {
+            provide: 'COMMON_CODE_SERVICE_MONACO_LOCATION',
+            useValue: 'https://resources.glass.earth/static/js'
         }
     ],
     exports:

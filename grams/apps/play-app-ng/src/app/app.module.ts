@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { APP_INITIALIZER, NgModule } from '@angular/core'
-import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http'
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
 
 import { environment } from '../environments/environment'

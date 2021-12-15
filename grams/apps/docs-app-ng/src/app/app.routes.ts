@@ -15,6 +15,10 @@ export const routes: Routes = [
         path: 'notes',
         loadChildren: async () => (await import('../libs/notes/notes.feature.module')).NotesFeatureModule
     },
+    // {
+    //     path: 'showcase',
+    //     loadChildren: async () => (await import('../libs/showcase/showcase.feature.module')).ShowcaseFeatureModule
+    // },
     {
         path: '**',
         redirectTo: ''

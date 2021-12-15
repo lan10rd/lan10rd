@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Inject } from '@angular/core'
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpXsrfTokenExtractor } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 
-import { CommonNgStreamsService } from '@grams/common/ng'
 
 @Injectable
 ({
@@ -14,8 +13,8 @@ export class AppHttpInterceptor implements HttpInterceptor
 
     constructor
     (
-        private tokenExtractor: HttpXsrfTokenExtractor,
-        public streams: CommonNgStreamsService
+        public tokenExtractor: HttpXsrfTokenExtractor,
+        @Inject('API') public api: string
     )
     {
 
@@ -31,7 +30,7 @@ export class AppHttpInterceptor implements HttpInterceptor
         let xsrfToken = this.tokenExtractor.getToken() as string
         return next.handle
             (
-                req.url.includes(this.streams.check('api')) && xsrfToken !== null && !req.headers.has(xsrfHeader) ?
+                req.url.includes(this.api) && xsrfToken !== null && !req.headers.has(xsrfHeader) ?
                     req.clone
                     (
                         {
@@ -48,8 +47,11 @@ export class AppHttpInterceptor implements HttpInterceptor
                     }, 
                     (err: any) =>
                     {
+                        console.log('err', err)
                         if(err.status === 401)
-                            this.streams.dispatch('unauthorized', {req, err})
+                        {
+                            // this.streams.dispatch('unauthorized', {req, err})
+                        }
                     }
                 )
             )

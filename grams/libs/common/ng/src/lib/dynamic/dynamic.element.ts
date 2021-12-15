@@ -1,4 +1,13 @@
-import { Component, Input, ViewChild, ComponentFactoryResolver, NgModuleFactory, Injector, Compiler, Renderer2 } from '@angular/core'
+import {
+    Component,
+    Input,
+    ViewChild,
+    ComponentFactoryResolver,
+    NgModuleFactory,
+    Injector,
+    Compiler,
+    Renderer2
+} from '@angular/core'
 
 import { CommonNgDynamicDirective } from './dynamic.directive'
 
