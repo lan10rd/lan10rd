@@ -11,6 +11,8 @@ import { CommonNgThemesService } from './themes.service'
 export class CommonNgThemesElement
 {
 
+    origin = location.origin
+
     constructor
     (
         public themes: CommonNgThemesService

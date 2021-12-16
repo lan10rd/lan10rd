@@ -6,8 +6,9 @@ import { CommonNgHttpService } from '../http/http.service'
 import { CommonNgStorageService } from '../storage/storage.service'
 import { CommonNgJsonService } from '../json/json.service'
 // import { BehaviorSubject } from 'rxjs'
-
 // import { materials } from './materials/materials.imports'
+// import sheet from './default.css' assert { type: 'css' };
+import { CommonNgSanitizerService } from '../sanitizer/sanitizer.service'
 
 @Injectable
 ({
@@ -34,6 +35,7 @@ export class CommonNgThemesService
         public http: CommonNgHttpService,
         public storage: CommonNgStorageService,
         public json: CommonNgJsonService,
+        public sanitizer: CommonNgSanitizerService,
         // @Inject('COMMON_THEMES_REAL_OPTIONS') @Optional() public options: any
     )
     {
@@ -54,7 +56,7 @@ export class CommonNgThemesService
         this.initialize()
     }
 
-    initialize
+    async initialize
     (
     )
     {
@@ -337,6 +339,9 @@ export class CommonNgThemesService
             },
             "stylesheets": {
                 "default": ""
+            },
+            "iframes": {
+
             }
         }
     }
@@ -346,7 +351,6 @@ export class CommonNgThemesService
     )
     {
         return `
-
         html, body {
             min-height: 100%;
             max-width: 100%;
@@ -356,14 +360,14 @@ export class CommonNgThemesService
             cursor: default;
             word-wrap: break-word;
         }
-
+        
         audio {
             max-width: 100%;
         }
-
+        
         html { box-sizing: border-box; }
         *, *:before, *:after { box-sizing: inherit; }
-
+        
         .parallax {
             background-attachment: fixed;
             background-position: center;
@@ -371,7 +375,7 @@ export class CommonNgThemesService
             -webkit-background-size: cover;
             background-repeat: 'no-repeat';
         }
-
+        
         .p { padding: 1rem; }
         .m { margin: 1rem }
         .bl { display: block; }
@@ -418,26 +422,26 @@ export class CommonNgThemesService
         
         .point:hover { cursor: pointer; }
         .fit {width: fit-content}
-
+        
         .hidden {
             display: none;
             visibility: hidden;
         }
-
+        
         .sticky { position: sticky; position: -webkit-sticky; }
         .flex { display: flex; }
         .column { flex-direction: column;}
         .jcc { justify-content: center; }
         .max-height-100vh {max-height: 100vh;}
         
-
+        
         pre {
             overflow-wrap: break-word;
             white-space: pre-wrap;
-            // white-space: pre-line;
+            /* white-space: pre-line; */
             margin: 0;
         }
-
+        
         input {
             background-color: rgba(0, 0,0,0);
             border-radius: 5px;
@@ -446,12 +450,12 @@ export class CommonNgThemesService
             font-family: trebuchet ms;
             font-size: 16px;
             color: white;
-            // width: 100%;
+            /* width: 100%; */
         }
-
+        
         input:focus {
-            // background-color: rgba(255, 255, 255, 1);
-            // color: purple;
+            /* background-color: rgba(255, 255, 255, 1); */
+            /* color: purple; */
         }
         input[type="color"],
         input[type="date"],
@@ -471,21 +475,21 @@ export class CommonNgThemesService
         textarea {
             font-size: 16px;
         }
-
+        
         .auto { margin: auto; }
         .bold { font-weight: bold; }
-
+        
         .trunc {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
         }
-
+        
         .glo-0-text {
             color: rgba(255, 255, 255, 1);
             font-family: trebuchet ms;
         }
-
+        
         .glo-0-back {
             background-color: purple;
         }
@@ -516,12 +520,13 @@ export class CommonNgThemesService
         .glo-0-text-ani:focus-within {
             transform: scale(1.33);
         }
-        // .glo-0-text-trim {
-        //     text-shadow: 0px 0px 1px rgb(0 0 0);
-        // }
-        // .glo-1-text-trim {
-        //     text-shadow: 0px 0px 1px rgb(255 255 255);
-        // }
+        /*
+        .glo-0-text-trim {
+            text-shadow: 0px 0px 1px rgb(0 0 0);
+        }
+        .glo-1-text-trim {
+            text-shadow: 0px 0px 1px rgb(255 255 255);
+        } */
         .glo-0-text-trim {
             filter: drop-shadow(0 0 1px rgba(0, 0, 0, 1));
         }

@@ -57,6 +57,8 @@ export * from './lib/code/terminal/terminal.element'
 export * from './lib/code/terminal/terminal.element.module'
 
 export * from './lib/sanitizer/sanitizer.service'
+export * from './lib/sanitizer/sanitizer.pipe'
+export * from './lib/sanitizer/sanitizer.pipe.module'
 
 export * from './lib/var/var.directive'
 export * from './lib/var/var.directive.module'
