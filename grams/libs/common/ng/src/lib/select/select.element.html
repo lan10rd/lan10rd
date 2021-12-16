@@ -15,27 +15,18 @@
         <ng-container
         *ngFor="let opt of __options; let i = index"
         >
-            <!-- <div
+            <button
             [class]="buttonClasses"
             [style]="buttonStyles"
             [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
-            > -->
-                <div
-                [class]="buttonClasses"
-                [style]="buttonStyles"
-                [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
-                >
-                    <button
-                    (click)="select(opt) "
-                    tabindex="{{trap_focus ? 0 : -1}}"
-                    (focus)="buttonFocus(i, $event, button)"
-                    (keydown)="cycleButton($event, scrollElement, button)"
-                    #button
-                    >
-                        {{_options[opt]}}
-                    </button>
-                </div>
-            <!-- </div> -->
+            (click)="$event.stopPropagation(); select(opt)"
+            tabindex="{{trap_focus ? 0 : -1}}"
+            (focus)="buttonFocus(i, $event, button)"
+            (keydown)="cycleButton($event, scrollElement, button)"
+            #button
+            >
+                {{_options[opt]}}
+            </button>
         </ng-container>
 
     </common-ng-scroll-element>
@@ -44,7 +35,6 @@
     <!-- looks like its tricky to actually make this center, was able to target inside and find the .wrapper and position: relative with tcenter and it centers it but then it messes with the scrolling -->
 
     <cdk-virtual-scroll-viewport
-  
     *ngIf="big"
     orientation="horizontal"
     autosize
@@ -57,28 +47,20 @@
     tabindex="0"
     >
 
-        <div
-        *cdkVirtualFor="let opt of __options; let i = index;"
+        <button
+        *cdkVirtualFor="let opt of __options; let i = index; let last = last;"
         [class]="buttonClasses"
         [style]="buttonStyles"
         [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
+        (click)="$event.stopPropagation(); select(opt)"
+        tabindex="{{trap_focus ? 0 : -1}}"
+        (focus)="buttonFocus(i, $event, button, true)"
+        (keydown)="cycleButton($event, bigScrollElement, button, true)"
+        #button
+        [attr.x-button-i]="i"
         >
-            <!-- <div
-            [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
-            > -->
-
-                <button
-                (click)="select(opt)"
-                tabindex="{{trap_focus ? 0 : -1}}"
-                (focus)="buttonFocus(i, $event, button)"
-                (keydown)="cycleButton($event, bigScrollElement, button)"
-                #button
-                [attr.x-button-i]="i"
-                >
-                    {{_options[opt]}}
-                </button>
-            <!-- </div> -->
-        </div>
+            {{_options[opt]}}
+        </button>
 
     </cdk-virtual-scroll-viewport>
 

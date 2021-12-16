@@ -175,19 +175,70 @@ export class CommonNgSelectElement
         }, 0)
     }
 
-    cycleButton
+    async cycleBig
     (
         $event: any,
         scroller: any,
-        button?: any
+        button: any,
+        x_button_i: number,
+        next_focus: number
     )
     {
-        console.log('button', button)
+        let buttons: any
+        if (next_focus === 0)
+        {
+            scroller.elementRef.nativeElement.scrollTo({left: 0, behavior: 'instant'})
+        }
+        else if (next_focus === this.__options.length - 1)
+        {
+            scroller.elementRef.nativeElement.scrollTo({left: scroller.elementRef.nativeElement.scrollWidth, behavior: 'instant'})
+        }
+        let find_button = async () => {
+            await new Promise((resolve) => {
+                setTimeout(()=> {
+                    resolve(true)
+                }, 0)
+            })
+            buttons = scroller?.elementRef?.nativeElement?.querySelectorAll('button')
+            let find: any
+            for (let btn of buttons)
+            {
+                if (+btn.attributes['x-button-i'].value === next_focus)
+                {
+                    find = btn
+                    break
+                }
+            }
+            if (find)
+            {
+                return find
+            }
+            if (next_focus > x_button_i)
+                scroller.elementRef.nativeElement.scrollBy({left: 24, behavior: 'instant'})
+            else if (x_button_i)
+                scroller.elementRef.nativeElement.scrollBy({left: -24, behavior: 'instant'})
+        }
+        let find: any
+        while (!find)
+        {
+            find = await find_button()
+        }
+        // if (find)
+            return find.focus()
+    }
+
+    async cycleButton
+    (
+        $event: any,
+        scroller: any,
+        button: any,
+        bigScroll: boolean = false
+    )
+    {
+        let x_button_i = +button.attributes['x-button-i'].value
         if ($event?.key === 'Tab')
         {
-            console.log('cycleButton', $event)
             $event.preventDefault()
-            console.log('this.focused_button')
             let next_focus = this.focused_button + 1
             if ($event.shiftKey)
                 next_focus = this.focused_button - 1
@@ -198,33 +249,17 @@ export class CommonNgSelectElement
                 next_focus = this.__options.length - 1
             else if (next_focus > this.__options.length - 1)
                 next_focus = 0
-                
-            let buttons = scroller.child?.nativeElement?.querySelectorAll('button')
-            if (!buttons)
-            {
-                let next_btn = this.buttons.find((btn: any, i: number) => { return +btn.nativeElement.attributes['x-button-i'].value === next_focus })
-                if (next_btn?.nativeElement)
-                    next_btn.nativeElement.focus()
-                else
-                {
-                    let scrolly = scroller.elementRef.nativeElement.querySelector('.cdk-virtual-scroll-content-wrapper').parentElement
-                    if (next_focus === 0)
-                    {
-                        scrolly.scrollTo({left: 0})
-                    }
-                    else
-                    {
-                        scrolly.scrollTo({left: scrolly.scrollWidth})
-                    }
-                    setTimeout(() => {
-                        let buttons = scroller.elementRef.nativeElement.querySelectorAll('button')
-                        let nxt_btn = buttons[next_focus === 0 ? 0 : buttons.length - 1]
-                        nxt_btn.focus()
-                    }, 25)
-                }
-            }
-            else
-                buttons[next_focus].focus()
+              
+            if (bigScroll)
+                return this.cycleBig($event, scroller, button, x_button_i, next_focus)
+            let buttons: any
+            buttons = scroller?.child?.nativeElement?.querySelectorAll('button')
+            let next_button = buttons[next_focus]
+            return next_button.focus()
+        }
+        else if ($event?.key === 'Enter')
+        {
+            // console.log('enter')
         }
     }
 
@@ -232,11 +267,13 @@ export class CommonNgSelectElement
     (
         i: number,
         $event: any,
-        button: any
+        button: any,
+        big : boolean = false
     )
     {
-        this.focused_button = i
-        button.focus()
+        let new_focus = big ? +button.attributes['x-button-i'].value : i 
+        this.focused_button = new_focus
+        // button.focus()
     }
 
     async focus
@@ -296,12 +333,6 @@ export class CommonNgSelectElement
     (
     )
     {
-        // this.document.document.body.focus()
-        // if (this.scrollElement)
-        // {
-        //     console.log('this.scrollElement', this.scrollElement)
-        // }
-        
         this.show_search = false
         if (this.has_focus$)
             this.has_focus$.unsubscribe()

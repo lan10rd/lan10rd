@@ -143,7 +143,8 @@
               "browserTarget": "docs-app-ng:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "inspect": true
         },
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",

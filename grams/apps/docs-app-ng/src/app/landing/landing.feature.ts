@@ -16,7 +16,7 @@ export class AppLandingFeature
         public util: CommonNgUtilityService
     )
     {
-        console.log('app landing')
+
     }
 
 }
