@@ -22,7 +22,11 @@
 [innerHTML]="themes.theme.innerHTML | sanitizer:'html'"
 ></div>
 
-<iframe
-*ngFor="let frame of themes.theme.iframes"
-[src]="frame.src | sanitizer:'resourceUrl'"
-></iframe>
+<ng-container
+*ngIf="themes?.theme?.iframes"
+>
+    <iframe
+    *ngFor="let frame of themes.theme.iframes"
+    [src]="frame.src | sanitizer:'resourceUrl'"
+    ></iframe>
+</ng-container>
