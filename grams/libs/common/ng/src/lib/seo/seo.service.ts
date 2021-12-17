@@ -8,8 +8,6 @@ import { Meta, Title } from '@angular/platform-browser'
 export class CommonNgSeoService
 { 
 
-    added = false
-
     constructor
     (
         public meta: Meta,
@@ -28,6 +26,7 @@ export class CommonNgSeoService
         tags?: any[]
     )
     {
+        console.log('meta', this.meta)
         if (!tags)
         {
             tags = [{name: 'robots', content: 'index, follow'}]
@@ -40,18 +39,28 @@ export class CommonNgSeoService
         }
         if (title)
             this.title.setTitle(title)
-        if (!this.added)
-        {
-            this.meta.addTags(tags)
-            this.added = true
-        }
         else
+            this.title.setTitle('')
+
+        for (let tag of tags)
         {
-            tags.forEach(tag => { this.meta.updateTag(tag) })
-            if (!keywords || keywords.length === 0) this.removeNamedTag('keywords')
-            if (!description || description.length === 0) this.removeNamedTag('description')
-            if (!route) this.meta.removeTag('http')
+            this.removeNamedTag(tag.name)
+            this.meta.addTag(tag)
         }
+
+        // if (this.meta.getTag('description'))
+        // if (!this.added)
+        // {
+        //     this.meta.addTags(tags)
+        //     this.added = true
+        // }
+        // else
+        // {
+        //     tags.forEach(tag => { this.meta.updateTag(tag) })
+        //     if (!keywords || keywords.length === 0) this.removeNamedTag('keywords')
+        //     if (!description) this.removeNamedTag('description')
+        //     if (!route) this.meta.removeTag('http')
+        // }
     }
 
     removeNamedTag

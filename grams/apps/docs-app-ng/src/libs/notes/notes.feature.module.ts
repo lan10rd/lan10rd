@@ -20,8 +20,8 @@ import { CommonNgSelectElementModule } from '@grams/common/ng'
                     routes: ['..'],
                     seo: {
                         title: 'Notes',
-                        keywords: '',
-                        description: ''
+                        keywords: 'notes',
+                        description: 'notes'
                     }
                 }
             }

@@ -18,8 +18,8 @@ import { ReadmeFeature } from './readme.feature'
                     routes: ['..'],
                     seo: {
                         title: 'Readme',
-                        keywords: '',
-                        description: ''
+                        keywords: 'readme',
+                        description: 'readme'
                     }
                 }
             }
