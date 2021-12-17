@@ -367,6 +367,9 @@ export class CommonNgThemesService
         
         html { box-sizing: border-box; }
         *, *:before, *:after { box-sizing: inherit; }
+        *:not(:focus):not(:hover) {
+            overflow: hidden;
+        }
         
         .parallax {
             background-attachment: fixed;

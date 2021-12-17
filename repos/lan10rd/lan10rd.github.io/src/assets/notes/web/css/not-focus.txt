@@ -1,0 +1,3 @@
+a:focus{color: red;}
+
+a:not(:focus){color: blue;}

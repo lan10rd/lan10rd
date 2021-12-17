@@ -1,0 +1,39 @@
+<div id='cont'>
+  <div id='head'>
+    <div>Head</div>
+  </div>
+  <div id='body'>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+    <div>Body</div>
+  </div>
+</div>
+
+
+
+#cont {
+  padding: 5px;
+  background-color: red;
+  max-height: 150px;
+  max-width: 50%;
+  display: flex; /*added*/
+  flex-direction: column; /*added*/
+}
+#body {
+  background-color: blue;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1; /* added */
+}
+#head {
+  background-color: green;
+}
