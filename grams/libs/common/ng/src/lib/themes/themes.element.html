@@ -17,17 +17,9 @@
     
 </ng-container>
 
-<!-- <ng-container
-*ngFor="let iframe of themes.theme.iframes"
->
-    <iframe
-    src="iframe.src"
-    ></iframe>
-</ng-container> -->
-
 <div
 *ngIf="themes.theme.innerHTML"
-[innerHTML]="themes.theme.innerHTML"
+[innerHTML]="themes.theme.innerHTML | sanitizer:'html'"
 ></div>
 
 <iframe

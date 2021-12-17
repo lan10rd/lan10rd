@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common'
 import { AppInitElement } from './init.element'
 import { AppBarElementModule } from '../bar/bar.element.module'
 
-import { CommonNgPopopElementModule, CommonNgThemesElementModule, CommonNgAppBarElementModule } from '@grams/common/ng'
+import { CommonNgPopopElementModule, CommonNgThemesElementModule, CommonNgAppBarElementModule, CommonNgDynamicElementModule } from '@grams/common/ng'
 
 @NgModule
 ({
@@ -14,6 +14,7 @@ import { CommonNgPopopElementModule, CommonNgThemesElementModule, CommonNgAppBar
         CommonNgPopopElementModule,
         CommonNgThemesElementModule,
         CommonNgAppBarElementModule,
+        CommonNgDynamicElementModule,
         AppBarElementModule
     ],
     declarations:

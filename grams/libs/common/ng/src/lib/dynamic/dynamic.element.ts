@@ -5,18 +5,24 @@ import {
     EventEmitter,
     ViewChild,
     ComponentFactoryResolver,
-    NgModuleFactory,
+    // NgModuleFactory,
     Injector,
-    Compiler,
-    Renderer2
+    // Compiler,
+    Renderer2,
+    // ChangeDetectionStrategy,
+    // ɵcreateInjector as createInjector,
+    // ɵrenderComponent as renderComponent,
+    // ɵLifecycleHooksFeature as LifecycleHooksFeature,
+    ViewContainerRef,
 } from '@angular/core'
-
 import { CommonNgDynamicDirective } from './dynamic.directive'
+
+// import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal'
 
 @Component
 ({
     selector: 'common-ng-dynamic-element',
-    template: `<ng-template dynamic-host></ng-template><ng-content></ng-content>` // <ng-content></ng-content>
+    template: `<ng-template dynamic-host></ng-template><ng-content></ng-content><ng-container #containerHost></ng-container>` // <ng-content></ng-content>
 })
 export class CommonNgDynamicElement
 {
@@ -28,13 +34,14 @@ export class CommonNgDynamicElement
     @Output() load: any = new EventEmitter()
 
     @ViewChild(CommonNgDynamicDirective, {static: true}) host: CommonNgDynamicDirective | any
+    @ViewChild('containerHost', { read: ViewContainerRef, static: true }) public containerHost: ViewContainerRef | any
 
     compRef: any
 
     constructor
     (
         public resolver: ComponentFactoryResolver,
-        public compiler: Compiler,
+        // public compiler: Compiler,
         public injector: Injector,
         public renderer: Renderer2
     )
@@ -53,6 +60,36 @@ export class CommonNgDynamicElement
             this.setData()
     }
 
+    // async showContainer(){
+    //     // let module = await this.module
+    //     // const injector = createInjector(module, this.injector)
+    //     // const carouselModule = injector.get(module)
+
+    //     // const componentFactory = carouselModule.resolveCarouselComponentFactory()
+    //     // const componentRef = this.containerHost.createComponent(componentFactory)
+    //     // componentRef.changeDetectorRef.markForCheck()
+    //     let module = this.module
+    //     const injector = createInjector(module, this.injector);
+    //     const carouselModule = injector.get(this.module);
+    //     const host = new DomPortalOutlet(
+    //         viewContainerRef.element.nativeElement,
+    //         this.resolver,
+    //         this.app,
+    //         this.injector
+    //     );
+    
+    //     const portal = new ComponentPortal(
+    //         CarouselComponent,
+    //         viewContainerRef,
+    //         this.injector,
+    //         this.resolver
+    //     );
+    
+    //     const componentRef = portal.attach(host);
+    //     componentRef.changeDetectorRef.markForCheck();
+    //     return componentRef;
+    // }
+
     async handleLoad
     (
     )
@@ -61,14 +98,35 @@ export class CommonNgDynamicElement
         try { component = (await this.component()) } catch(e) { } 
         if (component)
         {
-            if (this.module)
+            if (this.module) // really this may not be necessary but just loading with async () => { await import }) !
             {
                 let module = this.module
-                try { module = await this.module() } catch(e) { }
-                let factory = module instanceof NgModuleFactory ? module : await this.compiler.compileModuleAsync(module)
-                let compFactory = factory.create(this.injector).componentFactoryResolver.resolveComponentFactory(component)
+                try { module = await this.module() } catch(e) { console.log('await this.module e', e)}
+                // if (!(module instanceof NgModuleFactory))
+                // {
+                //     console.log('module is not instance of ng module factory and needs compiling!', module)
+                // }
+                // else
+                // {
+                //     console.log('module is ngmodulefactoyr', module)
+                // }
+
+                // let injector = createInjector(module, this.injector) as any
+                // console.log('injector', injector )
+                // module =  injector.get(module)
+                // console.log('factories', this.resolver.resolveComponentFactory(component))
                 this.host.ref.clear()
-                this.compRef = this.host.ref.createComponent(compFactory)
+                this.compRef = this.host.ref.createComponent(this.resolver.resolveComponentFactory(component))
+                
+                // let render = renderComponent(component, {injector: injector, host: this.containerHost})
+                // console.log('render')
+
+                // let compFactory: any = this.resolver.resolveComponentFactory(component)
+                // console.log('compFactory', compFactory)
+                // let factory = module instanceof NgModuleFactory ? module : await this.compiler.compileModuleAsync(module)
+                // let compFactory = factory.create(this.injector).componentFactoryResolver.resolveComponentFactory(component)
+                // this.host.ref.clear()
+                // this.compRef = this.host.ref.createComponent(compFactory)
             }
             else
             {
