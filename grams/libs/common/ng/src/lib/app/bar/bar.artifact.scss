@@ -7,3 +7,7 @@
 .column { flex-direction: column;}
 .corners0 { border-radius: 0;}
 .max-height-100vh {max-height: 100vh;}
+
+*:not(:focus) {
+    overflow: hidden;
+}
