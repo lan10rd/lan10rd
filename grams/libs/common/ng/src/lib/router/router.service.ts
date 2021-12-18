@@ -34,7 +34,6 @@ export class CommonNgRouterService
                 let seo = this.json.pathToValue($event, 'snapshot.data.CommonRouterService.seo')
                 if (seo)
                 {
-                    console.log('seo', seo)
                     this.seo.bind(this.router.url, seo.title, seo.description, seo.keywords, seo.tags)
                 }
             }

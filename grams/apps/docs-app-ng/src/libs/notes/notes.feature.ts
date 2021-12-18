@@ -25,7 +25,6 @@ export class NotesFeature
     (
     )
     {
-        console.log('notes feature')
         let paths = await this.util.http.get(this.util.functions.assets('index.json'))
         this.util.data.notes = {
             paths: paths.filter((path: string) => path.includes('/notes/')).map((path: string) => path.split('assets/notes/').join(''))

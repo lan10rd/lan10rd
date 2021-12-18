@@ -9,8 +9,4 @@ import { Component } from '@angular/core'
 export class AppInitElement
 {
 
-    ngOnInit(){
-        console.log('app init')
-    }
-
 }

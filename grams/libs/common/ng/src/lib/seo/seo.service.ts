@@ -26,7 +26,6 @@ export class CommonNgSeoService
         tags?: any[]
     )
     {
-        console.log('meta', this.meta)
         if (!tags)
         {
             tags = [{name: 'robots', content: 'index, follow'}]

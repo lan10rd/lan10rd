@@ -25,9 +25,8 @@
 <ng-container
 *ngIf="themes?.theme?.iframes"
 >
-    {{themes.theme.iframes | json}}
-    <!-- <iframe
+    <iframe
     *ngFor="let frame of themes.theme.iframes"
     [src]="frame.src | sanitizer:'resourceUrl'"
-    ></iframe> -->
+    ></iframe>
 </ng-container>
