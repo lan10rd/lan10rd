@@ -49,6 +49,8 @@ export class CommonNgDynamicElement
         
     }
 
+    ngOnInit(){console.log('dynamic element')}
+
     ngOnChanges
     (
         changes: any

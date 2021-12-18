@@ -340,9 +340,7 @@ export class CommonNgThemesService
             "stylesheets": {
                 "default": ""
             },
-            "iframes": {
-
-            }
+            "iframes": []
         }
     }
 

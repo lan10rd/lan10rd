@@ -18,15 +18,16 @@
 </ng-container>
 
 <div
-*ngIf="themes.theme.innerHTML"
+*ngIf="themes?.theme?.innerHTML"
 [innerHTML]="themes.theme.innerHTML | sanitizer:'html'"
 ></div>
 
 <ng-container
 *ngIf="themes?.theme?.iframes"
 >
-    <iframe
+    {{themes.theme.iframes | json}}
+    <!-- <iframe
     *ngFor="let frame of themes.theme.iframes"
     [src]="frame.src | sanitizer:'resourceUrl'"
-    ></iframe>
+    ></iframe> -->
 </ng-container>
