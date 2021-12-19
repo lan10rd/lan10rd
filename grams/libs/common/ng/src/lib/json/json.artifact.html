@@ -1,116 +1,163 @@
 <ul
 >
 
-    <common-ng-button-element
-    class="bl point fit"
-    #dotdotdot
+    <div
+    class="flex"
     >
-        ...
-    </common-ng-button-element>
 
-    <ng-container
-    *ngIf="dotdotdot.toggle"
-    >
+        <common-ng-button-element
+        class="flex fit pt pb glo-0-text-ani"
+        [ngClass]="{'glo-0-shadow': dotdotdot.toggle}"
+        #dotdotdot
+        >
+            <span class="glo-0-text-trim">...</span>
+        </common-ng-button-element>
 
         <ng-container
-        [ngSwitch]="type"
+        *ngIf="dotdotdot.toggle"
         >
 
             <ng-container
-            *ngSwitchCase="'obj'"
+            [ngSwitch]="type"
             >
-                <div
+
+                <ng-container
+                *ngSwitchCase="'obj'"
                 >
-                    <input
-                    class="bl"
-                    #addFieldKey
-                    (keyup.enter)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = '';"
-                    >
 
-                    <textarea
-                    #addFieldValue
-                    ></textarea>
-
-                    <common-ng-button-element
-                    (click)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = ''; dotdotdot.toggle = false"
-                    >
-                        add
-                    </common-ng-button-element>
-
-                </div>
-            </ng-container>
-
-            <ng-container
-            *ngSwitchCase="'arr'"
-            >
-                <common-ng-select-element
-                class="bl glo-0-text-trim"
-                [options]="['insert', 'remove', 'swap']"
-                #arrOptions
-                ></common-ng-select-element>
-
-                <div
-                [ngSwitch]="arrOptions._option"
-                >
+                    <common-ng-select-element
+                    class="ib glo-0-text-trim"
+                    [scrollClasses]="'scrollable'"
+                    [options]="['add', 'remove', 'mode']"
+                    #objOptions
+                    ></common-ng-select-element>
 
                     <ng-container
-                    *ngSwitchCase="'insert'"
+                    [ngSwitch]="objOptions._option"
                     >
-                        <textarea
-                        #insertTextarea
-                        ></textarea>
 
-                        <div>inserted at position (index): <input min="0" max="{{keys.length}}" step="1" type="number" value="0" #insertIndex></div>
-
-                        <common-ng-button-element
-                        class="bl glo-0-text-ani glo-0-text-trim tcenter"
-                        (click)="insert(insertTextarea.value, insertIndex.value)"
+                        <ng-container
+                        *ngSwitchCase="'add'"
                         >
-                            insert
-                        </common-ng-button-element>
+                            add
+                        </ng-container>
 
-                    </ng-container>
-
-                    <ng-container
-                    *ngSwitchCase="'remove'"
-                    >
-                        <div>remove at position (index): <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #removeIndex></div>
-
-                        <common-ng-button-element
-                        class="bl glo-0-text-ani glo-0-text-trim tcenter"
-                        (click)="remove"
+                        <ng-container
+                        *ngSwitchCase="'remove'"
                         >
                             remove
-                        </common-ng-button-element>
+                        </ng-container>
+                        
+                        <ng-container
+                        *ngSwitchCase="'mode'"
+                        >
+                            mode
+                        </ng-container>
+
                     </ng-container>
 
-                    <ng-container
-                    *ngSwitchCase="'swap'"
+                    <div
+                    *ngIf="objOptions._option === ''"
                     >
-                        swap
-                    </ng-container>
+                        <input
+                        class="bl"
+                        #addFieldKey
+                        (keyup.enter)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = '';"
+                        >
 
-                </div>
+                        <textarea
+                        #addFieldValue
+                        ></textarea>
+
+                        <common-ng-button-element
+                        (click)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = ''; dotdotdot.toggle = false"
+                        >
+                            add
+                        </common-ng-button-element>
+
+                    </div>
+                </ng-container>
+
+                <ng-container
+                *ngSwitchCase="'arr'"
+                >
+
+                    <common-ng-select-element
+                    class="ib glo-0-text-trim"
+                    [scrollClasses]="'scrollable'"
+                    [options]="['insert', 'remove', 'swap']"
+                    #arrOptions
+                    ></common-ng-select-element>
+
+                    <div
+                    [ngSwitch]="arrOptions._option"
+                    >
+
+                        <ng-container
+                        *ngSwitchCase="'insert'"
+                        >
+                            <textarea
+                            #insertTextarea
+                            ></textarea>
+
+                            <div>inserted at position (index): <input min="0" max="{{keys.length}}" step="1" type="number" value="0" #insertIndex></div>
+
+                            <common-ng-button-element
+                            class="bl glo-0-text-ani glo-0-text-trim tcenter"
+                            (click)="insert(insertTextarea.value, insertIndex.value)"
+                            >
+                                insert
+                            </common-ng-button-element>
+
+                        </ng-container>
+
+                        <ng-container
+                        *ngSwitchCase="'remove'"
+                        >
+
+                            <div>remove at position (index): <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #removeIndex></div>
+
+                            <common-ng-button-element
+                            class="bl glo-0-text-ani glo-0-text-trim tcenter"
+                            (click)="remove(removeIndex.value)"
+                            >
+                                remove
+                            </common-ng-button-element>
+
+                        </ng-container>
+
+                        <ng-container
+                        *ngSwitchCase="'swap'"
+                        >
+                            swap
+                        </ng-container>
+
+                    </div>
+
+                </ng-container>
 
             </ng-container>
 
         </ng-container>
 
-    </ng-container>
+    </div>
 
     <ng-container
     *ngFor="let key of keys; let i=index; trackBy: json.trackBy"
     >
 
 
-            <li>
+            <li
+            >
+
                 <common-ng-button-element
                 *ngIf="!editing.keys.includes(key)"
-                class="bl point"
+                class="bl glo-0-text-ani fit center"
                 (click)="toggleEditKey(key)"
                 >
                     {{key}}
                 </common-ng-button-element>
+
                 <!-- <div
                 [ngClass]="{'hover': type === 'obj'}"
                 *ngIf="!editing.keys.includes(key)"
@@ -121,6 +168,7 @@
                 >
                     {{key}} 
                 </div> -->
+
                 <div
                 [ngClass]="{'hidden': !editing.keys.includes(key)}"
                 >

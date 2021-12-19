@@ -2,8 +2,9 @@
 *ngIf="__options"
 #wrapper
 >
-    <common-ng-scroll-element
 
+    <common-ng-scroll-element
+    [classes]="scrollClasses"
     *ngIf="!big"
     (scroll)="focus(wrapper, scrollElement, $event)"
     (click)="focus(wrapper, scrollElement, $event, 'click')"

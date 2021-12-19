@@ -11,8 +11,8 @@ import { CommonNgJsonService } from './json.service'
 export class CommonNgJsonArtifact
 {
 
-    @Input() model: any
-    @Output() modelChange: any = new EventEmitter()
+    @Input() model : any
+    @Output() modelChange : any = new EventEmitter()
     @Input() mode : any = 'pretty'
 
     type: string = 'obj'
@@ -143,10 +143,11 @@ export class CommonNgJsonArtifact
 
     remove
     (
-
+        index: string
     )
     {
-
+        this.model = this.json.removeFromArray(this.model, +index)
+        // this.modelChange.emit(this.model)
     }
 
     swap
