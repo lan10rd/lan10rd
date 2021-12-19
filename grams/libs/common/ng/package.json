@@ -1,6 +1,6 @@
 {
   "name": "@lan10rdjs/common-ng",
-  "version": "0.0.253",
+  "version": "0.0.255",
   "peerDependencies": {
     "@angular/common": "^12.0.0",
     "@angular/core": "^12.0.0"

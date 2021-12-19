@@ -365,9 +365,7 @@ export class CommonNgThemesService
         
         html { box-sizing: border-box; }
         *, *:before, *:after { box-sizing: inherit; }
-        *:not(:focus):not(:hover) {
-            overflow: hidden;
-        }
+
         
         .parallax {
             background-attachment: fixed;
@@ -540,6 +538,7 @@ export class CommonNgThemesService
         .zm3 { z-index: -3; }
         .top0 { top: 0; }
         .contain { overscroll-behavior: contain; }
+        .hide-scroll:not(:focus):not(:hover) { overflow: hidden; }
         `
 
         // for glo-0-drop, removed border, also idea for how to achieve effect in firefox, though with svg element, is there inline styles with svg background?
