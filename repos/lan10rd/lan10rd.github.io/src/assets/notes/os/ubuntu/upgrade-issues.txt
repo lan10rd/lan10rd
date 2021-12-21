@@ -1,0 +1,17 @@
+tried the following:
+
+sudo add-apt-repository ppa:yannubuntu/boot-repair
+sudo apt-get update
+sudo apt-get install -y boot-repair
+boot-repair
+// wait for process and prompts
+sudo reboot
+
+ctl + alt + f3 to get to the shell from the error screen after booting to the ui and seeing a gray screen asking you to logout because of a problem
+
+sudo do-release-upgrade
+sudo apt-get update && sudo apt-get upgrade
+sudo dpkg --configure -a
+sudo apt-get autoclean
+sudo dpkg --configure -a
+sudo apt install --fix-broken
