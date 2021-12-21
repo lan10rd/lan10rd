@@ -506,15 +506,19 @@ textarea {
     -moz-box-shadow: 0px 0px 5px 0px rgba(255, 255, 255);
     box-shadow: 0px 0px 5px 0px rgba(255, 255, 255);
 }
+/*
 .glo-0-text-ani {
     transition: all .2s ease-in-out;
 }
+*/
 .glo-0-text-ani:hover {
-    transform: scale(1.33);
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1));
 }
+/*
 .glo-0-text-ani:focus-within {
     transform: scale(1.33);
 }
+*/
 /*
 .glo-0-text-trim {
     text-shadow: 0px 0px 1px rgb(0 0 0);

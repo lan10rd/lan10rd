@@ -3,6 +3,7 @@
 
     <div
     class="flex"
+    style="align-items: center"
     >
 
         <common-ng-button-element
@@ -32,7 +33,7 @@
                     #objOptions
                     ></common-ng-select-element>
 
-                    <ng-container
+                    <div
                     [ngSwitch]="objOptions._option"
                     >
 
@@ -45,7 +46,17 @@
                         <ng-container
                         *ngSwitchCase="'remove'"
                         >
-                            remove
+
+                            <input #objRemove placeholder="which key would you like to remove?">
+
+                            <common-ng-button-element
+                            class="p glo-0-text-ani ib"
+                            *ngIf="objRemove.value.length > 0 && keys.includes(objRemove.value)"
+                            (click)="json.removeFromObject(model, objRemove.value); modelChange.emit(model); setup(); objOptions.deselect(); dotdotdot.toggleButton();"
+                            >
+                                remove {{objRemove.value}}
+                            </common-ng-button-element>
+
                         </ng-container>
                         
                         <ng-container
@@ -54,11 +65,14 @@
                             mode
                         </ng-container>
 
-                    </ng-container>
+                    </div>
 
-                    <div
+                    <!-- <div
                     *ngIf="objOptions._option === ''"
                     >
+
+                    wtf?
+
                         <input
                         class="bl"
                         #addFieldKey
@@ -75,7 +89,8 @@
                             add
                         </common-ng-button-element>
 
-                    </div>
+                    </div> -->
+
                 </ng-container>
 
                 <ng-container
@@ -115,11 +130,11 @@
                         *ngSwitchCase="'remove'"
                         >
 
-                            <div>remove at position (index): <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #removeIndex></div>
+                            <div class="ib">remove at position (index): <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #removeIndex></div>
 
                             <common-ng-button-element
-                            class="bl glo-0-text-ani glo-0-text-trim tcenter"
-                            (click)="remove(removeIndex.value)"
+                            class="ib p glo-0-text-ani glo-0-text-trim tcenter"
+                            (click)="this.model = this.json.removeFromArray(this.model, +removeIndex.value); this.modelChange.emit(this.model); this.setup(); arrOptions.deselect(); dotdotdot.toggleButton()"
                             >
                                 remove
                             </common-ng-button-element>

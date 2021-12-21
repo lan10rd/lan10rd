@@ -212,6 +212,8 @@ export class CommonNgJsonService
         }
     }
 
+    removeFromObject(a: any, key: string){ delete a[key] }
+
     removeFromArray
     (
         a: any[],

@@ -141,15 +141,6 @@ export class CommonNgJsonArtifact
         this.setup()
     }
 
-    remove
-    (
-        index: string
-    )
-    {
-        this.model = this.json.removeFromArray(this.model, +index)
-        // this.modelChange.emit(this.model)
-    }
-
     swap
     (
     )

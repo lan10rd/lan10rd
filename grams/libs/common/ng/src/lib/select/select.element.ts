@@ -81,6 +81,7 @@ export class CommonNgSelectElement
         changes: any
     )
     {
+        // i think i read somewhere you dont have to do set time out if you mark dirty or something
         setTimeout(() => {
             if ('options' in changes)
             {
@@ -373,6 +374,8 @@ export class CommonNgSelectElement
         if (emit && (this.option !== undefined || this.emitUndefined))
             this.optionChange.emit(this.option)
     }
+
+    deselect(){this.select(-7)}
 
     setOptions
     (

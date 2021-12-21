@@ -75,9 +75,6 @@ export * from './lib/app/bar/bar.artifact'
 export * from './lib/app/bar/bar.artifact.module'
 export * from './lib/app/bar/bar.service'
 
-export * from './lib/visual/drop-shadow/drop-shadow.element.module'
-export * from './lib/visual/drop-shadow/drop-shadow.element'
-
 export * from './lib/seo/seo.service'
 
 export * from './lib/json/json.artifact.module'
