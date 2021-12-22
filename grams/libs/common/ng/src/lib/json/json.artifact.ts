@@ -131,16 +131,6 @@ export class CommonNgJsonArtifact
             this.editing.keys.push(key)
     }
 
-    insert
-    (
-        value: any,
-        index: any
-    )
-    {
-        this.model.splice(index, 0, this.json.parse(value))
-        this.setup()
-    }
-
     swap
     (
     )

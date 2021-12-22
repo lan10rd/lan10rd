@@ -538,7 +538,14 @@ textarea {
 .zm3 { z-index: -3; }
 .top0 { top: 0; }
 .contain { overscroll-behavior: contain; }
+
+/* these are all attempts to hide scrollbars on non apple browsers, it really looks not elegant, this really seems to work! overflow hidden has a lot of unintended consequences but pure scrollbar attacks seem to work okay */
+/*
 .auto-hide-scroll:not(:focus):not(:hover) { overflow: hidden; }
+*/
+*:not(:focus):not(:hover) { scrollbar-width: none; }
+*:not(:focus):not(:hover)::-webkit-scrollbar { width: 0px; height: 0px; }
+
         `
 
         // for glo-0-drop, removed border, also idea for how to achieve effect in firefox, though with svg element, is there inline styles with svg background?

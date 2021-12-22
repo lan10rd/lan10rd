@@ -33,14 +33,23 @@
                     #objOptions
                     ></common-ng-select-element>
 
-                    <div
+                    <ng-container
                     [ngSwitch]="objOptions._option"
                     >
 
                         <ng-container
                         *ngSwitchCase="'add'"
                         >
-                            add
+                            <input #objAddKey placeholder="add key" class="mr">
+                            <textarea #objAddValue placeholder="add value" class="mr"></textarea>
+                            <select #objAddSelect><option value="string" selected>string</option><option value="object">object</option><option value="number">number</option><option value="boolean">boolean</option></select>
+                            <common-ng-button-element
+                            class="p glo-0-text-ani ib"
+                            *ngIf="objAddKey.value.length > 0 && !keys.includes(objAddKey.value)"
+                            (click)="json.print(objAddKey.value, objAddValue.value, objAddSelect.value)"
+                            >
+                                add {{objAddKey.value}}
+                            </common-ng-button-element>
                         </ng-container>
 
                         <ng-container
@@ -65,7 +74,7 @@
                             mode
                         </ng-container>
 
-                    </div>
+                    </ng-container>
 
                     <!-- <div
                     *ngIf="objOptions._option === ''"
@@ -119,7 +128,7 @@
 
                             <common-ng-button-element
                             class="bl glo-0-text-ani glo-0-text-trim tcenter"
-                            (click)="insert(insertTextarea.value, insertIndex.value)"
+                            (click)="model.splice(+insertIndex.value, 0, json.parse(insertTextarea.value)); this.setup()"
                             >
                                 insert
                             </common-ng-button-element>

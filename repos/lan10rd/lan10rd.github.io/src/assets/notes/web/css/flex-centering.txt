@@ -1,0 +1,17 @@
+Properties that control alignment
+The properties we will look at in this guide are as follows.
+
+justify-content — controls alignment of all items on the main axis.
+align-items — controls alignment of all items on the cross axis.
+align-self — controls alignment of an individual flex item on the cross axis.
+align-content — described in the spec as for “packing flex lines”; controls space between flex lines on the cross axis.
+gap, column-gap, and row-gap — used to create gaps or gutters between flex items.
+We will also discover how auto margins can be used for alignment in flexbox.
+
+We can use other values to control how the items align:
+
+align-items: flex-start
+align-items: flex-end
+align-items: center
+align-items: stretch
+align-items: baseline

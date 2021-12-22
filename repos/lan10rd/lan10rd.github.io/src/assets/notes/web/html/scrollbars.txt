@@ -1,0 +1,150 @@
+Yes, sort of..
+When you ask the question, "Can the scroll-bars of a browser be removed in some way, rather than simply hidden or camouflaged", everyone will say "Not possible" because it is not possible to remove the scrollbars from all browsers in a compliant and cross-compatible way, and then there's the whole argument of usability.
+
+However, it is possible to prevent the browser from ever having the need to generate and display scrollbars if you do not allow your webpage to overflow.
+
+This just means that we have to proactively substitute the same behavior that the browser would typically do for us and tell the browser thanks but no thanks buddy. Rather than try to remove scrollbars (which we all know is not possible) we can avoid scrolling (perfectly feasible) and scroll within the elements that we make and have more control over.
+
+Create a div with overflow hidden. Detect when the user attempts to scroll, but is unable to because we've disabled the browsers ability to scroll with overflow: hidden.. and instead move the content up using JavaScript when this occurs. Thereby creating our own scrolling without the browsers default scrolling or use a plugin like iScroll.
+
+---
+For the sake of being thorough; all the vendor specific ways of manipulating scroll-bars:
+
+Internet Explorer 5.5+
+*These properties were never part of the CSS specification, nor were they ever approved or vendor prefixed, but they work in Internet Explorer and Konqueror. These can also be set locally in the user style sheet for each application. In Internet Explorer you find it under the "Accessibility" tab, in Konqueror under the "Stylesheets" tab.
+
+body, html { /* These are defaults and can be replaced by hexadecimal color values */
+    scrollbar-base-color: aqua;
+    scrollbar-face-color: ThreeDFace;
+    scrollbar-highlight-color: ThreeDHighlight;
+    scrollbar-3dlight-color: ThreeDLightShadow;
+    scrollbar-shadow-color: ThreeDDarkShadow;
+    scrollbar-darkshadow-color: ThreeDDarkShadow;
+    scrollbar-track-color: Scrollbar;
+    scrollbar-arrow-color: ButtonText;
+}
+As of Internet Explorer 8 these properties were vendor prefixed by Microsoft, but they were still never approved by W3C.
+
+-ms-scrollbar-base-color
+-ms-scrollbar-face-color
+-ms-scrollbar-highlight-color
+-ms-scrollbar-3dlight-color
+-ms-scrollbar-shadow-color
+-ms-scrollbar-darkshadow-color
+-ms-scrollbar-base-color
+-ms-scrollbar-track-color
+Further details about Internet Explorer
+Internet Explorer makes scroll available which sets whether or not to disable or enable scroll bars; it can also be used to get the value of the position of the scroll bars.
+
+With Microsoft Internet Explorer 6 and later, when you use the !DOCTYPE declaration to specify standards-compliant mode, this attribute applies to the HTML element. When standards-compliant mode is not specified, as with earlier versions of Internet Explorer, this attribute applies to the BODY element, NOT the HTML element.
+
+It's also worth noting that when working with .NET the ScrollBar class in System.Windows.Controls.Primitives in the Presentation framework is responsible for rendering the scrollbars.
+
+http://msdn.microsoft.com/en-us/library/ie/ms534393(v=vs.85).aspx
+
+MSDN. Basic UI properties
+W3C. About non-standard scrollbar properties
+MSDN. .NET ScrollBar Class
+WebKit
+WebKit extensions related to scroll-bar customization are:
+
+::-webkit-scrollbar {}             /* 1 */
+::-webkit-scrollbar-button {}      /* 2 */
+::-webkit-scrollbar-track {}       /* 3 */
+::-webkit-scrollbar-track-piece {} /* 4 */
+::-webkit-scrollbar-thumb {}       /* 5 */
+::-webkit-scrollbar-corner {}      /* 6 */
+::-webkit-resizer {}               /* 7 */
+Enter image description here
+
+These can each be combined with additional pseudo-selectors:
+
+:horizontal – The horizontal pseudo-class applies to any scrollbar pieces that have a horizontal orientation.
+:vertical – The vertical pseudo-class applies to any scrollbar pieces that have a vertical orientation.
+:decrement – The decrement pseudo-class applies to buttons and track pieces. It indicates whether or not the button or track piece will decrement the view’s position when used (e.g., up on a vertical scrollbar, left on a horizontal scrollbar).
+:increment – The increment pseudo-class applies to buttons and track pieces. It indicates whether or not a button or track piece will increment the view’s position when used (e.g., down on a vertical scrollbar, right on a horizontal scrollbar).
+:start – The start pseudo-class applies to buttons and track pieces. It indicates whether the object is placed before the thumb.
+:end – The end pseudo-class applies to buttons and track pieces. It indicates whether the object is placed after the thumb.
+:double-button – The double-button pseudo-class applies to buttons and track pieces. It is used to detect whether a button is part of a pair of buttons that are together at the same end of a scrollbar. For track pieces it indicates whether the track piece abuts a pair of buttons.
+:single-button – The single-button pseudo-class applies to buttons and track pieces. It is used to detect whether a button is by itself at the end of a scrollbar. For track pieces it indicates whether the track piece abuts a singleton button.
+:no-button – Applies to track pieces and indicates whether or not the track piece runs to the edge of the scrollbar, i.e., there is no button at that end of the track.
+:corner-present – Applies to all scrollbar pieces and indicates whether or not a scrollbar corner is present.
+:window-inactive – Applies to all scrollbar pieces and indicates whether or not the window containing the scrollbar is currently active. (In recent nightlies, this pseudo-class now applies to ::selection as well. We plan to extend it to work with any content and to propose it as a new standard pseudo-class.)
+Examples of these combinations
+
+::-webkit-scrollbar-track-piece:start { /* Select the top half (or left half) or scrollbar track individually */ }
+::-webkit-scrollbar-thumb:window-inactive { /* Select the thumb when the browser window isn't in focus */ }
+::-webkit-scrollbar-button:horizontal:decrement:hover { /* Select the down or left scroll button when it's being hovered by the mouse */ }
+Styling Scrollbars - Webkit.org
+Further details about Chrome
+addWindowScrollHandler public static HandlerRegistration addWindowScrollHandler(Window.ScrollHandler handler)
+
+  Adds a Window.ScrollEvent handler Parameters:   handler - the handler Returns:   returns the handler registration [source](http://www.gwtproject.org/javadoc/latest/com/google/gwt/user/client/Window.html#addWindowScrollHandler(com.google.gwt.user.client.Window.ScrollHandler) )
+
+Mozilla
+Mozilla does have some extensions for manipulating the scroll-bars, but they are all recommended not to be used.
+
+-moz-scrollbars-none They recommend using overflow:hidden in place of this.
+-moz-scrollbars-horizontal Similar to overflow-x
+-moz-scrollbars-vertical Similar to overflow-y
+-moz-hidden-unscrollable Only works internally within a users profile settings. Disables scrolling XML root elements and disables using arrow keys and mouse wheel to scroll web pages.
+
+Mozilla Developer Docs on 'Overflow'
+
+Further details about Mozilla
+This is not really useful as far as I know, but it's worth noting that the attribute which controls whether or not scrollbars are displayed in Firefox is (reference link):
+
+Attribute:       scrollbars
+Type:              nsIDOMBarProp
+Description:  The object that controls whether or not scrollbars are shown in the window. This attribute is "replaceable" in JavaScript. Read only
+Last but not least, padding is like magic.
+As has been previously mentioned in some other answers, here is an illustration which is sufficiently self-explanatory.
+
+Enter image description here
+
+History lesson
+Scroll bars
+
+Just because I'm curious, I wanted to learn about the origin of scrollbars, and these are the best references I found.
+
+10 Inventions on Scrolling and Scrollbars
+https://tools.ietf.org/id/draft-hellstrom-textpreview-02.txt
+https://tools.ietf.org/id/draft-mrose-blocks-service-01.txt
+Miscellaneous
+In an HTML5 specification draft, the seamless attribute was defined to prevent scroll-bars from appearing in iFrames so that they could be blended with surrounding content on a page. Though this element does not appear in the latest revision.
+
+The scrollbar BarProp object is a child of the window object and represents the user interface element that contains a scrolling mechanism, or some similar interface concept. window.scrollbars.visible will return true if the scroll bars are visible.
+
+interface Window {
+  // The current browsing context
+  readonly attribute WindowProxy window;
+  readonly attribute WindowProxy self;
+           attribute DOMString name;
+  [PutForwards=href] readonly attribute Location location;
+  readonly attribute History history;
+  readonly attribute UndoManager undoManager;
+  Selection getSelection();
+  [Replaceable] readonly attribute BarProp locationbar;
+  [Replaceable] readonly attribute BarProp menubar;
+  [Replaceable] readonly attribute BarProp personalbar;
+  [Replaceable] readonly attribute BarProp scrollbars;
+  [Replaceable] readonly attribute BarProp statusbar;
+  [Replaceable] readonly attribute BarProp toolbar;
+  void close();
+  void focus();
+  void blur();
+  // Truncated
+The History API also includes features for scroll restoration on page navigation to persist the scroll position on page load.
+
+window.history.scrollRestoration can be used to check the status of scrollrestoration or change its status (appending ="auto"/"manual". Auto is the default value. Changing it to manual means that you as the developer will take ownership of any scroll changes that may be required when a user traverses the app's history. If you need to, you can keep track of the scroll position as you push history entries with history.pushState().
+
+---
+Further reading:
+Scrollbar on Wikipedia
+Scroll bar (Windows)
+The Scroll Method
+The Scroll Method - Microsoft Dev Network
+iScroll on Github (referenced in the first section above)
+Scrolling and Scrollbars an article about usability by Jakob Nielsen
+Examples
+Independent scrolling panels with no body scroll (using just CSS) - Ben Frain (10-21-2014)

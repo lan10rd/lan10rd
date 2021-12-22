@@ -472,4 +472,37 @@ export class CommonNgJsonService
         return JSON.parse(jsonPayload)
     }
 
+    print
+    (
+        ...args:any
+    )
+    {
+        console.log(args)
+    }
+
+    convert
+    (
+        value: any,
+        type: 'object' | 'obj' | 'array' | 'arr' | 'string' | 'str' | 'number' | 'num' | 'boolean' | 'boo' | 'null' | 'und' | 'undefined'
+    )
+    {
+        switch(type)
+        {
+            case 'object': { break }
+            case 'obj': { break }
+            case 'array': { break }
+            case 'arr': { break }
+            case 'string': { break }
+            case 'str': { break }
+            case 'number': { break }
+            case 'num': { break }
+            case 'boolean': { break }
+            case 'boo': { break }
+            case 'null': { break }
+            case 'und': { break }
+            case 'undefined': { break }
+            default: { break }
+        }
+    }
+
 }
