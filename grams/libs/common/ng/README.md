@@ -1,27 +1,14 @@
-# common-ng
+This is the aNGular version of the common library.
 
-This library was generated with [Nx](https://nx.dev).
 
-## Running unit tests
 
-Run `nx test common-ng` to execute the unit tests.
 
+for author's
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+npm logout
+npm login
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 nx build common-ng --prod && cd dist/libs/common/ng && npm publish --scope=@lan10rdjs --access public
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 npm publish --scope=@lan10rdjs --access public
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-nx build common-ng --prod && cd dist/libs/common/ng && npm publish --scope=@lanl0rdjs --access public
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-npm publish --scope=@lanl0rdjs --access public
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-npm logout
-
-npm login
-
-
-added "allowSyntheticDefaultImports": true to tsconfig.json because of ansi-to-html dependency,
- wouldn't let me do import * as Converter from 'ansi-to-html' or import Converter from 'ansi-to-html' and the library wanted be to do require('ansi-to-html')
-
-todo, go back and implement ansi-to-html natively so that we dont need the synthetic default imports which give a optimization bailout warning
