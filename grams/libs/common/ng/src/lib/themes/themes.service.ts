@@ -506,14 +506,16 @@ textarea {
     -moz-box-shadow: 0px 0px 5px 0px rgba(255, 255, 255);
     box-shadow: 0px 0px 5px 0px rgba(255, 255, 255);
 }
+
+.glo-0-text-ani:hover {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1));
+}
+
 /*
 .glo-0-text-ani {
     transition: all .2s ease-in-out;
 }
 */
-.glo-0-text-ani:hover {
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1));
-}
 /*
 .glo-0-text-ani:focus-within {
     transform: scale(1.33);
@@ -526,6 +528,7 @@ textarea {
 .glo-1-text-trim {
     text-shadow: 0px 0px 1px rgb(255 255 255);
 } */
+
 .glo-0-text-trim {
     filter: drop-shadow(0 0 1px rgba(0, 0, 0, 1));
 }
@@ -545,7 +548,7 @@ textarea {
 */
 *:not(:focus):not(:hover) { scrollbar-width: none; }
 *:not(:focus):not(:hover)::-webkit-scrollbar { width: 0px; height: 0px; }
-
+*:focus{ outline: inherit !important; }
         `
 
         // for glo-0-drop, removed border, also idea for how to achieve effect in firefox, though with svg element, is there inline styles with svg background?
