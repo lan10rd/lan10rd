@@ -12,6 +12,7 @@ import { CommonNgStylesService } from '../../styles/styles.service'
 export class CommonNgAppBarElement
 {
 
+    @Input() handleScroll: boolean = true
     listener$: any
     scrollPos = 0
 
@@ -39,14 +40,18 @@ export class CommonNgAppBarElement
             // this.scrollPos = current_pos
             // this.styles.applyStyles(this.styles.document.document.documentElement, {['padding-top']: current_height + 'px'})
 
-            if (this.scrollPos > current_pos || this.styles.document.document.documentElement.scrollTop === 0)
+            if (this.handleScroll) // introduced this because scroll chaining on ios, doesnt listen overflow contain so when it hits the bottom of whatever is shown it starts scrolling the body underneath
             {
-                this.ref.nativeElement.style.top = '0'
+                if (this.scrollPos > current_pos || this.styles.document.document.documentElement.scrollTop === 0)
+                {
+                    this.ref.nativeElement.style.top = '0'
+                }
+                else
+                {
+                    this.ref.nativeElement.style.top = `-${current_height}px`
+                }
             }
-            else
-            {
-                this.ref.nativeElement.style.top = `-${current_height}px`
-            }
+            
 
             this.scrollPos = current_pos
         })

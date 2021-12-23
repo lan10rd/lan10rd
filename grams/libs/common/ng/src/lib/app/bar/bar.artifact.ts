@@ -10,6 +10,12 @@ import { CommonNgAppBarService } from './bar.service'
 export class CommonNgAppBarArtifact
 {
 
-    constructor(public srv: CommonNgAppBarService){}
+    constructor
+    (
+        public srv: CommonNgAppBarService
+    )
+    {
+        
+    }
 
 }
