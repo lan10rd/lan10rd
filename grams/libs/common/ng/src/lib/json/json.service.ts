@@ -483,25 +483,84 @@ export class CommonNgJsonService
     convert
     (
         value: any,
-        type: 'object' | 'obj' | 'array' | 'arr' | 'string' | 'str' | 'number' | 'num' | 'boolean' | 'boo' | 'null' | 'und' | 'undefined'
+        type: 'object' | 'obj' | 'array' | 'arr' | 'string' | 'str' | 'number' | 'num' | 'boolean' | 'boo' | 'null' | 'und' | 'undefined' | string
     )
     {
-        switch(type)
+        try
         {
-            case 'object': { break }
-            case 'obj': { break }
-            case 'array': { break }
-            case 'arr': { break }
-            case 'string': { break }
-            case 'str': { break }
-            case 'number': { break }
-            case 'num': { break }
-            case 'boolean': { break }
-            case 'boo': { break }
-            case 'null': { break }
-            case 'und': { break }
-            case 'undefined': { break }
-            default: { break }
+            let current_type : any = this.typeOf(value)
+            switch(type)
+            {
+                case 'object': { 
+                    if (current_type === 'obj')
+                        return value
+                    return this.parse(value)
+                }
+                case 'obj': {
+                    if (current_type === 'obj')
+                        return value
+                    return this.parse(value)
+                }
+                case 'array': { 
+                    if (current_type === 'arr')
+                        return value
+                    return this.parse(value)
+                }
+                case 'arr': { 
+                    if (current_type === 'arr')
+                        return value
+                    return this.parse(value)
+                }
+                case 'string': { 
+                    if (current_type === 'str')
+                        return value
+                    return this.stringify(value)
+                }
+                case 'str': { 
+                    if (current_type === 'str')
+                        return value
+                    return this.stringify(value)
+                }
+                case 'number': { 
+                    if (current_type === 'num')
+                        return value
+                    return +this.stringify(value)
+                }
+                case 'num': { 
+                    if (current_type === 'num')
+                        return value
+                    return +this.stringify(value)
+                }
+                case 'boolean': { 
+                    if (current_type === 'boo')
+                        return value
+                    break
+                }
+                case 'boo': { 
+                    if (current_type === 'boo')
+                        return value
+                    if (value || value.toLowerCase() === 'true')
+                        return true
+                    // Boolean.parseBoolean
+                    return false
+                }
+                case 'null': { 
+                    return null
+                }
+                case 'und': { 
+                    return undefined
+                }
+                case 'undefined': { 
+                    return undefined
+                }
+                default: { 
+                    return value
+                }
+            }
+        }
+        catch(e)
+        {
+            return value
         }
     }
 

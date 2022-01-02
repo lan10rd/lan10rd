@@ -298,6 +298,13 @@ export class CommonNgThemesService
         this.theme_key_index = Object.values(this.themes).findIndex((theme: any) => { return theme[this.theme_identifier] === this.theme[this.theme_identifier] })
 
         // console.log('done setting theme', this.theme)
+
+        /* possibly need reflow, damn safari sometimes doesnt apply the classes' styles for some reason */
+        /*
+        sel.style.display='none';
+        sel.offsetHeight; // no need to store this anywhere, the reference is enough
+        sel.style.display='';
+        */
     }
 
     setThemes
@@ -445,10 +452,14 @@ input {
     font-family: trebuchet ms;
     font-size: 16px;
     color: white;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
     /* width: 100%; */
 }
-
+input::placeholder {
+    text-shadow: none;
+}
 input:focus {
+    /* text-shadow: 0px 0px 3px rgba(0, 0, 0, 1); */
     /* background-color: rgba(255, 255, 255, 1); */
     /* color: purple; */
 }
@@ -484,7 +495,6 @@ textarea {
     color: rgba(255, 255, 255, 1);
     font-family: trebuchet ms;
 }
-
 .glo-0-back {
     background-color: purple;
 }
@@ -531,6 +541,7 @@ textarea {
 
 .glo-0-text-trim {
     filter: drop-shadow(0 0 1px rgba(0, 0, 0, 1));
+    /* at some point should probably transition to text-shadow, but would like it to cover images as well?, text-shadow: 0px 0px 5px #FF0000; */
 }
 .flex1 { flex: 1 }
 .z1 { z-index: 1; }

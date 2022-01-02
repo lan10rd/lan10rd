@@ -36,9 +36,13 @@
 
     <div
     left-bar
-    class="tcenter bl p"
     >
-        left bar
+        <common-ng-select-element
+        class="bl glo-0-text-trim"
+        [options]="['router']"
+        [initial]="true"
+        #leftBarMenu
+        ></common-ng-select-element>
     </div>
 
     <div
@@ -54,6 +58,7 @@
 
     <app-bar-left-element
     class="bl"
+    [menu]="leftBarMenu"
     left-content
     ></app-bar-left-element>
 

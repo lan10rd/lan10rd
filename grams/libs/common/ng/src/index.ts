@@ -28,6 +28,8 @@ export * from './lib/popop/popop.service'
 export * from './lib/router/router.element.module'
 export * from './lib/router/router.element'
 export * from './lib/router/router.service'
+export * from './lib/router/tree/tree.element.module'
+export * from './lib/router/tree/tree.element'
 
 export * from './lib/select/select.element'
 export * from './lib/select/select.element.module'

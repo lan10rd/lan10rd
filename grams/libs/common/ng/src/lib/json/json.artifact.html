@@ -44,9 +44,9 @@
                             <textarea #objAddValue placeholder="add value" class="mr"></textarea>
                             <select #objAddSelect><option value="string" selected>string</option><option value="object">object</option><option value="number">number</option><option value="boolean">boolean</option></select>
                             <common-ng-button-element
-                            class="p glo-0-text-ani ib"
+                            class="p glo-0-text-ani glo-0-text-trim ib"
                             *ngIf="objAddKey.value.length > 0 && !keys.includes(objAddKey.value)"
-                            (click)="json.print(objAddKey.value, objAddValue.value, objAddSelect.value)"
+                            (click)="model[objAddKey.value] = json.convert(objAddValue.value, objAddSelect.value); modelChange.emit(model); setup(); objAddKey.value = ''; objAddValue.value = ''; dotdotdot.toggleButton();"
                             >
                                 add {{objAddKey.value}}
                             </common-ng-button-element>
@@ -59,7 +59,7 @@
                             <input #objRemove placeholder="which key would you like to remove?">
 
                             <common-ng-button-element
-                            class="p glo-0-text-ani ib"
+                            class="p glo-0-text-ani glo-0-text-trim ib"
                             *ngIf="objRemove.value.length > 0 && keys.includes(objRemove.value)"
                             (click)="json.removeFromObject(model, objRemove.value); modelChange.emit(model); setup(); objOptions.deselect(); dotdotdot.toggleButton();"
                             >
@@ -71,34 +71,27 @@
                         <ng-container
                         *ngSwitchCase="'mode'"
                         >
-                            mode
+
+                            <!-- <select
+                            (change)="handleMode(modeSelect.value, key);"
+                            [(ngModel)]="mode"
+                            #modeSelect
+                            >
+                                <option
+                                [ngValue]="'pretty'"
+                                >
+                                    pretty
+                                </option>
+                                <option
+                                [ngValue]="'raw'"
+                                >
+                                    raw
+                                </option>
+                            </select> -->
+
                         </ng-container>
 
                     </ng-container>
-
-                    <!-- <div
-                    *ngIf="objOptions._option === ''"
-                    >
-
-                    wtf?
-
-                        <input
-                        class="bl"
-                        #addFieldKey
-                        (keyup.enter)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = '';"
-                        >
-
-                        <textarea
-                        #addFieldValue
-                        ></textarea>
-
-                        <common-ng-button-element
-                        (click)="addField(addFieldKey.value, addFieldValue.value); addFieldKey.value = ''; addFieldValue.value = ''; dotdotdot.toggle = false"
-                        >
-                            add
-                        </common-ng-button-element>
-
-                    </div> -->
 
                 </ng-container>
 
@@ -109,7 +102,7 @@
                     <common-ng-select-element
                     class="ib glo-0-text-trim"
                     [scrollClasses]="'scrollable'"
-                    [options]="['insert', 'remove', 'swap']"
+                    [options]="['insert', 'remove', 'swap', 'mode']"
                     #arrOptions
                     ></common-ng-select-element>
 
@@ -143,7 +136,7 @@
 
                             <common-ng-button-element
                             class="ib p glo-0-text-ani glo-0-text-trim tcenter"
-                            (click)="this.model = this.json.removeFromArray(this.model, +removeIndex.value); this.modelChange.emit(this.model); this.setup(); arrOptions.deselect(); dotdotdot.toggleButton()"
+                            (click)="model = json.removeFromArray(model, +removeIndex.value); modelChange.emit(this.model); setup(); arrOptions.deselect(); dotdotdot.toggleButton()"
                             >
                                 remove
                             </common-ng-button-element>
@@ -158,6 +151,12 @@
 
                     </div>
 
+                </ng-container>
+
+                <ng-container
+                *ngSwitchDefault
+                >
+                    default
                 </ng-container>
 
             </ng-container>
@@ -176,7 +175,7 @@
 
                 <common-ng-button-element
                 *ngIf="!editing.keys.includes(key)"
-                class="bl glo-0-text-ani fit center"
+                class="bl glo-0-text-ani fit center glo-0-text-trim"
                 (click)="toggleEditKey(key)"
                 >
                     {{key}}
@@ -205,18 +204,18 @@
                     (keyup.enter)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)"
                     >
                     
-                    <select (change)="handleMode(modeSelect.value, key);" #modeSelect>
+                    <!-- <select (change)="handleMode(modeSelect.value, key);" #modeSelect>
                         <option [ngValue]="'pretty'">pretty</option>
                         <option [ngValue]="'raw'">raw</option>
-                    </select>
+                    </select> -->
 
-                    <button (click)="model[key] = json.parse(editing.values[key])" *ngIf="modeSelect.value === 'raw'">save</button>
+                    <!-- <button (click)="model[key] = json.parse(editing.values[key])" *ngIf="modeSelect.value === 'raw'">save</button> -->
 
                     
                 </div>
 
                 <ng-container
-                [ngSwitch]="modeSelect.value"
+                [ngSwitch]="mode"
                 >
                 
                     <ng-container

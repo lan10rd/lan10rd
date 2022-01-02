@@ -1,1 +1,17 @@
-insert menu stuff here
+<ng-container
+[ngSwitch]="menu._option"
+>
+
+    <ng-container
+    *ngSwitchCase="'router'"
+    >
+
+        <common-ng-router-element
+        ></common-ng-router-element>
+
+        <common-ng-router-tree-element
+        ></common-ng-router-tree-element>
+
+    </ng-container>
+    
+</ng-container>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 
-import { AppLandingFeature } from './landing.feature'
+import { PlayAppleFeature } from './apple.feature'
 
 @NgModule
 ({
@@ -12,14 +12,14 @@ import { AppLandingFeature } from './landing.feature'
         RouterModule.forChild
         ([{
             path: '',
-            component: AppLandingFeature,
+            component: PlayAppleFeature,
             data: {
                 CommonRouterService: {
-                    routes: ['notes', 'readme', 'showcase', 'play'],
+                    routes: ['..'],
                     seo: {
-                        title: 'App - Landing',
-                        keywords: 'keywords',
-                        description: 'description'
+                        title: 'Play Apple',
+                        keywords: 'play apple',
+                        description: 'play apple'
                     }
                 }
             }
@@ -27,10 +27,10 @@ import { AppLandingFeature } from './landing.feature'
     ],
     declarations:
     [
-        AppLandingFeature
+        PlayAppleFeature
     ]
 })
-export class AppLandingFeatureModule
+export class PlayAppleFeatureModule
 {
     
 }

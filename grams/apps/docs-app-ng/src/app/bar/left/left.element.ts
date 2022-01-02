@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 
 import { CommonNgUtilityService } from '@grams/common/ng'
 
@@ -10,6 +10,8 @@ import { CommonNgUtilityService } from '@grams/common/ng'
 })
 export class AppBarLeftElement
 {
+
+    @Input() menu: any
 
     constructor
     (
