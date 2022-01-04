@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { CommonNgUtilityService } from '@grams/common/ng'
+import { CommonNgUtilityService, CommonNgAppBarService } from '@grams/common/ng'
 
 @Component
 ({
@@ -13,10 +13,29 @@ export class PlayAppleFeature
     
     constructor
     (
-        public util: CommonNgUtilityService
+        public util : CommonNgUtilityService,
+        public appBar : CommonNgAppBarService
     )
     {
 
+    }
+
+    async ngOnInit
+    (
+    )
+    {
+        let middleBar = {
+            component: (await import('./bar/bar.element')).PlayAppleBarElement,
+            module: (await import('./bar/bar.element.module')).PlayAppleBarElementModule,
+        }
+        this.appBar.middleBar = middleBar
+    }
+
+    ngOnDestroy
+    (
+    )
+    {
+        this.appBar.middleBar = undefined
     }
 
 }

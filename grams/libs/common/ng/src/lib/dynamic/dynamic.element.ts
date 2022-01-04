@@ -101,7 +101,10 @@ export class CommonNgDynamicElement
             if (this.module) // really this may not be necessary but just loading with async () => { await import }) !
             {
                 let module = this.module
-                try { module = await this.module() } catch(e) { console.log('await this.module e', e)}
+                /* forgot why i have this try catch, something about trying to await the import or something or maybe if its a function? */
+                try { module = await this.module() } catch(e) { /* console.log('await this.module e', e) */ }
+
+
                 // if (!(module instanceof NgModuleFactory))
                 // {
                 //     console.log('module is not instance of ng module factory and needs compiling!', module)

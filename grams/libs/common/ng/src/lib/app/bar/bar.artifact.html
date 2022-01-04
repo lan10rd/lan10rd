@@ -2,6 +2,7 @@
 class="fixed-top bl scrollable-y glo-0-drop corners0 contain flex column max-height-100vh"
 style="overflow-x: hidden"
 [handleScroll]="srv.show.length === 0"
+#appBarElement
 >
     
     <!-- style="top: 0"
@@ -54,6 +55,7 @@ style="overflow-x: hidden"
                     ></ng-content>
 
                 </ng-container>
+
             </div>
 
             <!-- ; overflow: auto -->

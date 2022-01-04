@@ -8,6 +8,8 @@ export class CommonNgAppBarService
 {
 
     show: string = ''
+    appBarElementRef: any
+    middleBar: {component: any, module: any} | undefined
 
     async open
     (

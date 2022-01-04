@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { CommonNgAppBarService } from './bar.service'
 
 @Component
@@ -10,12 +10,21 @@ import { CommonNgAppBarService } from './bar.service'
 export class CommonNgAppBarArtifact
 {
 
+    @ViewChild('appBarElement') appBarElement: any
+
     constructor
     (
         public srv: CommonNgAppBarService
     )
     {
         
+    }
+
+    ngAfterViewInit
+    (
+    )
+    {
+        this.srv.appBarElementRef = this.appBarElement
     }
 
 }

@@ -5,7 +5,7 @@ import { AppBarElement } from './bar.element'
 import { AppBarLeftElementModule } from './left/left.element.module'
 import { AppBarRightElementModule } from './right/right.element.module'
 
-import { CommonNgRouterElementModule, CommonNgButtonElementModule, CommonNgAppBarArtifactModule, CommonNgSelectElementModule } from '@grams/common/ng'
+import { CommonNgRouterElementModule, CommonNgButtonElementModule, CommonNgAppBarArtifactModule, CommonNgSelectElementModule, CommonNgDynamicElementModule } from '@grams/common/ng'
 
 @NgModule
 ({
@@ -17,7 +17,8 @@ import { CommonNgRouterElementModule, CommonNgButtonElementModule, CommonNgAppBa
         AppBarLeftElementModule,
         AppBarRightElementModule,
         CommonNgAppBarArtifactModule,
-        CommonNgSelectElementModule
+        CommonNgSelectElementModule,
+        CommonNgDynamicElementModule
     ],
     declarations:
     [
