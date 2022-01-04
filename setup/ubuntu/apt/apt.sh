@@ -129,7 +129,8 @@ sudo apt install -y \
     libxml2-dev \
     libxmlsec1-dev \
     libffi-dev \
-    liblzma-dev
+    liblzma-dev \
+    libpcre3-dev
 
 # echo "\n"
 # echo "pyenv (python)"
