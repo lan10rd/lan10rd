@@ -1,7 +1,8 @@
 <common-ng-select-element
 class="bl"
 [options]="srv._renderedRoutes"
-(optionChange)="srv.route($event); "
+(optionChange)="srv.route($event)"
 [toggleable]="false"
+[emitUndefined]="false"
 #routerSelect
 ></common-ng-select-element>

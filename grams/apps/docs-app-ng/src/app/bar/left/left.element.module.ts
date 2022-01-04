@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 
 import { AppBarLeftElement } from './left.element'
 
-import { CommonNgSelectElementModule, CommonNgRouterTreeElementModule, CommonNgRouterElementModule } from '@grams/common/ng'
+import { CommonNgSelectElementModule, CommonNgRouterElementModule, CommonNgButtonElementModule } from '@grams/common/ng'
 
 @NgModule
 ({
@@ -12,7 +12,7 @@ import { CommonNgSelectElementModule, CommonNgRouterTreeElementModule, CommonNgR
         CommonModule,
         CommonNgSelectElementModule,
         CommonNgRouterElementModule,
-        CommonNgRouterTreeElementModule
+        CommonNgButtonElementModule
     ],
     declarations:
     [

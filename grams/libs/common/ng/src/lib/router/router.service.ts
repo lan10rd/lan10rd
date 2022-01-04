@@ -77,15 +77,19 @@ export class CommonNgRouterService
 
     route
     (
-        a: any
+        a: any,
+        options: any = {
+            queryParamsHandling: 'preserve'
+        }
     )
     {
         if (a)
         {
             let route = ''
-            let options: any = {queryParamsHandling: 'preserve'}
             if (typeof a === 'string')
+            {
                 route = a
+            }
             else
             {
                 if (this.json.typeOf(this._routes) === 'arr')
@@ -98,23 +102,28 @@ export class CommonNgRouterService
                         }
             }
             if (route.startsWith('/'))
-                this.router.navigate([route], options)
-            let url = this.router.url.split('?')[0] + '/' + route
-            let url_stack: any = []
-            for (let u of url.split('/'))
             {
-                if (u === '.'){ }
-                else if (u === '..')
-                {
-                    if (url_stack.length > 0)
-                        url_stack.pop()
-                }
-                else
-                {
-                    url_stack.push(u)
-                }
+                this.router.navigate([route], options)
             }
-            this.router.navigate([url_stack.join('/')], options)
+            else
+            {
+                let url = this.router.url.split('?')[0] + '/' + route
+                let url_stack: any = []
+                for (let u of url.split('/'))
+                {
+                    if (u === '.'){ }
+                    else if (u === '..')
+                    {
+                        if (url_stack.length > 0)
+                            url_stack.pop()
+                    }
+                    else
+                    {
+                        url_stack.push(u)
+                    }
+                }
+                this.router.navigate([url_stack.join('/')], options)
+            }
         }
     }
     

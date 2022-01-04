@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
 
-import { CommonNgUtilityService } from '@grams/common/ng'
+import { CommonNgRouterService, CommonNgUtilityService } from '@grams/common/ng'
 
 @Component
 ({
@@ -15,7 +15,8 @@ export class AppBarLeftElement
 
     constructor
     (
-        public util : CommonNgUtilityService
+        public util : CommonNgUtilityService,
+        public router : CommonNgRouterService
     )
     {
 

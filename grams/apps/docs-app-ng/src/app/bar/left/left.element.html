@@ -6,11 +6,45 @@
     *ngSwitchCase="'router'"
     >
 
-        <common-ng-router-element
-        ></common-ng-router-element>
+        <common-ng-select-element
+        [options]="['relative', 'top']"
+        [initial]="'relative'"
+        #routerSelect
+        ></common-ng-select-element>
+        
+        <ng-container
+        [ngSwitch]="routerSelect._option"
+        >
 
-        <common-ng-router-tree-element
-        ></common-ng-router-tree-element>
+            <common-ng-router-element
+            *ngSwitchCase="'relative'"
+            ></common-ng-router-element>
+
+            <div
+            class="scrollable pt pb tcenter"
+            *ngSwitchCase="'top'"
+            >
+                <ng-container
+                *ngFor="let route of router.router.config"
+                >
+                    <common-ng-button-element
+                    *ngIf="route.path !== '**'"
+                    class="tcenter pr pl glo-0-text-ani glo-0-text-trim"
+                    (click)="router.route('/' + route.path)"
+                    >
+                        {{route.path}}
+                    </common-ng-button-element>
+                    <common-ng-button-element
+                    *ngIf="route.path === ''"
+                    class="tcenter pr pl glo-0-text-ani glo-0-text-trim"
+                    (click)="router.route('/')"
+                    >
+                        /
+                    </common-ng-button-element>
+                </ng-container>
+            </div>
+    
+        </ng-container>
 
     </ng-container>
     
