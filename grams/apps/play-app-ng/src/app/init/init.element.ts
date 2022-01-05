@@ -32,14 +32,14 @@ export class AppInitElement
     (
     )
     {
-        this.util.services.themes.modifyTheme
-        ({
-            addStyles: {
-                body: {
-                    'background-image': 'url(https://resources.glass.earth/assets/pexels/raw/purple-jewels.jpg)'
-                }
-            }
-        })
+        // this.util.services.themes.modifyTheme
+        // ({
+        //     addStyles: {
+        //         body: {
+        //             'background-image': 'url(https://resources.glass.earth/assets/pexels/raw/purple-jewels.jpg)'
+        //         }
+        //     }
+        // })
         
         // this.util.services.code.setTheme(this.util.services.code.themes.celeste.name, this.util.services.code.themes.celeste.options)
     }

@@ -7,6 +7,7 @@
     >
 
         <common-ng-select-element
+        class="bl glo-0-text-trim"
         [options]="['themes']"
         [initial]="true"
         #preferencesMenu
@@ -16,9 +17,9 @@
         [ngSwitch]="preferencesMenu._option"
         >
 
-            <common-ng-themes-editor-element
+            <common-ng-themes-editor-artifact
             *ngSwitchCase="'themes'"
-            ></common-ng-themes-editor-element>
+            ></common-ng-themes-editor-artifact>
     
         </ng-container>
 

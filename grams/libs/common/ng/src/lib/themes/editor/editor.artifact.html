@@ -27,9 +27,9 @@ class="glo-0-text-trim bl"
 
     <common-ng-button-element
     class="ib p glo-0-text-ani"
-    (click)="copy(themes_theme_copy); themesSelect.cd.detectChanges();"
+    (click)="duplicate(themes_theme_copy); themesSelect.cd.detectChanges();"
     >
-        copy
+        duplicate
     </common-ng-button-element>
 
     <common-ng-button-element
@@ -51,6 +51,19 @@ class="glo-0-text-trim bl"
     (click)="unstore(themes_theme_copy)"
     >
         unstore
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="document.copy(json.stringify(themes_theme_copy))"
+    >
+        copy
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    >
+        paste
     </common-ng-button-element>
 
 </common-ng-scroll-element>

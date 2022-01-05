@@ -47,6 +47,16 @@
     },
     "play-app-ng": {
       "tags": []
+    },
+    "reference-api-ns": {
+      "tags": []
+    },
+    "reference-app-ng": {
+      "tags": []
+    },
+    "reference-app-ng-e2e": {
+      "tags": [],
+      "implicitDependencies": ["reference-app-ng"]
     }
   }
 }

@@ -3,6 +3,7 @@ import { Component } from '@angular/core'
 import { CommonNgThemesService } from '../themes.service'
 import { CommonNgPopopService } from '../../popop/popop.service'
 import { CommonNgJsonService } from '../../json/json.service'
+import { CommonNgDocumentService } from '../../document/document.service'
 
 @Component
 ({
@@ -19,7 +20,8 @@ export class CommonNgThemesEditorArtifact
     (
         public themes: CommonNgThemesService,
         public popop: CommonNgPopopService,
-        public json: CommonNgJsonService
+        public json: CommonNgJsonService,
+        public document: CommonNgDocumentService
     )
     {
 
@@ -32,7 +34,7 @@ export class CommonNgThemesEditorArtifact
         /* get styles */
     }
 
-    copy
+    duplicate
     (
         theme: any
     )
