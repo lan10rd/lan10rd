@@ -1,0 +1,9 @@
+sooo this is kinda dangerous but lets say you do a few things you want to rollback on your branch.
+
+pull in your branch, lets assume its "main" and make sure there is not changes with git status
+assuming the commit you want to go back to is 557689b221a2c8c3355403ebc00e4e2bd24b5fc0  
+git status should show you are "behind"
+-----
+git reset -hard 557689b221a2c8c3355403ebc00e4e2bd24b5fc0  
+git status
+git push --force origin main
