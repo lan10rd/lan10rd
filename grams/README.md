@@ -422,4 +422,7 @@ yarn add \
   dom-serializer \
   rewire \
   @angular/service-worker \
-  entities
+  entities \
+  @scullyio/init \
+  @scullyio/scully \
+  @scullyio/ng-lib
