@@ -1,0 +1,6 @@
+ng add @scullyio/init
+
+or
+
+npm install @scullyio/init
+nx g @scullyio/init:install -- --project=<projectName>

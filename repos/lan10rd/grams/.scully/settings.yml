@@ -1,0 +1,10 @@
+identifier: k7y34ep24b8524xe
+appPort: 1864
+staticPort: 1668
+reloadPort: 2667
+hostName: localhost
+projectName: docs-app-ng
+homeFolder: /Users/simba/lan10rd/grams
+distFolder: ./dist/static
+outDir: /Users/simba/lan10rd/grams/dist/static
+handle404: ''

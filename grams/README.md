@@ -1,10 +1,12 @@
-# grams
+
+
+# Grams
 
 This project was generated using [Nx](https://nx.dev).
 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
-🔎 **Smart, Extensible Build Framework**
+🔎 **Smart, Fast and Extensible Build System**
 
 ## Adding capabilities to your workspace
 
@@ -27,7 +29,7 @@ Below are our core plugins:
 - [Node](https://nodejs.org)
   - `npm install --save-dev @nrwl/node`
 
-There are also many [community plugins](https://nx.dev/nx-community) you could add.
+There are also many [community plugins](https://nx.dev/community) you could add.
 
 ## Generate an application
 
@@ -43,7 +45,7 @@ Run `nx g @nrwl/react:lib my-lib` to generate a library.
 
 > You can also use any of the plugins above to generate libraries as well.
 
-Libraries are shareable across libraries and applications. They can be imported from `@lanl0rd/mylib`.
+Libraries are shareable across libraries and applications. They can be imported from `@grams/mylib`.
 
 ## Development server
 
@@ -92,162 +94,141 @@ Teams using Nx gain the advantage of building full-stack applications with their
 Visit [Nx Cloud](https://nx.app/) to learn more.
 
 
-
-
-
-
-nx g @nrwl/nest:lib common/ns --buildable --publishable --importPath=@lanl0rdjs/common-ns
-nx g @nrwl/angular:lib common/ng --publishable --buildable --importPath=@lanl0rdjs/common-ng
-
-
-(--buildable is for pre built stuff, publishable is to make it npm ready, at which point you can do npm build libname, then cd dist/libname and npm publish)
-
-nx build lib-name
-cd dist/libs/lib-name
-npm login
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-npm publish --scope=@lanl0rdjs --access public
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-==== aggregated deps ====
-yarn add @nestjs/event-emitter mongodb lodash moment query-string commander chalk helmet cors compression csurf cookie-parser express-session cookie-session body-parser @nestjs/throttler express-rate-limit @nestjs/terminus @nestjs/schedule chokidar js-yaml multicast-dns @nestjs/websockets @nestjs/platform-socket.io @nestjs/schedule
-
-yarn add -D @types/express-session @types/cookie-parser @types/cron @types/socket.io 
-
-
-
---- dependencies reasons ---
-
--- host api --
-yarn add @nestjs/websockets @nestjs/platform-socket.io @nestjs/schedule
-yarn add -D @types/socket.io @types/cron
-
-yarn add chokidar js-yaml multicast-dns
-
--- common ns --
-- scheduler -
-yarn add @nestjs/schedule 
-yarn add -D @types/cron
-
-- health -
-@nestjs/terminus 
-
-- main.ts (app) --
-=rate limiting=
-yarn add @nestjs/throttler express-rate-limit
- 
-=csrf=
-yarn add csurf cookie-parser express-session cookie-session body-parser
-yarn add -D @types/express-session @types/cookie-parser
-
-=compression=
-yarn add compression
-
-=cors=
-yarn add cors
-
-=helmet=
-yarn add helmet
-
-=Logger=
-yarn add chalk
-
-=command line=
-yarn add commander
-
-=query-string=
-yarn add query-string
-
-=moment=
-yarn add moment
-
-=lodash=
-yarn add lodash
-
-=data/bases/mongo=
-yarn add mongodb
-
---- just to have ---
-yarn add @nestjs/event-emitter
-
-
-
-
---- all of the ones needed for work-space (passport/payments)
-
-yarn rm
-
-
-
-
- -- base mono repo stuff --
-yarn add -D --registry http://localhost:4873 @nrwl/angular @nrwl/nest @nrwl/express @nrwl/cypress @nrwl/next @nrwl/node @nrwl/nx-plugin @nrwl/react @nrwl/storybook @nrwl/web nx-electron @nx-tools/nx-docker @nx-plus/nuxt @nx-plus/vue @nx-plus/docusaurus @twittwer/compodoc @nxext/svelte @nxext/stencil  @angular-architects/module-federation   @nxrocks/nx-spring-boot socket.io-client joi dotenv moment remarkable lodash three postprocessing uuid 
-
--- passport api --
-
-npm install --registry http://localhost:4873 @nestjs/terminus  winston express-session cookie-session csurf helmet bcrypt bcryptjs compression argon2 @nestjs/serve-static @nestjs/jwt passport-jwt mongodb @nestjs/passport passport passport-local passport-google-oauth20 dotenv google-auth-library query-string passport-facebook nodemailer qrcode speakeasy express-rate-limit @nestjs/throttler
-
-npm i -D --registry http://localhost:4873 @types/bcrypt @types/passport-jwt @types/passport-local @types/passport-google-oauth20
-
-
--- works nest -- (arm64) sudo apt install libtool autoconf automake --
-
-npm i --registry http://localhost:4873 @nestjs/passport passport passport-local  bcrypt @nestjs/jwt passport-jwt helmet fastify-helmet csurf fastify-csrf  express-rate-limit @nestjs/config js-yaml joi cache-manager @nestjs/schedule @nestjs/websockets @nestjs/platform-socket.io socket.io-redis @nestjs/microservices cookie-parser @nestjs/event-emitter compression express-session  class-validator class-transformer body-parser cors @nestjs/serve-static @nestjs/bull bull webpack-node-externals start-server-webpack-plugin  @nestjs/terminus @nestjs/cqrs @nestjs/mongoose  mongoose @nestjs/swagger swagger-ui-express redis mqtt kafkajs nats @prisma/client @nestjs/platform-fastify fastify-compress fastify-cookie fastify-secure-session fastify-swagger @grpc/proto-loader @grpc/grpc-js qrcode speakeasy nodemailer jsonwebtoken lodash moment remarkable stripe uuid @webcomponents/webcomponentsjs
-
-npm i -D --registry http://localhost:4873 @types/passport-local @types/passport-jwt @types/bcrypt @types/mongoose  @types/js-yaml @types/joi @types/cache-manager @types/bull @types/cookie-parser @types/express-session @nestjs/testing @types/socket.io @angular/elements
-
-
--- works ui --
-
-ng add @nguniversal/express-engine @angular/localize @angular/pwa @angular/material --project works
--soon- ng add @ngrx/store@latest @ngrx/store-devtools@latest @ngrx/effects@latest @ngrx/router-store@latest @ngrx/entity@latest @ngrx/schematics@latest @ngrx/component-store@latest @ngrx/data@latest @ngrx/component@latest @scullyio/init
-
-npm i --registry https://npm.glass.earth socket.io-client joi dotenv moment remarkable lodash three postprocessing uuid
-npm i -D --registry https://npm.glass.earth @types/lodash https-proxy-agent
-
-
-
-
--- inside container, build tools --
-sudo apt install libtool autoconf automake
-
-took out typescript, good god angular complains
-
-
-
-
-
-
-
-
-
-- full -
+## nx list
+
+>  NX  Installed plugins:
+
+  @nrwl/angular (builders,generators)
+  @nrwl/cypress (builders,generators)
+  @nrwl/express (generators)
+  @nrwl/jest (builders,generators)
+  @nrwl/linter (builders,generators)
+  @nrwl/nest (generators)
+  @nrwl/next (builders,generators)
+  @nrwl/node (builders,generators)
+  @nrwl/nx-plugin (builders,generators)
+  @nrwl/react (generators)
+  @nrwl/storybook (builders,generators)
+  @nrwl/web (builders,generators)
+  @nrwl/workspace (builders,generators)
+
+
+>  NX  Community plugins:
+
+  nx-plugins - Nx plugin integrations with ESBuild / Vite / Snowpack / Prisma, with derived ESBuild / Snowpack / ... plugins.
+  @codebrew/nx-aws-cdk - An Nx plugin for aws cdk develop.
+  @rxap/plugin-localazy - An Nx plugin for localazy.com upload and download tasks.
+  nx-electron - An Nx plugin for developing Electron applications
+  nx-stylelint - Nx plugin to use stylelint in a nx workspace
+  @nxtend/ionic-react - An Nx plugin for developing Ionic React applications and libraries
+  @nxtend/ionic-angular - An Nx plugin for developing Ionic Angular applications and libraries
+  @nxtend/capacitor - An Nx plugin for developing cross-platform applications using Capacitor
+  @nxtend/firebase - An Nx plugin for developing applications using Firebase
+  @angular-architects/ddd - Nx plugin for structuring a monorepo with domains and layers
+  @offeringsolutions/nx-karma-to-jest - Nx plugin for replacing karma with jest in an Nx workspace
+  @flowaccount/nx-serverless - Nx plugin for node/angular-universal schematics and deployment builders in an Nx workspace
+  @ns3/nx-serverless - Nx plugin for node serverless applications in an Nx workspace
+  @ns3/nx-jest-playwright - Nx plugin to run jest-playwright e2e tests in an Nx workspace
+  @dev-thought/nx-deploy-it - Nx plugin to deploy applications on your favorite cloud provider
+  @offeringsolutions/nx-protractor-to-cypress - Nx plugin to replace protractor with cypress in an nx workspace
+  @nx-tools/nx-docker - Nx plugin to build docker images of your affected apps
+  @angular-custom-builders/lite-serve - Nx plugin to run the e2e test on an existing dist folder
+  @nx-plus/nuxt - Nx plugin adding first class support for Nuxt in your Nx workspace.
+  @nx-plus/vue - Nx plugin adding first class support for Vue in your Nx workspace.
+  @nx-plus/docusaurus - Nx plugin adding first class support for Docusaurus in your Nx workspace.
+  @twittwer/compodoc - Nx Plugin to integrate the generation of documentation with Compodoc in the Nx workflow
+  @nxext/svelte - Nx plugin to use Svelte within nx workspaces
+  @nxext/stencil - Nx plugin to use StencilJs within nx workspaces
+  @nxext/vite - Nx plugin to use ViteJS within nx workspaces
+  @nxext/solid - Nx plugin to use SolidJS within nx workspaces
+  @joelcode/gcp-function - Nx plugin to generate, test, lint, build, serve, & deploy Google Cloud Function
+  @nx-go/nx-go - Nx plugin to use Go in a Nx workspace
+  @angular-architects/module-federation - Nx plugin to use webpack module federation
+  @nxrocks/nx-spring-boot - Nx plugin to generate, run, package, build (and more) Spring Boot projects inside your Nx workspace
+  @trumbitta/nx-plugin-openapi - OpenAPI Plugin for Nx. Keep your API spec files in libs, and auto-generate sources.
+  @trumbitta/nx-plugin-unused-deps - Check the dependency graph of your monorepo, looking for unused NPM packages.
+  @nxrocks/nx-flutter - Nx Plugin adding first class support for Flutter in your Nx workspace
+  @srleecode/domain - Nx Plugin for allowing operations to occur at the domain level instead of the default library level
+  @jscutlery/semver - Nx plugin to automate semantic versioning and CHANGELOG generation.
+  ngx-deploy-npm - Publish your libraries to NPM with just one command.
+  @trafilea/nx-shopify - Nx plugin for developing performance-first Shopify themes
+  nx-dotnet - Nx plugin for developing and housing .NET projects within an Nx workspace.
+  @nxrocks/nx-quarkus - Nx plugin to generate, run, package, build (and more) Quarkus projects inside your Nx workspace
+  @nx-extend/gcp-secrets - Nx plugin to generate and securely deploy your Google Cloud Secrets
+  @nx-extend/gcp-storage - Nx plugin to upload to Google Cloud Storage
+  @nx-extend/gcp-functions - Nx plugin to generate, run, build and deploy your Google Cloud Functions
+  @nx-extend/gcp-deployment-manager - Nx plugin to deploy your Google Cloud Deployments
+  @nx-extend/gcp-cloud-run - Nx plugin to build and deploy your docker container to Google Cloud Run
+  @nx-extend/translations - Nx plugin to extract, pull, push and translate your apps translations
+  @nativescript/nx - Nx Plugin adding first class support for NativeScript in your Nx workspace
+  @nx-clean/plugin-core - Nx Plugin to generate projects following Clean Architecture practices
+  @jnxplus/nx-boot-gradle - Nx plugin to add Spring Boot and Gradle multi-project builds support to Nx workspace
+  @jnxplus/nx-boot-maven - Nx plugin to add Spring Boot and Maven multi-module project support to Nx workspace
+  @nxtensions/astro - Nx plugin adding first class support for Astro (https://astro.build).
+
+
+## all dependency commands run in this project
+
+### setup and install
+npx create-nx-workspace@latest --preset=empty // name of workspace, grams
+cd grams
+rm package-lock.json
+
+### core nx nrwl support
 yarn add -D \
   @nrwl/angular \
-  @nrwl/nest \
-  @nrwl/express \
   @nrwl/cypress \
+  @nrwl/express \
+  @nrwl/nest \
   @nrwl/next \
   @nrwl/node \
   @nrwl/nx-plugin \
   @nrwl/react \
   @nrwl/storybook \
-  @nrwl/web \
-  nx-electron \
-  @nx-tools/nx-docker \
-  @nx-plus/nuxt \
-  @nx-plus/vue \
-  @nx-plus/docusaurus \
-  @twittwer/compodoc \
-  @nxext/svelte \
-  @nxext/stencil \
-  @angular-architects/module-federation \
-  @nxrocks/nx-spring-boot \
+  @nrwl/web
+
+### angular goodies
+yarn add \
+  @angular/cdk \
+  @angular/cdk-experimental \
+  @nguniversal/express-engine \
+  @angular/localize \
+  @angular/pwa \
+  @angular/material \
+  @angular/service-worker \
+  @scullyio/init \
+  @ngrx/store \
+  @ngrx/store-devtools \
+  @ngrx/effects \
+  @ngrx/router-store \
+  @ngrx/entity \
+  @ngrx/schematics \
+  @ngrx/component-store \
+  @ngrx/data \
+  @ngrx/component
+
+yarn add -D \
+  @angular/elements
+
+### client (ui) goodies
+yarn add \
+  lodash \
+  moment \
+  remarkable \
+  uuid \
+  @webcomponents/webcomponentsjs \
+  ansi-to-html \
+  socket.io-client \
+  three \
+  postprocessing \
+  marked \
+  markdown-it \
+  tinymce \
+  froala-editor
+
+### nestjs goodies and some general utilities
+
+yarn add -D \
   @types/bcrypt \
   @types/passport-jwt \
   @types/passport-local \
@@ -264,7 +245,6 @@ yarn add -D \
   @types/express-session \
   @nestjs/testing \
   @types/socket.io \
-  @angular/elements \
   concurrently \
   @types/multer \
   @types/lodash \
@@ -350,7 +330,6 @@ yarn add \
   jsonwebtoken \
   lodash \
   moment \
-  remarkable \
   stripe \
   uuid \
   @webcomponents/webcomponentsjs \
@@ -358,8 +337,6 @@ yarn add \
   ansi-to-html \
   socket.io-client \
   socket.io \
-  @angular/cdk \
-  @angular/cdk-experimental \
   multer \
   busboy \
   formidable \
@@ -367,8 +344,6 @@ yarn add \
   adm-zip \
   jszip \
   archiver \
-  three \
-  postprocessing \
   @casl/ability \
   accesscontrol \
   acl \
@@ -382,20 +357,6 @@ yarn add \
   chalk \
   multicast-dns \
   chokidar \
-  @nguniversal/express-engine \
-  @angular/localize \
-  @angular/pwa \
-  @angular/material \
-  @ngrx/store \
-  @ngrx/store-devtools \
-  @ngrx/effects \
-  @ngrx/router-store \
-  @ngrx/entity \
-  @ngrx/schematics \
-  @ngrx/component-store \
-  @ngrx/data \
-  @ngrx/component \
-  @scullyio/init \
   yargs \
   minimist \
   colors \
@@ -404,7 +365,6 @@ yarn add \
   marked \
   markdown-it \
   tinymce \
-  froala-editor \
   express-slow-down \
   md5 \
   fuse.js \
@@ -421,8 +381,10 @@ yarn add \
   cheerio \
   dom-serializer \
   rewire \
-  @angular/service-worker \
-  entities \
-  @scullyio/init \
-  @scullyio/scully \
-  @scullyio/ng-lib
+  entities 
+
+## app config and generator commands ran
+nx g @nrwl/angular:app reference-app-ng
+nx g @nrwl/nest:app reference-api-ns
+
+nx g @nrwl/angular:app docs-app-ng

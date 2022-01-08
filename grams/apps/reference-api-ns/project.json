@@ -1,0 +1,52 @@
+{
+  "root": "apps/reference-api-ns",
+  "sourceRoot": "apps/reference-api-ns/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/reference-api-ns",
+        "main": "apps/reference-api-ns/src/main.ts",
+        "tsConfig": "apps/reference-api-ns/tsconfig.app.json",
+        "assets": ["apps/reference-api-ns/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/reference-api-ns/src/environments/environment.ts",
+              "with": "apps/reference-api-ns/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "reference-api-ns:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/reference-api-ns/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/reference-api-ns"],
+      "options": {
+        "jestConfig": "apps/reference-api-ns/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

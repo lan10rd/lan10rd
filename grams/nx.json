@@ -1,7 +1,10 @@
 {
   "npmScope": "grams",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
   },
   "implicitDependencies": {
     "package.json": {
@@ -26,37 +29,20 @@
       }
     ]
   },
-  "projects": {
-    "common-ng": {
-      "tags": []
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     },
-    "common-ns": {
-      "tags": []
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
     },
-    "docs-app-ng": {
-      "tags": []
-    },
-    "host-api-ns": {
-      "tags": []
-    },
-    "host-app-ng": {
-      "tags": []
-    },
-    "play-api-ns": {
-      "tags": []
-    },
-    "play-app-ng": {
-      "tags": []
-    },
-    "reference-api-ns": {
-      "tags": []
-    },
-    "reference-app-ng": {
-      "tags": []
-    },
-    "reference-app-ng-e2e": {
-      "tags": [],
-      "implicitDependencies": ["reference-app-ng"]
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
-  }
+  },
+  "defaultProject": "docs-app-ng"
 }

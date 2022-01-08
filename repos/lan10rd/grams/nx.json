@@ -1,0 +1,62 @@
+{
+  "npmScope": "grams",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "projects": {
+    "common-ng": {
+      "tags": []
+    },
+    "common-ns": {
+      "tags": []
+    },
+    "docs-app-ng": {
+      "tags": []
+    },
+    "host-api-ns": {
+      "tags": []
+    },
+    "host-app-ng": {
+      "tags": []
+    },
+    "play-api-ns": {
+      "tags": []
+    },
+    "play-app-ng": {
+      "tags": []
+    },
+    "reference-api-ns": {
+      "tags": []
+    },
+    "reference-app-ng": {
+      "tags": []
+    },
+    "reference-app-ng-e2e": {
+      "tags": [],
+      "implicitDependencies": ["reference-app-ng"]
+    }
+  }
+}
