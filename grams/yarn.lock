@@ -351,7 +351,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/platform-server@^12.2.6":
+"@angular/platform-server@^12", "@angular/platform-server@^12.2.6":
   version "12.2.15"
   resolved "https://registry.yarnpkg.com/@angular/platform-server/-/platform-server-12.2.15.tgz#e60f84a87fa3a195f459c3d2e90ee10bc878f030"
   integrity sha512-QchegW3UcvypuC3BRO1hgWs2nrJdNAJwaQ2eNzsuNlcvyKyjXVZ5pSfJywB8mqevJQJpzF8QnRxXOsrhKMHayw==
@@ -3104,10 +3104,61 @@
     rxjs "^7.0.0"
     tslib "^2.2.0"
 
+"@scullyio/ng-lib@^2.1.0":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@scullyio/ng-lib/-/ng-lib-2.1.3.tgz#02567b21319c5a8a49fdc9eb186336bc02738d19"
+  integrity sha512-Uop8KWD3HbyBKx33AkPTqgSn3UNLbUxWNinpSU6SLJ0qO/Z0uHNxcK8aQfh7YGlVqDMzVFI2D2z+FvPGFqUo7w==
+  dependencies:
+    rxjs "^7.0.0"
+    tslib "^2.2.0"
+
+"@scullyio/platform-server@^2.1.0":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@scullyio/platform-server/-/platform-server-2.1.3.tgz#f61ba8960cc47325f3d6bbc19a98da8e97343716"
+  integrity sha512-pq7fXInxEXS4NV9CgPcOlUgEBqnMO6cLd83agcRB9VpGd6MTAXBChRaYaTYl0qkUdLJhjJTZY9shzI7QcfCYBA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@scullyio/scully@2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@scullyio/scully/-/scully-2.1.2.tgz#65304daccbda3156637096d7825824855dfefb6f"
   integrity sha512-S+e4FqR5SdhHzvkfKWe47M9Wwg/WBExP3ioDp4pNc33wPV9g7v8zoImiIm/7OH8861n45nqzrKBJyx4L/qO5yQ==
+  dependencies:
+    "@angular/common" "12.2.6"
+    "@angular/core" "12.2.6"
+    "@angular/platform-server" "^12.2.6"
+    "@sentry/node" "^5.20.1"
+    asciidoctor "^2.2.5"
+    chalk "^4.1.2"
+    chokidar "^3.5.2"
+    compression "^1.7.4"
+    cors "^2.8.5"
+    express "^4.17.1"
+    front-matter "^4.0.2"
+    fs-extra "^9.0.1"
+    guess-parser "^0.4.19"
+    http-proxy-middleware "^1.0.6"
+    js-yaml "^4.1.0"
+    jsdom "^16.4.0"
+    jsonc "2.0.0"
+    marked "^2.0.0"
+    open "^7.3.0"
+    os "^0.1.1"
+    prismjs "^1.25.0"
+    puppeteer "^10.2.0"
+    rxjs "^7.3.0"
+    selfsigned "^1.10.8"
+    ws "^7.4.0"
+    yamljs "^0.3.0"
+    yargs "^17.2.1"
+    zone.js "0.11.4"
+  optionalDependencies:
+    asciidoctor.js "^1.5.9"
+
+"@scullyio/scully@^2.1.0":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@scullyio/scully/-/scully-2.1.3.tgz#a95ce71660cb8b35c659ec97b5e91bd7765717ff"
+  integrity sha512-pxdXwnCC43VAfbty48VRc/92pVsrQfCVIfGGlC5l/jc8G7FQQx2r7QusmFj8TxI5jxj/gkUSrMxv4OR0WBqIUg==
   dependencies:
     "@angular/common" "12.2.6"
     "@angular/core" "12.2.6"

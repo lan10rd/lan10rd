@@ -9,7 +9,8 @@ import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
 import { AppHttpInterceptor } from './app.http.interceptor'
 import { AppInitService } from './init/init.service';
-import { CommonNgDynamicElementModule } from '@grams/common/ng'
+import { CommonNgDynamicElementModule } from '@grams/common/ng';
+import { ScullyLibModule } from '@scullyio/ng-lib'
 
 @NgModule
 ({
@@ -24,7 +25,8 @@ import { CommonNgDynamicElementModule } from '@grams/common/ng'
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
             registrationStrategy: 'registerWhenStable:30000'
-        })
+        }),
+        ScullyLibModule
     ],
     providers: 
     [

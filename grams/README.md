@@ -388,3 +388,5 @@ nx g @nrwl/angular:app reference-app-ng
 nx g @nrwl/nest:app reference-api-ns
 
 nx g @nrwl/angular:app docs-app-ng
+
+nx g @scullyio/init:install -- --project=docs-app-ng
