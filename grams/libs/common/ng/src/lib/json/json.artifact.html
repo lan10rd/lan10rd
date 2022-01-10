@@ -1,0 +1,269 @@
+<ul
+>
+
+    <div
+    class="flex"
+    style="align-items: center"
+    >
+
+        <common-ng-button-element
+        class="flex fit pt pb glo-0-text-ani"
+        [ngClass]="{'glo-0-shadow': dotdotdot.toggle}"
+        #dotdotdot
+        >
+            <span class="glo-0-text-trim">...</span>
+        </common-ng-button-element>
+
+        <ng-container
+        *ngIf="dotdotdot.toggle"
+        >
+
+            <ng-container
+            [ngSwitch]="type"
+            >
+
+                <ng-container
+                *ngSwitchCase="'obj'"
+                >
+
+                    <common-ng-select-element
+                    class="ib glo-0-text-trim"
+                    [scrollClasses]="'scrollable'"
+                    [options]="['add', 'remove', 'mode']"
+                    #objOptions
+                    ></common-ng-select-element>
+
+                    <ng-container
+                    [ngSwitch]="objOptions._option"
+                    >
+
+                        <ng-container
+                        *ngSwitchCase="'add'"
+                        >
+                            <input #objAddKey placeholder="add key" class="mr">
+                            <textarea #objAddValue placeholder="add value" class="mr"></textarea>
+                            <select #objAddSelect><option value="string" selected>string</option><option value="object">object</option><option value="number">number</option><option value="boolean">boolean</option></select>
+                            <common-ng-button-element
+                            class="p glo-0-text-ani glo-0-text-trim ib"
+                            *ngIf="objAddKey.value.length > 0 && !keys.includes(objAddKey.value)"
+                            (click)="model[objAddKey.value] = json.convert(objAddValue.value, objAddSelect.value); modelChange.emit(model); setup(); objAddKey.value = ''; objAddValue.value = ''; dotdotdot.toggleButton();"
+                            >
+                                add {{objAddKey.value}}
+                            </common-ng-button-element>
+                        </ng-container>
+
+                        <ng-container
+                        *ngSwitchCase="'remove'"
+                        >
+
+                            <input #objRemove placeholder="which key would you like to remove?">
+
+                            <common-ng-button-element
+                            class="p glo-0-text-ani glo-0-text-trim ib"
+                            *ngIf="objRemove.value.length > 0 && keys.includes(objRemove.value)"
+                            (click)="json.removeFromObject(model, objRemove.value); modelChange.emit(model); setup(); objOptions.deselect(); dotdotdot.toggleButton();"
+                            >
+                                remove {{objRemove.value}}
+                            </common-ng-button-element>
+
+                        </ng-container>
+                        
+                        <ng-container
+                        *ngSwitchCase="'mode'"
+                        >
+
+                            <!-- <select
+                            (change)="handleMode(modeSelect.value, key);"
+                            [(ngModel)]="mode"
+                            #modeSelect
+                            >
+                                <option
+                                [ngValue]="'pretty'"
+                                >
+                                    pretty
+                                </option>
+                                <option
+                                [ngValue]="'raw'"
+                                >
+                                    raw
+                                </option>
+                            </select> -->
+
+                        </ng-container>
+
+                    </ng-container>
+
+                </ng-container>
+
+                <ng-container
+                *ngSwitchCase="'arr'"
+                >
+
+                    <common-ng-select-element
+                    class="ib glo-0-text-trim"
+                    [scrollClasses]="'scrollable'"
+                    [options]="['insert', 'remove', 'swap', 'mode']"
+                    #arrOptions
+                    ></common-ng-select-element>
+
+                    <div
+                    [ngSwitch]="arrOptions._option"
+                    >
+
+                        <ng-container
+                        *ngSwitchCase="'insert'"
+                        >
+                            <textarea
+                            #insertTextarea
+                            ></textarea>
+
+                            <div>inserted at position (index): <input min="0" max="{{keys.length}}" step="1" type="number" value="0" #insertIndex></div>
+
+                            <common-ng-button-element
+                            class="bl glo-0-text-ani glo-0-text-trim tcenter"
+                            (click)="model.splice(+insertIndex.value, 0, json.parse(insertTextarea.value)); this.setup()"
+                            >
+                                insert
+                            </common-ng-button-element>
+
+                        </ng-container>
+
+                        <ng-container
+                        *ngSwitchCase="'remove'"
+                        >
+
+                            <div class="ib">remove at position (index): <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #removeIndex></div>
+
+                            <common-ng-button-element
+                            class="ib p glo-0-text-ani glo-0-text-trim tcenter"
+                            (click)="model = json.removeFromArray(model, +removeIndex.value); modelChange.emit(this.model); setup(); arrOptions.deselect(); dotdotdot.toggleButton()"
+                            >
+                                remove
+                            </common-ng-button-element>
+
+                        </ng-container>
+
+                        <ng-container
+                        *ngSwitchCase="'swap'"
+                        >
+                            swap
+                        </ng-container>
+
+                    </div>
+
+                </ng-container>
+
+                <ng-container
+                *ngSwitchDefault
+                >
+                    default
+                </ng-container>
+
+            </ng-container>
+
+        </ng-container>
+
+    </div>
+
+    <ng-container
+    *ngFor="let key of keys; let i=index; trackBy: json.trackBy"
+    >
+
+
+            <li
+            >
+
+                <common-ng-button-element
+                *ngIf="!editing.keys.includes(key)"
+                class="bl glo-0-text-ani fit center glo-0-text-trim"
+                (click)="toggleEditKey(key)"
+                >
+                    {{key}}
+                </common-ng-button-element>
+
+                <!-- <div
+                [ngClass]="{'hover': type === 'obj'}"
+                *ngIf="!editing.keys.includes(key)"
+                (click)="toggleEditKey(key)"
+                (keyup.enter)="toggleEditKey(key)"
+                style="width: fit-content"
+                tabindex="0"
+                >
+                    {{key}} 
+                </div> -->
+
+                <div
+                [ngClass]="{'hidden': !editing.keys.includes(key)}"
+                >
+
+                    <input
+                    class="bl"
+                    #keysi
+                    (focusout)="editing.keys = json.remove(editing.keys, key)"
+                    [ngModel]="keys[i]"
+                    (keyup.enter)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)"
+                    >
+                    
+                    <!-- <select (change)="handleMode(modeSelect.value, key);" #modeSelect>
+                        <option [ngValue]="'pretty'">pretty</option>
+                        <option [ngValue]="'raw'">raw</option>
+                    </select> -->
+
+                    <!-- <button (click)="model[key] = json.parse(editing.values[key])" *ngIf="modeSelect.value === 'raw'">save</button> -->
+
+                    
+                </div>
+
+                <ng-container
+                [ngSwitch]="mode"
+                >
+                
+                    <ng-container
+                    *ngSwitchCase="'pretty'"
+                    >
+                        <ng-container
+                        [ngSwitch]="json.typeOf(model[key])"
+                        >
+
+                            <textarea
+                            *ngSwitchCase="'str'"
+                            [(ngModel)]="model[key]"
+                            ></textarea>
+
+                            <input
+                            *ngSwitchCase="'num'"
+                            [(ngModel)]="model[key]"
+                            type="number"
+                            >
+
+                            <ng-container
+                            *ngSwitchCase="'boo'"
+                            >
+                                {{model[key]}}
+                            </ng-container>
+
+                            <common-ng-json-artifact
+                            *ngSwitchDefault
+                            [(model)]="model[key]"
+                            ></common-ng-json-artifact>
+
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container
+                    *ngSwitchCase="'raw'"
+                    >
+
+                        <textarea
+                        [(ngModel)]="editing.values[key]"
+                        ></textarea>
+
+                    </ng-container>
+
+                </ng-container>
+
+            </li>
+
+    </ng-container>
+
+</ul>

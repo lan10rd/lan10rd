@@ -1,0 +1,5 @@
+nx g @nrwl/angular:lib how/deep/does/this/make
+
+nx g @nrwl/angular:lib how/deep/does/this/make/another
+
+worked?? not sure why didnt need --directory option

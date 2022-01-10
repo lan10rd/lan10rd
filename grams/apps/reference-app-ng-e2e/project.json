@@ -1,0 +1,28 @@
+{
+  "root": "apps/reference-app-ng-e2e",
+  "sourceRoot": "apps/reference-app-ng-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/reference-app-ng-e2e/cypress.json",
+        "devServerTarget": "reference-app-ng:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "reference-app-ng:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/reference-app-ng-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["reference-app-ng"]
+}

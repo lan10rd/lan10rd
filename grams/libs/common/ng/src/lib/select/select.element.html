@@ -1,0 +1,79 @@
+<div
+*ngIf="__options"
+#wrapper
+>
+
+    <common-ng-scroll-element
+    [classes]="scrollClasses"
+    *ngIf="!big"
+    (scroll)="focus(wrapper, scrollElement, $event)"
+    (click)="focus(wrapper, scrollElement, $event, 'click')"
+    (focus)="focus(wrapper,scrollElement, $event)"
+    tabindex="0"
+    #scrollElement
+    >
+
+        <ng-container
+        *ngFor="let opt of __options; let i = index"
+        >
+            <button
+            [class]="buttonClasses"
+            [style]="buttonStyles"
+            [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
+            (click)="$event.stopPropagation(); select(opt)"
+            tabindex="{{trap_focus ? 0 : -1}}"
+            (focus)="buttonFocus(i, $event, button)"
+            (keydown)="cycleButton($event, scrollElement, button)"
+            #button
+            >
+                {{_options[opt]}}
+            </button>
+        </ng-container>
+
+    </common-ng-scroll-element>
+
+    <!-- display: flex; flex-direction: row;  -->
+    <!-- looks like its tricky to actually make this center, was able to target inside and find the .wrapper and position: relative with tcenter and it centers it but then it messes with the scrolling -->
+
+    <cdk-virtual-scroll-viewport
+    *ngIf="big"
+    orientation="horizontal"
+    autosize
+    [ngStyle]="{'height': height}"
+    style="text-align: center; overflow-y: hidden; white-space: no-wrap; overflow-x: auto; white-space: nowrap"
+    (scroll)="focus(wrapper, bigScrollElement, $event)"
+    (click)="focus(wrapper, bigScrollElement, $event, 'click')"
+    (focus)="focus(wrapper, bigScrollElement, $event)"
+    #bigScrollElement
+    tabindex="0"
+    >
+
+        <button
+        *cdkVirtualFor="let opt of __options; let i = index; let last = last;"
+        [class]="buttonClasses"
+        [style]="buttonStyles"
+        [ngClass]="{'glo-0-shadow': toggleable && opt === selected}"
+        (click)="$event.stopPropagation(); select(opt)"
+        tabindex="{{trap_focus ? 0 : -1}}"
+        (focus)="buttonFocus(i, $event, button, true)"
+        (keydown)="cycleButton($event, bigScrollElement, button, true)"
+        #button
+        [attr.x-button-i]="i"
+        >
+            {{_options[opt]}}
+        </button>
+
+    </cdk-virtual-scroll-viewport>
+
+    <div
+    *ngIf="show_search"
+    class="fade flex jcc"
+    >
+        <input
+        class="tcenter bl"
+        [(ngModel)]="search"
+        (ngModelChange)="searchChange.emit(search); filter()"
+        >
+    </div>
+
+</div>

@@ -1,0 +1,10 @@
+{
+    "projects": {
+      "demo-api": {
+        "tags": []
+      },
+      "demo-lib": {
+        "tags": []
+      }
+    }
+}

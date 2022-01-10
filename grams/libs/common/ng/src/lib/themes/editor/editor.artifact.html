@@ -1,0 +1,75 @@
+<common-ng-select-element
+class="glo-0-text-trim bl"
+[options]="themes.themes"
+[initial]="themes.theme_key_index"
+[path]="'theme'"
+(optionChange)="handleThemesChange($event)"
+#themesSelect
+></common-ng-select-element>
+
+<common-ng-scroll-element
+class="glo-0-text-trim bl"
+>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="themes.setTheme(themes_theme_copy)"
+    >
+        apply
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="update(themes_theme_copy)"
+    >
+        update
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="duplicate(themes_theme_copy); themesSelect.cd.detectChanges();"
+    >
+        duplicate
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="remove(themes_theme_copy)"
+    >
+        remove
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="store(themes_theme_copy, true)"
+    >
+        store
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="unstore(themes_theme_copy)"
+    >
+        unstore
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="document.copy(json.stringify(themes_theme_copy))"
+    >
+        copy
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    >
+        paste
+    </common-ng-button-element>
+
+</common-ng-scroll-element>
+
+<common-ng-json-artifact
+class="bl scrollable"
+*ngIf="themes_theme_copy"
+[(model)]="themes_theme_copy"
+></common-ng-json-artifact>

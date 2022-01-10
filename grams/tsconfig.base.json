@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@grams/common/ng": ["libs/common/ng/src/index.ts"],
+      "@grams/common/ns": ["libs/common/ns/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

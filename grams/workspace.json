@@ -1,8 +1,11 @@
 {
   "version": 2,
   "projects": {
+    "common-ng": "libs/common/ng",
+    "common-ns": "libs/common/ns",
     "docs-app-ng": "apps/docs-app-ng",
-    "docs-app-ng-e2e": "apps/docs-app-ng-e2e",
-    "reference-api-ns": "apps/reference-api-ns"
+    "reference-api-ns": "apps/reference-api-ns",
+    "reference-app-ng": "apps/reference-app-ng",
+    "reference-app-ng-e2e": "apps/reference-app-ng-e2e"
   }
 }
