@@ -360,7 +360,7 @@ yarn add \
   yargs \
   minimist \
   colors \
-  ora \
+
   puppeteer \
   marked \
   markdown-it \
@@ -382,6 +382,9 @@ yarn add \
   dom-serializer \
   rewire \
   entities 
+
+### removed dependencies, looks like angular builder needed this but the version that was brought in was complaining about es import syntax or something
+ora 
 
 ## app config and generator commands ran
 nx g @nrwl/angular:app reference-app-ng
