@@ -197,6 +197,9 @@ yarn add \
   @angular/material \
   @angular/service-worker \
   @scullyio/init \
+  @scullyio/scully-plugin-puppeteer \
+  @scullyio/scully \
+  @scullyio/ng-lib \
   @ngrx/store \
   @ngrx/store-devtools \
   @ngrx/effects \
@@ -226,8 +229,15 @@ yarn add \
   tinymce \
   froala-editor
 
-### nestjs goodies and some general utilities
 
+
+### nestjs graphql
+yarn add \
+  @nestjs/graphql \
+  graphql@^15 \
+  apollo-server-express
+
+### nestjs goodies and some general utilities
 yarn add -D \
   @types/bcrypt \
   @types/passport-jwt \

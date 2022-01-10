@@ -3104,7 +3104,7 @@
     rxjs "^7.0.0"
     tslib "^2.2.0"
 
-"@scullyio/ng-lib@^2.1.0":
+"@scullyio/ng-lib@^2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@scullyio/ng-lib/-/ng-lib-2.1.3.tgz#02567b21319c5a8a49fdc9eb186336bc02738d19"
   integrity sha512-Uop8KWD3HbyBKx33AkPTqgSn3UNLbUxWNinpSU6SLJ0qO/Z0uHNxcK8aQfh7YGlVqDMzVFI2D2z+FvPGFqUo7w==
@@ -3118,6 +3118,28 @@
   integrity sha512-pq7fXInxEXS4NV9CgPcOlUgEBqnMO6cLd83agcRB9VpGd6MTAXBChRaYaTYl0qkUdLJhjJTZY9shzI7QcfCYBA==
   dependencies:
     tslib "^2.3.0"
+
+"@scullyio/scully-plugin-puppeteer@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@scullyio/scully-plugin-puppeteer/-/scully-plugin-puppeteer-2.1.3.tgz#74bce048a4dcb6fb7383138e8ade03871e653a9e"
+  integrity sha512-eZ9TvMzATlQmhWYjwSf1dPIMt2scuLEhYgu5+Vh2S1dx+/t5eFsKetekPydcrtFCaR8LWwOkLTQmNqigvOKibQ==
+  dependencies:
+    "@angular/common" "12.2.6"
+    "@angular/core" "12.2.6"
+    "@angular/platform-server" "^12.2.6"
+    "@sentry/node" "^6.12.0"
+    asciidoctor "^2.2.5"
+    chalk "^4.1.2"
+    compression "^1.7.4"
+    cors "^2.8.5"
+    express "4.17.1"
+    js-yaml "^4.1.0"
+    os "^0.1.2"
+    prismjs "^1.25.0"
+    rxjs "^7.3.0"
+    tslib "^1.13.0"
+    ws "^8.2.2"
+    zone.js "0.11.4"
 
 "@scullyio/scully@2.1.2":
   version "2.1.2"
@@ -3155,7 +3177,7 @@
   optionalDependencies:
     asciidoctor.js "^1.5.9"
 
-"@scullyio/scully@^2.1.0":
+"@scullyio/scully@^2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@scullyio/scully/-/scully-2.1.3.tgz#a95ce71660cb8b35c659ec97b5e91bd7765717ff"
   integrity sha512-pxdXwnCC43VAfbty48VRc/92pVsrQfCVIfGGlC5l/jc8G7FQQx2r7QusmFj8TxI5jxj/gkUSrMxv4OR0WBqIUg==
@@ -16592,7 +16614,7 @@ tslib@2.3.1, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.2.0, tslib@^2.3.
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
-tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.10.0, tslib@^1.13.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==

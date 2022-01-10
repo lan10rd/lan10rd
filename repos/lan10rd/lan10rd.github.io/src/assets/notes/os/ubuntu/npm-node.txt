@@ -1,0 +1,6 @@
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt install nodejs
+# To be able to compile native addons from npm you’ll need to install the development tools:
+sudo apt install build-essential
+npm i -g yarn
+npm i -g nx
