@@ -1,10 +1,15 @@
-cd ../lan10rd/grams
+cd ~/lan10rd/grams
 nx build docs-app-ng
-rsync -avhri --delete --progress dist/apps/docs-app-ng/* ../../lan10rd.github.io
-cd ../repos/lan10rd/lan10rd.github.io/src/assets
+cd ~
+git clone https://github.com/lan10rd/lan10rd.github.io
+rm -rf lan10rd.github.io/*
+rsync -avhri --delete --progress dist/apps/docs-app-ng/* ./lan10rd.github.io
+cd ./lan10rd/repos/lan10rd/lan10rd.github.io/src/assets
 python3 index.py
-cd ../../../../../../lan10rd.github.io
-cp ../lan10rd/grams/etc/github/publish.sh .
+cd ~/lan10rd.github.io
 git add .
 git commit -m "publish"
 git push
+cd ~
+rm -rf lan10rd.github.io
+cd lan10rd
