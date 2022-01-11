@@ -34,21 +34,6 @@ export class CommonNgThemesEditorArtifact
         /* get styles */
     }
 
-    duplicate
-    (
-        theme: any
-    )
-    {
-        let copy: any = this.json.copy(theme)
-        copy[this.themes.theme_identifier] += 'copy'
-        let copy_id = copy[this.themes.theme_identifier]
-        if (!(copy_id in this.themes))
-        {
-            this.themes.themes[copy_id] = copy
-            this.themes.setThemes(this.themes.themes)
-        }
-    }
-
     store
     (
         theme: any,
@@ -75,18 +60,6 @@ export class CommonNgThemesEditorArtifact
         this.themes.setStored(stored)
     }
 
-    remove
-    (
-        theme: any
-    )
-    {
-        let theme_key = theme[this.themes.theme_identifier]
-        let themes = this.themes.themes
-        if (theme_key in themes)
-            delete themes[theme_key]
-        this.themes.setThemes(themes)
-    }
-
     update
     (
         theme: any
@@ -103,6 +76,75 @@ export class CommonNgThemesEditorArtifact
     )
     {
         this.themes_theme_copy = this.json.copy(option)
+    }
+
+    async paste
+    (
+    )
+    {
+        this.popop.open
+        (
+            (await import('./paste/paste.popop')).CommonNgThemesEditorPastePopop,
+            (await (await import('./paste/paste.popop.module')).CommonNgThemesEditorPastePopopModule)
+        ).subscribe((data: any) => {
+            if (data?.status?.paste)
+            {
+                let theme = data.status.paste
+                let theme_id = theme[this.themes.theme_identifier]
+                while (theme_id in this.themes.themes)
+                    theme_id += 'copy'
+                theme[this.themes.theme_identifier] = theme_id
+                this.themes.themes[theme_id] = theme
+                this.themes.setThemes(this.themes.themes)
+            }
+        })
+    }
+
+    async remove
+    (
+        theme: any
+    )
+    {
+        this.popop.open
+        (
+            (await import('./paste/paste.popop')).CommonNgThemesEditorPastePopop,
+            (await (await import('./paste/paste.popop.module')).CommonNgThemesEditorPastePopopModule),
+            {
+                theme
+            }
+        ).subscribe((data: any) => {
+            if (data?.status?.remove)
+            {
+                let theme_key = theme[this.themes.theme_identifier]
+                let themes = this.themes.themes
+                if (theme_key in themes)
+                    delete themes[theme_key]
+                this.themes.setThemes(themes)
+            }
+        })
+    }
+
+    async duplicate
+    (
+        theme: any
+    )
+    {
+        let copy: any = this.json.copy(theme)
+        this.popop.open
+        (
+            (await import('./duplicate/duplicate.popop')).CommonNgThemesEditorDuplicatePopop,
+            (await (await import('./duplicate/duplicate.popop.module')).CommonNgThemesEditorDuplicatePopopModule),
+            {
+                theme: copy
+            }
+        ).subscribe((data: any) => {
+            if (data?.status?.key && (!(data.status.key in this.themes.themes)))
+            {
+                copy[this.themes.theme_identifier] = data.status.key
+                this.themes.themes[data.status.key] = copy
+                this.themes.setThemes(this.themes.themes)
+            }
+        })
     }
 
 }

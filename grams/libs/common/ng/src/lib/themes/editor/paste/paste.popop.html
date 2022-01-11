@@ -1,0 +1,19 @@
+<div
+class="tcenter mt"
+>
+
+    <textarea
+    class="auto"
+    #textArea
+    placeholder="Please paste the theme you would like to load."
+    (change)="val = json.parse(textArea.value)"
+    ></textarea>
+
+    <common-ng-button-element
+    class="p glo-0-text-ani bl"
+    (click)="popop.close({paste: val})"
+    >
+        paste (load)
+    </common-ng-button-element>
+
+</div>

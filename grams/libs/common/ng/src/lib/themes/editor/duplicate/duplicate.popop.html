@@ -1,0 +1,21 @@
+<div
+class="tcenter mt"
+>
+
+    <input
+    class="auto"
+    #duplicateInput
+    [(ngModel)]="key"
+    placeholder="Pick a new id for the duplicate."
+    (change)="isUnique()"
+    >
+
+    <common-ng-button-element
+    *ngIf="unique"
+    class="p glo-0-text-ani bl"
+    (click)="duplicate()"
+    >
+        duplicate
+    </common-ng-button-element>
+
+</div>

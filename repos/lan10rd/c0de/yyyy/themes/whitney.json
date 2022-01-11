@@ -550,7 +550,7 @@
 		{
 			"scope": "string",
 			"settings": {
-				"foreground": "#7256da"
+				"foreground": "#87d7ff"
 			}
 		},
 		{
@@ -568,7 +568,7 @@
 		{
 			"scope": "keyword",
 			"settings": {
-				"foreground": "#a4d000"
+				"foreground": "#63f0d8"
 			}
 		},
 		{

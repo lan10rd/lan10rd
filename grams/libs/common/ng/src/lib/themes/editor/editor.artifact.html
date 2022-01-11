@@ -55,13 +55,14 @@ class="glo-0-text-trim bl"
 
     <common-ng-button-element
     class="ib p glo-0-text-ani"
-    (click)="document.copy(json.stringify(themes_theme_copy))"
+    (click)="document.copy(json.stringify(themes_theme_copy, 4)); themesSelect.cd.detectChanges();"
     >
         copy
     </common-ng-button-element>
 
     <common-ng-button-element
     class="ib p glo-0-text-ani"
+    (click)="paste()"
     >
         paste
     </common-ng-button-element>
