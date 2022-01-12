@@ -435,7 +435,7 @@ html { box-sizing: border-box; }
 .column { flex-direction: column;}
 .jcc { justify-content: center; }
 .max-height-100vh {max-height: 100vh;}
-
+.pre-line {white-space: pre-line;}
 
 pre {
     overflow-wrap: break-word;

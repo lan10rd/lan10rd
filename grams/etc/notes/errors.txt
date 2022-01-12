@@ -1,0 +1,10 @@
+1/11/2021
+
+got a compile warning in a common ng library,
+
+✔ Compiling with Angular sources in Ivy partial compilation mode.
+✖ Generating FESM2020
+Invalid value for option "output.file" - when building multiple chunks, the "output.dir" option must be used, not "output.file". To inline dynamic imports, set the "inlineDynamicImports" option.
+
+The solution seemed to indicate a change to tsconfig which I don't like doing, but it looks like the real fix was just adding the affected files (dynamically imported ones), to index.ts so it's available in the manifest?
+

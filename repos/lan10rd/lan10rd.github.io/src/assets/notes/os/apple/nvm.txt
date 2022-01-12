@@ -1,0 +1,22 @@
+# install homebrew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
+
+# uninstall node
+brew uninstall --ignore-dependencies node 
+brew uninstall --force node 
+
+brew update 
+brew install nvm 
+mkdir ~/.nvm 
+
+# add to .zshrc or .bash_profile
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
+source ~/.zshrc # or .bash_profile
+
+nvm install node
+nvm install 14.17.0
+nvm use 14.17.0
+
+nvm ls
