@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/docs-app-ng",
         "index": "apps/docs-app-ng/src/index.html",
@@ -19,7 +21,9 @@
           "apps/docs-app-ng/src/assets",
           "apps/docs-app-ng/src/manifest.webmanifest"
         ],
-        "styles": ["apps/docs-app-ng/src/styles.scss"],
+        "styles": [
+          "apps/docs-app-ng/src/styles.scss"
+        ],
         "scripts": [],
         "serviceWorker": true,
         "ngswConfigPath": "apps/docs-app-ng/ngsw-config.json"
@@ -86,7 +90,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/docs-app-ng"],
+      "outputs": [
+        "coverage/apps/docs-app-ng"
+      ],
       "options": {
         "jestConfig": "apps/docs-app-ng/jest.config.js",
         "passWithNoTests": true

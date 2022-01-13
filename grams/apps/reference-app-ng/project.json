@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/reference-app-ng",
         "index": "apps/reference-app-ng/src/index.html",
@@ -16,10 +18,15 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/reference-app-ng/src/favicon.ico",
-          "apps/reference-app-ng/src/assets"
+          "apps/reference-app-ng/src/assets",
+          "apps/reference-app-ng/src/manifest.webmanifest"
         ],
-        "styles": ["apps/reference-app-ng/src/styles.scss"],
-        "scripts": []
+        "styles": [
+          "apps/reference-app-ng/src/styles.scss"
+        ],
+        "scripts": [],
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/reference-app-ng/ngsw-config.json"
       },
       "configurations": {
         "production": {
@@ -83,7 +90,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/reference-app-ng"],
+      "outputs": [
+        "coverage/apps/reference-app-ng"
+      ],
       "options": {
         "jestConfig": "apps/reference-app-ng/jest.config.js",
         "passWithNoTests": true

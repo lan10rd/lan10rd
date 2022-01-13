@@ -5,25 +5,35 @@
   "targets": {
     "build": {
       "executor": "@nrwl/node:package",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/common/ns",
         "tsConfig": "libs/common/ns/tsconfig.lib.json",
         "packageJson": "libs/common/ns/package.json",
         "main": "libs/common/ns/src/index.ts",
-        "assets": ["libs/common/ns/*.md"]
+        "assets": [
+          "libs/common/ns/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/common/ns/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/common/ns/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/common/ns"],
+      "outputs": [
+        "coverage/libs/common/ns"
+      ],
       "options": {
         "jestConfig": "libs/common/ns/jest.config.js",
         "passWithNoTests": true

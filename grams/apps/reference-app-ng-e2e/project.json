@@ -17,12 +17,18 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/reference-app-ng-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": [
+          "apps/reference-app-ng-e2e/**/*.{js,ts}"
+        ]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["reference-app-ng"]
+  "implicitDependencies": [
+    "reference-app-ng"
+  ]
 }
