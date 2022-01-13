@@ -8,6 +8,7 @@ class="tcenter mt"
     [(ngModel)]="key"
     placeholder="Pick a new id for the duplicate."
     (change)="isUnique()"
+    (keyup)="isUnique()"
     >
 
     <common-ng-button-element

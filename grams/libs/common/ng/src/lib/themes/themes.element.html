@@ -1,25 +1,26 @@
 <ng-container
 *ngFor="let renderer of $any(themes.materials | keyvalue)"
 >
-
     <ng-container
     *ngFor="let item of $any(renderer.value | keyvalue)"
     >
-            
         <common-ng-dynamic-element
         *ngIf="item.value.enabled && item.value.imported"
         [component]="item.value.component"
         [module]="item.value.module"
         [data]="item.value.data"
         ></common-ng-dynamic-element>
-
     </ng-container>
-    
 </ng-container>
 
 <div
-*ngIf="themes?.theme?.innerHTML"
-[innerHTML]="themes.theme.innerHTML | sanitizer:'html'"
+*ngIf="themes?.theme?.safeHTML?.length > 0"
+[innerHTML]="themes.theme.safeHTML"
+></div>
+
+<div
+*ngIf="themes?.theme?.unsafeHTML?.length > 0"
+[innerHTML]="themes.theme.unsafeHTML | sanitizer:'html'"
 ></div>
 
 <ng-container
@@ -27,6 +28,6 @@
 >
     <iframe
     *ngFor="let frame of themes.theme.iframes"
-    [src]="frame.src | sanitizer:'resourceUrl'"
+    [src]="frame | sanitizer:'resourceUrl'"
     ></iframe>
 </ng-container>

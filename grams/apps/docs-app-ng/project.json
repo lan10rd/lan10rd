@@ -16,10 +16,13 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/docs-app-ng/src/favicon.ico",
-          "apps/docs-app-ng/src/assets"
+          "apps/docs-app-ng/src/assets",
+          "apps/docs-app-ng/src/manifest.webmanifest"
         ],
         "styles": ["apps/docs-app-ng/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/docs-app-ng/ngsw-config.json"
       },
       "configurations": {
         "production": {

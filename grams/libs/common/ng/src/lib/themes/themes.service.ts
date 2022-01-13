@@ -222,10 +222,17 @@ export class CommonNgThemesService
             // this.css.addClasses(this.app?.components[0]?.injector.get(ElementRef).nativeElement, theme.addClasses.app)
         }
 
-
-
         /* styles */
+        if (current?.styles?.app)
+        {
+
+        }
         if (theme?.styles?.app)
+        {
+
+        }
+
+        if (current?.styles?.body)
         {
 
         }
@@ -233,6 +240,7 @@ export class CommonNgThemesService
         {
 
         }
+
 
         // if (current?.addStyles?.app)
         //     this.css.unApplyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, current.addStyles.app)
@@ -245,20 +253,23 @@ export class CommonNgThemesService
             this.css.applyStyles(this.document.document.body, theme.addStyles.body)
 
 
-        if (current?.materials)
-        {
+        /* inner html's just take care of themselves in the theme element */
 
-        }
-        if (theme?.materials)
+        /* supported materials */
+        if (current?.materials)
         {
             for (let renderer of Object.keys(this.materials))
                 for (let material of Object.keys(this.materials[renderer]))
                     this.disable(material, renderer)
+        }
+        if (theme?.materials)
+        {
             for (let renderer of Object.keys(theme.materials))
                 for (let material of Object.keys(theme.materials[renderer]))
                     this.enable(material, renderer, theme.materials[renderer][material])
         }
 
+        /* stylesheets */
         if (current?.stylesheets)
         {
             for (let sheet_key of Object.keys(current.stylesheets))
@@ -283,9 +294,13 @@ export class CommonNgThemesService
                 {
                     /* add sheet with link and id as sheet_key */
                 }
-                else
+                else if (sheet.length === 0)
                 {
                     this.css.addGlobal(this.defaultGlobalStyles(), 'ThemesService:' + sheet_key)
+                }
+                else
+                {
+                    this.css.addGlobal(sheet, 'ThemesService:' + sheet_key)
                 }
             }
         }
@@ -347,7 +362,9 @@ export class CommonNgThemesService
             "stylesheets": {
                 "default": ""
             },
-            "iframes": []
+            "iframes": [],
+            "safeHTML": "",
+            "unsafeHTML": ""
         }
     }
 
