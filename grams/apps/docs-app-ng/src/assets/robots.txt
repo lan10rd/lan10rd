@@ -1,3 +1,0 @@
-Sitemap: https://lan10rd.github.io/sitemap.xml
-User-agent: *
-Disallow:

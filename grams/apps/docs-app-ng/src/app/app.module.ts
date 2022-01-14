@@ -18,7 +18,7 @@ import { ScullyLibModule } from '@scullyio/ng-lib'
     [
         BrowserModule,
         BrowserAnimationsModule,
-        RouterModule.forRoot([], {useHash: true}),
+        RouterModule.forRoot([], {useHash: false}),
         HttpClientModule,
         HttpClientXsrfModule,
         CommonNgDynamicElementModule,

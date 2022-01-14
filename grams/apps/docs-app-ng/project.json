@@ -19,7 +19,9 @@
         "assets": [
           "apps/docs-app-ng/src/favicon.ico",
           "apps/docs-app-ng/src/assets",
-          "apps/docs-app-ng/src/manifest.webmanifest"
+          "apps/docs-app-ng/src/manifest.webmanifest",
+          "apps/docs-app-ng/src/robots.txt",
+          "apps/docs-app-ng/src/404.html"
         ],
         "styles": [
           "apps/docs-app-ng/src/styles.scss"
