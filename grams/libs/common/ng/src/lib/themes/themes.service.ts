@@ -513,7 +513,7 @@ textarea {
     font-family: trebuchet ms;
 }
 .glo-0-back {
-    background-color: purple;
+    background-color: rgba(0, 0, 0, 1);
 }
 .glo-0-shadow {
     filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1)) drop-shadow(0 0 5px rgba(255, 255, 255, 1));
@@ -577,6 +577,7 @@ textarea {
 *:not(:focus):not(:hover) { scrollbar-width: none; }
 *:not(:focus):not(:hover)::-webkit-scrollbar { width: 0px; height: 0px; }
 *:focus{ outline: inherit !important; }
+
         `
 
         // for glo-0-drop, removed border, also idea for how to achieve effect in firefox, though with svg element, is there inline styles with svg background?

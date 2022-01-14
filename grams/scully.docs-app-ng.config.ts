@@ -11,9 +11,9 @@ export const config: ScullyConfig = {
   routes: {
   },
   extraRoutes: [
-    '/#/notes',
-    '/#/readme',
-    '/#/showcase',
-    '/#/play'
+    '/notes',
+    '/readme',
+    '/showcase',
+    '/play'
   ]
 };

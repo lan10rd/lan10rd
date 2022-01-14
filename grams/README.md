@@ -391,7 +391,8 @@ yarn add \
   cheerio \
   dom-serializer \
   rewire \
-  entities 
+  entities \
+  sitemap
 
 ### removed dependencies, looks like angular builder needed this but the version that was brought in was complaining about es import syntax or something
 ora 

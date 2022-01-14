@@ -75,7 +75,6 @@ export class CommonNgThemesEditorArtifact
         option: any
     )
     {
-        console.log('making a copy')
         this.themes_theme_copy = this.json.copy(option)
     }
 
