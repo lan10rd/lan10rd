@@ -4,7 +4,7 @@ npx scully --removeStaticDist --project docs-app-ng --stats --no-prompt
 cd ~
 git clone https://github.com/lan10rd/lan10rd.github.io
 rm -rf lan10rd.github.io/*
-rsync -avhri --delete --progress ~/lan10rd/grams/dist/apps/docs-app-ng/* ~/lan10rd.github.io
+rsync -avhri --delete --progress ~/lan10rd/grams/dist/static/* ~/lan10rd.github.io
 cd ./lan10rd/repos/lan10rd/lan10rd.github.io/src/assets
 python3 index.py
 cd ~/lan10rd.github.io
