@@ -8,3 +8,14 @@ iframe {
     outline: none;
     border: none;
 }
+
+::ng-deep iframe {
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+    border: none;
+}

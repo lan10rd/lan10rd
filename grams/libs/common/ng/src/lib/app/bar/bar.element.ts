@@ -32,31 +32,35 @@ export class CommonNgAppBarElement
     {
         let current_height = this.ref.nativeElement.offsetHeight
         this.styles.applyStyles(this.styles.document.document.documentElement, {['padding-top']: current_height + 'px'})
-        this.listener$ = fromEvent(window, 'scroll').pipe(
+        window.addEventListener('scroll', $event => {
+        // this.listener$ = fromEvent(window, 'scroll').pipe(
             // debounceTime(500)
-        ).subscribe($event => {
-        // window.addEventListener('scroll', $event => {
-            let current_pos = window.pageYOffset
-            let current_height = this.ref.nativeElement.offsetHeight
-            
-            // this.ref.nativeElement.style.top = this.scrollPos > current_pos ? '0' : '-' + current_height + 'px' 
-            // this.scrollPos = current_pos
-            // this.styles.applyStyles(this.styles.document.document.documentElement, {['padding-top']: current_height + 'px'})
+        // ).subscribe($event => {
+            setTimeout(() => {
+                // window.addEventListener('scroll', $event => {
+                let current_pos = window.pageYOffset
+                let current_height = this.ref.nativeElement.offsetHeight
+                
+                // this.ref.nativeElement.style.top = this.scrollPos > current_pos ? '0' : '-' + current_height + 'px' 
+                // this.scrollPos = current_pos
+                // this.styles.applyStyles(this.styles.document.document.documentElement, {['padding-top']: current_height + 'px'})
 
-            if (this.handleScroll) // introduced this because scroll chaining on ios, doesnt listen overflow contain so when it hits the bottom of whatever is shown it starts scrolling the body underneath
-            {
-                if (this.scrollPos > current_pos || this.styles.document.document.documentElement.scrollTop === 0)
+                if (this.handleScroll) // introduced this because scroll chaining on ios, doesnt listen overflow contain so when it hits the bottom of whatever is shown it starts scrolling the body underneath
                 {
-                    this.ref.nativeElement.style.top = '0'
+                    if (this.scrollPos > current_pos || this.styles.document.document.documentElement.scrollTop === 0)
+                    {
+                        this.ref.nativeElement.style.top = '0'
+                    }
+                    else
+                    {
+                        this.ref.nativeElement.style.top = `-${current_height}px`
+                    }
                 }
-                else
-                {
-                    this.ref.nativeElement.style.top = `-${current_height}px`
-                }
-            }
-            
+                
 
-            this.scrollPos = current_pos
+                this.scrollPos = current_pos
+            }, 0)
+        
         })
     }
 

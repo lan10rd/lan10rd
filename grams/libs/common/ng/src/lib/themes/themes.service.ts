@@ -363,6 +363,7 @@ export class CommonNgThemesService
                 "default": ""
             },
             "iframes": [],
+            "frames": [],
             "safeHTML": "",
             "unsafeHTML": ""
         }

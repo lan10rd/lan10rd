@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router'
 
 import { ShowcaseFeature } from './showcase.feature'
 
+import { CommonNgFrameElementModule, CommonNgCodeEditorElementModule, CommonNgCodeDiffElementModule } from '@grams/common/ng'
+
 @NgModule
 ({
     imports:
@@ -23,7 +25,10 @@ import { ShowcaseFeature } from './showcase.feature'
                     }
                 }
             }
-        }])
+        }]),
+        CommonNgFrameElementModule,
+        CommonNgCodeEditorElementModule,
+        CommonNgCodeDiffElementModule
     ],
     declarations:
     [

@@ -31,3 +31,13 @@
     [src]="frame | sanitizer:'resourceUrl'"
     ></iframe>
 </ng-container>
+
+<ng-container
+*ngIf="themes?.theme?.frames"
+>
+    <common-ng-frame-element
+    *ngFor="let frame of themes.theme.frames"
+    [src]="frame.src"
+    [snippet]="frame.snippet"
+    ></common-ng-frame-element>
+</ng-container>
