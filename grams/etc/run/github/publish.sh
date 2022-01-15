@@ -13,7 +13,7 @@ git commit -m "publish"
 git push
 cd ~
 rm -rf lan10rd.github.io
-cd lan10rd
+cd ~/lan10rd
 git add .
 git commit -m "publishing github" -n
 git push

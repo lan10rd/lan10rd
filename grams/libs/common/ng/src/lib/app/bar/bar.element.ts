@@ -32,12 +32,11 @@ export class CommonNgAppBarElement
     {
         let current_height = this.ref.nativeElement.offsetHeight
         this.styles.applyStyles(this.styles.document.document.documentElement, {['padding-top']: current_height + 'px'})
-        window.addEventListener('scroll', $event => {
-        // this.listener$ = fromEvent(window, 'scroll').pipe(
+        // window.addEventListener('scroll', $event => {
+        this.listener$ = fromEvent(window, 'scroll').pipe(
             // debounceTime(500)
-        // ).subscribe($event => {
-            setTimeout(() => {
-                // window.addEventListener('scroll', $event => {
+        ).subscribe($event => {
+            // setTimeout(() => {
                 let current_pos = window.pageYOffset
                 let current_height = this.ref.nativeElement.offsetHeight
                 
@@ -59,7 +58,7 @@ export class CommonNgAppBarElement
                 
 
                 this.scrollPos = current_pos
-            }, 0)
+            // }, 0)
         
         })
     }
