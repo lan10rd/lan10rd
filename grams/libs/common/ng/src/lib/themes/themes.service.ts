@@ -575,8 +575,9 @@ textarea {
 /*
 .auto-hide-scroll:not(:focus):not(:hover) { overflow: hidden; }
 */
-*:not(:focus):not(:hover) { scrollbar-width: none; }
-*:not(:focus):not(:hover)::-webkit-scrollbar { width: 0px; height: 0px; }
+
+*:not(:focus):not(:hover):not(body) { scrollbar-width: none; }
+*:not(:focus):not(:hover):not(body)::-webkit-scrollbar { width: 0px; height: 0px; }
 *:focus{ outline: inherit !important; }
 
         `
