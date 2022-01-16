@@ -576,8 +576,10 @@ textarea {
 .auto-hide-scroll:not(:focus):not(:hover) { overflow: hidden; }
 */
 
+/* had to to add not body because the scrollbar would kinda flicker on windows when trying to scroll the body, i guess the scrollbar isnt considered part of it */
 *:not(:focus):not(:hover):not(body) { scrollbar-width: none; }
 *:not(:focus):not(:hover):not(body)::-webkit-scrollbar { width: 0px; height: 0px; }
+
 *:focus{ outline: inherit !important; }
 
         `
