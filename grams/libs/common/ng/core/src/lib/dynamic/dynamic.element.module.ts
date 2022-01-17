@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { CommonNgDynamicElement } from './dynamic.element'
-import { CommonNgDynamicDirective } from './dynamic.directive'
+import { CommonNgCoreDynamicElement } from './dynamic.element'
+import { CommonNgCoreDynamicDirective } from './dynamic.directive'
 
 @NgModule
 ({
@@ -12,20 +12,20 @@ import { CommonNgDynamicDirective } from './dynamic.directive'
     ],
     declarations: 
     [
-        CommonNgDynamicElement,
-        CommonNgDynamicDirective
+        CommonNgCoreDynamicElement,
+        CommonNgCoreDynamicDirective
     ],
     exports: 
     [
-        CommonNgDynamicElement,
-        CommonNgDynamicDirective
+        CommonNgCoreDynamicElement,
+        CommonNgCoreDynamicDirective
     ],
     providers: 
     [
 
     ]
 }) 
-export class CommonNgDynamicElementModule
+export class CommonNgCoreDynamicElementModule
 {
     
 }

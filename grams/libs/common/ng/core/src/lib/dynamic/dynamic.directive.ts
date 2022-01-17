@@ -4,7 +4,7 @@ import { Directive, ViewContainerRef } from '@angular/core'
 ({
     selector: '[dynamic-host]'
 })
-export class CommonNgDynamicDirective 
+export class CommonNgCoreDynamicDirective 
 {
 
     constructor

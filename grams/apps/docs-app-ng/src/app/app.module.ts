@@ -10,7 +10,7 @@ import { AppComponent } from './app.component'
 import { AppHttpInterceptor } from './app.http.interceptor'
 import { AppInitService } from './init/init.service';
 
-import { CommonNgDynamicElementModule } from '@grams/common/ng/core'
+import { CommonNgCoreDynamicElementModule } from '@grams/common/ng/core'
 
 import { ScullyLibModule } from '@scullyio/ng-lib'
 
@@ -23,7 +23,7 @@ import { ScullyLibModule } from '@scullyio/ng-lib'
         RouterModule.forRoot([], {useHash: false}),
         HttpClientModule,
         HttpClientXsrfModule,
-        CommonNgDynamicElementModule,
+        CommonNgCoreDynamicElementModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
             registrationStrategy: 'registerWhenStable:30000'

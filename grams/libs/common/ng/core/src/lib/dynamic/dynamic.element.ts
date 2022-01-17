@@ -15,16 +15,16 @@ import {
     // ɵLifecycleHooksFeature as LifecycleHooksFeature,
     ViewContainerRef,
 } from '@angular/core'
-import { CommonNgDynamicDirective } from './dynamic.directive'
+import { CommonNgCoreDynamicDirective } from './dynamic.directive'
 
 // import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal'
 
 @Component
 ({
-    selector: 'common-ng-dynamic-element',
+    selector: 'common-ng-core-dynamic-element',
     template: `<ng-template dynamic-host></ng-template><ng-content></ng-content><ng-container #containerHost></ng-container>` // <ng-content></ng-content>
 })
-export class CommonNgDynamicElement
+export class CommonNgCoreDynamicElement
 {
     
     @Input() module: any
@@ -33,7 +33,7 @@ export class CommonNgDynamicElement
 
     @Output() load: any = new EventEmitter()
 
-    @ViewChild(CommonNgDynamicDirective, {static: true}) host: CommonNgDynamicDirective | any
+    @ViewChild(CommonNgCoreDynamicDirective, {static: true}) host: CommonNgCoreDynamicDirective | any
     @ViewChild('containerHost', { read: ViewContainerRef, static: true }) public containerHost: ViewContainerRef | any
 
     compRef: any
