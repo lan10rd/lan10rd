@@ -46,14 +46,16 @@ export class CommonNgAppBarElement
 
                 if (this.handleScroll) // introduced this because scroll chaining on ios, doesnt listen overflow contain so when it hits the bottom of whatever is shown it starts scrolling the body underneath
                 {
-                    if (this.scrollPos > current_pos || this.styles.document.document.documentElement.scrollTop === 0)
-                    {
-                        this.ref.nativeElement.style.top = '0'
-                    }
-                    else
-                    {
-                        this.ref.nativeElement.style.top = `-${current_height}px`
-                    }
+                    // requestAnimationFrame(() => {
+                        if (this.scrollPos > current_pos || this.styles.document.document.documentElement.scrollTop === 0)
+                        {
+                            this.ref.nativeElement.style.top = '0'
+                        }
+                        else
+                        {
+                            this.ref.nativeElement.style.top = `-${current_height}px`
+                        }
+                    // })
                 }
                 
 
