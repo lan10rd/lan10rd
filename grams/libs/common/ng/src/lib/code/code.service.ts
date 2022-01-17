@@ -218,9 +218,79 @@ export class CommonNgCodeService
     }
 
     customTheme : any
-    light : string = 'celeste'
-    dark : string = 'celeste_dark'
+    light : string = 'whitney'
+    dark : string = 'whitneyyyy'
     themes: any = {
+        whitney : {
+            name: 'whitney',
+            options: {
+                base: "vs",
+                inherit: true,
+                rules: [
+                    { token: '', foreground: '8866cc' },
+                    { token: 'variable', foreground: '8866cc' },
+                    { token: 'variable.predefined', foreground: '8866cc' },
+                    { token: 'variable.parameter', foreground: '8866cc' },
+                    { token: 'tag', foreground: '228EC3' },
+                    { token: 'tag.id.jade', foreground: '22C3A8' },
+                    { token: 'attribute.name', foreground: '22C3A8' },
+                    { token: 'invalid', foreground: '2E1536' },
+                    { token: 'comment', foreground: '888888' },
+                    { token: 'number', foreground: 'E46767' },
+                    { token: 'number.hex', foreground: 'E46767' },
+                    { token: 'attribute.value', foreground: '957350' },
+                    { token: 'attribute.value.number', foreground: '957350' },
+                    { token: 'attribute.value.unit', foreground: '957350' },
+                    { token: 'attribute.value.html', foreground: '957350' },
+                    { token: 'attribute.value.xml', foreground: '957350' },
+                    { token: 'string', foreground: '957350' },
+                    { token: 'keyword', foreground: '22c3a8' },
+                    { token: 'keyword.json', foreground: '22c3a8' },
+                    { token: 'keyword.flow', foreground: '22c3a8' },
+                    { token: 'keyword.flow.scss', foreground: '22c3a8' },
+                    { token: 'emphasis', fontStyle: 'italic' },
+                    { token: 'strong', fontStyle: 'bold' },
+                    { token: 'metatag', foreground: '22C3A8' },
+                    { token: 'metatag.content.html', foreground: '22C3A8' },
+                    { token: 'metatag.html', foreground: '22C3A8' },
+                    { token: 'metatag.xml', foreground: '22C3A8' },
+                    { token: 'metatag.php', fontStyle: 'bold' },
+                    { token: 'type', foreground: 'f58a3d' },
+                    { token: 'delimiter', foreground: '228ec3' },
+                    { token: 'delimiter.html', foreground: '228ec3' },
+                    { token: 'delimiter.xml', foreground: '228ec3' },
+                    { token: 'constant', foreground: '8866CC' },
+                    { token: 'regexp', foreground: '8866CC' },
+                    { token: 'annotation', foreground: '8866CC' },
+                    { token: 'tag.class.jade', foreground: '8866CC' },
+                    { token: 'meta.scss', foreground: '8866CC' },
+                    { token: 'key', foreground: '8866CC' },
+                    { token: 'string.key.json', foreground: '8866CC' },
+                    { token: 'string.value.json', foreground: '0451A5' },
+                    { token: 'string.html', foreground: '8866CC' },
+                    { token: 'string.sql', foreground: '8866CC' },
+                    { token: 'string.yaml', foreground: '8866CC' },
+                    { token: 'operator.scss', foreground: '8866CC' },
+                    { token: 'operator.sql', foreground: '8866CC' },
+                    { token: 'operator.swift', foreground: '8866CC' },
+                    { token: 'predefined.sql', foreground: '8866CC' },
+                ],
+                "colors": {
+                    "activityBar.background": "#f7f7f7",
+                    "activityBar.foreground": "#7e7e7e",
+                    "editor.background": "#ffffff",
+                    "editor.foreground": "#228ec3",
+                    "editor.lineHighlightBackground": "#ffffff",
+                    "editor.selectionBackground": "#ff4d97",
+                    "editorCursor.foreground": "#ff4d97",
+                    "editorWhitespace.foreground": "#3b3a32",
+                    "sideBar.background": "#f7f7f7",
+                    "sideBar.foreground": "#7e7e7e",
+                    "editorIndentGuide.activeBackground": "#888888",
+                        "editorIndentGuide.background": "#f7f7f7",
+                }
+            }
+        },
         celeste : {
             name: 'celeste',
             options: {
@@ -291,7 +361,7 @@ export class CommonNgCodeService
                 }
             }
         },
-        celeste_night : {
+        whitneyyyy : {
             name: 'celeste-night',
             options: {
                 base: "vs-dark",

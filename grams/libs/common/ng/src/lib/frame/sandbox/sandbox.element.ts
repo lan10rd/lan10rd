@@ -14,6 +14,11 @@ style="background:white; height: 100%;"
 >
     hello world!
 </div>
+<style>
+html, body {
+    margin: 0
+}
+</style>
 `    
     @Output() snippetChange : any = new EventEmitter()
 

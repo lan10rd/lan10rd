@@ -1,8 +1,10 @@
 import { Injectable, Inject } from '@angular/core'
-import { Router } from '@angular/router'
-import { HttpClient } from '@angular/common/http'
+// import { Router } from '@angular/router'
+// import { HttpClient } from '@angular/common/http'
 // import { CommonNgCookieService } from '@grams/common/ng'
-import { CommonNgUtilityService, CommonNgThemesService, CommonNgPopopService } from '@grams/common/ng'
+import { CommonNgUtilityService, 
+    // CommonNgThemesService, 
+    CommonNgPopopService } from '@grams/common/ng'
 
 @Injectable
 ({
@@ -17,7 +19,7 @@ export class AppInitService
     (
         @Inject('API') public api: string,
         public util: CommonNgUtilityService,
-        public themes : CommonNgThemesService,
+        // public themes : CommonNgThemesService,
         public popop : CommonNgPopopService,
     )
     {
@@ -30,7 +32,7 @@ export class AppInitService
     {
         // this.xsrf()
         this.util.router.router.resetConfig((await import('../app.routes')).routes)
-        this.util.services.themes = this.themes
+        // this.util.services.themes = this.themes
         this.util.services.popop = this.popop
         this.util.streams.change('api', this.api)
         this.util.data.config = {
