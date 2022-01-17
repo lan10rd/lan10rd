@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "libs/common/ng/core",
+  "sourceRoot": "libs/common/ng/core/src",
+  "prefix": "grams",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/common/ng/core"],
+      "options": {
+        "project": "libs/common/ng/core/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/common/ng/core/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/common/ng/core/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/common/ng/core"],
+      "options": {
+        "jestConfig": "libs/common/ng/core/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/common/ng/core/src/**/*.ts",
+          "libs/common/ng/core/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

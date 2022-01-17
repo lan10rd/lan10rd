@@ -3,7 +3,13 @@ import { CommonModule } from '@angular/common'
 
 import { AppBarLeftElement } from './left.element'
 
-import { CommonNgSelectElementModule, CommonNgRouterElementModule, CommonNgButtonElementModule, CommonNgFrameSandboxElementModule } from '@grams/common/ng'
+import
+{
+    CommonNgSelectElementModule,
+    CommonNgRouterElementModule,
+    CommonNgButtonElementModule,
+    CommonNgFrameSandboxElementModule
+} from '@grams/common/ng'
 
 @NgModule
 ({

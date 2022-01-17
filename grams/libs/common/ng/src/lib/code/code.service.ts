@@ -129,7 +129,7 @@ export class CommonNgCodeService
     )
     {
         if (this.customTheme) this.setTheme(this.customTheme.name, this.customTheme.options)
-        else this.setTheme(this.themes.celeste.name, this.themes.celeste.options)
+        else this.setTheme(this.themes.whitney.name, this.themes.whitney.options)
     }
 
     language
@@ -227,15 +227,15 @@ export class CommonNgCodeService
                 base: "vs",
                 inherit: true,
                 rules: [
-                    { token: '', foreground: '8866cc' },
-                    { token: 'variable', foreground: '8866cc' },
-                    { token: 'variable.predefined', foreground: '8866cc' },
-                    { token: 'variable.parameter', foreground: '8866cc' },
+                    { token: '', foreground: 'ff42bd' },
+                    { token: 'variable', foreground: 'ff42bd' },
+                    { token: 'variable.predefined', foreground: 'ff42bd' },
+                    { token: 'variable.parameter', foreground: 'ff42bd' },
                     { token: 'tag', foreground: '228EC3' },
                     { token: 'tag.id.jade', foreground: '22C3A8' },
                     { token: 'attribute.name', foreground: '22C3A8' },
                     { token: 'invalid', foreground: '2E1536' },
-                    { token: 'comment', foreground: '888888' },
+                    { token: 'comment', foreground: 'b897bc' },
                     { token: 'number', foreground: 'E46767' },
                     { token: 'number.hex', foreground: 'E46767' },
                     { token: 'attribute.value', foreground: '957350' },
@@ -243,11 +243,11 @@ export class CommonNgCodeService
                     { token: 'attribute.value.unit', foreground: '957350' },
                     { token: 'attribute.value.html', foreground: '957350' },
                     { token: 'attribute.value.xml', foreground: '957350' },
-                    { token: 'string', foreground: '957350' },
-                    { token: 'keyword', foreground: '22c3a8' },
-                    { token: 'keyword.json', foreground: '22c3a8' },
-                    { token: 'keyword.flow', foreground: '22c3a8' },
-                    { token: 'keyword.flow.scss', foreground: '22c3a8' },
+                    { token: 'string', foreground: '87d7ff' },
+                    { token: 'keyword', foreground: '63f0d8' },
+                    { token: 'keyword.json', foreground: '63f0d8' },
+                    { token: 'keyword.flow', foreground: '63f0d8' },
+                    { token: 'keyword.flow.scss', foreground: '63f0d8' },
                     { token: 'emphasis', fontStyle: 'italic' },
                     { token: 'strong', fontStyle: 'bold' },
                     { token: 'metatag', foreground: '22C3A8' },
@@ -279,7 +279,7 @@ export class CommonNgCodeService
                     "activityBar.background": "#f7f7f7",
                     "activityBar.foreground": "#7e7e7e",
                     "editor.background": "#ffffff",
-                    "editor.foreground": "#228ec3",
+                    "editor.foreground": "#01d85e",
                     "editor.lineHighlightBackground": "#ffffff",
                     "editor.selectionBackground": "#ff4d97",
                     "editorCursor.foreground": "#ff4d97",
@@ -287,7 +287,7 @@ export class CommonNgCodeService
                     "sideBar.background": "#f7f7f7",
                     "sideBar.foreground": "#7e7e7e",
                     "editorIndentGuide.activeBackground": "#888888",
-                        "editorIndentGuide.background": "#f7f7f7",
+                    "editorIndentGuide.background": "#f7f7f7",
                 }
             }
         },

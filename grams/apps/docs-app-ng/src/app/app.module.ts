@@ -10,7 +10,8 @@ import { AppComponent } from './app.component'
 import { AppHttpInterceptor } from './app.http.interceptor'
 import { AppInitService } from './init/init.service';
 
-import { CommonNgDynamicElementModule } from '@grams/common/ng';
+import { CommonNgDynamicElementModule } from '@grams/common/ng/core'
+
 import { ScullyLibModule } from '@scullyio/ng-lib'
 
 @NgModule

@@ -12,6 +12,11 @@ export class NotesFeature
 {
 
     note: any
+    locations: any = {
+        ASSETS_SRC: 'https://github.com/lan10rd/lan10rd/tree/main/repos/lan10rd/lan10rd.github.io/src/assets',
+        ASSETS: 'https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/lan10rd.github.io/src/assets/'
+    }
+    paths: any = []
     
     constructor
     (
@@ -25,10 +30,17 @@ export class NotesFeature
     (
     )
     {
-        let paths = await this.util.http.get(this.util.functions.assets('index.json'))
-        this.util.data.notes = {
-            paths: paths.filter((path: string) => path.includes('/notes/')).map((path: string) => path.split('assets/notes/').join(''))
-        }
+        let indexJson = this.assets('index.json')
+        let paths = await this.util.http.get(this.assets('index.json'))
+        this.paths = paths.filter((path: string) => path.includes('/notes/')).map((path: string) => path.split('assets/notes/').join(''))
+    }
+
+    assets
+    (
+        suffix: any
+    )
+    {
+        return this.locations.ASSETS + suffix
     }
 
     async fetchNote
@@ -38,7 +50,7 @@ export class NotesFeature
     {
         if ($event)
         {
-            this.note = await this.util.http.get(this.util.functions.assets('notes/' + $event), {responseType: 'text'})
+            this.note = await this.util.http.get(this.assets('notes/' + $event), {responseType: 'text'})
         }
         else
         {
