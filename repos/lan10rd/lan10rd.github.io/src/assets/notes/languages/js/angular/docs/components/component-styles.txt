@@ -1,3 +1,11 @@
+:host ::ng-deep iframe  {
+
+}
+
+for example the above applies iframes inside a component and children
+
+
+
 Component styles
 Angular applications are styled with standard CSS. That means you can apply everything you know about CSS stylesheets, selectors, rules, and media queries directly to Angular applications.
 

@@ -1,0 +1,10 @@
+<common-ng-code-editor-element
+class="editor"
+[(model)]="snippet"
+[options]="{ language: 'html', wordWrap: 'on'}"
+></common-ng-code-editor-element>
+
+<common-ng-frame-element
+style="height: 25rem"
+[snippet]="snippet"
+></common-ng-frame-element>

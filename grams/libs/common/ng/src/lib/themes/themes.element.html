@@ -27,6 +27,7 @@
 *ngIf="themes?.theme?.iframes"
 >
     <iframe
+    class=".iframe"
     *ngFor="let frame of themes.theme.iframes"
     [src]="frame | sanitizer:'resourceUrl'"
     ></iframe>
@@ -36,6 +37,7 @@
 *ngIf="themes?.theme?.frames"
 >
     <common-ng-frame-element
+    class="iframe"
     *ngFor="let frame of themes.theme.frames"
     [src]="frame.src"
     [snippet]="frame.snippet"

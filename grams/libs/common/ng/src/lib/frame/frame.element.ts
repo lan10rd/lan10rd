@@ -1,4 +1,6 @@
-import { Component, ViewChild, Input, ViewEncapsulation } from '@angular/core'
+import { Component, ViewChild, Input, 
+    // ViewEncapsulation 
+} from '@angular/core'
 
 import { CommonNgHttpService } from '../http/http.service'
 
@@ -7,7 +9,7 @@ import { CommonNgHttpService } from '../http/http.service'
     selector: 'common-ng-frame-element',
     templateUrl: './frame.element.html',
     styleUrls: ['./frame.element.scss'],
-    encapsulation: ViewEncapsulation.None
+    // encapsulation: ViewEncapsulation.None
 })
 export class CommonNgFrameElement
 {
@@ -17,6 +19,8 @@ export class CommonNgFrameElement
 
     @ViewChild('frame') frame: any
 
+    init: boolean = false
+
     constructor
     (
         public http: CommonNgHttpService
@@ -25,12 +29,24 @@ export class CommonNgFrameElement
 
     }
 
+    async ngOnChanges
+    (
+        changes: any
+    )
+    {
+        if (this.init && changes?.snippet)
+        {
+            this.write(this.snippet)
+        }
+    }
+
     async ngAfterViewInit
     (
     )
     {
         let snippet = this.src ? await this.http.get(this.src, {responseType: 'text'}) : this.snippet
         this.write(snippet)
+        this.init = true
     }
     
 
@@ -39,6 +55,7 @@ export class CommonNgFrameElement
         content: string
     )
     {
+        this.frame.nativeElement.contentDocument.open()
         this.frame.nativeElement.contentDocument.write(content)
         this.frame.nativeElement.contentDocument.close()
     }

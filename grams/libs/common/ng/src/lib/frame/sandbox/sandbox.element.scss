@@ -1,0 +1,20 @@
+:host iframe {
+    width: 100vw;
+    height: 25vh;
+    max-height: 25%;
+    outline: none;
+    border: none;
+}
+
+:host ::ng-deep iframe {
+    width: 100vw;
+    height: 25vh;
+    max-height: 25%;
+    outline: none;
+    border: none;
+}
+
+.editor {
+    height: 25vh;
+    max-height: 25%;
+}

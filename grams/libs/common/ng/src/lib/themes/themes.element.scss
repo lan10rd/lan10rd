@@ -1,4 +1,4 @@
-iframe {
+:host iframe {
     z-index: -1;
     width: 100vw;
     height: 100vh;
@@ -9,7 +9,7 @@ iframe {
     border: none;
 }
 
-::ng-deep iframe {
+:host ::ng-deep iframe {
     z-index: -1;
     width: 100vw;
     height: 100vh;

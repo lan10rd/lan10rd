@@ -71,6 +71,8 @@ export * from './lib/video/video.element.module'
 
 export * from './lib/frame/frame.element'
 export * from './lib/frame/frame.element.module'
+export * from './lib/frame/sandbox/sandbox.element'
+export * from './lib/frame/sandbox/sandbox.element.module'
 
 export * from './lib/app/bar/bar.element'
 export * from './lib/app/bar/bar.element.module'
