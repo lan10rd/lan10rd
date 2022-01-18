@@ -1,11 +1,11 @@
 {
     "numberOfRoutes": 5,
-    "generatingTime": 17.8,
+    "generatingTime": 7.39,
     "routesPerSecond": null,
     "findingRoutesAngular": "",
     "routeDiscovery": null,
     "renderingPages": null,
     "pluginTimings": {
-        "Duration": 17803.91
+        "Duration": 7390.89
     }
 }

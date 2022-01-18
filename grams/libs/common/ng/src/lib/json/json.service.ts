@@ -564,4 +564,29 @@ export class CommonNgJsonService
         }
     }
 
+    includes
+    (
+        model: any,
+        o: any
+    )
+    {
+        let typeOf = this.typeOf(model)
+        switch(typeOf)
+        {
+            case 'obj': {
+                return o in model
+            }
+            case 'arr': {
+                let oType = this.typeOf(o)
+                if (oType === 'str')
+                    return model.includes(o)
+                let find = model.find((oo: any) => { return this.equals(oo, o) })
+                return find
+            }
+            default: {
+                return false
+            }
+        }
+    }
+
 }

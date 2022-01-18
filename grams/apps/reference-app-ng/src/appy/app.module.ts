@@ -9,9 +9,7 @@ import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
 import { AppHttpInterceptor } from './app.http.interceptor'
 import { AppInitService } from './init/init.service';
-
-import { CommonNgCoreDynamicElementModule } from '@grams/common/ng/core'
-
+import { CommonNgDynamicElementModule } from '@grams/common/ng';
 import { ScullyLibModule } from '@scullyio/ng-lib'
 
 @NgModule
@@ -20,15 +18,21 @@ import { ScullyLibModule } from '@scullyio/ng-lib'
     [
         BrowserModule,
         BrowserAnimationsModule,
-        RouterModule.forRoot([], {useHash: false}),
+        RouterModule.forRoot([], {useHash: true}),
         HttpClientModule,
         HttpClientXsrfModule,
-        CommonNgCoreDynamicElementModule,
+        CommonNgDynamicElementModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
             registrationStrategy: 'registerWhenStable:30000'
         }),
-        ScullyLibModule
+        ScullyLibModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: environment.production,
+          // Register the ServiceWorker as soon as the app is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        })
     ],
     providers: 
     [

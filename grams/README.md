@@ -371,8 +371,6 @@ yarn add \
   chokidar \
   yargs \
   minimist \
-
-
   puppeteer \
   marked \
   markdown-it \
@@ -395,6 +393,24 @@ yarn add \
   rewire \
   entities \
   sitemap
+  
+## more workspace extras
+yarn add -D \
+  @nx-plus/nuxt \
+  @nx-plus/vue \
+  @nx-plus/docusaurus \
+  @twittwer/compodoc \
+  @nxext/svelte \
+  @nxext/stencil \
+  @nxext/vite \
+  @nxext/solid \
+  @nx-go/nx-go \
+  @angular-architects/module-federation \
+  @nxrocks/nx-spring-boot \
+  @trumbitta/nx-plugin-openapi \
+  @jnxplus/nx-boot-maven \
+  @jnxplus/nx-boot-gradle 
+
 
 ### removed dependencies, looks like angular builder needed this but the version that was brought in was complaining about es import syntax or something
 ora 

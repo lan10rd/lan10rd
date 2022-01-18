@@ -122,15 +122,6 @@ export class CommonNgJsonArtifact
         }
     }
 
-    toggleEditKey
-    (
-        key: string
-    )
-    {
-        if (this.type === 'obj')
-            this.editing.keys.push(key)
-    }
-
     swap
     (
     )

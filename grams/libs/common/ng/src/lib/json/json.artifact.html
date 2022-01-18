@@ -1,13 +1,16 @@
 <ul
 >
 
+    <!-- class="flex"
+    style="align-items: center; flex-flow: nowrap" -->
+
     <div
     class="flex"
-    style="align-items: center"
     >
 
+        <!-- class="flex fit" -->
         <common-ng-button-element
-        class="flex fit pt pb glo-0-text-ani"
+        class=" pt pb glo-0-text-ani"
         [ngClass]="{'glo-0-shadow': dotdotdot.toggle}"
         #dotdotdot
         >
@@ -29,7 +32,7 @@
                     <common-ng-select-element
                     class="ib glo-0-text-trim"
                     [scrollClasses]="'scrollable'"
-                    [options]="['add', 'remove', 'mode']"
+                    [options]="['add', 'remove', 'type', 'mode']"
                     #objOptions
                     ></common-ng-select-element>
 
@@ -37,11 +40,17 @@
                     [ngSwitch]="objOptions._option"
                     >
 
-                        <ng-container
+                        <div
                         *ngSwitchCase="'add'"
+                        class="flex"
+                        style="flex: 0 0 100%;"
                         >
-                            <input #objAddKey placeholder="add key" class="mr">
-                            <textarea #objAddValue placeholder="add value" class="mr"></textarea>
+                            <div
+                            class="flex"
+                            >
+                                <input #objAddKey placeholder="add key" class="mr">
+                                <textarea #objAddValue placeholder="add value" class="mr"></textarea>
+                            </div>
                             <select #objAddSelect><option value="string" selected>string</option><option value="object">object</option><option value="number">number</option><option value="boolean">boolean</option></select>
                             <common-ng-button-element
                             class="p glo-0-text-ani glo-0-text-trim ib"
@@ -50,7 +59,7 @@
                             >
                                 add {{objAddKey.value}}
                             </common-ng-button-element>
-                        </ng-container>
+                        </div>
 
                         <ng-container
                         *ngSwitchCase="'remove'"
@@ -89,6 +98,21 @@
                                 </option>
                             </select> -->
 
+                        </ng-container>
+
+                        <ng-container
+                        *ngSwitchCase="'type'"
+                        >
+                            <select
+                            #typeSelect
+                            ><option value="string" selected>string</option><option value="object">object</option><option value="number">number</option><option value="boolean">boolean</option></select>
+                            <!-- (click)="model[key] = json.convert(model[key], typeSelect.value); modelChange.emit(model); editing.keys = json.remove(editing.keys, key); " -->
+                            <common-ng-button-element
+                            class="p glo-0-text-ani glo-0-text-trim ib"
+                            
+                            >
+                                convert
+                            </common-ng-button-element>
                         </ng-container>
 
                     </ng-container>
@@ -166,20 +190,25 @@
     </div>
 
     <ng-container
-    *ngFor="let key of keys; let i=index; trackBy: json.trackBy"
+    *ngFor="let key of keys; let i=index; trackBy: json.trackBy;"
     >
-
-
+        <ng-container
+        *ngIf="{toggled: false} as flags"
+        >
             <li
             >
 
+                <!-- *ngIf="!editing.keys.includes(key)" -->
+                <!-- (click)="toggleKey = true" -->
                 <common-ng-button-element
-                *ngIf="!editing.keys.includes(key)"
+                *ngIf="!flags.toggled"
                 class="bl glo-0-text-ani fit center glo-0-text-trim"
-                (click)="toggleEditKey(key)"
+                (click)="flags.toggled = true"
                 >
                     {{key}}
                 </common-ng-button-element>
+
+                <!-- {{toggleKey}} -->
 
                 <!-- <div
                 [ngClass]="{'hover': type === 'obj'}"
@@ -192,25 +221,62 @@
                     {{key}} 
                 </div> -->
 
+                <!-- [ngClass]="{'hidden': !editing.keys.includes(key)}" -->
+                <!-- *ngIf="editing.keys.includes(key)" -->
+                <!-- *ngIf="toggleKey" -->
                 <div
-                [ngClass]="{'hidden': !editing.keys.includes(key)}"
+                *ngIf="flags.toggled"
                 >
 
-                    <input
-                    class="bl"
-                    #keysi
-                    (focusout)="editing.keys = json.remove(editing.keys, key)"
-                    [ngModel]="keys[i]"
-                    (keyup.enter)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)"
+                    <div
+                    class="flex"
                     >
-                    
-                    <!-- <select (change)="handleMode(modeSelect.value, key);" #modeSelect>
-                        <option [ngValue]="'pretty'">pretty</option>
-                        <option [ngValue]="'raw'">raw</option>
-                    </select> -->
+                        <!-- (focusout)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)" -->
+                        <input
+                        class="bl"
+                        #keysi
+                        
+                        [ngModel]="keys[i]"
+                        (keyup.enter)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)"
+                        >
 
-                    <!-- <button (click)="model[key] = json.parse(editing.values[key])" *ngIf="modeSelect.value === 'raw'">save</button> -->
+                        <common-ng-select-element
+                        [options]="['rename', 'type']"
+                        [initial]="'rename'"
+                        #keySelect
+                        ></common-ng-select-element>
 
+                        <ng-container
+                        [ngSwitch]="keySelect._option"
+                        >
+    
+                            <ng-container
+                            *ngSwitchCase="'rename'"
+                            >
+                                <button
+                                (click)="changeKey(keysi.value, i); flags.toggled = false"
+                                *ngIf="!json.includes(keys, keysi.value)"
+                                >
+                                    rename
+                                </button>
+                            </ng-container>
+    
+                            <ng-container
+                            *ngSwitchCase="'type'"
+                            >
+                                <select
+                                #typeSelect
+                                ><option value="string" selected>string</option><option value="object">object</option><option value="number">number</option><option value="boolean">boolean</option></select>
+                                <common-ng-button-element
+                                class="p glo-0-text-ani glo-0-text-trim ib"
+                                (click)="model[key] = json.convert(model[key], typeSelect.value); modelChange.emit(model); flags.toggled = false"
+                                >
+                                    convert
+                                </common-ng-button-element>
+                            </ng-container>
+                        
+                        </ng-container>
+                    </div>
                     
                 </div>
 
@@ -263,6 +329,7 @@
                 </ng-container>
 
             </li>
+        </ng-container>
 
     </ng-container>
 

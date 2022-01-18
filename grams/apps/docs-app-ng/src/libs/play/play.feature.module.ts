@@ -16,7 +16,7 @@ import { PlayFeature } from './play.feature'
                 component: PlayFeature,
                 data: {
                     CommonRouterService: {
-                        routes: ['..', 'apple'],
+                        routes: ['..', 'apple', 'json', 'nest'],
                         seo: {
                             title: 'Play',
                             keywords: 'play',
@@ -28,6 +28,14 @@ import { PlayFeature } from './play.feature'
             {
                 path: 'apple',
                 loadChildren: async () => (await import('./apple/apple.feature.module')).PlayAppleFeatureModule
+            },
+            {
+                path: 'json',
+                loadChildren: async () => (await import('./json/json.feature.module')).PlayJsonFeatureModule
+            },
+            {
+                path: 'nest',
+                loadChildren: async () => (await import('./nest/nest.feature.module')).PlayNestFeatureModule
             }
         ])
     ],
