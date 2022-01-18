@@ -371,7 +371,7 @@ yarn add \
   chokidar \
   yargs \
   minimist \
-  colors \
+
 
   puppeteer \
   marked \
@@ -398,6 +398,8 @@ yarn add \
 
 ### removed dependencies, looks like angular builder needed this but the version that was brought in was complaining about es import syntax or something
 ora 
+## removed because of unsafe
+colors
 
 ## libs 
 nx g @nrwl/angular:lib common/ng/core --buildable --publishable --importPath=@grams/common/ng/core
