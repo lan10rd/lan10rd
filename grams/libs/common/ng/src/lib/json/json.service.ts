@@ -494,21 +494,39 @@ export class CommonNgJsonService
                 case 'object': { 
                     if (current_type === 'obj')
                         return value
+                    else if (current_type === 'arr')
+                    {
+                        let new_obj: any= {}
+                        for (let i: number = 0; i < value.length; i++)
+                            new_obj[i + ''] = value[i]
+                        return new_obj
+                    }
                     return this.parse(value)
                 }
                 case 'obj': {
                     if (current_type === 'obj')
                         return value
+                    else if (current_type === 'arr')
+                    {
+                        let new_obj: any= {}
+                        for (let i: number = 0; i < value.length; i++)
+                            new_obj[i + ''] = value[i]
+                        return new_obj
+                    }
                     return this.parse(value)
                 }
                 case 'array': { 
                     if (current_type === 'arr')
                         return value
+                    else if (current_type === 'obj')
+                        return this.values(value)
                     return this.parse(value)
                 }
                 case 'arr': { 
                     if (current_type === 'arr')
                         return value
+                    else if (current_type === 'obj')
+                        return this.values(value)
                     return this.parse(value)
                 }
                 case 'string': { 

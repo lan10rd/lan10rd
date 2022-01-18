@@ -13,14 +13,14 @@ export class CommonNgJsonArtifact
 
     @Input() model : any
     @Output() modelChange : any = new EventEmitter()
-    @Input() mode : any = 'pretty'
 
     type: string = 'obj'
     keys: any = []
-    editing: any = {
-        keys: [],
-        values: {}
-    }
+    raw: string = ''
+    // editing: any = {
+    //     keys: [],
+    //     values: {}
+    // }
 
     constructor
     (
@@ -73,11 +73,6 @@ export class CommonNgJsonArtifact
         {
             this.model[new_key] = this.model[old_key]
             delete this.model[old_key]
-            if (this.editing.keys.includes(old_key))
-            {
-                this.editing.keys = this.json.remove(this.editing.keys, old_key)
-                this.editing.keys.push(new_key)
-            }
             this.keys = Object.keys(this.model)
         }
     }
@@ -92,15 +87,14 @@ export class CommonNgJsonArtifact
         {
             case 'raw':
             {
-                this.editing.values[key] = this.json.stringify(this.model[key])
+                this.raw = this.json.stringify(this.model[key])
                 break
             }
             case 'pretty':
             {
-                if (key in this.editing.values)
-                {
-                    delete this.editing.values[key]
-                }
+                this.model[key] = this.json.parse(this.raw)
+                this.modelChange.emit(this.model)
+                this.raw = ''
                 break
             }
             default:

@@ -10,7 +10,7 @@
 
         <!-- class="flex fit" -->
         <common-ng-button-element
-        class=" pt pb glo-0-text-ani"
+        class="pt pb glo-0-text-ani"
         [ngClass]="{'glo-0-shadow': dotdotdot.toggle}"
         #dotdotdot
         >
@@ -32,7 +32,7 @@
                     <common-ng-select-element
                     class="ib glo-0-text-trim"
                     [scrollClasses]="'scrollable'"
-                    [options]="['add', 'remove', 'type', 'mode']"
+                    [options]="['add', 'remove']"
                     #objOptions
                     ></common-ng-select-element>
 
@@ -76,44 +76,6 @@
                             </common-ng-button-element>
 
                         </ng-container>
-                        
-                        <ng-container
-                        *ngSwitchCase="'mode'"
-                        >
-
-                            <!-- <select
-                            (change)="handleMode(modeSelect.value, key);"
-                            [(ngModel)]="mode"
-                            #modeSelect
-                            >
-                                <option
-                                [ngValue]="'pretty'"
-                                >
-                                    pretty
-                                </option>
-                                <option
-                                [ngValue]="'raw'"
-                                >
-                                    raw
-                                </option>
-                            </select> -->
-
-                        </ng-container>
-
-                        <ng-container
-                        *ngSwitchCase="'type'"
-                        >
-                            <select
-                            #typeSelect
-                            ><option value="string" selected>string</option><option value="object">object</option><option value="number">number</option><option value="boolean">boolean</option></select>
-                            <!-- (click)="model[key] = json.convert(model[key], typeSelect.value); modelChange.emit(model); editing.keys = json.remove(editing.keys, key); " -->
-                            <common-ng-button-element
-                            class="p glo-0-text-ani glo-0-text-trim ib"
-                            
-                            >
-                                convert
-                            </common-ng-button-element>
-                        </ng-container>
 
                     </ng-container>
 
@@ -126,7 +88,7 @@
                     <common-ng-select-element
                     class="ib glo-0-text-trim"
                     [scrollClasses]="'scrollable'"
-                    [options]="['insert', 'remove', 'swap', 'mode']"
+                    [options]="['insert', 'remove', 'swap']"
                     #arrOptions
                     ></common-ng-select-element>
 
@@ -193,13 +155,11 @@
     *ngFor="let key of keys; let i=index; trackBy: json.trackBy;"
     >
         <ng-container
-        *ngIf="{toggled: false} as flags"
+        *ngIf="{toggled: false, mode: 'pretty'} as flags"
         >
             <li
             >
 
-                <!-- *ngIf="!editing.keys.includes(key)" -->
-                <!-- (click)="toggleKey = true" -->
                 <common-ng-button-element
                 *ngIf="!flags.toggled"
                 class="bl glo-0-text-ani fit center glo-0-text-trim"
@@ -208,22 +168,6 @@
                     {{key}}
                 </common-ng-button-element>
 
-                <!-- {{toggleKey}} -->
-
-                <!-- <div
-                [ngClass]="{'hover': type === 'obj'}"
-                *ngIf="!editing.keys.includes(key)"
-                (click)="toggleEditKey(key)"
-                (keyup.enter)="toggleEditKey(key)"
-                style="width: fit-content"
-                tabindex="0"
-                >
-                    {{key}} 
-                </div> -->
-
-                <!-- [ngClass]="{'hidden': !editing.keys.includes(key)}" -->
-                <!-- *ngIf="editing.keys.includes(key)" -->
-                <!-- *ngIf="toggleKey" -->
                 <div
                 *ngIf="flags.toggled"
                 >
@@ -231,17 +175,17 @@
                     <div
                     class="flex"
                     >
-                        <!-- (focusout)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)" -->
+
                         <input
                         class="bl"
                         #keysi
-                        
                         [ngModel]="keys[i]"
-                        (keyup.enter)="editing.keys = json.remove(editing.keys, key); changeKey(keysi.value, i)"
+                        (keyup.enter)="changeKey(keysi.value, i); flags.toggled = false"
                         >
 
                         <common-ng-select-element
-                        [options]="['rename', 'type']"
+                        class="glo-0-text-trim"
+                        [options]="['rename', 'type', 'mode']"
                         [initial]="'rename'"
                         #keySelect
                         ></common-ng-select-element>
@@ -266,13 +210,35 @@
                             >
                                 <select
                                 #typeSelect
-                                ><option value="string" selected>string</option><option value="object">object</option><option value="number">number</option><option value="boolean">boolean</option></select>
+                                ><option value="string" selected>string</option><option value="object">object</option><option value="array">array</option><option value="number">number</option><option value="boolean">boolean</option></select>
                                 <common-ng-button-element
                                 class="p glo-0-text-ani glo-0-text-trim ib"
                                 (click)="model[key] = json.convert(model[key], typeSelect.value); modelChange.emit(model); flags.toggled = false"
                                 >
                                     convert
                                 </common-ng-button-element>
+                            </ng-container>
+
+                            <ng-container
+                            *ngSwitchCase="'mode'"
+                            >
+                                <select
+                                (change)="handleMode(flags.mode, key)"
+                                [(ngModel)]="flags.mode"
+                                #modeSelect
+                                >
+                                    <option
+                                    [ngValue]="'pretty'"
+                                    >
+                                        pretty
+                                    </option>
+                                    <option
+                                    [ngValue]="'raw'"
+                                    >
+                                        raw
+                                    </option>
+                                </select>
+
                             </ng-container>
                         
                         </ng-container>
@@ -281,7 +247,7 @@
                 </div>
 
                 <ng-container
-                [ngSwitch]="mode"
+                [ngSwitch]="flags.mode"
                 >
                 
                     <ng-container
@@ -316,15 +282,23 @@
                         </ng-container>
                     </ng-container>
 
-                    <ng-container
+                    <div
                     *ngSwitchCase="'raw'"
+                    class="flex"
                     >
 
                         <textarea
-                        [(ngModel)]="editing.values[key]"
+                        [(ngModel)]="raw"
                         ></textarea>
+                        
+                        <common-ng-button-element
+                        class="p glo-0-text-ani glo-0-text-trim ib"
+                        (click)="model[key] = json.parse(raw); modelChange.emit(model)"
+                        >
+                            save
+                        </common-ng-button-element>
 
-                    </ng-container>
+                    </div>
 
                 </ng-container>
 
