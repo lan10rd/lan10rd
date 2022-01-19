@@ -13,8 +13,8 @@ export class NotesFeature
 
     note: any
     locations: any = {
-        ASSETS_SRC: 'https://github.com/lan10rd/lan10rd/tree/main/repos/lan10rd/lan10rd.github.io/src/assets',
-        ASSETS: 'https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/lan10rd.github.io/src/assets/'
+        ASSETS_SRC: 'https://github.com/lan10rd/lan10rd/tree/main/repos/lan10rd/assets',
+        ASSETS: 'https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/'
     }
     paths: any = []
     
