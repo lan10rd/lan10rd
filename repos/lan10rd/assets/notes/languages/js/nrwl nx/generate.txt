@@ -1,0 +1,13 @@
+nx g @nrwl/angular:app app-name
+nx g @nrwl/nest:app app-name
+nx g @nrwl/angular:lib lib-name --buildable --publishable
+nx g @nrwl/nest:lib lib-name --buildable --publishable
+
+--dry-run, add this to see what files will be made
+
+--publishable, so that you can publish to a npm registry
+--buildable, not sure but just include it its kinda hard to do either publishable or buildable later
+
+nx generate @nrwl/angular:library --name=ng --directory=shared --buildable --publishable --no-interactive
+
+its nice to use the nx plugin for vscode

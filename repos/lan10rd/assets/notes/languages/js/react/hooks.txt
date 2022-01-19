@@ -1,0 +1,1 @@
+hooks are useful for the new functional syntax, i dont think its ever used in class components

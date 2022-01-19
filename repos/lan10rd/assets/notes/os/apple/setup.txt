@@ -1,0 +1,10 @@
+sudo xcode-select -r
+install xcode through app store
+
+
+
+brew install hudochenkov/sshpass/sshpass
+
+
+
+sshpass -f <(printf '%s\n' ****) ssh root@157.230.235.92

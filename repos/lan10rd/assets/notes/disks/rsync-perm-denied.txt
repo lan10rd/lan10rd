@@ -1,0 +1,90 @@
+Rsync ‘Permission denied’ for root – Top 4 reasons and solutions
+by Lakshmi Vijayakumar | Feb 25, 2019
+
+Rsync is a great tool for replicating a single file to entire filesystems.
+
+It always provides smooth data transfer. But, it’s quite common to get frustrated with rsync.
+
+One such frustrating error is “rsync permission denied for root“.
+
+At Bobcares, we help server owners resolve such errors as part of our Server Management Services.
+
+Today, let’s see the top 4 reasons for this error and how we fix them.
+
+Rsync permission denied for root – What’s this?
+The error Permission denied means that the user doesn’t have permission on this file. One of the common scenarios where customers usually face this error is when they try to use the rsync command for replicating the data, transfer the data from local server to remote, etc.
+
+For instance, below is one of the common errors that customers see related to the permission problems.
+
+
+
+rsync: mkstemp "/xx/xx/xx/xx/xx" failed: Permission denied (13)
+ 
+
+In such cases, our Support Engineers recreate the problem by using the rsync command in debug mode(-v switch). For example, see the below command.
+
+rsync -avzh /home/ vps:/home
+ 
+
+Rsync permission denied for root – Top causes & Fixes
+Now, let’s discuss the major reasons for this error and how our Dedicated Engineers fix them.
+
+1) Root login disabled
+It’s a common security practice that server owners disable direct root login on the servers. For example, on Linux servers like Ubuntu, customer set the following parameter to NO to disable direct root login.
+
+PermitRootLogin no
+ 
+
+But, sometimes, you need to have root permissions to read or access certain files. This can create problems and lead to error “rysnc permission denied root” in Rsync
+
+In such cases, our Support Engineers create a rsyncuser and add it to the /etc/sudoers file.  So that, the user can execute the rsync command without password.
+
+rsyncuser ALL= NOPASSWD:/usr/bin/rsync
+ 
+
+Then, we use rsync-path to make rsync works with the sudo.
+
+rsync -a -e "ssh" --rsync-path="sudo rsync" rsync user@remoteserver:/data/to be/synced /destination/
+ 
+
+2) Rsync configuration problems
+Similarly, another common complaint raised by the customers is that they get permission denied errors when trying to use the rsync utility on the server. This involves rsync over SSH or rsync using a user with restricted access. We’ve seen instances where customers fail to add users in the run time configuration file rsyncd.config of rsync daemon.
+
+Likewise, disabled rsync service on the remote server or using wrong SSH port on the remote server can also create problems.
+
+Firstly, our Support Experts ensure that the root user is added in the file /etc/rsyncd.conf.
+
+auth users = backup, root
+ 
+
+In addition to that, we ensure correct password of the user is added in the file /etc/rsyncd.secrets.
+
+backup:backuppassword
+root:rootpassword
+ 
+
+Further, we ensure that the file /etc/rsyncd.secrets has 600 permissions and ownership should be root. Moreover, we also make sure that the rsync service is enabled on the target server and customer uses correct port in their rsync command. If any issues noted, we’ll correct it immediately.
+
+Similarly, our Support Experts also correct the syntax errors in rsync command.
+
+ 
+
+3) Insufficient permissions for the user
+Similarly, misconfigured permissions of the user can also create problems.
+
+We’ve seen instances where the users linked to rysnc daemon are not correctly linked to the system users of the same name. In such cases, our Support Engineers set appropriate UserID and GroupID that the rsync daemon should use when accessing the files.
+
+Similarly, most of the server owners now use SSH access key to improve system security. Server owners generate public key at origin server and copy it to the destination server. This ensures a smooth flow of data transfer. However, insufficient permission of the key files can create problems. Here, our Dedicated Engineers make sure that the key files have proper permissions. Most importantly, we ensure that .ssh folder have 700 and authorized_keys have 600 permissions.
+
+Alternatively, in some cases, we use rsync command after disabling StrictHostKeyChecking in the file /.ssh/config.
+
+Host *
+StrictHostKeyChecking no
+ 
+
+This will turn off host key checking in all hosts.
+
+4) Issues at remote end
+Similarly, non existence of the target path or insufficient permissions of the target folder can also lead to this error rsync permission denied for root.
+
+In such cases, our Support Engineers get the rsync command used by the customer and check whether target location exists or not. Moreover, we ask the customers to check the permissions of this target folder so that files can be smoothly transferred from the original source.

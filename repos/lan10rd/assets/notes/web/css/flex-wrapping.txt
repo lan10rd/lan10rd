@@ -1,0 +1,6 @@
+
+You can use flex-shrink: 0 on the child elements to keep them from shrinking to fill the container. And use flex-wrap: wrap on the container/wrapper so your children will wrap down.
+
+Use flex: 0 0 100%; to the child you want to be in a new line and add flex-wrap: wrap on the wrapper.
+
+In your .wrapper declare flex-wrap: wrap. Then for your header, you can add the style flex-basis: 100% which will force everything else down below the header.

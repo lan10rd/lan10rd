@@ -1,0 +1,81 @@
+https://linuxliteracy.com/new-way-to-manage-ssh-options-in-ubuntu-20-04/
+
+Skip to content
+Linux Literacy
+
+The Place To Learn Linux
+
+HOME
+ABOUT
+COURSES
+EVENTS
+Business Seminar
+English Seminar
+Politic Seminar
+Background Image
+FACILITIES
+NEWS
+ADMISSIONS
+New Courses
+Courses One
+Courses Two
+Background Image
+Popular Course
+Upcoming Events
+Exceptional Facilities
+Application Process
+I was updating my Ubuntu course from 18.04 to version 20.04 and found an intriguing new line in /etc/ssh/sshd_config.
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+Looking at the man page for sshd_config, the SSH daemon, on starting, will now look for configuration settings in /etc/ssh/sshd_config.d/. The files should have any name ending in .conf. A possible name would be my_sshd_config.conf.
+
+Why would I want to create a new, external file, instead of just editing the sshd_config file as I’ve always done?
+
+From doing a quick search on the Internet regarding securing SSH, it looks like that’s exactly what most people are doing.
+
+This new system introduces an opportunity though.
+
+It follows the format for systemd unit files. I can now put my settings in a file in /etc/ssh/sshd_config.d/ and they’ll persist even if /etc/ssh/sshd_config is overwritten as part of an upgrade to the OpenSSH version running on my server.
+
+It will also supersede settings in the /etc/ssh/sshd_config file. For environments where a lot of people may be managing systems, it’s nice to know that someone tweaking a file in the wrong way will not compromise critical security settings for your SSH service.
+
+So, how does it work?
+
+In the /etc/ssh/sshd_config.d/ directory, create a new file. I’m naming mine 10-my-sshd-stuff.conf. You’ll have to do this with sudo privileges.
+
+sudo vim /etc/ssh/sshd_config.d/10-my-sshd-stuff.conf
+
+Inside that file, enter the keywords and arguments you want to change from default, or ensure are explicitly addressed. Note that keywords are case-insensitive and arguments are case-sensitive.
+
+There are some configuration changes I pretty much always make for any publicly exposed server I’ll put inside the file.
+
+DebianBanner no
+DisableForwarding yes
+PermitRootLogin no
+IgnoreRhosts yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+Caution! Be sure you have key based authentication set up and working before you set PasswordAuthentication to no!
+
+Content of my-sshd-stuff.conf file.
+Content of my-sshd-stuff.conf file
+Be sure you understand the implications of the settings before applying them. Most are fairly innocuous, but setting PasswordAuthentication to no will lock you out of a remote system if you restart SSH and log out before testing. You’ll have to get back in through a console, then set up key based authentication.
+
+You can find my tutorial on setting up key based authentication here.
+
+Once you’re sure key based authentication is working, and your configuration file is the way you want it, restart SSH to make the settings take effect. There are a few ways you could accomplish this, but here’s one:
+
+sudo service ssh reload
+
+Reloading should not kill your active setting in case you’re in remotely and want to test with another connection before logging off.
+
+Thats it! Now you can manage all your SSH settings in one file and they won’t be clobbered when OpenSSH is updated.
+
+
+
+
+
+
+
+Linux Literacy Proudly powered by WordPress

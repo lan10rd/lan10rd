@@ -1,0 +1,1 @@
+trying to remember, it didnt work at first, but you install guest additions, might also install extensions pack, but definitely enable 3d accelaration vboxsvga and 256mb, restart and personalize

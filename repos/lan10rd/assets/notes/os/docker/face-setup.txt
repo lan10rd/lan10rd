@@ -1,0 +1,49 @@
+# adjusted look and feel to be adwaita dark, opened terminal gray and cyan and ubuntu monospace, firefox to 80%
+
+download vscode & sublime & opera .deb /* curl + dpkg -i ... */ or just mount/download the .deb from local and dpkg -i
+
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+apt update
+apt install -y --fix-broken docker-ce docker-ce-cli containerd.io curl git wget rsync openssl mergerfs sshfs zip unzip python3-pip dnsutils dialog apt-utils apt-transport-https ca-certificates  gnupg-agent software-properties-common nano nginx certbot php openjdk-14-jre nano ruby-full
+apt update
+
+curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+
+apt -y install nodejs install gcc g++ make
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.2.linux-amd64.tar.gz
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc 
+
+curl -L http://cpanmin.us | perl - --sudo Dancer2
+
+pip3 install docker-compose crossplane virtualenv requests cherrypy sanic flask django aiohttp[speedups] tornado dash falcon bottle
+pip3 install hug -U
+
+npm i -g npm typescript rimraf @nestjs/cli nx @vue/cli create-react-app express-generator svelte-cli
+npm i -g @angular/cli > /dev/null
+
+curl -s "https://get.sdkman.io" | bash && \
+    bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
+    yes | sdk install gradle 6.8.2 && \
+    yes | sdk install springboot && \
+    rm -rf $HOME/.sdkman/archives/* && \
+    rm -rf $HOME/.sdkman/tmp/*"
+
+go get -u github.com/gin-gonic/gin && \
+    go get github.com/beego/beego/v2@v2.0.0 && \
+    go get github.com/revel/revel && \
+    go get -u github.com/valyala/fasthttp && \
+    go get goji.io && \
+    go get github.com/go-martini/martini && \
+    go get github.com/gorilla/mux && \
+    go get github.com/labstack/echo/v4 && \
+    go get github.com/urfave/negroni && \
+    go get github.com/go-kit/kit && go get github.com/kujtimiihoxha/kit && \
+    wget https://github.com/gobuffalo/buffalo/releases/download/v0.16.21/buffalo_0.16.21_Linux_x86_64.tar.gz && tar -xvzf buffalo_0.16.21_Linux_x86_64.tar.gz && mv buffalo /usr/local/bin/buffalo
+
+gem install rails
+
+apt -y install php7.0-phalcon

@@ -1,0 +1,33 @@
+wsl is windows subsystem for linux
+
+wsl --install
+wsl --set-version ubuntu wsl2
+
+that might assume you have ubuntu, you can get it from microsoft store, might be a way to script it using wsl command instead tho.
+
+ugh.
+if you are on an early version of windows 10 that came with wsl1 you kinda gotta remove ubuntu using microsoft, then run (in elevated powershell)
+
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+then restart
+then run the wsl-update.exe you can download from wsl install manual
+
+then finally reinstall ubuntu
+then reinstall docker desktop? might be able to keep it.
+
+then set default version ubuntu wsl2
+
+wsl --set-default-version ubuntu wsl2
+
+--- erm, so i did uninstall docker not sure that was really required but if you uninstall docker, then
+
+wsl.exe -l -version
+wsl.exe --set-version ubuntu 2
+wsl.exe --set-default-version 2
+wsl.exe -l -v
+
+then install docker
+then check settings when docker launches
+
+then open ubuntu, and type docker. voila!

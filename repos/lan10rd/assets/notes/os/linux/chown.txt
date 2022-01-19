@@ -1,0 +1,21 @@
+It looks like you somehow changed file ownerships in your home directory.
+
+One way to correct this without endangering your system is
+
+
+sudo chown -c -R $USER:$USER $HOME
+
+
+Explanation:
+
+chown: change the ownership of files/directories
+-c: report all changes
+-R: do this recursively (for all files/directories beneath the given one)
+$USER:$USER: change the owner and the group that owns the the entry to the user that issues the command (sudo preserves the values)
+$HOME: do this with your home directory
+You can test those environment variables with the following commands
+
+echo $USER
+sudo echo $USER
+echo $HOME
+sudo echo $HOME

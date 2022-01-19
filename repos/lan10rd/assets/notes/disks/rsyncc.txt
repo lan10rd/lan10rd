@@ -1,0 +1,4 @@
+rsync -avhri --progress /js-tmp/ /js
+
+ending with a / is so different than not! this is the equivalent of cp -r somedir/*  
+basically the contents of the directory are copied, not the folder itself, this is good if you want to change the destination name essentially, or perhaps merge some contents of folder a into b

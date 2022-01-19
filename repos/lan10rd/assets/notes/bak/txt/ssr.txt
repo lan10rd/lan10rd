@@ -1,0 +1,14 @@
+npm install domino
+In our server.ts file.
+
+const domino = require('domino');
+const fs = require('fs');
+const path = require('path');
+
+// Use the browser index.html as template for the mock window
+const template = fs.readFileSync(path.join(__dirname, '.', 'dist', 'index.html')).toString();
+
+// Shim for the global window and document objects.
+const window = domino.createWindow(template);
+global['window'] = window;
+global['document'] = window.document;

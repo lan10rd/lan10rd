@@ -1,0 +1,189 @@
+Become a member
+Sign in
+Every known way to get references to windows, in javascript
+Daniel Brain
+Daniel Brain
+Feb 3, 2017 · 5 min read
+
+One of the biggest challenges in building zoid and post-robot was figuring out how to get a handle on different windows. A big part of both of these modules is post-messaging between windows and frames, and rendering to different windows.
+
+To get all of that to work across each major browser, quite a few tricks were needed to get a handle on the right window. Getting the window object for the popup or frame you want to reference is the literally the only way you can hope to send a message to it, using the window.postMessage api.
+
+For anyone who’s interested in building cross-window or cross-domain javascript, this reference should be helpful getting a reference to the window you want to message.
+Window Group
+
+The first thing to understand is, I can only get a reference to a window if I’m in the same window-group. I’m using that term to mean the collection of windows which includes:
+
+    Popup windows that were opened by my window, or a child of my window
+    Frames that were opened by my window, or a child of my window
+    Ancestors of my window
+
+So if you’re in a window/tab opened by a user, and you want to get a reference to another window that the user opened (like say they opened another tab), you probably aren’t going to be able to get a handle on it.
+
+That said, here are the windows you can get.
+Current Window
+
+This one is easy. window will always refer to the current window.
+New Popup Window
+
+If you open a window using window.open, you’ll get a reference to the window you opened.
+
+var newWin = window.open('https://www.google.com', 'windowName');
+Existing Popup Window
+
+If someone has opened a popup window with window.open, and you know the window name they used, you can get a handle on that window by calling window.open without an empty string as the url, and with the same name.
+
+var existingWin = window.open('', 'windowName');
+
+This will even work if the popup window was opened from a different frame on the same domain.
+
+In modern browsers, this will even work if the window was opened from a different frame on a different domain. But be warned — this can cause some strange behavior in IE.
+Popup Windows as they open
+
+If you’re writing a library and you need to keep a collection of popup windows that are opened by any other library or javascript code, you can monkey patch window.open:
+
+var windows = [];var winOpen = window.open;window.open = function() {
+    var win = winOpen.apply(this, arguments);
+    windows.push(win);
+    return win;
+};
+
+Just bear in mind, if anyone opens a popup window before your code loads, you’re not going to catch it, after which the only recourse is to get the window by name.
+Window Opener
+
+If you’re inside a popup window, you can get a reference to the parent window by using window.opener.
+
+This property is accessible cross domain, so even if you have a window reference for a window on a different domain, you can still access crossDomainWindow.opener
+Frame Parent
+
+If you’re inside a fame, you can get a reference to the parent window by using window.parent.
+
+This property is accessible cross domain, so even if you have a frame reference for a window on a different domain, you can still access crossDomainFrame.parent
+Frame Top Window
+
+If you’re in a frame, or a nested iframe, you can get a reference to the top-level window by using window.top.
+All Frames in a window
+
+You can get all of the frames that are directly inside a window by accessing window.frames. You can iterate over this by referencing window.frames.length:
+
+for (var i = 0; i < window.frames.length; i++) {
+    console.log(window.frames[i]);
+}
+
+This property is accessible cross domain, so even if you have a popup or frame reference for a window on a different domain, you can still access crossDomainWindow.frames.
+
+Fun fact: window.frames is actually just an alias for window, so window.frames === window, window.frames.length === window.length, and window.frames[0] === window[0].
+Named frames in a window
+
+If your iframe was created with a name, for example:
+
+<iframe name="myIframeName" src="https://www.google.com" />
+
+You can access it by name by referencing window.frames['myIframeName'] or window.frames.myIframeName — or even just window.myIframeName.
+
+These properties are accessible cross domain, so even if you have a popup or frame reference for a window on a different domain, you can still access crossDomainWindow.myIframeName.
+Receive a postMessage
+
+If a window has a reference to your window, and that window is feeling kind, it can send a message to you, and you can get a reference to it by referencing event.source. So
+
+In the first window:
+
+window.addEventListener('message', function(event) {
+    if (event.data === 'identify_me') {
+        console.log(event.source, 'is saying hello!');
+    }
+});
+
+In the second window:
+
+firstWindow.postMessage('identify_me', '*');
+
+This will work for popups and frames in most modern browsers. The exception to this rule is IE, which steadfastly prevents you from sending post-messages between a window and a popup window.
+Iframe Element Window
+
+If you’ve rendered an iframe, like:
+
+<iframe id="myframe" src="https://www.google.com" />
+
+You can get a handle on its window by using document.getElementById('myframe').contentWindow providing the frame has already been inserted into the DOM.
+
+Obviously you can not do this cross-domain.
+Same Domain Global
+
+If you’re on the same domain as a another window, you have access to globals on that window. You can use that mechanism to pass around window references. For example
+
+In the first window:
+
+window.winRef = window.open('https://www.google.com', 'windowName');
+
+And in the second window:
+
+console.log(firstWindow.winRef);
+
+Alternatively, a window could pass itself, or another window, to a global function in another window.
+
+In the first window:
+
+function identifyMe(win) {
+    console.log(win, 'said hello');
+}
+
+And in the second window:
+
+window.opener.identifyMe(window);
+
+This could be useful if the opener didn’t get a chance to get a handle on the window as it was being opened.
+Chaining
+
+Most of these rules can be chained together. So I could reference somePopup.frames[0].frames[1] or event.source.opener.top, providing I know the correct path to the window I’m looking for.
+Impossible Window References
+
+Sometimes it’s not possible to get a reference to the right window. For example:
+
+    I’m in IE
+    I render a cross-domain iframe
+    That iframe opens a popup window
+
+There’s literally no way for me to get a handle on the popup window from the original parent window. Even if the window wants me to have a reference, it can’t send me a post-message, because of the IE restriction on post-messages between popups.
+
+If you can think of a way to do this, please let me know!
+
+One thing I’d really like is for there to be some browser api to get a reference to any window, from any other window, perhaps by name — like window.getWindowHandle(name). That would negate a lot of the above hacks.
+Others?
+
+If you can think of another method to get a handle on different windows, let me know and I’ll add it here! I think this is an exhaustive list, but I’m very happy to be proven wrong.
+
+    JavaScript
+    Web Development
+
+Daniel Brain
+
+Written by
+Daniel Brain
+works for PayPal, as a lead engineer in Checkout. Opinions expressed herein belong to him and not his employer. daniel@bluesuncorp.co.uk
+See responses (8)
+More From Medium
+More from Daniel Brain
+JSX is a stellar invention, even with React out of the picture.
+Daniel Brain
+Nov 8, 2018 · 5 min read
+1.5K
+Also tagged Web Development
+The 3 Most Useful Regexes for Front End Developers
+GP Lee in JavaScript in Plain English
+Apr 27 · 5 min read
+5
+Related reads
+Modern Approach of JavaScript Bundling With Webpack
+Andrejs Abrickis in Better Programming
+Feb 13, 2017 · 7 min read
+693
+Discover Medium
+Welcome to a place where words matter. On Medium, smart voices and original ideas take center stage - with no ads in sight. Watch
+Make Medium yours
+Follow all the topics you care about, and we’ll deliver the best stories for you to your homepage and inbox. Explore
+Become a member
+Get unlimited access to the best stories on Medium — and support writers while you’re at it. Just $5/month. Upgrade
+About
+Help
+Legal

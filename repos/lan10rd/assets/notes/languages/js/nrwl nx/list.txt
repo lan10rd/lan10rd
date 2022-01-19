@@ -1,0 +1,10 @@
+you are struggling and used to using  ng add, what you would do is take the dependency, @angular/pwa, lets say, and run   nx list @angular/pwa
+
+which should print generator commands you can use, like pwa or ng-add.
+
+so then basically instead of 
+
+ng add @angular/pwa 
+
+
+nx g @angular/pwa:pwa --project=play-app-ng

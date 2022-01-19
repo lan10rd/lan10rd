@@ -1,0 +1,3 @@
+ssh -o StrictHostKeyChecking=no
+
+or delete hosts key file in .ssh/hosts

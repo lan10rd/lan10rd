@@ -1,0 +1,90 @@
+If possible, let us locate/identify the busy process, kill that process and then unmount the samba share/ drive to minimize damage:
+
+lsof | grep '<mountpoint of /dev/sda1>' (or whatever the mounted device is)
+pkill target_process (kills busy proc. by name | kill PID | killall target_process)
+umount /dev/sda1 (or whatever the mounted device is)
+
+------
+umount -l, does work but i see this article
+
+Avoid umount -l
+At the time of writing, the top-voted answer recommends using umount -l.
+
+umount -l is dangerous or at best unsafe. In summary:
+
+It doesn't actually unmount the device, it just removes the filesystem from the namespace. Writes to open files can continue.
+It can cause btrfs filesystem corruption
+Work around / alternative
+The useful behaviour of umount -l is hiding the filesystem from access by absolute pathnames, thereby minimising further moutpoint usage.
+
+This same behaviour can be achieved by mounting an empty directory with permissions 000 over the directory to be unmounted.
+
+Then any new accesses to filenames in the below the mountpoint will hit the newly overlaid directory with zero permissions - new blockers to the unmount are thereby prevented.
+
+First try to remount,ro
+The major unmount achievement to be unlocked is the read-only remount. When you gain the remount,ro badge, you know that:
+
+All pending data has been written to disk
+All future write attempts will fail
+The data is in a consistent state, should you need to physcially disconnect the device.
+mount -o remount,ro /dev/device is guaranteed to fail if there are files open for writing, so try that straight up. You may be feeling lucky, punk!
+
+If you are unlucky, focus only on processes with files open for writing:
+
+lsof +f -- /dev/<devicename> | awk 'NR==1 || $4~/[0-9]+[uw -]/'
+You should then be able to remount the device read-only and ensure a consistent state.
+
+If you can't remount read-only at this point, investigate some of the other possible causes listed here.
+
+Read-only re-mount achievement unlocked 🔓☑
+
+Congratulations, your data on the mountpoint is now consistent and protected from future writing.
+
+Why fuser is inferior to lsof
+Why not use use fuser earlier? Well, you could have, but fuser operates upon a directory, not a device, so if you wanted to remove the mountpoint from the file name space and still use fuser, you'd need to:
+
+Temporarily duplicate the mountpoint with mount -o bind /media/hdd /mnt to another location
+Hide the original mount point and block the namespace:
+Here's how:
+
+null_dir=$(sudo mktemp --directory --tmpdir empty.XXXXX")
+sudo chmod 000 "$null_dir"
+
+# A request to remount,ro will fail on a `-o bind,ro` duplicate if there are
+# still files open for writing on the original as each mounted instance is
+# checked.  https://unix.stackexchange.com/a/386570/143394
+# So, avoid remount, and bind mount instead:
+sudo mount -o bind,ro "$original" "$original_duplicate"
+
+# Don't propagate/mirror the empty directory just about hide the original
+sudo mount --make-private "$original_duplicate"
+
+# Hide the original mountpoint
+sudo mount -o bind,ro "$null_dir" "$original"
+You'd then have:
+
+The original namespace hidden (no more files could be opened, the problem can't get worse)
+A duplicate bind mounted directory (as opposed to a device) on which to run fuser.
+This is more convoluted[1], but allows you to use:
+
+fuser -vmMkiw <mountpoint>
+which will interactively ask to kill the processes with files open for writing. Of course, you could do this without hiding the mount point at all, but the above mimicks umount -l, without any of the dangers.
+
+The -w switch restricts to writing processes, and the -i is interactive, so after a read-only remount, if you're it a hurry you could then use:
+
+fuser -vmMk <mountpoint>
+to kill all remaining processes with files open under the mountpoint.
+
+Hopefully at this point, you can unmount the device. (You'll need to run umount on the mountpoint twice if you've bind mounted a mode 000 directory on top.)
+
+Or use:
+
+fuser -vmMki <mountpoint>
+to interactively kill the remaining read-only processes blocking the unmount.
+
+Dammit, I still get target is busy!
+Open files aren't the only unmount blocker. See here and here for other causes and their remedies.
+
+Even if you've got some lurking gremlin which is preventing you from fully unmounting the device, you have at least got your filesystem in a consistent state.
+
+You can then use lsof +f -- /dev/device to list all processes with open files on the device containing the filesystem, and then kill them.

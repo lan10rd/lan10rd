@@ -1,0 +1,4 @@
+spy on is king for jest testing
+
+jest.spyOn(component.http, 'get').mockReturnValue(of({data:{}}))
+component.someMethodWithHttpCall()

@@ -1,0 +1,37 @@
+pip3 install -U virtualenv # if not installed already
+
+mkdir new-python-project
+cd new-python-project
+
+virtualenv venv
+
+# to activate venv
+source venv/bin/activate
+
+# check
+which python
+which pip
+
+
+# now install what you want 
+
+pip install -U arrow
+
+
+# to deactivate venv
+deactivate
+
+
+
+# when ready to take the dependencies and package
+pip freeze > requirements.txt
+
+
+
+# and on a brand new client
+
+git clone https://github.com/username/your-awesome-code.git
+cd your-awesome-code
+source venv/bin/activate
+pip install -r requirements.txt
+python run.py

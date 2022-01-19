@@ -1,0 +1,10 @@
+/* this worked for mate */
+https://www.gnome-look.org/p/999991/
+find a cursor, download but do not extract!
+go to appearance, and click install.
+
+should now be able to customize a theme and change the pointer!
+
+/* for ubuntu */
+/usr/share/icons
+/usr/share/themes

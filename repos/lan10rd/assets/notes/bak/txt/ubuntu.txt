@@ -1,0 +1,117 @@
+---- system ----
+service --status-all
+sudo service ufw start
+sudo service ufw stop
+sudo service ufw restart
+sudo service ufw status
+sudo systemctl stop nginx
+sudo systemctl start nginx
+sudo systemctl restart nginx
+sudo systemctl status nginx
+
+---- startup ----
+sudo update-rc.d apache2 disable
+sudo update-rc.d apache2 enable
+
+---- network ----
+sudo nano /etc/network/interfaces
+
+/* replace with where enp3s0 is name of ethernet interface */
+auto localiface lo inet loopback
+auto enp3s0
+iface enp3s0 inet static
+address 192.168.0.100
+netmask 255.255.255.0
+gateway 192.169.0.1
+dns-nameservers 192.168.0.1
+dns-nameservers 0.0.0.0
+
+
+ifconfig ** note the interfaces on the left of the printout, such as enp8s0 **
+sudo nano /etc/network/interface
+
+** add the following lines, substitute eth0 with the interface you had printed out **
+auto enp8s0
+iface enp8s0 inet dhcp
+
+** then run the following **
+sudo ifdown enp8s0
+sudo ifup enp8s0
+
+** maybe run **
+service network-manager restart
+
+---- users ----
+$ whoami
+user1
+$ su - user2
+Password:
+$ whoami
+user2
+$ exit
+logout
+
+---- add user ----
+sudo adduser username
+su username
+cd
+mkdir .ssh && chmod 700 .ssh
+touch .ssh/authorized_keys && chmod 600 .ssh/authorized_keys
+
+---- remove user ----
+sudo su -
+userdel -r username
+
+--- some installs ----
+sudo apt-get install nginx git nano fcgiwrap apache2-utils -y
+sudo chown -R www-data:www-data /var/www/html/git
+
+---- .bash ----
+alias earth_checkout="git pull && git submodule foreach --recursive git checkout master"
+alias earth_pull="git pull && git submodule foreach --recursive git pull"
+alias earth_rm_origin="git submodule foreach --recursive git remote rm origin"
+alias earth_add="git submodule foreach --recursive git add ./"
+alias earth_commit="git submodule foreach --recursive git commit"
+alias start="echo *** | sudo -S npm start"
+
+---- ssh ----
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl status ssh
+
+---- exFat ----
+sudo add-apt-repository universe
+sudo apt update
+sudo apt install exfat-fuse exfat-utils
+
+---- git ----
+sudo apt install git
+git config --global user.email "****@gmail.com"
+git config --global user.name "simba"
+
+** git config --global core.filemode false ** might be necessary, some fuck shit with file type changes
+
+---- nodejs ----
+sudo apt-get install nodejs
+sudo apt install npm
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n latest 
+** or sudo n stable **
+
+---- nginx ----
+sudo apt-get install nginx
+sudo systemctl enable nginx
+systemctl status nginx
+sudo systemctl reload nginx
+cd ~/earth/systems/scripts && sh nginx-linux.sh
+
+---- https ----
+sudo chmod 755 glass_earth.crt
+
+** for local only! **
+sudo cp glass_earth.crt /usr/local/share/ca-certificates/glass_earth.crt
+sudo update-ca-certificates
+
+** hosts **
+/etc/hosts

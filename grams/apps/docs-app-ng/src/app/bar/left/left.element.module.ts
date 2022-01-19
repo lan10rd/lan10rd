@@ -10,6 +10,7 @@ import
     CommonNgButtonElementModule,
     CommonNgJsonArtifactModule,
     CommonNgCodeTerminalElementModule,
+    CommonNgHttpElementModule,
     CommonNgFrameSandboxElementModule
 } from '@grams/common/ng'
 
@@ -23,6 +24,7 @@ import
         CommonNgButtonElementModule,
         CommonNgJsonArtifactModule,
         CommonNgCodeTerminalElementModule,
+        CommonNgHttpElementModule,
         CommonNgFrameSandboxElementModule
     ],
     declarations:

@@ -1,0 +1,47 @@
+To set this environment variable, first determine where Java is installed. Use the update-alternatives command:
+
+sudo update-alternatives --config java
+ 
+This command shows each installation of Java along with its installation path:
+
+Output
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+* 2            /usr/lib/jvm/java-11-oracle/bin/java             1091      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number:
+In this case the installation paths are as follows:
+/etc/environment
+
+
+OpenJDK 11 is located at /usr/lib/jvm/java-11-openjdk-amd64/bin/java.
+Oracle Java is located at /usr/lib/jvm/java-11-oracle/jre/bin/java.
+Copy the path from your preferred installation. Then open /etc/environment using nano or your favorite text editor:
+
+sudo nano /etc/environment
+ 
+At the end of this file, add the following line, making sure to replace the highlighted path with your own copied path, but do not include the /bin portion of the path:
+
+/etc/environment
+JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+ 
+Modifying this file will set the JAVA_HOME path for all users on your system.
+
+Save the file and exit the editor.
+
+Now reload this file to apply the changes to your current session:
+
+source /etc/environment
+ 
+Verify that the environment variable is set:
+
+echo $JAVA_HOME
+ 
+You’ll see the path you just set:
+
+Output
+/usr/lib/jvm/java-11-openjdk-amd64

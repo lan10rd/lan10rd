@@ -1,0 +1,275 @@
+CS:GO FOV and Viewmodel Commands
+This category contains all commands that can be used to modify your camera's field of view (FOV), and also commands that change your view model (the location of your gun/character's hands).
+
+Use the links below to quickly jump to the help you need:
+
+Best Viewmodel Settings
+Change Viewmodel
+Move Viewmodel to Left or Right
+Change FOV
+Best Viewmodel Settings
+The best viewmodel settings vary from person to person, but the general consensus is that the more "out of the way" your viewmodel is the better. This is because the viewmodel will obstruct your view less, allowing for better visibility.
+
+To set optimal, most out-of-the-way, viewmodel settings, copy and paste the below command into your developer console:
+
+viewmodel_offset_x 2.5; viewmodel_offset_y -2; viewmodel_offset_z -2; viewmodel_fov 54 
+
+We have outlined what each of these commands does below.
+
+How to Change Viewmodel
+Your viewmodel is your character's hands, the gun that you're holding, and anything else fixed in-front of the camera when in first-person mode. There are four commands commands that change the position of your viewmodel, they are outlined in the table below:
+
+Name	Min/Max	Description	Best Setting
+viewmodel_offset_x	-2.5 to 2.5	Changes how far right or left your gun is	viewmodel_offset_x 2.5 
+viewmodel_offset_y	-2 to 2	Changes how close your gun is to your character	viewmodel_offset_y -2 
+viewmodel_offset_z	-2 to 2	Changes how far up or down your gun is	viewmodel_offset_z -2 
+viewmodel_fov	54 to 68	Changes the field of view of your viewmodel	viewmodel_fov 54 
+To change your field of view to something other than our recommended settings outlined above, simply replace the number at the end of the command with a number between the command's "Min/Max" from the table.
+
+How to Move Viewmodel to Left or Right (cl_righthand)
+By default, your gun is on the right hand side of your screen in CS:GO. For some players, especially those that are left handed, this may not be preferable. You can move the gun to the left hand side of your screen with the following command:
+
+cl_righthand 0 
+
+To move your gun to the right hand side of your screen, use the following console command:
+
+cl_righthand 1 
+
+How to Change Your Field of View (FOV) with Commands
+There are two types of field of view: your viewmodel's FOV, which changes the position of your viewmodel (your hands and gun in first person mode) and your camera's FOV, which changes how zoomed in and out your camera is. Only your viewmodel's FOV can be changed in servers without cheats (matchmaking, etc). To change your camera's FOV, you need to be in a server with sv_cheats 1.
+
+How to Change Viewmodel FOV
+Your viewmodel's field of view in CS:GO can be set to a value between 54 and 68. To set it to 68, its maximum value, type the following command into the developer console:
+
+viewmodel_fov 68 
+
+To set your viewmodel's field of view to 54, which is its lowest possible value, use the following command:
+
+viewmodel_fov 54 
+
+Change 54 or 68 to your desired FOV (must be between 54 and 68), it might take some playing around with to get your most preferable field of view.
+
+How to Change Camera FOV (sv_cheats)
+Changing the field of view your camera has can only be done on a server with sv_cheats enabled. You can enable sv_cheats by typing the following command into the console:
+
+sv_cheats 1 
+
+After enabling sv_cheats, you can change your field of view by replacing NUMBER in the below command with the FOV you wish to set (default is 90):
+
+fov_cs_debug NUMBER 
+
+Since the default FOV for CS:GO is 90, the below command would make your field of view larger by setting it to 120 (meaning you can see more in your camera):
+
+fov_cs_debug 120 
+
+And this command would make your FOV smaller by setting it to 50 (meaning you'd be able to see less than usually:
+
+fov_cs_debug 50 
+
+Type to search...
+cl_righthand Command
+cl_righthand [0 / 1]
+
+This is the command that moves your gun to your left hand, also known as the switch hand command. Your gun and other weapons will be on the left side of your screen, which some people prefer.
+
+0 / 1	Use a 0 after this command to move your weapon to your left hand. Use a 1 after this command to move your gun to your right hand.
+viewmodel_fov Command
+viewmodel_fov [FOV]
+
+This command sets your client's FOV to the specified number. You can set your FOV to a maximum of 68 using this command. The default field of view is 60.
+
+FOV	A number - your desired field of view. By default this is 60. You can set this to a maximum of 68.
+viewmodel_offset_x Command
+viewmodel_offset_x [X Offset]
+
+This command sets the X offset of your view model - i.e. how far left or right it is. Your view model is your hand (and the gun in it) that displays in first person mode. The maximum value is 2.5 and the minimum value is -2.5.
+
+X Offset	Set this to a number between 2.5 and -2.5. -2.5 would be closest to the middle of the screen. 2.5 would be closest to the edge of the screen.
+viewmodel_offset_y Command
+viewmodel_offset_y [Y Offset]
+
+This command sets the Y offset of your view model - i.e. how close or far from your character is. Your view model is your hand (and the gun in it) that displays in first person mode. The maximum value is 2 and the minimum value is -2.
+
+Y Offset	Set this to a number between 2 and -2. 2 would be closest to the top of the screen. -2 would be closest to the bottom of the screen.
+viewmodel_offset_z Command
+viewmodel_offset_z [Z Offset]
+
+This command sets the Z offset of your view model - i.e. how far up or down it is. Your view model is your hand (and the gun in it) that displays in first person mode. The maximum value is 2 and the minimum value is -2.
+
+Z Offset	Set this to a number between 2 and -2. 2 would put your viewmodel as far in front of you as possible. -2 put your viewmodel as close as possible to you.
+viewmodel_presetpos Command
+viewmodel_presetpos [1 / 2 / 3]
+
+This command will set your X/Y/Z viewmodel offsets to a preset configuration. See argument information for help.
+
+1 / 2 / 3	A number to represent your desired preset. Options are:
+1 - Desktop
+2 - Couch
+3 - Classic
+cl_bobamt_lat Command
+cl_bobamt_lat [Value]
+
+This console command adjusts how much your viewmodel & gun barrel moves side to side when you're running.
+
+Value	The value attached to how much your gun barrel moves side to side as you run. The higher the command is, the more your gun barrel moves side to side. The highest this command goes is 2 and the lowest is 0.1. Default value is 0.4
+cl_bobup Command
+cl_bobup [Value] sv_cheats 1
+
+Adjusts how much your viewmodel & weapon bobs up when running.
+
+Value	The value attached to your viewmodel bobbing up and down. The default is set at 0.5.
+cl_bob_lower_amt Command
+cl_bob_lower_amt [Value]
+
+This console command adjusts how much your gun barrel moves back towards you when you're running.
+
+Value	The value attached to your gun barrel moving towards your player. The higher this command is, the more your gun barrel will move. The highest this command can go is 30, and the lowest it can go is 5. The default value is 21.
+cl_bobamt_vert Command
+cl_bobamt_vert [Value]
+
+This command changes how much your viewmodel & gun barrel moves up and down when you're moving forward.
+
+Value	The value attached to how much your viewomodel/gun barrel moves up and down as you run. The higher the command, the more exaggerated the movement is. The command is capped at 2 and goes to 0.1 at its lowest. 0.25 is the default value of this command.
+cl_brushfastpath Command
+cl_brushfastpath sv_cheats 1
+
+cl_camera_follow_bone_index Command
+cl_camera_follow_bone_index [-2 / -1 / 0] sv_cheats 1
+
+This command adjusts how the camera follows the index of the bone.
+
+-2 / -1 / 0	The different settings for the command. -2 disables the command, -1 sets it to follow the root bone and 0 sets it to the bone index.
+cl_use_new_headbob Command
+cl_use_new_headbob [0 / 1] sv_cheats 1
+
+This command dictates whether or not your head bobs as you run. It can't be adjusted in matchmaking, but you can in private servers with cheats.
+
+0 / 1	Use a 0 after the command to turn off head bobbing, giving you a much smoother experience as you run. Use a 1 after the command to turn head bobbing on.
+cl_viewmodel_shift_left_amt Command
+cl_viewmodel_shift_left_amt [Viewmodel Shift]
+
+This command sets how much the viewmodel moves to the left when shooting accuracy increases.
+
+Viewmodel Shift	Choose a number between 0.5 and 2 to set how much your viewmodel moves when accuracy increases. The default value for this command is 1.5.
+cl_viewmodel_shift_right_amt Command
+cl_viewmodel_shift_right_amt [Viewmodel Shift]
+
+This command sets how much the viewmodel moves to the right when shooting accuracy increases.
+
+Viewmodel Shift	Choose a number between 0.25 and 2 to set how much your viewmodel moves when accuracy increases. The default value for this command is 0.75.
+default_fov Command
+default_fov sv_cheats 1
+
+This command will set your field of view (FOV) to the specified number. This command allows you to set your FOV to any value (no matter how high or small), and therefore requires sv_cheats to be enabled before it can be used (as otherwise it would give an advantage in matchmaking).
+
+fov_cs_debug Command
+fov_cs_debug [FOV] sv_cheats 1
+
+This command will set your field of view (FOV) to the specified value, provided sv_cheats is set to 1. Unlike the viewmodel_fov command, this command does not have any limits, allowing you to set your FOV to any value you desire.
+
+FOV	A number - your desired field of view (e.g. 80).
+viewmodel_recoil Command
+viewmodel_recoil [Recoil]
+
+This command sets how much recoil is shown by the viewmodel when being shot at and taking aimpunch.
+
+Recoil	A value between 0-1 to set your viewmodel recoil to when being shot at. The default value for this command is 1. Use a lower number to reduce the recoil.
+cl_bob_version Command
+cl_bob_version sv_cheats 1
+
+cl_bobcycle Command
+cl_bobcycle
+
+This command should adjust how much your viewmodel bobs as you run, but the value cannot be changed in the client from its default value of 0.98.
+
+The most useful console commands for CS:GO
+Make the most of your console.
+
+You’re missing out if you’re not using console commands in Counter-Strike. The tactical shooter features a long list of options to personalize your game, dwarfing its competitors.
+
+You can use the console to add, tweak, and replace elements of the game’s user interface, including your mini-map, HUD, crosshair, and much more. 
+
+To use the console, press the tilde (`) key on your keyboard when you’re in a game. If you haven’t already, you can enable your console by heading to your settings and checking the “enable developer console” box.
+
+When you open the console, type in any one of these commands.
+
+net_graph 1
+This command allows you to see a ton of useful information on your screen, including FPS, ping, and tick rate. 
+
+fps_max 0
+This command helps you maximize your frames per second (FPS). It takes away the restriction on your FPS and allows your PC to reach its maximum potential. Instead of being stuck behind the barrier of 60 FPS, you can go above and beyond.
+
+cl_radar_always_centered
+The radar is often misleading. When a red dot shows up on the edge of the map, it can put you into a false sense of security. This commend centers the radar, allowing you to see all over the map. It might take some time to get used to, but it’s well worth the effort. 
+
+cl_use_opens_buy_menu 0
+Have you ever gone to pick up a weapon off the ground in spawn and accidentally opened up your buy menu? This helpful command will prevent your “use” key (default E) from opening up the buy menu.
+
++cl_show_team_equipment
+This command allows you to see your teammate’s weapons and utility loadout above their heads, giving you a bigger picture of the game. It can be used to single out a teammate and gather information about smokes or flashbangs. 
+
+voice_scale 0.3
+This command will help you counteract your noisy teammates that enjoy screaming rather than playing. It lowers the volume of your teammates to a suitable level, allowing you to focus on the game.
+
+novid
+This command turns off Valve’s annoying pre-game intros, saving you a few seconds when you load up a new map.
+
+language
+This command switches your client to another language. If you speak French, for example, type language [french] in the console. 
+
+bot_add
+This command will add a bot into your private game, allowing you to practice your aim before you jump into matchmaking.
+
+cl_hud_color
+You can personalize your HUD with this command. Write cl_hud_color [HUD Color] and choose a color. Green, Cyan, Red, and Blue are just a few available options.
+
+cl_lefthand
+If you’re a lefty or you want a change of pace, this command will allow you to move your gun to the left side of your screen. If you want to change it back to default, type cl_righthand.
+
+sv_cheats 1
+This command will give you the ability to experiment with your own personal server. You can use it to activate almost any client-sided or server-sided console command you please.  
+
+sv_grenade_trajectory 1 and sv_grenade_trajectory_time 10
+This command is excellent for practicing grenades. You can use it to execute pop-flashes, smokes, and get to grips with the game’s physics.
+
+cl_drawonlydeathnotices 1
+For the frag movie makers out there, this command turns off the heads-up display (HUD) and replaces them with your victims’ aliases in your clips.
+
+r_drawtracers_firstperson 0
+This command turns off the client-side bullet tracers from weapons like the M4A4 and the AK-47. It’s useful for improving your spray control and practicing your favorite guns. 
+
+spec_show_xray 1
+You can use this command while watching demos. It shows player models movements through walls, allowing you to pick up on player behaviorisms. It’s especially useful for catching out wallhackers in Valve’s Overwatch system.
+
+cl_show_team_equipment
+This command lets you view your teammate’s utility. Instead of asking them if they have a couple of flashbangs and a smoke at hand, you can simply look at your screen. 
+
+voice_enable 0
+If you’re sick and tired of listening to your teammates rambling on about nonsense, this command will give you some peace and quiet. It mutes all of the players on your team.
+
+net_graph
+This command will enable (set to 1) and disable (set to 0) a table on your screen, showing your ping, FPS, and other useful information.
+
+cl_showfps
+This command adds a simple frames per sound count in the top left corner of your screen. It takes up much less room than net_graph and is generally less distracting.
+
+demoui
+This command brings up a small rectangular interface for watching demos. It’s helpful for speeding up viewing, slowing down highlights, and manually loading demo files from third-party server hosts like FACEIT or ESEA.
+
+god
+This command gives you “god mode,” making you indestructible in private servers. It requires the sv_cheats 1 command.
+
+noclip
+If you’ve ever fancied flying around the map, noclip is the command for you. It requires the sv_cheats 1 command and only works in private servers.
+
+kill
+This command kills you on the spot.
+
+exec
+Exec is great for enabling private server configurations (.cfg files for practice, one-on-ones, etc.) that you can create or download from third-party websites.
+
+disconnect
+This command allows you to immediately leave a server, saving you a few extra clicks. It’s particularly useful at the end of a match.
+
+quit
+This command closes CS:GO, taking you back to the desktop.

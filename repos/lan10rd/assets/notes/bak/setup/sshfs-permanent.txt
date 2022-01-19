@@ -1,0 +1,7 @@
+sudo sshfs -o allow_other,default_permissions,IdentityFile=~/.ssh/id_rsa/ simba@192.168.0.242:/media/simba/raoyi/earth
+sudo nano /etc/fstab
+mkdir ~/earth
+
+for auto mount 
+
+sshfs#simba@192.168.0.242:/media/simba/raoyi/earth ~/earth

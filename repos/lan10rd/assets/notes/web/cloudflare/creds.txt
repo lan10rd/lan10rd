@@ -1,0 +1,8 @@
+nameservers
+howard.ns.cloudflare.com
+raphaela.ns.cloudflare.com
+
+zone id
+***
+account id
+***

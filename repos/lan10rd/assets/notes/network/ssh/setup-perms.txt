@@ -1,0 +1,340 @@
+
+Search on Super User…
+ 
+Super User is a question and answer site for computer enthusiasts and power users. It only takes a minute to sign up.
+
+
+Anybody can ask a question
+
+Anybody can answer
+
+The best answers are voted up and rise to the top
+Super User
+SPONSORED BY
+Home
+PUBLIC
+Questions
+Tags
+Users
+Unanswered
+FIND A JOB
+Jobs
+Companies
+TEAMS
+Stack Overflow for Teams – Collaborate and share knowledge with a private group. 
+Permissions on private key in .ssh folder?
+Asked 10 years, 10 months ago
+Active 3 months ago
+Viewed 609k times
+
+522
+
+
+249
+I changed my permissions in my .ssh folder and now when I use a piece of software that uses my private key, I have to type my password each time. What should my permissions be on my id_rsa file to not have to type a password each time I use an app that uses it?
+
+Currently my permissions are set to:
+
+-rw-------@ 1 Jody  staff   114 Nov  4 23:29 config
+-rw-------  1 Jody  staff  1743 Oct 21  2009 id_rsa
+-rw-------@ 1 Jody  staff   397 Oct 21  2009 id_rsa.pub 
+-rw-------@ 1 Jody  staff  3855 Sep 13 22:35 known_hosts
+linux
+macos
+permissions
+file-permissions
+Share
+Improve this question
+Follow
+edited Dec 17 '15 at 4:54
+
+Giacomo1968
+47k1616 gold badges150150 silver badges189189 bronze badges
+asked Nov 26 '10 at 22:04
+Jody G
+4
+#!/bin/bash find .ssh/ -type f -exec chmod 600 {} \;; find .ssh/ -type d -exec chmod 700 {} \;; find .ssh/ -type f -name "*.pub" -exec chmod 644 {} \; – 
+Akhil
+ Apr 4 '20 at 5:33 
+Thank you @AkhilJalagam, your code just saved me some thinking. I love stuff like that. I know how to do it but why should I if it's already here :D – 
+ThaJay
+ May 20 at 9:05
+Add a comment
+7 Answers
+
+858
+
+Typically you want the permissions to be:
+
+.ssh directory: 700 (drwx------)
+public key (.pub file): 644 (-rw-r--r--)
+private key (id_rsa): 600 (-rw-------)
+lastly your home directory should not be writeable by the group or others (at most 755 (drwxr-xr-x)).
+I am assuming that you mean that you have to enter your system/user password each time, and that previously you did not have to. cdhowie's response is assuming you set a password/passphrase when generating your keys, and if you did then as he says you will have to enter your password every time unless you use an ssh agent.
+
+Share
+Improve this answer
+Follow
+edited Oct 12 '18 at 8:46
+
+Fabs
+322 bronze badges
+answered Nov 26 '10 at 22:24
+tab33
+21
+I found elsewhere that if using the authorized_keys file, that it should be chmod'd to 640, ie -rw-r----- . – 
+AnneTheAgile
+ Sep 11 '14 at 21:19
+10
+Where I can find this info in man pages? – 
+Sonique
+ Nov 17 '14 at 15:56
+178
+I have come back to this post about 30 times now. I cant believe I cant remember it. – 
+JREAM
+ Apr 2 '15 at 21:35
+10
+The only important things are that nothing in .ssh is writeable to anyone else and none of the secret keys are readable to anyone else. – 
+Markus Kuhn
+ Sep 30 '15 at 11:56
+6
+@Cerin execute permission on a directory grants the ability to list immediate child files/dirs of that directory, files inside the folder don't "inherit" the execute bit of their parent folder. – 
+Thomas
+ Jan 29 '17 at 8:42
+Show 13 more comments
+
+112
+
+I was struggling with this forever and finally figured out what is needed. Replace $USER everywhere with the SSH username you want to log into on the server. If you're trying to login as root you would need to use /root/.ssh etc., instead of /home/root/.ssh which is how it is for non-root users.
+
+Home directory on the server should not be writable by others: chmod go-w /home/$USER
+SSH folder on the server needs 700 permissions: chmod 700 /home/$USER/.ssh
+Authorized_keys file needs 644 permissions: chmod 644 /home/$USER/.ssh/authorized_keys
+Make sure that user owns the files/folders and not root: chown user:user authorized_keys and chown user:user /home/$USER/.ssh
+Put the generated public key (from ssh-keygen) in the user's authorized_keys file on the server
+Make sure that user's home directory is set to what you expect it to be and that it contains the correct .ssh folder that you've been modifying. If not, use usermod -d /home/$USER $USER to fix the issue
+Finally, restart ssh: service ssh restart
+Then make sure client has the public key and private key files in the local user's .ssh folder and login: ssh user@host.com
+Share
+Improve this answer
+Follow
+edited Dec 27 '17 at 15:41
+
+Sam Denty
+4,58433 gold badges99 silver badges1414 bronze badges
+answered Jun 9 '15 at 20:39
+
+Alex W
+1,51622 gold badges1010 silver badges1414 bronze badges
+Regarding your first paragraph, I am able to ssh with public/private keys with a user on my local linux box (e.g. abc), different from the user on the remote server (e.g. def@123.456.789). I just had to make sure the local user owned the local .ssh files (e.g. abc:abc, not root:abc)` – 
+Mchl
+ Dec 22 '15 at 9:41 
+1
+Thanks for putting all the steps and commands for newbies, Alex. Yours is one of the most helpful answers here. – 
+Nav
+ Mar 4 '16 at 6:06
+7
++1. "Authorized_keys file needs 644 permissions" <= that was crucial! – 
+Le Quoc Viet
+ Jun 4 '17 at 17:46
+If you're giving .ssh directory 700 mode, then there is no point in giving r-- to group and others, because only you can "go through" .ssh then (assuming no hard links exists for these files). The same for accepted answer. Default 755 is enough. – 
+user3125367
+ Aug 21 '17 at 9:39
+1
+400 for the pem files are sufficient in my experience. – 
+A T
+ Nov 14 '18 at 12:24
+Show 1 more comment
+
+38
+
+Also ensure that your home directory is not writeable by other users.
+
+chmod g-w,o-w ~
+
+Share
+Improve this answer
+Follow
+edited Mar 14 '14 at 3:29
+answered Jan 3 '13 at 3:50
+
+Felipe Alvarez
+1,87433 gold badges2424 silver badges3535 bronze badges
+8
+FYI, this command assumes you are logged in as the user and not root – 
+Alex W
+ Jun 9 '15 at 18:40 
+Add a comment
+
+26
+
+Am posting this as a separate answer since I wanted to see man page recommendations translated into permissions.
+
+Summary based on the man page quotes (linked at the end):
+
++------------------------+-------------------------------------+-------------+-------------+
+| Directory or File      | Man Page                            | Recommended | Mandatory   |
+|                        |                                     | Permissions | Permissions |
++------------------------+-------------------------------------+-------------+-------------+
+| ~/.ssh/                | There is no general requirement to  | 700         |             |
+|                        | keep the entire contents of this    |             |             |
+|                        | directory secret, but the           |             |             |
+|                        | recommended permissions are         |             |             |
+|                        | read/write/execute for the user,    |             |             |
+|                        | and not accessible by others.       |             |             |
++------------------------+-------------------------------------+-------------+-------------+
+| ~/.ssh/authorized_keys | This file is not highly sensitive,  | 600         |             |
+|                        | but the recommended permissions are |             |             |
+|                        | read/write for the user, and not    |             |             |
+|                        | accessible by others                |             |             |
++------------------------+-------------------------------------+-------------+-------------+
+| ~/.ssh/config          | Because of the potential for abuse, |             | 600         |
+|                        | this file must have strict          |             |             |
+|                        | permissions: read/write for the     |             |             |
+|                        | user, and not accessible by others. |             |             |
+|                        | It may be group-writable provided   |             |             |
+|                        | that the group in question contains |             |             |
+|                        | only the user.                      |             |             |
++------------------------+-------------------------------------+-------------+-------------+
+| ~/.ssh/identity        | These files contain sensitive data  |             | 600         |
+| ~/.ssh/id_dsa          | and should be readable by the user  |             |             |
+| ~/.ssh/id_rsa          | but not accessible by others        |             |             |
+|                        | (read/write/execute)                |             |             |
++------------------------+-------------------------------------+-------------+-------------+
+| ~/.ssh/identity.pub    | Contains the public key for         | 644         |             |
+| ~/.ssh/id_dsa.pub      | authentication.  These files are    |             |             |
+| ~/.ssh/id_rsa.pub      | not sensitive and can (but need     |             |             |
+|                        | not) be readable by anyone.         |             |             |
++------------------------+-------------------------------------+-------------+-------------+
+All the man page quotes are from http://linuxcommand.org/lc3_man_pages/ssh1.html
+
+Share
+Improve this answer
+Follow
+answered Jun 11 '20 at 14:33
+
+Ashutosh Jindal
+58144 silver badges1212 bronze badges
+1
+Let's not forget known_hosts > "~/.ssh/known_hosts Contains a list of host keys for all hosts the user has logged into that are not already in the systemwide list of known host keys. [...] This file should be writable only by root/the owner and can, but need not be, world-readable." (linux.die.net/man/8/sshd) – 
+xtian
+ Mar 10 at 20:55 
+Add a comment
+
+7
+
+Permissions shouldn't have anything to do with this. Your private key is encrypted with the password, so you need to enter it for the private key to be decrypted and usable.
+
+You might consider running an ssh agent, which can cache decrypted keys and will supply them to applications that need them.
+
+Share
+Improve this answer
+Follow
+answered Nov 26 '10 at 22:07
+
+cdhowie
+39811 silver badge66 bronze badges
+Thanks for the additional info about the ssh agent. Looks like there is one built into Leopard so I think I'll do that. Having a bit of trouble with it but I'll ask another question. – 
+Jody G
+ Nov 26 '10 at 22:18
+9
+Do not underestimate permissions. They definitely still come into play. – 
+Alex W
+ May 15 '15 at 19:49
+@AlexW They do come into play with other aspects of ssh, but not the one asked about in the question. – 
+cdhowie
+ May 24 '15 at 23:43
+3
+If you have no password on private keys (whink of automated remote called scripts), it won't help you. Permissions are necessary here. – 
+nerdoc
+ Jan 7 '16 at 23:13
+"I have to type my password each time. What should my permissions be on my id_rsa file to not have to type a password each time I use an app that uses it?" – 
+Craig Hicks
+ Oct 8 '18 at 3:11
+Add a comment
+
+5
+
+Felipe is correct -- the directory containing your .ssh directory must not be writeable by group or other. Thus chmod go-w ~ is the next logical thing to try if you are still prompted for a password when ssh'ing after running ssh-keygen -t rsa; cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys, assuming you don't assign a passphrase in the ssh-keygen command, and your .ssh directory is in your home directory.
+
+Share
+Improve this answer
+Follow
+answered Apr 17 '14 at 20:20
+
+mikentalk
+5111 silver badge11 bronze badge
+Add a comment
+
+-1
+
+Don't do any of this by hand and just use webmin web interface with this plugin and do this all in a few clicks of a GUI!
+
+enter image description here
+
+Share
+Improve this answer
+Follow
+answered Jun 11 at 4:07
+
+Jonathan
+1,49399 gold badges2525 silver badges4545 bronze badges
+Add a comment
+Highly active question. Earn 10 reputation (not counting the association bonus) in order to answer this question. The reputation requirement helps protect this question from spam and non-answer activity.
+The Overflow Blog
+Podcast 381: Building image search, but for any object IRL
+Best practices for authentication and authorization for REST APIs
+Featured on Meta
+Updates to Privacy Policy (September 2021)
+CM escalations - How we got the queue back down to zero
+Should the accepted answers be unpinned on superuser?
+AWS will soon be sponsoring Super User
+Linked
+3
+ssh localhost needs password for Mac OS
+2
+Problems setting private key for SSH logins on Mac OS X 10.10.5 (Yosemite) without passphrase
+0
+ssh key with password is more secure or without password?
+0
+Permissions error for id_rsa in Linux Subsystem for Windows (custom home from mnt/c/Users)
+1
+SSH Key only working with ssh agent
+Related
+0
+SSH passwordless authentication failure
+0
+Passwordless ssh between two nodes, but the authorized_keys file is on a shared filesystem (GPFS)
+0
+Linux folder and file permissions
+6
+Did I just send my private ssh key?
+283
+Windows SSH: Permissions for 'private-key' are too open
+Hot Network Questions
+What are these Roman Numerals?
+What's the closest bodily damage there is to simulating the effects of "cast from lifespan" magic?
+Why is it called proto-Germanic?
+How do Ubuntu Developers choose wallpapers for the new releases?
+Oil squirting from somewhere on bike during ride
+What Biblical Defenses are there to Divine Hiddenness?
+Use of past perfect v progressive past (gerund)
+Does Challah bread need to be braided?
+Inflation and gravitational interaction
+When will Lucy deploy its solar panels?
+Is there any reason to prefer a unicode symbol versus its LaTeX command counterpart?
+Do I need to declare my money (over $10K) in the US if I'm in transit?
+Dashed link lines in node editor
+Should I acknowledge my parents for their copy editing?
+How is it possible to get infected with malware by opening a file on a Mac or Windows machine?
+Is it possible to take off backwards using reverse thrust?
+Validation Rule : Error: Syntax error. Missing ')'
+"Sabbelwasser trinken"
+With a multi column non clustered index, and the SELECT on middle column, why does SQL server query this index rather than scanning the table?
+How do I explain a big flooding event that happened while still having a cold planet?
+Can a new driver legally drive themselves while waiting for their license card to be mailed to them?
+This breaks the law of conservation of energy but I don't understand why it doesn't make sense
+Were Facebook employees unable to enter their own building to fix router problems, during a recent (six hour) outage?
+How are some scenes for movies shot especially for iPhone viewing?
+ Question feed
+ 

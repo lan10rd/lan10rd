@@ -1,0 +1,5 @@
+- heard that 128 mb and 3d acceleration should be enabled 
+- also install guest additions (probably gonna do that anyway)
+- also, it wasnt working until i went to display settings inside the vm and adjusted the resolution. 
+
+- escape scaled mode with right ctl + c

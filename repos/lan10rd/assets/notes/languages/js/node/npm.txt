@@ -1,0 +1,25 @@
+-- for a nrwl monorepo lib to be publishable (and buildable, something else but might as well)
+nx g @nrwl/nest:lib common/ns --buildable --publishable --importPath=@lanl0rdjs/common-ns
+nx g @nrwl/angular:lib common/ng --publishable --buildable --importPath=@lanl0rdjs/common-ng
+
+(--buildable is for pre built stuff, publishable is to make it npm ready, at which point you can do npm build libname, then cd dist/libname and npm publish)
+
+--- then run these commands --
+
+nx build lib-name
+cd dist/libs/lib-name
+npm login // (if you havent already)
+npm publish --scope=@lanl0rdjs --access public
+
+* seems like package.json is all thats necessary mainly, i like to bump the versions then build then publish (from dist which puts a little package.json in there)
+
+
+
+--- sometimes when publishing on a new account you may see Not Found - PUT https://registry.npmjs.org/@lan10rdjs%2fcommon-ng - Scope not found
+
+
+If you want to publish a package on npm using the name @npmtestscope/firstpackage, you need to make sure that the namespace @npmtestscope exists on npm. To create that namespace, you need to create an organization on npm with the name npmtestscope.
+
+After you have created the organization, you can publish your package named @npmtestscope/firstpackage by executing npm publish --access public.
+
+Note: To run npm publish for a package that belongs to a npm organization, you need to be logged in on your computer as a member of that organization. You can do that by executing npm login. The npm whoami command will show you the user name associated with the current login.

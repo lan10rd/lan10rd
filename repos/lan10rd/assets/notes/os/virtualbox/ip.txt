@@ -1,0 +1,3 @@
+/* get ip */
+ip address
+ip addr show

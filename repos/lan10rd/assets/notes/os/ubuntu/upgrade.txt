@@ -1,0 +1,7 @@
+sudo apt update
+sudo apt upgrade
+sudo apt dist-upgrade
+sudo apt autoremove
+nano /etc/update-manager/release-upgrades // file and ensure that the Prompt variable is set to normal (instead of lts).
+sudo do-release-upgrade // sudo do-release upgrade -d, if doing before official release date
+sudo reboot

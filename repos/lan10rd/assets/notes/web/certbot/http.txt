@@ -1,0 +1,5 @@
+certbot certonly --standalone --dry-run --agree-tos --debug-challenges --non-interactive -d doubletake.digital
+
+docker exec -it f57c7e8d9925f33164a3afddd20f1af8ee9abd17bd2911e1b33c294c3fa864ee certbot certonly --standalone --register-unsafely-without-email --dry-run --agree-tos --debug-challenges --non-interactive -d glass.beer
+
+--expand

@@ -1,0 +1,35 @@
+According to the comments, on Ubuntu 18.04 LTS this seems to be the solution:
+
+systemctl enable mongodb.service
+Thanks to @Adam. I had the same "problem" on Debian jessie, and my solution there was:
+
+systemctl enable mongod.service
+Maybe they changed the name of the service. I think in Ubuntu it's the same.
+
+startup:
+
+# You can optionally ensure that MongoDB will start following a system reboot by issuing the following command:
+
+sudo systemctl enable mongod
+
+
+start:
+sudo systemctl start mongod
+
+# If you receive an error similar to the following when starting mongod: (for first time)
+# Failed to start mongod.service: Unit mongod.service not found.
+
+sudo systemctl daemon-reload
+
+status:
+
+sudo systemctl status mongod
+
+stop:
+
+sudo systemctl stop mongod
+
+restart:
+
+sudo systemctl restart mongod
+

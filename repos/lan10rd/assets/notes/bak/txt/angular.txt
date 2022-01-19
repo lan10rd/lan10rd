@@ -1,0 +1,344 @@
+
+---- http ----
+
+a couple things..., here are some options
+1) {responseType: text}
+  this will allow normal string responses that are not json types
+2) {withCredentials: true}
+  this will allow cookies/signedCookies to be sent along with the xhr request, however, when you use this on fetching resources that are not really served by an api, ie, images/css, then when you use this for all requests in an interceptor it can cause problems... so you should really only use this when calling a server where cookies are expected thus you will explicitly call it
+
+interceptors and HttpClientModule
+
+1) Careful when importing HttpClientModule... it comes with providers and if you plan on adding app interceptors then they will contradict each other if you import httpclientmodule multiple times
+
+
+-----lifecycle-----
+
+ngOnChanges() 
+Respond when Angular (re)sets data-bound input properties. The method receives a SimpleChanges object of current and previous property values.
+
+Called before ngOnInit() and whenever one or more data-bound input properties change.
+
+ngOnInit()  
+Initialize the directive/component after Angular first displays the data-bound properties and sets the directive/component's input properties.
+
+Called once, after the first ngOnChanges().
+
+ngDoCheck() 
+Detect and act upon changes that Angular can't or won't detect on its own.
+
+Called during every change detection run, immediately after ngOnChanges() and ngOnInit().
+
+ngAfterContentInit()  
+Respond after Angular projects external content into the component's view / the view that a directive is in.
+
+Called once after the first ngDoCheck().
+
+ngAfterContentChecked() 
+Respond after Angular checks the content projected into the directive/component.
+
+Called after the ngAfterContentInit() and every subsequent ngDoCheck().
+
+ngAfterViewInit() 
+Respond after Angular initializes the component's views and child views / the view that a directive is in.
+
+Called once after the first ngAfterContentChecked().
+
+ngAfterViewChecked()  
+Respond after Angular checks the component's views and child views / the view that a directive is in.
+
+Called after the ngAfterViewInit() and every subsequent ngAfterContentChecked().
+
+ngOnDestroy() 
+Cleanup just before Angular destroys the directive/component. Unsubscribe Observables and detach event handlers to avoid memory leaks.
+
+Called just before Angular destroys the directive/component.
+
+
+
+docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+--archive , -a    Archive mode (copy all uid/gid information)
+--follow-link , -L    Always follow symbol link in SRC_PATH
+
+
+// this.util.streams.subscribe('document', 'selectionchange', $event => { document.execCommand('copy') })
+
+Try one of these:
+
+ApplicationRef.tick() - similar to AngularJS's $rootScope.$digest() -- i.e., check the full component tree
+NgZone.run(callback) - similar to $rootScope.$apply(callback) -- i.e., evaluate the callback function inside the Angular zone. I think, but I'm not sure, that this ends up checking the full component tree after executing the callback function.
+ChangeDetectorRef.detectChanges() - similar to $scope.$digest() -- i.e., check only this component and its children
+You can inject ApplicationRef, NgZone, or ChangeDetectorRef into your component.
+
+
+
+@HostListener('scroll', ['$event']) // for scroll events of the current element
+// @HostListener('window:scroll', ['$event']) // for window scroll events
+onScrollEvent
+(
+    $event
+)
+{
+    this.onScroll.emit({$event, scrollTop: this.commonScrollElement.nativeElement.scrollTop, scrollLeft: this.commonScrollElement.nativeElement.scrollLeft, offsetWidth: this.commonScrollElement.nativeElement.offsetWidth, clientWidth: this.commonScrollElement.clientWidth})
+}
+
+constructor(private cd: ChangeDetectorRef) {}
+public someFn() {
+  this.someInput = aValue;
+  this.cd.detectChanges();
+  // ngOnChanges will be called
+}
+3. Use a getter/setter and don’t worry about ngOnChanges.
+private _aValue;
+public get aValue() { return this._aValue; }
+public set aValue(newValue) {
+  // logic
+  this._aValue = newValue;
+}
+
+
+view children / view child
+
+if you see that it is undefined because you are trying to manipulate it in code then make sure to make references on ngAfterViewInit as viewchildren arent set until after... if you are using viewchildren and you need additional stuff to happen on changes, you can subcribe to the querylist references .changes
+
+@ViewChild('AsideOne', {static: true}) asideOne  // needs static: true, or else it wont be available until afterviewinit i think after angular 8
+
+it seems if you actually want to get the element in the querylist (viewchildren), then you need to get the query list and looks at the _results field, each will be the nth child in the list
+
+
+
+**dynamic components**:
+
+So instead of importing components using modules which adds bulk to the loaded modules of angular, you can instead declare the component (app component usually) and add to entryComponents:  in the same ngModule that you declare it, then at runtime you could load the module into a viewContainerRef, so like:
+
+-- a.component.ts
+import { Component, Input } from '@angular/core'
+@Component({template: `hi im component a <p>{{data | json}}`})
+export class AComponent { @Input() data: any }
+
+-- b.component.ts
+import { Component, Input } from '@angular/core'
+@Component({template: `<div>{{data.text}}</div>`})
+export class BComponent { @Input() data: any }
+
+-- c.component.ts
+import { Component, Input } from '@angular/core'
+@Component({template: `<ul><li *ngFor="let d of data">{{d.text}}</li></ul>`})
+export class CComponent { @Input() data: any }
+
+-- components.ts
+import { AComponent } from '../../a.component'
+import { BComponent } from '.../../.././././b.component'
+import { CComponent } from '../c/c.component'
+export const components = {
+  'a': AComponent,
+  'b': BComponent,
+  'c': CComponent
+}
+
+-- components.module.ts
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { AComponent } from './a.component'
+import { BComponent } from '../../../b.component'
+import { CComponent } from './c.component'
+@NgModule({imports: [CommonModule], declarations: [AComponent, BComponent, CComponent], entryComponents: [AComponent, BComponent, CComponent]})
+export class ComponentsModule {}
+
+--- dynamic.directive.ts
+
+import { Directive, ViewContainerRef } from '@angular/core'
+@Directive({selector: ['dynamic-host']})
+export class DynamicDirective {
+  constructor(public ref: ViewContainerRef)
+}
+
+--- dynamic.component.ts
+import { Component, Input, ViewChild, ComponentFactoryResolver, OnInit } from '@angular/core'
+import { DynamicDirective } from './dynamic.directive'
+import { components } from './components'
+@Component({selector: 'dynamic-component', template: `<ng-template dynamic-host></ng-template>`})
+export class DynamicComponent implements OnInit {
+  @Input() component: string
+  @Input() data: any
+  @ViewChild(DynamicDirective, {static: true}) host: DynamicDirective
+  constuctor(public resolver: ComponentFactoryResolver){}
+  ngOnInit(){ this.resolve() }
+  resolve() {
+    this.host.ref.clear()
+    let component: any = this.host.ref.createComponent(this.resolver.resolveComponentFactory(components[this.component]))
+    component.instance.content = this.content
+  }
+}
+
+--- dynamic.module.ts
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { DynamicComponent } from './dynamic.component'
+import { DynamicDirective } from './dynamic.directive'
+@NgModule({imports: [CommonModule], declarations: [DynamicComponent, DynamicDirective], exports: [DynamicComponent, DynamicDirective]})
+export class DynamicModule { }
+
+--- some component (once) or app.component
+imports: [ComponentsModule]
+
+--use anywhere like
+
+- your anywhere compoennt .module
+imports: [DynamicComponentModule]
+
+-your anwhere component .html
+<dynamic-component [component]="'a'" [data]="{anything: 'yo'}"></component>
+<dynamic-component [component]="'b'" [data]="{anything: 'ooooo', hihi: 'hehe'}"></component>
+<dynamic-component [component]="'c'" [data]="c"></component>
+
+
+
+
+if you want angular material fonts, just make sure to add the following to angular.json:
+"node_modules/material-design-icons/iconfont/material-icons.css"
+
+create symbolic links (mac) with command:
+ln -s /path/to/original /path/to/link
+ln -s ~/glass/libs ~/glass/apps/ng/src
+
+if you want to move libraries out of src/, at least in angular you can add the property in angular.json "preserveSymlinks": true (inside of "build": {}), for example: 
+
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "../",
+  "projects": {
+    "glass": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/glass",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/material-design-icons/iconfont/material-icons.css"
+            ],
+            "scripts": [],
+            "preserveSymlinks": true 
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "glass:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "glass:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "glass:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "glass-e2e": {
+      "root": "e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "glass:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "glass:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "glass"
+}

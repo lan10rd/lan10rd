@@ -1,0 +1,3 @@
+Next, add a label to the node where you want to run the registry. To get the node’s name, use docker node ls. Substitute your node’s name for node1 below.
+
+$ docker node update --label-add registry=true node1

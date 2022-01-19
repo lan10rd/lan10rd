@@ -1,0 +1,414 @@
+CS:GO Commands List
+Below is Total CS:GO's searchable list of all 3057 CS:GO console commands. Each command in our database has detailed documentation, with help and argument explanation (hover over a command to view). Click on a command's name to visit its individual page, on which you can find more information including working examples and its default setting or value.
+
+Type the name of a command into the search box to instantly filter 3057 commands. Toggle between different views by pressing the "Card View" and "Table View" buttons. If you are looking for a more specific selection of commands, you may prefer to sort by category.
+
+Type to search...
+Name	Syntax	Description
+bot_add	bot_add [T / CT] [Difficulty] [Name]	This command adds a bot to your current game. If you specify a team (T or CT), the bot will be added to that team. You can also optionally specify a difficulty and a name (if there is an existing profile).
+bot_add_ct	bot_add_ct [Difficulty] [Name]	This console command adds a bot to the CT side. If the bot spawns dead, it will respawn at the start of the next round. You can optionally specify a difficulty and a name (if there is an existing profile).
+bot_add_t	bot_add_t [Difficulty] [Name]	This command adds a bot to the T side. If the bot spawns dead, it will respawn at the start of the next round. You can optionally specify a difficulty and a name (if there is an existing profile).
+cl_crosshairgap	cl_crosshairgap [Gap]	This console command will adjust the size of the gap in the middle of your crosshair. The smaller the value, the smaller the gap.
+cl_crosshairsize	cl_crosshairsize [Size]	This command controls the length and size of the 4 lines that make up a standard crosshair. Using a low value will give your crosshair very slight lines, and using a large value makes your crosshair have very long lines.
+cl_crosshairstyle	cl_crosshairstyle [Style]	This command sets the style of your crosshair such as its general shape and whether or not it opens up whenever your character moves around.
+cl_crosshairthickness	cl_crosshairthickness [Thickness]	This console command customizes the thickness of your in game crosshair.
+cl_hud_color	cl_hud_color [HUD Color]	This is the console command used to change and customize the color of your HUD (heads up display). It can be changed to a variety of colors, which we have listed examples for.
+cl_hud_playercount_showcount	cl_hud_playercount_showcount [0 / 1]	This useful console command customizes your HUD by changing the display of players alive on each team from showing each of their Steam avatars to just showing a number for how many of each team is alive.
+cl_hud_radar_scale	cl_hud_radar_scale [Radar Scale]	This useful console command controls how much room in your HUD your radar takes up. You can choose to make it a smaller feature or larger than the default value.
+cl_radar_scale	cl_radar_scale [Radar Scale]	This command adjusts the scale of your radar, which affects how zoomed in or out the radar is. A lot of players use this command to zoom the radar out and have a complete view of the map.
+cl_righthand	cl_righthand [0 / 1]	This is the command that moves your gun to your left hand, also known as the switch hand command. Your gun and other weapons will be on the left side of your screen, which some people prefer.
+cl_showfps	cl_showfps [0 / 1]	This command produces a simple FPS (frames per second) count in the top left corner of your screen. Unlike the net_graph command, the only value shown is your FPS, which some players like for its simplicity.
+demo_pause	demo_pause	This useful console command is used to pause the demo you're watching. Playback can be resumed with the command demo_resume.
+demo_resume	demo_resume	This useful command is used to resume the demo you're watching, if you have previously paused it. To pause demos, use the command demo_pause.
+demo_timescale	demo_timescale [Playback speed]	This command sets how quickly the demo is played. In other words, it can be used to fast forward through rounds you're not interested in watching.
+demo_togglepause	demo_togglepause	Use this command when watching demos to toggle between being paused or not. The good thing about this command is then it will pause or play the demo, depending on if its running when the command is entered.
+game_mode	game_mode [Game Mode]	This command can be used in conjunction with the game_type command to change the type of game you are playing (casual, deathmatch, etc). See argument information for help.
+game_type	game_type [Game Type]	This command can be used with the game_mode command to change the game you are playing (e.g. arms race, competitive, etc). See argument information for combinations and help.
+give	give [Weapon Code]	This command will give you the item with the specified item code. Find item codes on our give command list.
+hurtme	hurtme [Damage]	This command will hurt your character with the specified amount of damage (1 = 1HP).
+mp_ignore_round_win_conditions	mp_ignore_round_win_conditions [0 / 1]	This command can be used to enable and disable round win conditions. If round win conditions are disabled (ignored), then the conditions that would usually make a round end (e.g. bomb exploding, team being eliminated) will no longer make the round end - the round would last forever, until manually ended. By default, this command is disabled (meaning win conditions are not ignored).
+mp_warmup_end	mp_warmup_end	This command ends the warmup.
+noclip	noclip	This command will toggle noclip for your player. When in noclip, you can fly and will pass through solid objects like walls.
+say	say [Message]	This command will make you say the specified message in chat.
+say_team	say_team [Message]	This command will make you say the specified message in team chat.
+sensitivity	sensitivity [Sensitivity]	This command sets your mouse sensitivity to the specified value.
+unbind	unbind [Key]	This command removes any bind bound to the specified key.
+viewmodel_fov	viewmodel_fov [FOV]	This command sets your client's FOV to the specified number. You can set your FOV to a maximum of 68 using this command. The default field of view is 60.
+viewmodel_offset_x	viewmodel_offset_x [X Offset]	This command sets the X offset of your view model - i.e. how far left or right it is. Your view model is your hand (and the gun in it) that displays in first person mode. The maximum value is 2.5 and the minimum value is -2.5.
+viewmodel_offset_y	viewmodel_offset_y [Y Offset]	This command sets the Y offset of your view model - i.e. how close or far from your character is. Your view model is your hand (and the gun in it) that displays in first person mode. The maximum value is 2 and the minimum value is -2.
+viewmodel_offset_z	viewmodel_offset_z [Z Offset]	This command sets the Z offset of your view model - i.e. how far up or down it is. Your view model is your hand (and the gun in it) that displays in first person mode. The maximum value is 2 and the minimum value is -2.
+voice_enable	voice_enable [0 / 1]	This command sets whether or not voice communication is enabled for your client. Setting this to 0 will disable voice. Default is 1 (enabled).
+bind	bind [Bind Key] ["Bind Command"]	This command will bind a command, or list of commands, to a key on your keyboard or button on your mouse. Binds can make your CS:GO experience much more convenient, and is a very important command in the game.
+bind_osx	bind_osx [Bind Key] ["Bind Command"]	This command will bind a command, or list of commands, to a key on your keyboard or button on your mouse. This command is for OSX (Mac).
+bot_difficulty	bot_difficulty [Difficulty]	This console command sets the difficulty of any bots you add to a private server. Set this to 0 for easy bots, 1 for normal bots, 2 for hard bots and 3 for expert bots.
+bot_quota	bot_quota [Amount]	This command adjusts the maximum number of bots you can have in your server. The default value is 10.
+cl_crosshair_drawoutline	cl_crosshair_drawoutline [0 / 1]	This console command can be used to enable and disable the small black outline that is around your crosshair. This can enhance crosshair visibility for some players.
+cl_crosshair_outlinethickness	cl_crosshair_outlinethickness [Thickness]	This useful console command adjusts how thick the outline of your crosshair is. It is an important command to adjust to ensure your aim is as good as it can be.
+cl_crosshaircolor	cl_crosshaircolor [Color]	This console command sets the color that your crosshair shows up as. You can set a value between 0 and 4.
+cl_draw_only_deathnotices	cl_draw_only_deathnotices [0 / 1]	This console command is especially useful for CS:GO fragmovie makers, as it strips down the UI to only include the crosshair and the kill feed. These are the two things needed in videos.
+cl_radar_always_centered	cl_radar_always_centered [0 / 1]	This command decided whether or not your radar is always centered to your location. Turning this feature off can be useful, as when you're by the edge of the map less of the radar's space is taken up by empty space, meaning you can see your surroundings more clearly.
+cl_radar_rotate	cl_radar_rotate [0 / 1]	This command toggles whether or not your radar rotates as you rotate and look around with your camera. Some players find disabling this feature makes it easier to use the radar.
+joy_inverty	joy_inverty [0 / 1]	This console command is used to set whether you want to invert the Y axis for looking around on a joystick. When this command is turned on, moving the joystick up, or forward, will make your character look down.
+joy_movement_stick	joy_movement_stick [0 / 1 / 2]	This console command is used to determine which stick on the joystick controls the movement of your player model.
+key_listboundkeys	key_listboundkeys	This console command lists all of the keys and buttons you have that have a specific action bound to them (e.g. the space bar being bound to jump).
+sv_infinite_ammo	sv_infinite_ammo [0 / 1 / 2]	This command, if set to 1, will give you infinite ammunition for your weapon allowing you to fire your gun continuously. If you set this command to 2, you will have infinite ammo to reload with, but you will still run out of ammo after firing all of the bullets in your gun's clip.
+cl_autowepswitch	cl_autowepswitch [0 / 1]	This command changes whether or not you automatically equip a weapon you just picked up.
+cl_color	cl_color [Color Value]	This useful command sets your preference for what color you like to be in matchmaking. This color is shown on the radar and on your Steam avatar when in the lobby.
+cl_crosshairalpha	cl_crosshairalpha [Alpha Value]	This command sets how transparent your crosshair is on your screen. The lower the value, the less visible your crosshair is.
+cl_hud_playercount_pos	cl_hud_playercount_pos [0 / 1]	Use this command to adjust where the player count (players who are in the server) menu is shown on your HUD. This also changes where the scoreboard is, that shows rounds won by each team. You can place it at the top of your screen or at the bottom.
+cl_pitchdown	cl_pitchdown [Degrees]	This fun command controls how many degrees down from eye level you can move your camera. That means you can edit this command to allow you to look under you, effectively looking through your character model's legs at what is behind you.
+cl_pitchup	cl_pitchup [Degrees]	This fun console command controls how many degrees from eye level you can look up into the sky. This can be adjusted to let you look so far around that you end up seeing behind you.
+cl_radar_icon_scale_min	cl_radar_icon_scale_min [Icon Scale]	This console command changes how large your character dot appears on the radar.
+cl_showpos	cl_showpos [0 / 1]	This command will show you values for where exactly on the map you are located. This will appear in the top left of your screen by default. It also shows your velocity (run speed).
+clear	clear	This console command clears all of the previous entries and data from the developer console. It is good to do every so often to make the console more readable.
+inferno_damage	inferno_damage [Damage Per Second]	This fun console command is used to change how much damage molotov and incendiary grenades do . When cheats are activated, you can set this value to be incredibly high or incredibly low.
+inferno_flame_lifetime	inferno_flame_lifetime [Burn Time]	This console command changes how long the fires burn from molotov and incendiary grenades. It allows you to make them last for just a moment, or for an extended period of time.
+inferno_max_range	inferno_max_range [Range]	This command sets the maximum distance that flames from a molotov or incendiary grenade can spread from their initial point of impact with the ground.
+jpeg	jpeg [File Name]	This command is used to take a screenshot. You can specify the file name in the command.
+map	map [Map Code]	Use this console command to instantly change the map you're currently playing to a different map.
+mp_afterroundmoney	mp_afterroundmoney [Amount]	This command sets the amount of money that is award to every player on every team at the end of each round, regardless of win/loss. Default is 0 (win/loss bonus is set with a different command).
+mp_autokick	mp_autokick [0 / 1]	This command sets whether or not the auto kick feature should be enabled. The auto kick feature kicks people for being idle (AFK) and team damage. Default is 1 (enabled).
+mp_autoteambalance	mp_autoteambalance [0 / 1]	This command can be used to enable or disable the auto team balance feature. This feature will swap players around teams at the end of a round if there are an unequal amount of players on either time (i.e. if team A has 1 player and team B has 3, at the end of the round, 1 player from team B would be automatically moved over to team A).
+net_graph	net_graph [0 / 1 / 2 / 3]	This command will enable (set to 1) and disable (set to 0) the net graph display, which shows ping, FPS and other client variables.
+notarget	notarget	This command toggles whether or not bots are aware of your player. When this is enabled, bots will not attack you (or even react to you).
+sv_grenade_trajectory	sv_grenade_trajectory [0 / 1]	This command, if enabled (1), shows the trajectory of grenades (as colored lines). Default is 0 (disabled).
+viewmodel_presetpos	viewmodel_presetpos [1 / 2 / 3]	This command will set your X/Y/Z viewmodel offsets to a preset configuration. See argument information for help.
+-cl_show_team_equipment	-cl_show_team_equipment	This command disables the effect of the +cl_show_team_equipment, which puts the names/equipment of the members of your team permanently above their head.
++cl_show_team_equipment	+cl_show_team_equipment	This command puts the names of your teammates and the equipment they're carrying above their head permanently (usually just shows at the start of the round). Use -cl_show_team_equipment to disable.
+mp_drop_knife_enable	mp_drop_knife_enable [0 / 1]	This command allows players to drop their knives.
+sv_autobunnyhopping	sv_autobunnyhopping [0 / 1]	This command, if set to 1, will make you automatically bunny hop by holding down the space bar. Default is disabled (1).
+snd_mvp_volume	snd_mvp_volume [Volume]	This useful console command sets how long the MVP music is when a player with a MVP kit wins MVP award that round.
+sv_ledge_mantle_helper	sv_ledge_mantle_helper [0 / 1 / 2]	This console command, when enabled, makes it easier to crouch jump into windows or ledges.
+sv_prime_accounts_only	sv_prime_accounts_only [0 / 1]	This command, if set to 1, makes it so that only prime accounts can connect to the server. Default on most servers is 0 (meaning non-prime players can connect).
+BindToggle	BindToggle [Bind Key] ["Bind Command"]	This command assigns a hotkey (key on your keyboard, or button on your mouse) to switch through the various values a specified console command has (when pressed or clicked). This is useful for setting up binds that toggle a certain feature. For example,"voice_enable" would be toggled between 0 and 1 (disabled and enabled).
+cl_autobuy	cl_autobuy [Weapon codes]	This command is used to set up your autobuy preferences, meaning you can purchase the most vital gear each round by just typing "autobuy" into your console once this is set up.
+cl_crosshaircolor_b	cl_crosshaircolor_b [Blue Value]	This console command allows you to set the color of your crosshair with detail, by adjusting its level of blue. The same command exists for red and green.
+cl_crosshaircolor_g	cl_crosshaircolor_g [Green Value]	This console command allows you to set the color of your crosshair with detail, by adjusting its level of green. The same command exists for red and blue.
+cl_crosshaircolor_r	cl_crosshaircolor_r [Red Value]	This console command allows you to set the color of your crosshair with detail, by adjusting its level of red. The same command exists for green and blue.
+cl_crosshairgap_useweaponvalue	cl_crosshairgap_useweaponvalue [0 / 1]	When activated, this command will dynamically adjust the size of your crosshair depending on what weapon you have equipped at the time.
+cl_disablehtmlmotd	cl_disablehtmlmotd [0 / 1]	This command can be used to disable HTML "messages of the day" (MOTDs)in the client (by setting it to 1). HTML MOTDs are the the web pages/text that pops up when you join a server, sometimes they play volume or loud ads. Default is 0, which makes HTML MOTDs enabled.
+cl_forwardspeed	cl_forwardspeed [Speed]	This movement console command is used to set the speed you run at when moving forward.
+cl_hideserverip	cl_hideserverip [0 / 1]	This console command is used to hide the IP of your server in your console. This is particularly useful if you're streaming and don't want viewers to be able to catch your IP address, giving them the chance the DDoS the server.
+cl_hud_healthammo_style	cl_hud_healthammo_style [0 / 1]	This command is used to toggle between whether or not you want your health & armor bars at the bottom of your screen to show their numeric value (e.g 80 health) and a bar to represent this, or just show the number.
+cl_idealpitchscale	cl_idealpitchscale [Pitch Value]	This console command adjusts the pitch of the sound in game, and can cause shooting bullets sound different to usual.
+cl_rebuy	cl_rebuy [Item Order]	This console command sets the order in which the game client rebuys your gear. It can be adjusted to give priority to other purchases, such as defuse kits, grenades and more.
+cl_sidespeed	cl_sidespeed [Speed]	This movement console command sets how quickly you can move while running sideways.
+inferno_friendly_fire_duration	inferno_friendly_fire_duration [Duration]	This command sets how long after you've damaged a teammate with a molotov or an incendiary grenade the server tells you that you've damaged someone on your team.
+inferno_scorch_decals	inferno_scorch_decals [0 / 1]	You can use this console command to prevent molotovs and incendiary grenades you throw from leaving scorch decals (scorch marks) on the ground once they burn out.
+listissues	listissues	This useful console command produces a list in your developer console of the different things you can vote for in your server . This includes voting to change the map and voting to kick a player.
+m_rawinput	m_rawinput [0 / 1]	This command enables raw input from your mouse, if set to 1 (default). When raw input is enabled, input is taken directly from your mouse and your operating system settings (like acceleration, delay, etc) will not come into play.
+mm_dedicated_search_maxping	mm_dedicated_search_maxping [Max Ping]	This console command is used to set your max preferred ping when connecting to matchmaking servers. It can be beneficial to adjust this command if you find yourself being put in laggy servers.
+mp_buy_allow_grenades	mp_buy_allow_grenades [0 / 1]	This command sets whether or not players can purchase any form of grenade from the buy menu. Default is 1 (enabled).
+mp_buy_anywhere	mp_buy_anywhere [0 / 1 / 2 / 3]	This command can be used to set whether or not players can access the buy menu when they are outside of the buyzone. Note that they still need to be within the buy time period - you can change the buy time period with mp_buytime.
+mp_buy_during_immunity	mp_buy_during_immunity [0 / 1 / 2 / 3]	This command makes it so that players can buy when they are immune, regardless of the current buy time. This is used commonly in deathmatch servers. See argument information for options. Default is 0 (disabled).
+mp_buytime	mp_buytime [Seconds]	This command sets the amount of time (in seconds) that players have after a round starts to purchase items. This is the time period AFTER the round countdown. So players have the countdown at the start of the round (usually 15 seconds), plus this time period to buy.
+mp_c4timer	mp_c4timer [Seconds]	This command sets how many seconds it takes for the bomb to explode after it has been planted by the terrorists. Default is 40 seconds or 35 seconds, depending on gamemode.
+mp_competitive_endofmatch_extra_time	mp_competitive_endofmatch_extra_time [Seconds]	This command sets the amount of time (in seconds) that the scoreboard will show for (or voting time there will be) after a competitive match ends. Default is 15 seconds.
+mp_ct_default_grenades	mp_ct_default_grenades [Grenade Code(s)]	This command sets the default grenades that counter terrorists spawn with. Default is none (0). Separate multiple grenades with spaces.
+
+mp_ct_default_melee	mp_ct_default_melee [Weapon Code(s)]	This command sets the default melee weapon that counter terrorists spawn with at the start of the round. Default is weapon_knife.
+mp_ct_default_primary	mp_ct_default_primary [Weapon Code(s)]	This command sets the default primary weapon that counter terrorists spawn with at the start of the round. Default is none (0).
+mp_ct_default_secondary	mp_ct_default_secondary [Weapon Code(s)]	This command sets the default secondary weapon that counter terrorists spawn with at the start of the round. Default is weapon_hkp2000.
+mp_death_drop_c4	mp_death_drop_c4 [0 / 1]	This command sets whether or not the C4 (bomb) is droppable. Default is 1 (droppable).
+mp_death_drop_defuser	mp_death_drop_defuser [0 / 1]	This command sets whether or not defuse kits are dropped on death. Default is 1 (dropped on death).
+mp_death_drop_grenade	mp_death_drop_grenade [0 / 1 / 2]	This command sets which grenade (if any) to drop when a player is killed. See argument information for help. Default is 1 (their best).
+mp_death_drop_gun	mp_death_drop_gun [0 / 1 / 2]	This command sets which gun should be dropped when a player is killed. Default is 1 (their best).
+mp_deathcam_skippable	mp_deathcam_skippable [0 / 1]	This command sets whether or not the deathcam can be skipped. Default is 1 (skippable).
+mp_default_team_winner_no_objective	mp_default_team_winner_no_objective [Team]	If your map does not have an objective, this command will set who wins the game when the time runs out.
+mp_defuser_allocation	mp_defuser_allocation [0 / 1 / 2]	This command can be used to set whether or not players should receive defusers (for free) at the start of the round, and if so, who should receive the defusers.
+mp_disable_autokick	mp_disable_autokick [User ID]	This command will stop the user with the specified userid from being autokicked. Note that this user id is not their steam ID, the user ID is the number that shows in the "status" command.
+mp_display_kill_assists	mp_display_kill_assists [0 / 1]	This command will set whether or not assists are shown in the killfeed. Default is yes (1).
+mp_dm_bonus_length_max	mp_dm_bonus_length_max [Seconds]	This command sets the maximum duration of the bonus time in deathmatch. A random time between this value and mp_dm_bonus_length_min will be chosen.
+voice_scale	voice_scale [0 - 1]	This command sets the volume of voice communications (i.e. how loud all other players microphones are). Default is 1 (loudest), 0 would mute, 0.5 would be 50% volume.
++use	+use	This command will prompt you to perform the "use" action on an item or object if its applicable. For example, this command will make you plant the bomb if you're on a bombsite carrying the bomb when you use it. It can also open doors if you're in front of one. It acts in a similar way to the E key on a default keyboard setup. Use the -use command afterwards, as otherwise you will not be able to use this command again.
+-use	-use	If you have previously used the +use command, you must run this command after (to deactivate it), so that you can use the +use command again.
+addip	addip [Minutes Banned] [IP Address ]	This console command bans the specified IP from the server for the specified amount of minutes. Specify 0 as the amount of minutes to ban permanently.
+alias	alias [Alias] ["Command"]	The alias command in CS:GO allows you to assign a longer command or commands to a custom phrase that you enter into your console.
+banid	banid [Minutes] [User ID]	This command will ban the user with the specified ID from the server, and add them to the banlist so that they cannot reconnect. The user ID of a user can be obtained by typing status into the console: the user ID is first number before a player's name in the list of players that is printed by that command.
+banip	banip [Minutes] [IP Address ]	This command is an alias of the "addip" command. This console command bans the specified IP from the server for the specified amount of minutes. Specify 0 as the amount of minutes to ban permanently.
+bot_dont_shoot	bot_dont_shoot [0 / 1]	This command can be used to prevent NPC characters (bots) from being able to fire guns.
+bot_kill	bot_kill [Kill Criteria]	This command kills all of the bots in your selected criteria. Unlike the bot_kick command, this doesn't remove them from server, and means that all killed bots will respawn on the next round.
+bot_knives_only	bot_knives_only [0 / 1]	This console command forces all bots on the server to use knives.
+cl_backspeed	cl_backspeed [Movement speed]	This console command changes how quickly your character runs backwards.
+cl_bobamt_lat	cl_bobamt_lat [Value]	This console command adjusts how much your viewmodel & gun barrel moves side to side when you're running.
+cl_cmdrate	cl_cmdrate [Packets sent]	This command sets the max number of command packets that are sent from your client to the CS:GO servers each second.
+cl_crosshairdot	cl_crosshairdot [0 / 1]	This command adds a dot in the center of your crosshair. If you reduce cl_crosshairsize to 0, you can set it so you only have a dot.
+cl_scoreboard_mouse_enable_binding	cl_scoreboard_mouse_enable_binding [Bind Key]	This command allows you to change what key turns mouse selection on while you have the scoreboard open . This is defaulted to +attack2 (usually right-click), and is what lets you use your mouse to click on people's names when you toggle open the scoreboard.
+cl_spec_mode	cl_spec_mode [0 / 1]	This useful console command is used to save your most recent spectator mode and settings for the next time you spectate a game.
+cl_wpn_sway_scale	cl_wpn_sway_scale [Sway Value]	This fun command adjusts how much your gun sways when you look around with the camera. On law values the weapon will hardly move, and at high values a slight movement will have your gun flying around.
+demo_gototick	demo_gototick [Tick]	Forces the demo you're watching to skip to a certain tick.
+exit	exit	This command will quit your game.
+inferno_max_flames	inferno_max_flames [Max Flames]	This command is used to set the maximum number of flames that can be created from a single molotov or an incendiary grenade.
+inferno_per_flame_spawn_duration	inferno_per_flame_spawn_duration [Time]	This command is the time in seconds that each new flame in an incendiary grenade or molotov will try to create new flames.
+invnext	invnext	This command switches to the next item in your inventory. If you have your rifle equipped it will swap to your pistol, and if you have your pistol equipped it will swap you to your knife.
+invnextgrenade	invnextgrenade	This command switches what you have equipped to the next grenade in your inventory. That means if your rifle is drawn you will switch to a grenade, and then using the command again will cycle you through to the next available grenade on you.
+invnextitem	invnextitem	This command switches to the next item in your inventory. This does not include guns, so will move between items such as your knife and grenades only.
+invnextnongrenade	invnextnongrenade	This command equips the next item in your inventory that isn't a grenade. It also ignores knives, so will only switch between the guns you have in your inventory.
+invprev	invprev	This command works backwards through your inventory, equipping you with the item that is the previous selection of what you currently have out. That means that using this command when you have your knife out equips your pistol, and using it with your pistol out equips your rifle (if you have one).
+m_pitch	m_pitch [Y Sensitivity]	This command controls the sensitivity of your Y axis . That means it only adjusts your look sensitivity when looking up or down.
+m_yaw	m_yaw [X Sensitivity]	This console command is used to adjust your mouse sensitivity only on the X axis , which is looking left/right.
+mp_give_player_c4	mp_give_player_c4 [0 / 1]	This command sets whether or not a player (on T side) should be given a bomb at the start of the round. Default depends on gamemode, for demolition gamemodes, this setting is enabled (1).
+sv_maxvelocity	sv_maxvelocity [Speed]	This command sets the maximum speed any moving object in the game can reach. Default is 3500. Use sv_maxspeed for player speed.
+player_nevershow_communityservermessage	player_nevershow_communityservermessage [0 / 1]	This console command is used to toggle between whether you want to show the custom message whenever you join a community server that has one.
++showscores	+showscores	This command will make the in game scoreboard appear. Unlike holding TAB, it will stay on your screen without you needing to press anything. Disable it with the -showscores command.
++zoom	+zoom	This command will make make your AWP, or any other weapon with a scope (e.g. scout) scope in. The weapon will continue to be scoped in/out until the command -zoom is used. The command may activate the "zoom" feature of other weapons like the stab of a knife or the burst fire switch of the glock.
+-score	-score	This command hides the CS:GO scoreboard if you brought it up with a command like +score.
+-showscores	-showscores	This command dismisses the scoreboard if you've brought up it permanently through a command like +showscores or +score.
+bot_freeze	bot_freeze [0 / 1]	This cheat command prevents bots (NPC characters) from being able to move.
+bot_loadout	bot_loadout [Weapon Codes]	This command sets what bots in your server will spawn with, such as particular weapon and grenade setups.
+bot_max_vision_distance_override	bot_max_vision_distance_override [-1 / 1]	This command overides the max distance value that bots are set, meaning they will or won't (depending on setting) be able to see you from much further across the map than usual.
+bot_mimic	bot_mimic [0 / 1]	This command, if enabled (set to 1), will make all bots relay your actions. If you jump, all bots will jump, if you shoot, all bots will shoot, etc.
+bot_stop	bot_stop [0 / 1]	This command, if set to 1, causes bots to stop what they're doing. This means they will stop moving, shooting and all other processes until you turn the command off (by setting it to 0, which is default).
+callvote	callvote	This command brings up the option to call a vote in game, either to kick a player or to change map. You can select which vote you're calling after entering the command, and if the vote you call then receives a large majority of player votes to one side or another that decision is forced (e.g. the player you're voting to kick would be kicked if the large majority of players voted yes).
+changelevel	changelevel [Map Name]	This command is used to change the map you're playing on.
+cl_crosshair_dynamic_maxdist_splitratio	cl_crosshair_dynamic_maxdist_splitratio [Ratio]	This console command is what determines the ratio of the inner and outer lines when using the cl_crosshairstyle 2 command.
+cl_crosshair_dynamic_splitalpha_innermod	cl_crosshair_dynamic_splitalpha_innermod [Alpha Value]	When using cl_crosshairstyle 2, this is the command that adjusts the transparency of the inner crosshair.
+cl_crosshair_dynamic_splitalpha_outermod	cl_crosshair_dynamic_splitalpha_outermod [Alpha Value]	When using cl_crosshairstyle 2, this is the command that adjusts the transparency of the outer crosshair.
+cl_crosshair_dynamic_splitdist	cl_crosshair_dynamic_splitdist [Value]	When using cl_crosshairstyle 2, this command sets how far apart the two crosshairs move apart when your character model moves.
+cl_disablefreezecam	cl_disablefreezecam [0 / 1]	This console command is used to disable the freezecam that replays your death to you in certain servers. Some players choose to remove it to save time and reduce tilt.
+cl_hud_background_alpha	cl_hud_background_alpha [Alpha Value]	This console command adjusts how transparent some areas of your HUD (heads up display) appear on your screen. An example of this is how visible the shaded box is behind your current amount of money to the left of your screen.
+cl_hud_bomb_under_radar	cl_hud_bomb_under_radar [0 / 1]	This command toggles whether or not your HUD (heads up display) includes the image of a bomb underneath your radar whenever you are carrying the bomb.
+cl_resend	cl_resend [Wait time]	This command sets the amount of time the game client will wait before resending a connection attempt, should the previous one have failed.
+cl_show_clan_in_death_notice	cl_show_clan_in_death_notice [0 / 1]	This console command determines whether or not a player's clan tag shows up in your kill feed. By default this is turned on, but it can be turned off.
+inferno_flame_spacing	inferno_flame_spacing [Spacing]	This console command changes the distance between separate flame spawns when using molotov and incendiary grenades.
+joystick_force_disabled_set_from_options	joystick_force_disabled_set_from_options [0 / 1]	Sets external controllers you've connected to the game enabled or disabled, depending on the command's setting. This command manually changes the selected option for whether controllers are enabled in the game settings, too.
+key_findbinding	key_findbinding [Bind Key]	This console command produces a list in your developer console of what certain keys are bound to, such as the B key on your keyboard being bound to opening the buy menu.
+kick	kick [Username]	This command is used to kick, or to vote to kick, a certain player in the game, that you specifiy by entering their username.
+kill	kill	This command will kill your character instantly, whatever health they are on.
+m_customaccel	m_customaccel [0 / 1 / 2 / 3]	This command is used to choose what level of custom mouse acceleration you have. It can be set to disabled, or from a couple of choices.
+m_customaccel_exponent	m_customaccel_exponent [Start Point]	This is the command that sets what speed you need to be moving your mouse before the custom mouse acceleration kicks in, if you have that command enabled too.
+m_customaccel_max	m_customaccel_max [Max Point]	This is the console command that determines the limit for how fast your mouse can move depending on how fast you're moving it in real life. It can be set to have no limit.
+m_customaccel_scale	m_customaccel_scale [Scale]	This is the command that determines what the value is for the custom mouse acceleration command. The higher this is, the faster your mouse acceleration will be.
+m_mouseaccel1	m_mouseaccel1 [Value]	This console command sets the mouse acceleration value for its initial threshold, up to 2x movement speed.
+m_mouseaccel2	m_mouseaccel2 [Value]	This console command sets the mouse acceleration value for its second threshold, up to 4x movement speed.
+m_mousespeed	m_mousespeed [0 / 1 / 2]	This is the command used to set your preferences for Windows mouse acceleration.
+mp_halftime	mp_halftime [0 / 1]	This command sets whether or not teams are switched at half time. Default is 1, which is enabled.
+mp_halftime_duration	mp_halftime_duration [Seconds]	This command sets the duration of half time, in seconds.
+unbindall	unbindall	This command removes all binds from all keys. Note that this will remove binds from keys like W, A, S and D, so you won't be able to move until re-binding.
+bot_kick	bot_kick [Kick Criteria]	This console command is used to kick bots from the server. You can select from kicking all bots, a certain team's bots, or only bots of a certain difficulty depending on what values you enter with the command.
+bot_place	bot_place	This will spawn a bot on your server based on where your player model is standing. You don't need to add anything additional to this command - its plain form will spawn a bot in front of you. You sometimes need to enter this command a few times for it to place a bot.
+buddha	buddha	Entering this command toggles buddha mode on and off. Buddha mode means that you still take damage when shot, but you can't die. When you reach 0 hp your health bar will show 1 hp, no matter how much you keep getting shot. It works very similarly to the "god" command to toggle god mode.
+buyrandom	buyrandom	This console command purchases a random primary and secondary weapon. You do need the funds to make the purchase though, meaning this command is mainly used in deathmatch and other servers where you have unlimited money.
+cash_player_killed_enemy_factor	cash_player_killed_enemy_factor [Money Earned/Lost]	This command sets how much money is earned or lost by killing an enemy player with one of the main weapons (default pistols, primary rifles like the AK/M4, etc)
+cl_crosshairusealpha	cl_crosshairusealpha [0 / 1]	Adjusts the transparency of your crosshair.
+cl_disable_ragdolls	cl_disable_ragdolls [0 / 1]	This command is used to turn ragdolling off, something that can sometimes cause dead bodies to behave weirdly as it attempts to display the animation in a more detailed way.
+cl_drawhud	cl_drawhud [0 / 1]	This command can be used to completely hide all features of your HUD (heads up display) or to enable them to show again.
+cl_maxrenderable_dist	cl_maxrenderable_dist [Render Distance]	This command allows you to set the max distance from the camera that an object can be rendered onto your screen.
+cl_radar_square_with_scoreboard	cl_radar_square_with_scoreboard [0 / 1]	This command decided whether the radar is a square or a circle whenever you toggle the scoreboard open.
+cl_showhelp	cl_showhelp [0 / 1]	This console command controls showing on-screen help tips while you're in game. You can turn this off in the settings menu and also with this command.
+cl_spec_stats	cl_spec_stats [0 / 1]	This command is used to hide or show stats in spectator mode, something many observers choose to hide.
+crosshair	crosshair [0 / 1]	You can use this console command to toggle whether or not your crosshair is visible in game.
+demo_listhighlights	demo_listhighlights	This command produces a list of the highlights data extracted from the demo you're watching. Data will be pasted into your developer console.
+demo_listimportantticks	demo_listimportantticks	Use this command for a list of the ticks that the game client determined to be important in a specific demo.
+rcon	rcon [Command]	This command will issue the specified rcon command (i.e. issues the specified command on your server). Rcon means remote console - it allows you to execute server commands from the client.
+rcon_address	rcon_address [IP Address]	The IP address of the remote console you wish to connect to (default is the address of your own server). Change this only if the rcon address for the server you are connected to is different from the server's IP.
+rcon_password	rcon_password [Password]	This command will authenticate you for rcon with the specified password.
+sv_noclipspeed	sv_noclipspeed [Multiplier]	This command sets the speed multiplier for noclip mode. With this set to 5 (default) you can reach speeds 5 times as fast as those set by sv_maxspeed.
+voice_forcemicrecord	voice_forcemicrecord [0 / 1]	This command, if set to 0, will make CS:GO not use your operating system's device set as the default microphone device.
+voice_loopback	voice_loopback [0 / 1]	This command, if set to 1, will make your microphone playback via your speakers (i.e. you will hear your microphone). Default is 0 (disabled). Usually there is a little delay, this is normal.
+
+
+Name	Syntax	Description
+voice_threshold	voice_threshold [Threshold]	This command sets the volume theshold at which your microphone will be enabled if you are using voice activation. In other words, when your microphone is louder than this value, it will be transmitted in-game.
+bot_allow_grenades	bot_allow_grenades [0 / 1]	This command, if set to 1, allows bots to use grenades. Default is 1, set to 0 to disallow.
+bot_allow_machine_guns	bot_allow_machine_guns [0 / 1]	This command, if set to 1, allows bots to use machine guns. Default is 1, set to 0 to disallow.
+bot_allow_pistols	bot_allow_pistols [0 / 1]	This command, if set to 1, allows bots to use pistols. Default is 1, set to 0 to disallow.
+bot_allow_rifles	bot_allow_rifles [0 / 1]	This command, if set to 1, allows bots to use rifles. Default is 1, set to 0 to disallow.
+bot_allow_rogues	bot_allow_rogues [0 / 1]	This command, if set to 1, allows bots to "go rogue" randomly, when bots are rogue, they don't respond to radio commands. Default is 1, set to 0 to disallow.
+bot_allow_shotguns	bot_allow_shotguns [0 / 1]	This command, if set to 1, allows bots to use shotguns. Default is 1, set to 0 to disallow.
+bot_allow_snipers	bot_allow_snipers [0 / 1]	This command, if set to 1, allows bots to use sniper rifles. Default is 1, set to 0 to disallow.
+bot_allow_sub_machine_guns	bot_allow_sub_machine_guns [0 / 1]	This command, if set to 1, allows bots to use SMGs. Default is 1, set to 0 to disallow.
+bot_coop_force_throw_grenade_chance	bot_coop_force_throw_grenade_chance [0 - 1]	This command sets the chance a bot has of forcefully throwing a grenade in a coop mission.
+bot_coop_idle_max_vision_distance	bot_coop_idle_max_vision_distance [Distance]	This command sets the maximum distance at which bots can see enemies in cooperative missions when they are idle, dormant, hiding or asleep.
+bot_ignore_players	bot_ignore_players [0 / 1] [0 / 1]	This command, if set to 1, will make bots be unable to see/react to players that aren't bots. Default is 0 (disabled).
+cameraman_override	cameraman_override [0 / 1]	This command (if set to 1) will make you override the primary camera man, provided you are the secondary camera man.
+mp_damage_headshot_only	mp_damage_headshot_only [0 / 1]	Turning this command on means that damage to other players can only be done through headshots. Time to test your aim.
++alt1	+alt1	This command activates the ALT1 (left ALT) key on your keyboard (the same as holding down the ALT key). Use -alt1 to deactivate.
++alt2	+alt2	This command activates the ALT2 (right ALT) key on your keyboard (the same as holding down the ALT key). Use -alt2 to deactivate.
++attack	+attack	This console command causes you to attack repeatedly. Use the command -attack to stop this. If you have a gun equipped while using this command it will make you fire until you need to reload.
++attack2	+attack2	This command will activate your secondary attack repeatedly. To stop this, use the -attack2 command. For example, this command makes you scope in with an AWP, or stab if you have your knife out.
++back	+back	This command will make your character move backwards continuously. Type -back into your console to disable this.
++break	+break	This command wil activate the break key on your keyboard. Usually called "Pause / Break". This command does not work with most keyboard formats.
++duck	+duck	This movement console command will make your character crouch, similarly to how holding the left CTRL key on a keyboard works. -duck will make you stand up again.
++forward	+forward	This movement command makes your character move forward infinitely. Use -forward to disable this.
++graph	+graph	This console command brings up a graph on your screen displaying stats like FPS, ping and choke. It is similar to using your net graph.
++jump	+jump	This movement command causes your character to jump once into the air. It will also unbind your jump key, so enter -jump into your console to fix this.
++movedown	+movedown	This command only works in noclip mode and in demos: this command will make you (or your free-roam camera in demos) move downwards. Use -movedown to stop moving downwards.
++moveleft	+moveleft	This command will make your character move to the left. The -moveleft console command will stop your character from moving to the left after running this command.
++moveright	+moveright	This command will make your character move to the right. The -moveright console command will stop your character from moving to the left after running this command.
++moveup	+moveup	This command only works in noclip mode and in demos: this command will make you (or your free-roam camera in demos) move upwards. Use -moveup to stop moving upwards.
++reload	+reload	This command will prompt your character to reload their weapon if any bullets have been fired, and if not deactivated, will cause your character to reload instantly after firing a single bullet. Deactivate this command with the -reload command.
++right	+right	This command makes your camera spin endlessly to the right. Using the command -right will stop this effect.
++score	+score	This command will bring up the match scoreboard that displays statistics such as kills, deaths, and how many MVP medals each player has. Use the command -score to hide the scoreboard.
+-alt1	-alt1	This command will deactivate the alt1 key, which is usually activated with the +alt1 command.
+-alt2	-alt2	This console command stops the action that the command +alt2 commands.
+-attack	-attack	This is the command needed to stop firing or attacking if you've the +attack command.
+-attack2	-attack2	This is the command you need to stop the infinite attack cycle that +attack2 causes, such as repeatedly stabbing if you have your knife equipped.
+-back	-back	Using this console command stops your character walking backwards if you previously used the +back command.
+-duck	-duck	If you're crouched, this cheat command will make you stand back up.
+-forward	-forward	This is the command to use to stop your character walking forward if you've got them in an endless movement cycle.
+-graph	-graph	This cheat command will dismiss the statistics graph that can be summoned by using the +graph command.
+-movedown	-movedown	This command will deactivate the +movedown command (will stop you or your camera from moving downwards).
+-moveleft	-moveleft	This cheat command stops your character from moving if they've been set to move endlessly to the left.
+-moveright	-moveright	This command prevents your character from moving any further if they've been set to move endlessly to the right.
+-moveup	-moveup	This command will deactivate the +moveup command (will stop you or your camera from moving upwards).
+-reload	-reload	This command will deactivate the +reload command (as after using the +reload command, you will instantly reload after firing any bullets).
+-right	-right	This console command stops your camera from spinning in circles if you've set it to rotate endlessly to the right.
+-speed	-speed	This command will return the speed of your character back to running speed/normal if you've slowed it down with a command like +speed.
+-strafe	-strafe	This command disables the effect from the +strafe command, where your mouse will move your character sideways rather than look around with the camera.
+-zoom	-zoom	This command breaks the infinite loop cycle of scoping in and out on a scoped weapon like the AWP or stabbing with your knife that +zoom causes.
+bot_crouch	bot_crouch [0 / 1]	This command, if set to 1, will make all bots in the game crouch. Set to 0 to disable.
+bot_join_team	bot_join_team [T / CT / Any]	This console command is used to set which team bots should join when adding more to a server with the "bot_add" command. You can choose between Terrorist side, Counter-Terroists or any team.
+bot_quota_mode	bot_quota_mode [Mode]	The mode that the number of bots should be controlled by. Options are: normal, fill and match. Normal is normal behaviour. Fill will fill the server with as many bots as "bot_quota" is set to. Match will keep a 1 human : bot_quota ratio of bots.
+bot_randombuy	bot_randombuy [0 / 1]	This command clears the preference settings of what bots are programmed to buy, and instead casues them to purchase items randomly with the money they have.
+bot_snipers_only	bot_snipers_only	This cheat command restricts bots to only be able to use sniper rifles, such as the AWP.
+bot_zombie	bot_zombie [0 / 1]	Puts bots into zombie mode, causing them idle and not to attack or fire their guns.
+buymenu	buymenu	This command will show or hide the buy menu, as long as you are standing in the buy zone and are within the time limit to buy items. It works similarly as pressing B on a default keyboard setup.
+c_maxdistance	c_maxdistance [Maximum distance]	This command controls how far away your camera be at a maximum from your camera in third person mode. Set c_mindistance to the same value to avoid third person camera stuttering.
+c_mindistance	c_mindistance [Minimum distance]	This command controls how close the minimum distance your camera can be away from your character when in third person mode. Set c_maxdistance to the same value to avoid third person camera stuttering.
+cash_team_elimination_bomb_map	cash_team_elimination_bomb_map [Money Earned/Lost]	This console command sets how much money each team member earns when they eliminate all 5 enemies in a bomb defusal map , like Mirage or Dust II.
+cl_bobup	cl_bobup [Value]	Adjusts how much your viewmodel & weapon bobs up when running.
+cl_fixedcrosshairgap	cl_fixedcrosshairgap [Gap]	This console command alters the gap inbetween the pips (the four lines that form a crosshair) when using the fixed crosshair.
+cl_freezecameffects_showholiday	cl_freezecameffects_showholiday [0 / 1]	This command is used to set whether or not the freezecam (kill cam) is decorated in a festive theme, such as with snow around to commemorate Christmas.
+cl_showloadout	cl_showloadout [0 / 1]	Use this console command to toggle between showing your current loadout or not. This includes your weapons and grenades that show up in the bottom left of your screen.
+cl_spec_follow_grenade_key	cl_spec_follow_grenade_key [0 / 1 / 2]	This console command is used by observers or anybody spectating the game. It assigns a key that you can press to follow the trajectory of a grenade as it's being thrown.
+cl_spec_show_bindings	cl_spec_show_bindings [0 / 1]	You can use this console command in spectator mode to toggle a list of the spectator binds that are possible to set up.
+getpos	getpos	This command would print your current location to the console (both position and camera angle) as setpos and setang commands. Using these commands will return you to the position you are at when you typed the getpos command.
+getpos_exact	getpos_exact	This command would print to the console your origin and camera angle to the console.
+inferno_initial_spawn_interval	inferno_initial_spawn_interval [Time]	This command sets how long it takes for a molotov or incendiary grenade to bloom out and reach its maximum spread. If you set this value higher than the time the molotov is active, it will never reach its full size and stay contained to just a small section of where you threw it.
+inferno_max_child_spawn_interval	inferno_max_child_spawn_interval [Time]	Use this command to set the longest period of time that can pass before a molotov or incendiary grenade's child flames spawn.
+joy_sidesensitivity	joy_sidesensitivity [Sensitivity]	This is a joystick command that sets what sensitivity your sideways camera movement uses. The higher you set this value, the less you need to move the joystick to look sideways.
+load	load [Game Name]	This command allows you to load a saved file. You can use this when you're not in multiplayer to bring up a demo file of yours or something similar.
+writeid	writeid	This command saves the list of user IDs that have been banned to banned_user.cfg, so that the bans apply even after the server restarts.
+writeip	writeip	This command saves the list of IPs that have been banned to banned_ip.cfg, so that the bans apply even after the server restarts.
+mp_buy_allow_guns	mp_buy_allow_guns [1 / 2 / 4 / 8 / 16 / 32 / 255]	This console command adjusts the rules in your server on what guns players can purchase.
++speed	+speed	This console command will slow down the movement speed of your character. Type the command -speed to return your movement speed back to normal.
++strafe	+strafe	This command prevents your mouse from being able to adjust where your player model is looking. Instead, your mouse will cause you to move to the side, or strafe. Turn this off with the -strafe command.
++voicerecord	+voicerecord	This a useful console command that, when activated, will start continuously transmitting what you say to your teammates in game, meaning you don't need to hold down a mic hotkey. The command -voicerecord disables this command and stops transmitting what you say to your team. Check our examples for a way to bind this to a key.
+-voicerecord	-voicerecord	This console command will stop transmitting voice communication if you've used a command that lets you communicate without holding down a hotkey. Check the examples for a bind to toggle between transmitting voice and not doing so.
+ammo_338mag_max	ammo_338mag_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .338 MAG ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level. This ammo is used only by the AWP.
+ammo_357sig_max	ammo_357sig_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .357 SIG ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level. This ammo is used by the: P228, P250 and P2000. The P250, however, has a value that's set/overriden by the ammo_357sig_p250_max command.
+ammo_357sig_min_max	ammo_357sig_min_max [Maximum Amount]	This command sets the clip size (amount of bullets before you need to reload) for guns with .357 SIG ammo. If this value is lower than the default, this is the amount you will receive in your clip when you respawn with, or buy guns with this ammo. If higher than the default, you will need to top-up your clip with the givecurrentammo command.
+ammo_357sig_p250_max	ammo_357sig_p250_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for the P250 (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level.
+ammo_357sig_small_max	ammo_357sig_small_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .357 SIG ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level. This ammo is used by the: P228, P250 and P2000. The P250, however, has a value that's set/overriden by the ammo_357sig_p250_max command.
+ammo_45acp_max	ammo_45acp_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .45 ACP ammo (the amount of extra bullets you carry to reload with). This is also the amount of ammo that you will respawn with/receive when you buy a gun. This ammo is used by the: MAC-10, UMP45 and the USP-S. The USP-S, however
+ammo_50AE_max	ammo_50AE_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .50 AE ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level.
+ammo_556mm_box_max	ammo_556mm_box_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .50 AE ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level.
+ammo_556mm_max	ammo_556mm_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .50 AE ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level.
+ammo_556mm_small_max	ammo_556mm_small_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .50 AE ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level.
+ammo_57mm_max	ammo_57mm_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .50 AE ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level.
+ammo_762mm_max	ammo_762mm_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .50 AE ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level.
+ammo_9mm_max	ammo_9mm_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with .50 AE ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level.
+ammo_buckshot_max	ammo_buckshot_max [Maximum Amount]	This command sets the maximum amount of ammo you can carry for guns with buckshot ammo (the amount of extra bullets you spawn with/receive when you buy a gun, that you can reload with). If this value is lower than the default amount, you will spawn with this amount of extra ammo. If this is higher than the default amount that you spawn with, you will need to use the givecurrentammo command to top your ammo up to its new maximum level.
+ammo_grenade_limit_default	ammo_grenade_limit_default [Maximum Amount]	This command sets the amount of any grenade type that isn't a flashbang you can carry at a given time, provided you have room in your grenade slots. With this at 1 (default) you could carry only 1 HE grenade at any given time, with this at 2, you could carry 2 HE grenades at any given time, etc.
+ammo_grenade_limit_flashbang	ammo_grenade_limit_flashbang [Maximum Amount]	This command sets the maximum amount of flashbangs you can buy/carry at any given time.
+ammo_grenade_limit_total	ammo_grenade_limit_total [Maximum Amount]	This command sets the maximum total amount of grenades you can carry at any given time. With this at 3, you can only carry a total of three grenades at any given time.
+bot_all_weapons	bot_all_weapons	Using this command will allow bots on a private server to use all weapons if the option to do so has been disabled.
+bot_chatter	bot_chatter [Value]	This command sets the rules for what the bots can say in game. Possible values are "off", "radio", "minimal", or "normal".
+bot_show_battlefront	bot_show_battlefront [0 / 1]	This command highlights the areas of the map where rushing bots (and players if they run straight from spawn) from both teams will encounter each first. This is areas such as A Ramp and the Window in mid on Mirage. It can be useful to see where you will encounter enemies when rushing, though it does need cheats enabled.
+bot_traceview	bot_traceview	This command, if enabled (set to 1), will enable "traceview" debug features, in which bots "tracers" (the line of their sight) will be drawn on your screen.
+cash_player_bomb_defused	cash_player_bomb_defused [Money Earned/Lost]	This command changes how much money a player earns for defusing the bomb. It can't give more than the max amount of money you can hold in a specific server.
+cash_player_bomb_planted	cash_player_bomb_planted [Money Earned/Lost]	This cheat command alters how much money a player gets for planting the bomb. You can't earn more than the max money on a specific server.
+
+
+Name	Syntax	Description
+cash_player_killed_teammate	cash_player_killed_teammate [Money Earned/Lost]	This cheat command sets how much money is earned or lost for killing a teammate.
+cash_player_rescued_hostage	cash_player_rescued_hostage [Money Earned/Lost]	Sets the money earned or lost for rescuing a hostage safely in hostage mode.
+cash_team_elimination_hostage_map_ct	cash_team_elimination_hostage_map_ct [Money Earned/Lost]	This console command sets how much money each team member earns on the CT side when they eliminate all 5 Terrorists on a hostage map.
+cash_team_elimination_hostage_map_t	cash_team_elimination_hostage_map_t [Money Earned/Lost]	This command sets how much money each Terrorist earns for winning a round in a hostage map by elimination.
+cash_team_hostage_alive	cash_team_hostage_alive [Money Earned/Lost]	This command sets the amount of money earned or lost for a hostage surviving a round. The default is $0.
+cash_team_hostage_interaction	cash_team_hostage_interaction [Money Earned/Lost]	This console command chooses how much money is earned or lost for a player interacting with a hostage.
+cash_team_loser_bonus	cash_team_loser_bonus [Money Earned/Lost]	This command sets the base cash earned by a team for losing a round. This then rises in set increments, which is controlled by a separate command.
+cash_team_loser_bonus_consecutive_rounds	cash_team_loser_bonus_consecutive_rounds [Money Earned/Lost]	This console command sets the cash increase for a string of losses to climb by. Having this value at $500 (default) means each consecutive lost round awards $500 more than the previous to the losing team, up until 5 lost rounds in a row.
+cash_team_planted_bomb_but_defused	cash_team_planted_bomb_but_defused [Money Earned/Lost]	This command sets the amount of money the Terrorist team earns for planting a bomb that is ultimately defused. This stacks along with the round loss bonus. The default value is $800.
+cl_clanid	cl_clanid	This console command will generate a unique ID based on the current clan tag you have active. If you aren't displaying a clan tag, the command won't do anything.
+cl_dm_buyrandomweapons	cl_dm_buyrandomweapons [0 / 1]	When this command is enabled, each time you spawn in deathmatch you will have a random weapon.
+cl_freezecampanel_position_dynamic	cl_freezecampanel_position_dynamic [0 / 1]	This command adjusts whether freezecams (kill cams) show movement in its kill panel. By default this is set to on.
+cl_game_mode_convars	cl_game_mode_convars	Use this command to produce a list of the active convars in your current game server, such as bot difficulty and the game mode you're playing.
+cl_jiggle_bone_debug	cl_jiggle_bone_debug [0 / 1]	This command shows the player debugging information related to the bone physics in NPCs and other character models. It will create light beams showing how each bone is working at that time, so is useful for fixing issues with physics.
+cl_observercrosshair	cl_observercrosshair [0 / 1]	This is the console command that controls whether or not you have a crosshair when spectating/observing players.
+cl_ragdoll_gravity	cl_ragdoll_gravity [Gravity Value]	This console command dictates the gravity that controls the physics of ragdolls (death animations).
+cl_reload_hud	cl_reload_hud	This command is used to reset the HUD scale back to default, and tweaks the border settings back to their original value.
+clear_anim_cache	clear_anim_cache	This command wipes (clears) the animation cache, which frees up its memory until the next time you need to streaming animblock.
+clear_debug_overlays	clear_debug_overlays	This command is used to wipe (clear) all the debug overlays active.
+demolist	demolist	Prints the demo sequence list in your developer console for you to see.
+demos	demos	This command returns you to the homescreen of CS:GO, though in some cases it can crash your game .
+inferno_spawn_angle	inferno_spawn_angle [Degrees]	This console command adjusts the angle from which child flames burn to their parent. You can use it to edit slightly the way that molotovs spread when they burn.
+inferno_surface_offset	inferno_surface_offset [Offset]	This command edits the surface offset used in incendiary grenades and molotovs when they hit the ground and begin burning.
+joy_response_move	joy_response_move [0 / 1 / 2 / 3 / 4 / 5]	This console command sets the movement stick reponse mode on a joystick.
+key_updatelayout	key_updatelayout	Use this console command to update your in game keyboard layout to match your current keyboard layout on windows.
+light_crosshair	light_crosshair	This command prints the luxel value of your crosshair in the console.
+listdemo	listdemo	When in a demo file, putting this command into your console will show you a list of the contents in this particular demo.
+slot0	slot0	This command switches your active slot (what you are holding in your hand) to slot 0.
+slot1	slot1	This command switches your active slot (what you are holding in your hand) to slot 1.
+slot10	slot10	This command switches your active slot (what you are holding in your hand) to slot 10.
+slot11	slot11	This command switches your active slot (what you are holding in your hand) to slot 11.
+slot2	slot2	This command switches your active slot (what you are holding in your hand) to slot 2.
+slot3	slot3	This command switches your active slot (what you are holding in your hand) to slot 3.
+slot4	slot4	This command switches your active slot (what you are holding in your hand) to slot 4.
+slot5	slot5	This command switches your active slot (what you are holding in your hand) to slot 5.
+slot6	slot6	This command switches your active slot (what you are holding in your hand) to slot 6.
+slot7	slot7	This command switches your active slot (what you are holding in your hand) to slot 7.
+slot8	slot8	This command switches your active slot (what you are holding in your hand) to slot 8.
+slot9	slot9	This command switches your active slot (what you are holding in your hand) to slot 9.
+voice_mute	voice_mute [Player #]	This command mutes the user with the specified ID. Find the ID of a user with the voice_show_mute command.
+voice_show_mute	voice_show_mute	This command prints a list of players (with their player #s) who can be muted.
+voice_unmute	voice_unmute [Player #]	This command unmutes a player who you have previously muted with the voite_mute command. Use voice_reset_mutelist to reset all mutes.
+mp_anyone_can_pickup_c4	mp_anyone_can_pickup_c4 [0 / 1]	This console command allows any player, T or CT, to pick up the C4 if it's on the ground.
+mp_c4_cannot_be_defused	mp_c4_cannot_be_defused [0 / 1]	This console command sets whether or not the C4 can be defused once it has been planted.
+mp_consecutive_loss_max	mp_consecutive_loss_max [Rounds Lost]	This command is used to set how many rounds in a row it takes for teams to start earning the max loss bonus.
+mp_coop_force_join_ct	mp_coop_force_join_ct [0 / 1]	When this command is turned on, whenever a real player joins the server (not a NPC), they will auto join the CT side.
+mp_coopmission_bot_difficulty_offset	mp_coopmission_bot_difficulty_offset [Offset]	This command sets the difficulty offset modifier for bots during co-op missions only.
+mp_death_drop_taser	mp_death_drop_taser [0 / 1]	This console command is used to decide whether or not the taser (zeus) is dropped when a player dies.
++camdistance	+camdistance	Third person mode only command. This command will put your client in "cam distance mode", when in cam distance mode, moving your mouse will zoom the camera in and out (changing the camera distance).
++camin	+camin	Third person mode only command. This command will zoom your camera as close-in as it possibly can zoom to your player (or the player you're spectating).
++cammousemove	+cammousemove	This command will stop your mouse movements from controling your player, allowing you to move the camera to a different position. For example, you could move the camera in front of the player after enabling this command: if this command was not enabled, your player would rotate as you move your mouse. Use -cammousemove to re-activate normal behaviour.
++camout	+camout	Third person mode only command. This command will move your camera as far out as it possibly can be from your character (or the player you're spectating). Use -camout to revert to normal.
++campitchdown	+campitchdown	Third person mode only. This command will set your camera's pitch value (the pitch axis, aka the up/down axis) to its lowest possible value, making your camera face the player from the ground. Use -campitchdown to restore to normal.
++campitchup	+campitchup	Third person mode only. This command will set your camera's pitch value (the pitch axis, aka the up/down axis) to its highest possible value, making your camera face the player from the sky. Use -campitchup to restore to normal.
++camyawleft	+camyawleft	Third person mode only. This command will rotate your camera in a leftwards direction around your character along its yaw axis (left/right). Use -camyawleft to restore to normal.
++camyawright	+camyawright	Third person mode only. This command will rotate your camera in a rightwards direction around your character along its yaw axis (left/right). Use -camyawright to restore to normal.
++commandermousemove	+commandermousemove	This command will move the mouse of the Commander from the "Weapons Course", which has since been removed from the game.
++jlook	+jlook	This console command allows you to use a joystick to move your camera.
++klook	+klook	This command prevents you from being able to move forward with your keyboard. Use the -klook command to disable it.
++left	+left	This command causes your camera to endlessly rotate in a left direction. Using the -left command will end the cycle.
++mat_texture_list	+mat_texture_list	Toggles a display of the textures in the game. This command can frequently crash your CS:GO client, so use with caution.
++showbudget	+showbudget	This console command brings up a display panel on your screen that displays various technical statistics about CS:GO and your network. Entering -showbudget will hide the panel.
++showbudget_texture	+showbudget_texture	Using this cheat command brings up a display on the left side of your screen that displays statistics about your game textures on a per frame basis. These include skybox textures, world textures and more. -showbudget_texture will hide this graph.
++showbudget_texture_global	+showbudget_texture_global	This command will summon a technical display onto your screen giving you detailed statistics on textures in CS:GO. You can dismiss is with the -showbudget_texture_global command.
++showvprof	+showvprof	This cheat command will cause you to open the VPROF display in CS:GO, giving you statistics on the game, world rendering and displacement rendering. Hide it with the command -showvprof.
++vgui_drawtree	+vgui_drawtree	This console command causes a graph to appear on the right side of your screen display an assortment of technical statistics about CS:GO's rendering and popups. The command -vgui_drawtree will hide the display.
+-break	-break	This command wil activate the break key on your keyboard. Usually called "Pause / Break". This command does not work with most keyboard formats.
+-camdistance	-camdistance	Third person mode only command. This command will take your client out of "cam distance mode", when in cam distance mode, moving your mouse will zoom the camera in and out (changing the camera distance). By disabling this mode, your mouse will control the angle/rotation of the camera around the player.
+-camin	-camin	Third person mode only command. This command zoom your camera back to its original position, if you have previously ran the "+camin" command.
+-cammousemove	-cammousemove	Provided you have previously used the +cammousemove, this command will make your player be controlled by your mouse movements (as well as the camera) again.
+-camout	-camout	Provided you have previously used the +camout command, this command will restore your camera to its previous position.
+-campitchdown	-campitchdown	This command will restore your camera to its previous position, provided you have previously ran the +campitchdown command.
+-campitchup	-campitchup	This command will restore your camera to its previous position, provided you have previously ran the +campitchup command.
+-camyawleft	-camyawleft	This command will stop your camera from attempting to move left as a result of the +camyawleft command.
+-camyawright	-camyawright	This command will stop your camera from attempting to move rightas a result of the +camyawright command.
+-commandermousemove	-commandermousemove	This command will stop the mouse of the commander (from the Weapons Course) moving.
+-jlook	-jlook	This cheat command can be used to prevent a joystick that you may have plugged into your computer from being able to adjust where the in game camera is looking.
+-jump	-jump	This command will deactivate the effect of the +jump command.
+-klook	-klook	This command will allow you to move forward using your keyboard if you've purposefully or accidentally disabled that function.
+-left	-left	This is the console command that will stop your camera from rotating to the left on an unlimited loop, such as the command +left does.
+-mat_texture_list	-mat_texture_list	This command hides the display of CS:GO textures that +mat_texture_list brings up. Both commands can frequently cause CS:GO to crash though, so use carefully.
+-showbudget	-showbudget	This command is used to dismiss the show budget graph that is brought up with the command +showbudget.
+-showbudget_texture	-showbudget_texture	This is the command used to dismiss the statistics panel that +showbudget_texture summons.
+-showbudget_texture_global	-showbudget_texture_global	This console command is what will dismiss the panel that +showbudget_texture_global will put on your screen.
+-showvprof	-showvprof	Hides the graph produced when using the +showvprof command.
+-vgui_drawtree	-vgui_drawtree	This command dismisses the display produced by the +vgui_drawtree.
+_autosave	_autosave	This command saves your game in certain single-player instances of CS:GO.
+_bugreporter_restart	_bugreporter_restart	This command restarts the bug reporter .dll
+_resetgamestats	_resetgamestats	This console command will wipe your current game stats and start a new file for you, so don't use if you want to keep your stats in tact.
+achievement_debug	achievement_debug [0 / 1]	When sv_cheats 1 is on this command will turn on achievement debug messages.
+achievement_disable	achievement_disable [0 / 1]	This console command turns off in-game achievements in CS:GO.
+ai_disable	ai_disable	Causes NPCs (bots) to bypass their logic programming and instead just perform their idle animations.
+ai_drawbattlelines	ai_drawbattlelines [0 / 1]	This console command will cause battle lines to show where an NPC has moved to to decide whether ground has been lost or gained.
+ai_drop_hint	ai_drop_hint [Hint ID]	This command draws up a list of the different hint types you can trigger in CS:GO.
+ai_resume	ai_resume	This command resets NPC (bots) movements if they are bugged from the command ai_step.
+ai_set_move_height_epsilon	ai_set_move_height_epsilon	This command sets how high you can set NPCS (bots) to bump up ground walkers when checking steps.
+ai_setenabled	ai_setenabled [0 / 1]	This cheat command toggles whether or not AI customization is on, similarly to the effect of ai_disable.
+ai_step	ai_step	This command causes NPCs (bots) to freeze after finishing their last action.
+ai_test_los	ai_test_los	This command tests the line of sight of NPCs (bots). Use with caution: this command can make your game client crash.
+ainet_generate_report	ainet_generate_report	This console command generates a report inside the developer console.

@@ -1,0 +1,2 @@
+/* to start vnc on a machine, first ssh, then type the following command: */
+x11vnc

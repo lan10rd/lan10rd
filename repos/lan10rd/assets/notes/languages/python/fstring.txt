@@ -1,0 +1,9 @@
+f string is dope, just like console.log(`hi my name is ${name}`) for js, just put f in front of a string and you can do format substition (instead of using printf)
+
+f"""my multi
+line
+with a var ${some_var}
+"""
+
+yoyo = 'string'
+print(f'yoyo${yoyo}')

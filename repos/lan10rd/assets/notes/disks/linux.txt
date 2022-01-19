@@ -1,0 +1,31 @@
+sudo fdisk -l
+
+dd status=progress bs=32M 
+
+# sudo always necessary?
+
+status=progress # option shows progress
+bs=1M or bs=32M #option changes block size and seems to increase speed about 10x for sd cards
+
+block size : transfer rate
+       512 : 11.3 MB/s
+      1024 : 22.1 MB/s
+      2048 : 42.3 MB/s
+      4096 : 75.2 MB/s
+      8192 : 90.7 MB/s
+     16384 : 101 MB/s
+     32768 : 104 MB/s
+     65536 : 108 MB/s
+    131072 : 113 MB/s
+    262144 : 112 MB/s
+    524288 : 133 MB/s
+   1048576 : 125 MB/s
+   2097152 : 113 MB/s
+   4194304 : 106 MB/s
+   8388608 : 107 MB/s
+  16777216 : 110 MB/s
+  33554432 : 119 MB/s
+  67108864 : 134 MB/s
+
+
+cat /dev/sda1 > /dev/sdb1

@@ -1,0 +1,19 @@
+enable developer mode
+
+enable remote desktop
+
+mklink /D .\ D:\earth
+
+start menu -> control panel -> network and sharing -> internet -> network and sharing center
+
+change adapter settings
+
+right click on the wifi or lan -> properties
+select Internet Protocol Version 4 (TCP/IPV4)
+click properties
+
+192.168.0.77
+255.255.255.0
+192.168.0.1
+
+192.168.0.1

@@ -1,0 +1,3 @@
+/usr/bin/certbot renew --quiet
+
+certbot renew  (will renew all that are close, others will be skipped)

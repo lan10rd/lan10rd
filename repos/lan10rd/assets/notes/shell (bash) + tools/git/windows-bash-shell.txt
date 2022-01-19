@@ -1,0 +1,5 @@
+if you want the launch to be in ~ you can right click on the icon, click properties.  go to shortcut tab:
+
+Target: "C:\Program Files\Git\git-bash.exe" --cd-to-home
+
+Start in: "C:\Users\simba"

@@ -1,0 +1,3 @@
+make sure your dependencies are in sync! very import for angular and other angular packages, so like for @angular/pwa  lets say you already have @angular/core@^12.1.0  installed you would want to run
+
+yarn add @angular/pwa@12.1.0  !!! ive tried yarn add @angular/pwa@^12.1.0 and it brought in 12.2.2 so just give it a hard version to match the compiler/core versions you have!

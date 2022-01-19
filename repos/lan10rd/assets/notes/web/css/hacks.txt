@@ -1,0 +1,515 @@
+ Android
+Selector Hacks
+WebKit
+
+.selector:not(*:root) {}
+ Chrome *  Safari *  Opera ≥ 14  Android *
+#
+JavaScript Hacks
+var isChromium = !!window.chrome;
+ Chrome *  Opera ≥ 14  Android 4.0.4
+#
+Media Query Hacks
+@media screen and (min-width:0\0) {}
+ Internet Explorer/Edge ≥ 9  Safari 4  Android ≥ 2.3
+#
+ Chrome
+Selector Hacks
+WebKit
+
+.selector:not(*:root) {}
+ Chrome *  Safari *  Opera ≥ 14  Android *
+#
+Supports Hacks
+@supports (-webkit-appearance:none) {}
+ Chrome ≥ 28  Safari ≥ 9  Internet Explorer/Edge >= 12  Opera ≥ 14
+#
+Property/Value Hacks
+.selector { (;property: value;); }
+.selector { [;property: value;]; }
+ Chrome ≤ 28  Safari ≤ 7  Opera ≥ 14
+#
+JavaScript Hacks
+var isChromium = !!window.chrome;
+ Chrome *  Opera ≥ 14  Android 4.0.4
+#
+Webkit
+
+var isWebkit = 'WebkitAppearance' in document.documentElement.style;
+ Chrome *  Safari ≥ 3  Opera ≥ 14
+#
+var isChrome = !!window.chrome && !!window.chrome.webstore;
+ Chrome ≥ 14
+#
+Media Query Hacks
+@media \\0 screen {}
+ Chrome 22-28  Safari ≥ 7
+#
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { .selector {} }
+ Chrome ≥ 29  Opera ≥ 16
+#
+ Firefox
+Selector Hacks
+body:empty .selector {}
+ Firefox 1.5/2
+#
+body:last-child .selector, x:-moz-any-link {}
+ Firefox ≥ 2
+#
+Media Query Hacks
+@media \0 all {}
+ Firefox ≤ 3
+#
+Selector Hacks
+body:last-child .selector, x:-moz-any-link, x:default {}
+ Firefox ≥ 3
+#
+body:not(:-moz-handler-blocked) .selector {}
+ Firefox ≥ 3.5
+#
+Media Query Hacks
+@media screen and (-moz-images-in-menus:0) {}
+ Firefox ≥ 3.6
+#
+@media screen and (min--moz-device-pixel-ratio:0) {}
+ Firefox ≥ 4
+#
+Selector Hacks
+_::-moz-progress-bar, body:last-child .selector {}
+ Firefox ≥ 6
+#
+Media Query Hacks
+@media all and (min--moz-device-pixel-ratio:0) and (min-resolution: .001dpcm) {}
+@media all and (-moz-images-in-menus:0) and (min-resolution: .001dpcm) {}
+ Firefox ≥ 8
+#
+@media all and (min--moz-device-pixel-ratio:0) { @media (min-width: 0px) {} }
+@media all and (-moz-images-in-menus:0) { @media (min-width: 0px) {} }
+ Firefox ≥ 11
+#
+Supports Hacks
+@supports (-moz-appearance:meterbar) {}
+ Firefox ≥ 16
+#
+Selector Hacks
+_::-moz-range-track, body:last-child .selector {}
+ Firefox ≥ 21
+#
+Supports Hacks
+@supports (-moz-appearance:meterbar) and (display:flex) {}
+ Firefox ≥ 22
+#
+@supports (-moz-appearance:meterbar) and (cursor:zoom-in) {}
+ Firefox ≥ 24
+#
+@supports (-moz-appearance:meterbar) and (background-attachment:local) {}
+ Firefox ≥ 25
+#
+@supports (-moz-appearance:meterbar) and (image-orientation:90deg) {}
+ Firefox ≥ 26
+#
+@supports (-moz-appearance:meterbar) and (all:initial) {}
+ Firefox ≥ 27
+#
+@supports (-moz-appearance:meterbar) and (list-style-type:japanese-formal) {}
+ Firefox ≥ 28
+#
+Media Query Hacks
+@media all and (min--moz-device-pixel-ratio:0) and (min-resolution: 3e1dpcm) {}
+ Firefox ≥ 29
+#
+Supports Hacks
+@supports (-moz-appearance:meterbar) and (background-blend-mode:difference,normal) {}
+ Firefox ≥ 30
+#
+JavaScript Hacks
+var isFF = !!window.sidebar;
+ Firefox *
+#
+Selector Hacks
+_:-moz-tree-row(hover), .selector {}
+ Firefox *
+#
+JavaScript Hacks
+var isFF = 'MozAppearance' in document.documentElement.style;
+ Firefox *
+#
+var isFF = !!navigator.userAgent.match(/firefox/i);
+ Firefox *
+#
+var isFF = typeof InstallTrigger !== 'undefined';
+ Firefox ≥ 1.5
+#
+var isFF = !!window.globalStorage;
+ Firefox 2-13
+#
+var isFF = /a/[-1]=='a';
+ Firefox 2-3
+#
+var isFF = (function x(){})[-6]=='x';
+ Firefox 2
+#
+var isFF = (function x(){})[-5]=='x';
+ Firefox 3
+#
+Miscellaneous
+@-moz-document url-prefix() {}
+ Firefox ≥ 3
+#
+Selector Hacks
+Everything but Firefox and Internet Explorer ≤8
+
+_::selection, .selector:not([attr*='']) {}
+ Internet Explorer/Edge ≤ 8  Firefox *
+#
+ Internet explorer/edge
+Supports Hacks
+@supports (-webkit-appearance:none) {}
+ Chrome ≥ 28  Safari ≥ 9  Internet Explorer/Edge >= 12  Opera ≥ 14
+#
+Selector Hacks
+.unused-class can be any unused class
+
+* html .selector  {}
+.unused-class.selector {}
+ Internet Explorer/Edge ≤ 6
+#
+Everything but Internet Explorer 6
+
+html > body .selector {}
+ Internet Explorer/Edge 6
+#
+.selector, {}
+ Internet Explorer/Edge ≤ 7
+#
+*:first-child+html .selector {}
+.selector, x:-IE7 {}
+*+html .selector {}
+body*.selector {}
+ Internet Explorer/Edge 7
+#
+.selector\ {}
+ Internet Explorer/Edge ≤ 7
+#
+Everything but Internet Explorer ≤7
+
+html > /**/ body .selector {}
+head ~ /**/ body .selector {}
+ Internet Explorer/Edge ≤ 7
+#
+Everything but Firefox and Internet Explorer ≤8
+
+_::selection, .selector:not([attr*='']) {}
+ Internet Explorer/Edge ≤ 8  Firefox *
+#
+Everything but Internet Explorer ≤8
+
+:root .selector {}
+body:last-child .selector {}
+body:nth-of-type(1) .selector {}
+body:first-of-type .selector {}
+.selector:not([attr*='']) {}
+ Internet Explorer/Edge ≤ 8
+#
+Property/Value Hacks
+.selector { _property: value; }
+.selector { -property: value; }
+ Internet Explorer/Edge 6
+#
+.selector { property: value\9; }
+.selector { property/*\**/: value\9; }
+ Internet Explorer/Edge 6-8
+#
+Any combination of these characters: ! $ & * ( ) = % + @ , . / ` [ ] # ~ ? : < > |
+
+.selector { !property: value; }
+.selector { $property: value; }
+.selector { &property: value; }
+.selector { *property: value; }
+.selector { )property: value; }
+.selector { =property: value; }
+.selector { %property: value; }
+.selector { +property: value; }
+.selector { @property: value; }
+.selector { ,property: value; }
+.selector { .property: value; }
+.selector { /property: value; }
+.selector { `property: value; }
+.selector { ]property: value; }
+.selector { #property: value; }
+.selector { ~property: value; }
+.selector { ?property: value; }
+.selector { :property: value; }
+.selector { |property: value; }
+ Internet Explorer/Edge ≤ 7
+#
+Acts as an !important; string after ! can be anything
+
+.selector { property: value !ie; }
+ Internet Explorer/Edge ≤ 7
+#
+Media Query Hacks
+@media screen\9 {}
+ Internet Explorer/Edge ≤ 7
+#
+@media \0screen\,screen\9 {}
+ Internet Explorer/Edge ≤ 8
+#
+@media \0screen {}
+ Internet Explorer/Edge 8
+#
+@media screen and (min-width:0\0) {}
+ Internet Explorer/Edge ≥ 9  Safari 4  Android ≥ 2.3
+#
+Selector Hacks
+_:-ms-input-placeholder, :root .selector {}
+ Internet Explorer/Edge ≥ 10
+#
+_:-ms-fullscreen, :root .selector {}
+ Internet Explorer/Edge ≥ 11
+#
+Media Query Hacks
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {}
+ Internet Explorer/Edge ≥ 10
+#
+Everything but Internet Explorer and Safari ≤6
+
+@media screen { @media (min-width: 0px) {} }
+ Internet Explorer/Edge *  Safari ≤ 6
+#
+JavaScript Hacks
+Check for Internet Explorer version
+
+var ieVersion = /*@cc_on (function() {switch(@_jscript_version) {case 1.0: return 3; case 3.0: return 4; case 5.0: return 5; case 5.1: return 5; case 5.5: return 5.5; case 5.6: return 6; case 5.7: return 7; case 5.8: return 8; case 9: return 9; case 10: return 10;}})() || @*/ 0;
+ Internet Explorer/Edge 3-10
+#
+var isIE = document.all && !window.XMLHttpRequest;
+ Internet Explorer/Edge ≤ 6
+#
+var isIE = document.all && document.compatMode;
+ Internet Explorer/Edge 6-10
+#
+var isIE = !!window.ActiveXObject;
+ Internet Explorer/Edge 6-10
+#
+var isIE = document.all && !document.querySelector;
+ Internet Explorer/Edge ≤ 7
+#
+var isIE = document.all && window.XMLHttpRequest && !document.querySelector;
+ Internet Explorer/Edge 7
+#
+var isIE = document.all && window.XMLHttpRequest;
+ Internet Explorer/Edge 7-10
+#
+var isIE = navigator.appVersion.indexOf("MSIE 7.") !== -1;
+ Internet Explorer/Edge 7
+#
+var isIE = document.all && document.querySelector;
+ Internet Explorer/Edge 8-10
+#
+var isIE = document.all && !document.addEventListener;
+ Internet Explorer/Edge ≤ 8
+#
+var isIE = document.all && document.querySelector && !document.addEventListener;
+ Internet Explorer/Edge 8
+#
+var isIE = '\v'=='v';
+ Internet Explorer/Edge ≤ 8
+#
+var isIE = !+'\v1';
+ Internet Explorer/Edge ≤ 8
+#
+var isIE = document.all && !window.atob;
+ Internet Explorer/Edge ≤ 9
+#
+var isIE = document.all && document.addEventListener && !window.atob;
+ Internet Explorer/Edge 9
+#
+var isIE = document.all && document.addEventListener;
+ Internet Explorer/Edge 9-10
+#
+var isIE = document.all && window.atob;
+ Internet Explorer/Edge 10
+#
+var isIE = /*@cc_on!@*/false;
+ Internet Explorer/Edge ≤ 10
+#
+Check for Internet Explorer version
+
+var ieVersion = (function() { if (new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null) { return parseFloat( RegExp.$1 ); } else { return false; } })();
+ Internet Explorer/Edge ≤ 10
+#
+var isIE = eval("/*@cc_on!@*/false") && document.documentMode === 10;
+ Internet Explorer/Edge 10
+#
+var isIE = document.body.style.msTouchAction !== undefined;
+ Internet Explorer/Edge ≥ 10
+#
+var isIE = window.navigator.msPointerEnabled;
+ Internet Explorer/Edge ≥ 10
+#
+var isIE = 'behavior' in document.documentElement.style && '-ms-user-select' in document.documentElement.style;
+ Internet Explorer/Edge 10
+#
+var isIE = '-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style;
+ Internet Explorer/Edge 11
+#
+Conditional comments
+<!--[if IE 6]> Internet Explorer 6 <![endif]-->
+<!--[if IE 7]> Internet Explorer 7 <![endif]-->
+<!--[if IE 8]> Internet Explorer 8 <![endif]-->
+<!--[if IE 9]> Internet Explorer 9 <![endif]-->
+ Internet Explorer/Edge 6-9
+#
+<!--[if lte IE 6]> Internet Explorer 6 or less <![endif]-->
+<!--[if lte IE 7]> Internet Explorer 7 or less <![endif]-->
+<!--[if lte IE 8]> Internet Explorer 8 or less <![endif]-->
+<!--[if lte IE 9]> Internet Explorer 9 or less <![endif]-->
+ Internet Explorer/Edge 6-9
+#
+<!--[if gte IE 6]> Internet Explorer 6 or greater <![endif]-->
+<!--[if gte IE 7]> Internet Explorer 7 or greater <![endif]-->
+<!--[if gte IE 8]> Internet Explorer 8 or greater <![endif]-->
+<!--[if gte IE 9]> Internet Explorer 9 or greater <![endif]-->
+ Internet Explorer/Edge 6-9
+#
+<!--[if IE]> Internet Explorer 9- <![endif]-->
+ Internet Explorer/Edge ≤ 9
+#
+Everything but Internet Explorer ≤9
+
+<!--[if !IE]><!--> Everything but Internet Explorer ≤9 <!--<![endif]-->
+ Internet Explorer/Edge ≤ 9
+#
+ Opera
+Selector Hacks
+WebKit
+
+.selector:not(*:root) {}
+ Chrome *  Safari *  Opera ≥ 14  Android *
+#
+Supports Hacks
+@supports (-webkit-appearance:none) {}
+ Chrome ≥ 28  Safari ≥ 9  Internet Explorer/Edge >= 12  Opera ≥ 14
+#
+Property/Value Hacks
+.selector { (;property: value;); }
+.selector { [;property: value;]; }
+ Chrome ≤ 28  Safari ≤ 7  Opera ≥ 14
+#
+JavaScript Hacks
+var isChromium = !!window.chrome;
+ Chrome *  Opera ≥ 14  Android 4.0.4
+#
+Webkit
+
+var isWebkit = 'WebkitAppearance' in document.documentElement.style;
+ Chrome *  Safari ≥ 3  Opera ≥ 14
+#
+Selector Hacks
+html:first-child .selector {}
+ Opera ≤ 9.27  Safari 2
+#
+JavaScript Hacks
+var isOpera = /^function \(/.test([].sort);
+ Opera ≤ 9.64
+#
+Selector Hacks
+_:-o-prefocus, body:last-child .selector {}
+ Opera ≥ 9.5
+#
+@media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) {}
+ Opera ≤ 11
+#
+JavaScript Hacks
+Replace X by the version
+
+var isOpera = window.opera && window.opera.version() == X;
+ Opera ≤ 12
+#
+var isOpera = !!window.opera;
+ Opera ≤ 12.16
+#
+Media Query Hacks
+@media (min-resolution: .001dpcm) { _:-o-prefocus, .selector {} }
+ Opera ≥ 12
+#
+JavaScript Hacks
+var isOpera = !!window.opera || /opera|opr/i.test(navigator.userAgent);
+ Opera *
+#
+Selector Hacks
+*|html[xmlns*=""] .selector {}
+ Safari 2/3.1  Opera 9.25
+#
+Media Query Hacks
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { .selector {} }
+ Chrome ≥ 29  Opera ≥ 16
+#
+ Opera mini
+JavaScript Hacks
+var isOperaMini = Object.prototype.toString.call(window.operamini) === '[object OperaMini]';
+ Opera Mini *
+#
+var isOperaMini = (navigator.userAgent.indexOf('Opera Mini') > -1);
+ Opera Mini *
+#
+ Safari
+Selector Hacks
+WebKit
+
+.selector:not(*:root) {}
+ Chrome *  Safari *  Opera ≥ 14  Android *
+#
+Supports Hacks
+@supports (-webkit-appearance:none) {}
+ Chrome ≥ 28  Safari ≥ 9  Internet Explorer/Edge >= 12  Opera ≥ 14
+#
+Property/Value Hacks
+.selector { (;property: value;); }
+.selector { [;property: value;]; }
+ Chrome ≤ 28  Safari ≤ 7  Opera ≥ 14
+#
+JavaScript Hacks
+Webkit
+
+var isWebkit = 'WebkitAppearance' in document.documentElement.style;
+ Chrome *  Safari ≥ 3  Opera ≥ 14
+#
+Media Query Hacks
+@media screen and (min-width:0\0) {}
+ Internet Explorer/Edge ≥ 9  Safari 4  Android ≥ 2.3
+#
+Everything but Internet Explorer and Safari ≤6
+
+@media screen { @media (min-width: 0px) {} }
+ Internet Explorer/Edge *  Safari ≤ 6
+#
+Selector Hacks
+html:first-child .selector {}
+ Opera ≤ 9.27  Safari 2
+#
+html[xmlns*=""] body:last-child .selector {}
+html[xmlns*=""]:root .selector  {}
+ Safari 2-3
+#
+*|html[xmlns*=""] .selector {}
+ Safari 2/3.1  Opera 9.25
+#
+_::-moz-svg-foreign-content, :root .selector {}
+ Safari 5.1-6
+#
+JavaScript Hacks
+var isSafari = /a/.__proto__=='//';
+ Safari ≤ 5
+#
+var isSafari = /constructor/i.test(window.HTMLElement);
+ Safari *
+#
+var isSafari = !!navigator.userAgent.match(/safari/i) && !navigator.userAgent.match(/chrome/i) && typeof document.body.style.webkitFilter !== "undefined" && !window.chrome;
+ Safari 6
+#
+Media Query Hacks
+@media \\0 screen {}
+ Chrome 22-28  Safari ≥ 7
+#

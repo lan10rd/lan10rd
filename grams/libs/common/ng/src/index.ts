@@ -15,6 +15,8 @@ export * from './lib/dynamic/dynamic.directive'
 
 export * from './lib/events/events.service'
 
+export * from './lib/http/http.element.module'
+export * from './lib/http/http.element'
 export * from './lib/http/http.service'
 
 export * from './lib/json/json.service'
