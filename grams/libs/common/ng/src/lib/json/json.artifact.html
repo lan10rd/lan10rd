@@ -181,6 +181,7 @@
                         #keysi
                         [ngModel]="keys[i]"
                         (keyup.enter)="changeKey(keysi.value, i); flags.toggled = false"
+                        (focusout)="flags.toggled = true"
                         >
 
                         <common-ng-select-element

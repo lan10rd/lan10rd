@@ -16,14 +16,24 @@ import { PlayNestFeature } from './nest.feature'
                 component: PlayNestFeature,
                 data: {
                     CommonRouterService: {
-                        routes: ['..'],
+                        routes: ['..', 'nest2', 'nest2child'],
                         seo: {
-                            title: 'Play json',
-                            keywords: 'play json',
-                            description: 'play json'
+                            title: 'Play nest',
+                            keywords: 'play nest',
+                            description: 'play nest'
                         }
                     }
-                }
+                },
+                children: [
+                    {
+                        path: 'nest2child',
+                        loadChildren: async () => (await import('./nest2/nest2.feature.module')).PlayNestNest2FeatureModule
+                    }
+                ]
+            },
+            {
+                path: 'nest2',
+                loadChildren: async () => (await import('./nest2/nest2.feature.module')).PlayNestNest2FeatureModule
             }
         ])
     ],
