@@ -7,6 +7,7 @@
     >
 
         <common-ng-select-element
+        class="bl glo-0-text-trim"
         [options]="['relative', 'top']"
         [initial]="'relative'"
         #routerSelect
@@ -49,19 +50,72 @@
     </ng-container>
 
     <ng-container
-    *ngSwitchCase="'tools'"
-    >
-        
-        tools
-    
-    </ng-container>
-
-    <ng-container
-    *ngSwitchCase="'playground'"
+    *ngSwitchCase="'toolkit'"
     >
 
-        <common-ng-frame-sandbox-element
-        ></common-ng-frame-sandbox-element>
+        <common-ng-select-element
+        class="bl glo-0-text-trim"
+        [options]="['html', 'json', 'js', 'css', 'http', 'url', 'editor', 'joi']"
+        [initial]="true"
+        #toolkitSelect
+        ></common-ng-select-element>
+
+        <ng-container
+        [ngSwitch]="toolkitSelect._option"
+        >
+
+            <common-ng-frame-sandbox-element
+            *ngSwitchCase="'html'"
+            ></common-ng-frame-sandbox-element>
+
+            <ng-container
+            *ngSwitchCase="'json'"
+            >
+                <common-ng-json-artifact
+                [model]="{}"
+                ></common-ng-json-artifact>
+            </ng-container>
+
+            <ng-container
+            *ngSwitchCase="'js'"
+            >
+                <common-ng-code-terminal-element
+                (exec)="terminal.output(util.json.eval($event))"
+                #terminal
+                ></common-ng-code-terminal-element>
+            </ng-container>
+
+            <ng-container
+            *ngSwitchCase="'css'"
+            >
+                css
+            </ng-container>
+
+            <ng-container
+            *ngSwitchCase="'http'"
+            >
+                http
+            </ng-container>
+
+            <ng-container
+            *ngSwitchCase="'url'"
+            >
+                url
+            </ng-container>
+
+            <ng-container
+            *ngSwitchCase="'editor'"
+            >
+                editor
+            </ng-container>
+
+            <ng-container
+            *ngSwitchCase="'joi'"
+            >
+                joi
+            </ng-container>
+
+        </ng-container>
     
     </ng-container>
     

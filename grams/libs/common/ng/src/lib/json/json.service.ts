@@ -477,7 +477,7 @@ export class CommonNgJsonService
         ...args:any
     )
     {
-        console.log(args)
+        console.log(...args)
     }
 
     convert
@@ -605,6 +605,14 @@ export class CommonNgJsonService
                 return false
             }
         }
+    }
+
+    eval
+    (
+        cmd: string
+    )
+    {
+        return eval(cmd)
     }
 
 }

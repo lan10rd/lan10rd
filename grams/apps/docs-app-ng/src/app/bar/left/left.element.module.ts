@@ -8,6 +8,8 @@ import
     CommonNgSelectElementModule,
     CommonNgRouterElementModule,
     CommonNgButtonElementModule,
+    CommonNgJsonArtifactModule,
+    CommonNgCodeTerminalElementModule,
     CommonNgFrameSandboxElementModule
 } from '@grams/common/ng'
 
@@ -19,6 +21,8 @@ import
         CommonNgSelectElementModule,
         CommonNgRouterElementModule,
         CommonNgButtonElementModule,
+        CommonNgJsonArtifactModule,
+        CommonNgCodeTerminalElementModule,
         CommonNgFrameSandboxElementModule
     ],
     declarations:
