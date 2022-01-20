@@ -1,2 +1,13 @@
 <textarea
+[(ngModel)]="template"
+(ngModelChange)="setup(); validate();"
+placeholder="joi template string here, is evaluated on changes"
 ></textarea>
+
+<textarea
+[(ngModel)]="data"
+(ngModelChange)="validate();"
+placeholder="json data as a string, is parsed, validated on changes"
+></textarea>
+
+<pre>{{joi_validation | json}}</pre>

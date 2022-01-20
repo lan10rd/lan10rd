@@ -55,7 +55,7 @@
 
         <common-ng-select-element
         class="bl glo-0-text-trim"
-        [options]="['html', 'json', 'js', 'css', 'http', 'url', 'editor', 'joi']"
+        [options]="['html', 'json', 'schemas (joi)', 'js', 'http', 'url', 'editor', 'diff' ]"
         [initial]="true"
         #toolkitSelect
         ></common-ng-select-element>
@@ -85,15 +85,9 @@
                 ></common-ng-code-terminal-element>
             </ng-container>
 
-            <ng-container
-            *ngSwitchCase="'css'"
-            >
-                css
-            </ng-container>
-
-            <common-ng-http-element
+            <common-ng-http-artifact
             *ngSwitchCase="'http'"
-            ></common-ng-http-element>
+            ></common-ng-http-artifact>
 
             <ng-container
             *ngSwitchCase="'url'"
@@ -104,14 +98,23 @@
             <ng-container
             *ngSwitchCase="'editor'"
             >
-                editor
+                <common-ng-code-editor-element
+                style="height: 50vh"
+                ></common-ng-code-editor-element>
             </ng-container>
 
             <ng-container
-            *ngSwitchCase="'joi'"
+            *ngSwitchCase="'diff'"
             >
-                joi
+                <common-ng-code-diff-element
+                [editable]="true"
+                style="height: 50vh"
+                ></common-ng-code-diff-element>
             </ng-container>
+
+            <common-ng-joi-element
+            *ngSwitchCase="'schemas (joi)'"
+            ></common-ng-joi-element>
 
         </ng-container>
     

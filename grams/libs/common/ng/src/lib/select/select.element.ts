@@ -85,13 +85,8 @@ export class CommonNgSelectElement
         setTimeout(() => {
             if ('options' in changes)
             {
-                if (!changes.options.firstChange)
-                { 
-                    // this was done to reset select if options change but it then had to do dont emit undefined for one of the particular usages, sooo
-                    this.select(-7)
-                    // this.unfocus()
-                }
                 
+                /* determine type of all objects in options by examining the first */
                 if (changes.options.currentValue)
                 {
                     let optionsType = this.json.typeOf(changes.options.currentValue)
@@ -115,29 +110,44 @@ export class CommonNgSelectElement
                     if (this._type)
                         this.setOptions()
                 }
+
+                // took this out, not sure it's really necessary unless the selected index is not in the list
+                if (!changes.options.firstChange)
+                { 
+                    // this was done to reset select if options change but it then had to do dont emit undefined for one of the particular usages, sooo
+                    /* try to find index if option is already selected*/
+                    if (this.selected > this.__options.length || this.__options.length === 0)
+                    {
+                        this.select(-7)
+                    }
+                }
+
+                /* big mode */
                 if (this.options?.length >= this.big_threshold)
                     this.big = true
                 else
                     this.big = false
-            }
 
-            if ( this.json.isDefined(this.initial) && !this.option && this._options?.length > 0 )
-            {
-                let type = this.json.typeOf(this.initial)
-                if (type === 'boo')
-                    this.select(0)
-                else if (type === 'num')
+                /* try to initialize   */
+                // && changes.options.firstChange // seems to cause issues
+                if ( this.json.isDefined(this.initial) && !this.option && this._options?.length > 0 )
                 {
-                    this.select(this.initial)
-                }
-                else if (type === 'str')
-                {
-                    for (let i = 0; i < this._options.length; i++)
+                    let type = this.json.typeOf(this.initial)
+                    if (type === 'boo')
+                        this.select(0)
+                    else if (type === 'num')
                     {
-                        if (this._options[i] === this.initial)
+                        this.select(this.initial)
+                    }
+                    else if (type === 'str')
+                    {
+                        for (let i = 0; i < this._options.length; i++)
                         {
-                            this.select(i) // only emit if the first change from changes
-                            break
+                            if (this._options[i] === this.initial)
+                            {
+                                this.select(i) // only emit if the first change from changes
+                                break
+                            }
                         }
                     }
                 }

@@ -17,12 +17,13 @@ import { CommonNgSanitizerService } from '../sanitizer/sanitizer.service'
 export class CommonNgThemesService
 {
 
-    materials: any = []
+    // materials: any = []
 
     themes: any = {}
     // themes$: any = new BehaviorSubject({})
     theme: any
     theme_identifier: string = '_id'
+    theme_display_name: string = 'theme'
     theme_key_index : number = -7
 
     // globalDefaultStyles: any
@@ -93,30 +94,30 @@ export class CommonNgThemesService
     }
 
     /* materials */
-    async enable
-    (
-        materialName: string,
-        renderer: 'css' | 'canvas' | 'webgl' | string,
-        data?: any
-    )
-    {
-        if (materialName in this.materials[renderer])
-        {
-            if (!this.materials[renderer][materialName].imported)
-            {
-                this.materials[renderer][materialName].module = await this.materials[renderer][materialName].module()
-                this.materials[renderer][materialName].component = await this.materials[renderer][materialName].component()
-                this.materials[renderer][materialName].imported = true
-            }
-            this.materials[renderer][materialName].enabled = true
-        }
-    }
+    // async enable
+    // (
+    //     materialName: string,
+    //     renderer: 'css' | 'canvas' | 'webgl' | string,
+    //     data?: any
+    // )
+    // {
+    //     if (materialName in this.materials[renderer])
+    //     {
+    //         if (!this.materials[renderer][materialName].imported)
+    //         {
+    //             this.materials[renderer][materialName].module = await this.materials[renderer][materialName].module()
+    //             this.materials[renderer][materialName].component = await this.materials[renderer][materialName].component()
+    //             this.materials[renderer][materialName].imported = true
+    //         }
+    //         this.materials[renderer][materialName].enabled = true
+    //     }
+    // }
 
-    disable ( materialName: string, renderer: 'css' | 'canvas' | 'webgl' | string ) { if (materialName in this.materials[renderer]) this.materials[renderer][materialName].enabled = false }
-    getData ( material: string, renderer: 'css' | 'canvas' | 'webgl' | string ) { return this.materials[renderer][material].data }
-    setData ( material: string, renderer: 'css' | 'canvas' | 'webgl' | string, data: any ) { this.materials[renderer][material].data = data }
-    updateData ( material: string,  renderer: 'css' | 'canvas' | 'webgl' | string, data: any
-    ) { if (material in this.materials[renderer]) this.setData(material, renderer, {...this.getData(material, renderer), ...data}) }
+    // disable ( materialName: string, renderer: 'css' | 'canvas' | 'webgl' | string ) { if (materialName in this.materials[renderer]) this.materials[renderer][materialName].enabled = false }
+    // getData ( material: string, renderer: 'css' | 'canvas' | 'webgl' | string ) { return this.materials[renderer][material].data }
+    // setData ( material: string, renderer: 'css' | 'canvas' | 'webgl' | string, data: any ) { this.materials[renderer][material].data = data }
+    // updateData ( material: string,  renderer: 'css' | 'canvas' | 'webgl' | string, data: any
+    // ) { if (material in this.materials[renderer]) this.setData(material, renderer, {...this.getData(material, renderer), ...data}) }
 
     /* themes */
     /* helpers */
@@ -137,7 +138,7 @@ export class CommonNgThemesService
             "author"?: string,
             "addClasses"?: any,
             "addStyles"?: any,
-            "materials"?: any
+            // "materials"?: any
         } | any
     )
     {
@@ -256,18 +257,18 @@ export class CommonNgThemesService
         /* inner html's just take care of themselves in the theme element */
 
         /* supported materials */
-        if (current?.materials)
-        {
-            for (let renderer of Object.keys(this.materials))
-                for (let material of Object.keys(this.materials[renderer]))
-                    this.disable(material, renderer)
-        }
-        if (theme?.materials)
-        {
-            for (let renderer of Object.keys(theme.materials))
-                for (let material of Object.keys(theme.materials[renderer]))
-                    this.enable(material, renderer, theme.materials[renderer][material])
-        }
+        // if (current?.materials)
+        // {
+        //     for (let renderer of Object.keys(this.materials))
+        //         for (let material of Object.keys(this.materials[renderer]))
+        //             this.disable(material, renderer)
+        // }
+        // if (theme?.materials)
+        // {
+        //     for (let renderer of Object.keys(theme.materials))
+        //         for (let material of Object.keys(theme.materials[renderer]))
+        //             this.enable(material, renderer, theme.materials[renderer][material])
+        // }
 
         /* stylesheets */
         if (current?.stylesheets)
@@ -354,11 +355,11 @@ export class CommonNgThemesService
                 "body": {},
                 "app": {}
             },
-            "materials": {
-                "css": {},
-                "canvas": {},
-                "webgl": {}
-            },
+            // "materials": {
+            //     "css": {},
+            //     "canvas": {},
+            //     "webgl": {}
+            // },
             "stylesheets": {
                 "default": ""
             },
@@ -584,6 +585,16 @@ textarea {
 /* this one is something for fixing apple/touch browsers, the outline stays on focus for the select */
 /* *:focus{ outline: inherit !important; } */
 
+/* Safari 7.1+ */
+_::-webkit-full-page-media:focus, _:future:focus, :root.safari_only:focus {
+    outline: inherit !important; 
+}
+/* Safari 10.1+ */
+@media not all and (min-resolution:.001dpcm) { @media {
+    .safari_only:focus { 
+        outline: inherit !important; 
+    }
+}}
         `
 
         // for glo-0-drop, removed border, also idea for how to achieve effect in firefox, though with svg element, is there inline styles with svg background?

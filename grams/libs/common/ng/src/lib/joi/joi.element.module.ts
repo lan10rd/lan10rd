@@ -4,12 +4,15 @@ import { FormsModule } from '@angular/forms'
 
 import { CommonNgJoiElement } from './joi.element'
 
+import { CommonNgButtonElementModule } from '../button/button.element.module'
+
 @NgModule
 ({
     imports:
     [
         CommonModule,
-        FormsModule
+        FormsModule,
+        CommonNgButtonElementModule
     ],
     declarations:
     [

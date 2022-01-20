@@ -392,7 +392,7 @@ yarn add \
   dom-serializer \
   rewire \
   entities \
-  sitemap
+  sitemap 
   
 ## more workspace extras
 yarn add -D \
@@ -433,3 +433,8 @@ nx g @scullyio/init:install -- --project=docs-app-ng
 for angular apps i noticed that if your goal is to keep main.js as small as possible (usually is), despite only loading and importing dynamic element (from common/ng) into app module, and putting everything else in init element so that it can bootstrap the heavier elements, it actually bloats main.js to the size of the metadata of the common/ng library (which grows as you add to index.ts, even if you dont use any other element/components!!)
 
 so... made a second library, common/ng/core, which basically just includes dynamic element, thats the import that should be in app module and finally the total main.js bundle is back to 30kb!.. well under 500 now, and doesnt grow! the only way it will grow is adding more to app module or to app init service
+
+
+### serving
+
+nx serve reference-app-ng --host 0.0.0.0 --disableHostCheck

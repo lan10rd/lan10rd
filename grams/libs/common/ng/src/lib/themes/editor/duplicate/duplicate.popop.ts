@@ -15,6 +15,7 @@ export class CommonNgThemesEditorDuplicatePopop
 
     unique: boolean = false
     key: string = ''
+    display: string = ''
     theme: any
 
     constructor
@@ -32,6 +33,7 @@ export class CommonNgThemesEditorDuplicatePopop
     )
     {
         this.key = this.theme[this.themes.theme_identifier]
+        this.display = this.theme[this.themes.theme_display_name]
         this.isUnique()
     }
 
@@ -47,7 +49,7 @@ export class CommonNgThemesEditorDuplicatePopop
     (
     )
     {
-        this.popop.close({ unique: this.unique, key: this.key })
+        this.popop.close({ unique: this.unique, key: this.key, display: this.display })
     }
 
 }

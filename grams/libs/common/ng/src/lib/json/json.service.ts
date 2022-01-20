@@ -16,14 +16,15 @@ export class CommonNgJsonService
 
     parse
     (
-        json: any
+        json: any,
+        safe: boolean = true
     )
     {
         try
         {
             if (this.typeOf(json) === 'obj')
                 return json
-            return JSON.parse(json)
+            return safe ? JSON.parse(json) : this.eval(json, safe)
         }
         catch(e)
         {
@@ -609,10 +610,11 @@ export class CommonNgJsonService
 
     eval
     (
-        cmd: string
+        expression: string,
+        safe: boolean = true
     )
     {
-        return eval(cmd)
+        return safe ? new Function('return ' + expression)() : eval('(function() { return ' + expression + '}())')
     }
 
 }

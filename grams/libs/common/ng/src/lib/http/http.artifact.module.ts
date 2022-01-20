@@ -2,29 +2,32 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 
-import { CommonNgHttpElement } from './http.element'
+import { CommonNgHttpArtifact } from './http.artifact'
+
+import { CommonNgButtonElementModule } from '../button/button.element.module'
 
 @NgModule
 ({
     imports:
     [
         CommonModule,
-        FormsModule
+        FormsModule,
+        CommonNgButtonElementModule
     ],
     declarations:
     [
-        CommonNgHttpElement
+        CommonNgHttpArtifact
     ],
     exports:
     [
-        CommonNgHttpElement
+        CommonNgHttpArtifact
     ],
     providers:
     [
 
     ]
 }) 
-export class CommonNgHttpElementModule
+export class CommonNgHttpArtifactModule
 {
 
 }

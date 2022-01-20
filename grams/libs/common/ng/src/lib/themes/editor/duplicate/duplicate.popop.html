@@ -6,9 +6,15 @@ class="tcenter mt"
     class="auto"
     #duplicateInput
     [(ngModel)]="key"
-    placeholder="Pick a new id for the duplicate."
+    placeholder="Pick a new id for the duplicate. (id is used for storage)"
     (change)="isUnique()"
     (keyup)="isUnique()"
+    >
+
+    <input
+    class="auto"
+    placeholder="Change the display name if you wish. (display is just for searchability)."
+    [(ngModel)]="display"
     >
 
     <common-ng-button-element

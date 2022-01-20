@@ -1,0 +1,79 @@
+<div
+class="flex jcc"
+>
+    <select
+    class="bl"
+    [(ngModel)]="mode"
+    >
+        <option
+        [ngValue]="'get'"
+        >
+            GET
+        </option>
+        <option
+        [ngValue]="'post'"
+        >
+            POST
+        </option>
+        <option
+        [ngValue]="'put'"
+        >
+            PUT
+        </option>
+        <option
+        [ngValue]="'delete'"
+        >
+            DELETE
+        </option>
+    </select>
+
+    <input
+    class="bl"
+    [(ngModel)]="url"
+    placeholder="enter a url"
+    >
+
+    <textarea
+    class="bl"
+    [(ngModel)]="options"
+    placeholder="enter options"
+    ></textarea>
+
+    <ng-container
+    [ngSwitch]="mode"
+    >
+
+        <ng-container
+        *ngSwitchCase="'post'"
+        >
+
+            <textarea
+            [(ngModel)]="payload"
+            ></textarea>
+
+        </ng-container>
+
+        <ng-container
+        *ngSwitchCase="'put'"
+        >
+
+            <textarea
+            [(ngModel)]="payload"
+            ></textarea>
+
+        </ng-container>
+        
+    </ng-container>
+
+    <common-ng-button-element
+    class="bl glo-0-text-ani glo-0-text-trim"
+    (click)="fire()"
+    >
+        fire
+    </common-ng-button-element>
+
+</div>
+
+<pre>{{resText}}</pre>
+
+<pre>{{resE | json}}</pre>

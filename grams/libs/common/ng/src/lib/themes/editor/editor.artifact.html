@@ -2,7 +2,7 @@
 class="glo-0-text-trim bl"
 [options]="themes.themes"
 [initial]="themes.theme_key_index"
-[path]="'theme'"
+[path]="themes.theme_display_name"
 (optionChange)="handleThemesChange($event)"
 #themesSelect
 ></common-ng-select-element>

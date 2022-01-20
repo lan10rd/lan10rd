@@ -8,6 +8,20 @@ import { CommonNgCodeService } from '../code.service'
     selector : 'common-ng-code-diff-element',
     template :
 `
+<ng-container
+*ngIf="editable"
+>
+    <textarea
+    #originalText
+    [(ngModel)]="original"
+    (ngModelChange)="setup(original, modified, true)"
+    ></textarea>
+    <textarea
+    [(ngModel)]="modified"
+    #modifiedText
+    (ngModelChange)="setup(original, modified, true)"
+    ></textarea>
+</ng-container>
 <div class="container" #container></div>
 `,
     styles :
@@ -33,6 +47,7 @@ export class CommonNgCodeDiffElement
     }
     @Input() fileName : any
     @ViewChild('container') container : any
+    @Input() editable: boolean = false
 
     editor : any
     windowResize$ : any
@@ -57,9 +72,33 @@ export class CommonNgCodeDiffElement
     (
     )
     {
-        await this.code.load(this.options)
-        this.editor = this.code.createDiff(this.container.nativeElement, this.original, this.modified, this.options)
+        this.setup(this.original, this.modified)
         this.windowResize$ = fromEvent(window, 'resize').subscribe(() => this.editor.layout())
+    }
+
+    async ngOnChanges
+    (
+    )
+    {
+        this.setup(this.original, this.modified)
+    }
+
+    async setup
+    (
+        original: any,
+        modified: any,
+        clear?: boolean
+    )
+    {
+        if (clear)
+            this.container.nativeElement.innerHTML = ''
+        await this.code.load(this.options)
+        this.editor = this.code.createDiff(this.container.nativeElement, original, modified, this.options)
+        
+        if (this.editable)
+            this.editor.onDidUpdateDiff(($event: any) => {
+                this.modified = this.editor.getModifiedEditor().getValue()
+            })
     }
 
     async ngOnDestroy
