@@ -22,7 +22,7 @@ class="bl glo-0-text-trim"
             <textarea
             #jsonTextarea
             (keyup)="model.model = util.json.parse(jsonTextarea.value)"
-            ></textarea>
+            >{}</textarea>
             <common-ng-json-artifact
             [(model)]="model.model"
             (modelChange)="jsonTextarea.value = util.json.stringify(model.model, 4)"

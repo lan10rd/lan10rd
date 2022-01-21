@@ -133,7 +133,13 @@
                         <ng-container
                         *ngSwitchCase="'swap'"
                         >
-                            swap
+                            <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #startIndex>
+                            <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #endIndex>
+                            <common-ng-button-element
+                            class="ib p glo-0-text-ani glo-0-text-trim tcenter"
+                            >
+                                swap
+                            </common-ng-button-element>
                         </ng-container>
 
                     </div>
