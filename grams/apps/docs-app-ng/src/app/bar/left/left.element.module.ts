@@ -6,15 +6,9 @@ import { AppBarLeftElement } from './left.element'
 import
 {
     CommonNgSelectElementModule,
-    CommonNgRouterElementModule,
     CommonNgButtonElementModule,
-    CommonNgJsonArtifactModule,
-    CommonNgCodeTerminalElementModule,
-    CommonNgJoiElementModule,
-    CommonNgHttpArtifactModule,
-    CommonNgFrameSandboxElementModule,
-    CommonNgCodeEditorElementModule,
-    CommonNgCodeDiffElementModule
+    CommonNgRouterElementModule,
+    CommonNgToolkitArtifactModule
 } from '@grams/common/ng'
 
 @NgModule
@@ -23,15 +17,9 @@ import
     [
         CommonModule,
         CommonNgSelectElementModule,
-        CommonNgRouterElementModule,
         CommonNgButtonElementModule,
-        CommonNgJsonArtifactModule,
-        CommonNgCodeTerminalElementModule,
-        CommonNgHttpArtifactModule,
-        CommonNgJoiElementModule,
-        CommonNgFrameSandboxElementModule,
-        CommonNgCodeEditorElementModule,
-        CommonNgCodeDiffElementModule
+        CommonNgRouterElementModule,
+        CommonNgToolkitArtifactModule
     ],
     declarations:
     [

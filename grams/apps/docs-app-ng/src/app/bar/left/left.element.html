@@ -49,75 +49,8 @@
 
     </ng-container>
 
-    <ng-container
+    <common-ng-toolkit-artifact
     *ngSwitchCase="'toolkit'"
-    >
-
-        <common-ng-select-element
-        class="bl glo-0-text-trim"
-        [options]="['html', 'json', 'schemas (joi)', 'js', 'http', 'url', 'editor', 'diff' ]"
-        [initial]="true"
-        #toolkitSelect
-        ></common-ng-select-element>
-
-        <ng-container
-        [ngSwitch]="toolkitSelect._option"
-        >
-
-            <common-ng-frame-sandbox-element
-            *ngSwitchCase="'html'"
-            ></common-ng-frame-sandbox-element>
-
-            <ng-container
-            *ngSwitchCase="'json'"
-            >
-                <common-ng-json-artifact
-                [model]="{}"
-                ></common-ng-json-artifact>
-            </ng-container>
-
-            <ng-container
-            *ngSwitchCase="'js'"
-            >
-                <common-ng-code-terminal-element
-                (exec)="terminal.output(util.json.eval($event))"
-                #terminal
-                ></common-ng-code-terminal-element>
-            </ng-container>
-
-            <common-ng-http-artifact
-            *ngSwitchCase="'http'"
-            ></common-ng-http-artifact>
-
-            <ng-container
-            *ngSwitchCase="'url'"
-            >
-                url
-            </ng-container>
-
-            <ng-container
-            *ngSwitchCase="'editor'"
-            >
-                <common-ng-code-editor-element
-                style="height: 50vh"
-                ></common-ng-code-editor-element>
-            </ng-container>
-
-            <ng-container
-            *ngSwitchCase="'diff'"
-            >
-                <common-ng-code-diff-element
-                [editable]="true"
-                style="height: 50vh"
-                ></common-ng-code-diff-element>
-            </ng-container>
-
-            <common-ng-joi-element
-            *ngSwitchCase="'schemas (joi)'"
-            ></common-ng-joi-element>
-
-        </ng-container>
-    
-    </ng-container>
+    ></common-ng-toolkit-artifact>
     
 </ng-container>

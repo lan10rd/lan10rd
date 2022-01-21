@@ -15,7 +15,8 @@ style="{{styles + addedStyles}}"
 (keyup.enter)="input()"
 >
 `,
-    styles :[]
+    styles :[`input { width: 100%; }`
+    ]
 })
 export class CommonNgCodeTerminalElement
 {

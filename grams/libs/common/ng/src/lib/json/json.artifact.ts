@@ -112,6 +112,7 @@ export class CommonNgJsonArtifact
         if (key.length > 0 && !(key in this.model))
         {
             this.model[key] = this.json.parse(value)
+            this.modelChange.emit(this.model)
             this.setup()
         }
     }

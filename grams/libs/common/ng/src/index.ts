@@ -49,18 +49,19 @@ export * from './lib/code/editor/editor.element'
 export * from './lib/code/editor/editor.element.module'
 export * from './lib/code/diff/diff.element'
 export * from './lib/code/diff/diff.element.module'
+export * from './lib/code/logs/logs.service'
+export * from './lib/code/logs/logs.element'
+export * from './lib/code/logs/logs.element.module'
+export * from './lib/code/terminal/terminal.element'
+export * from './lib/code/terminal/terminal.element.module'
 
 export * from './lib/scroll/scroll.element.module'
 export * from './lib/scroll/scroll.element'
 
 export * from './lib/websockets/websockets.service'
 
-export * from './lib/code/logs/logs.service'
-export * from './lib/code/logs/logs.element'
-export * from './lib/code/logs/logs.element.module'
-
-export * from './lib/code/terminal/terminal.element'
-export * from './lib/code/terminal/terminal.element.module'
+export * from './lib/toolkit/toolkit.artifact'
+export * from './lib/toolkit/toolkit.artifact.module'
 
 export * from './lib/sanitizer/sanitizer.service'
 export * from './lib/sanitizer/sanitizer.pipe'
