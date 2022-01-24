@@ -137,6 +137,7 @@
                             <input min="0" max="{{keys.length - 1}}" step="1" type="number" value="0" #endIndex>
                             <common-ng-button-element
                             class="ib p glo-0-text-ani glo-0-text-trim tcenter"
+                            (click)="json.swap(model, +startIndex.value, +endIndex.value)"
                             >
                                 swap
                             </common-ng-button-element>
@@ -262,34 +263,38 @@
                     *ngSwitchCase="'pretty'"
                     >
                         <ng-container
-                        [ngSwitch]="json.typeOf(model[key])"
+                        *ngIf="model && model[key]"
                         >
-
-                            <textarea
-                            *ngSwitchCase="'str'"
-                            [(ngModel)]="model[key]"
-                            (ngModelChange)="modelChange.emit(model)"
-                            ></textarea>
-
-                            <input
-                            *ngSwitchCase="'num'"
-                            [(ngModel)]="model[key]"
-                            (ngModelChange)="modelChange.emit(model)"
-                            type="number"
-                            >
-
                             <ng-container
-                            *ngSwitchCase="'boo'"
+                            [ngSwitch]="json.typeOf(model[key])"
                             >
-                                {{model[key]}}
+
+                                <textarea
+                                *ngSwitchCase="'str'"
+                                [(ngModel)]="model[key]"
+                                (ngModelChange)="modelChange.emit(model)"
+                                ></textarea>
+
+                                <input
+                                *ngSwitchCase="'num'"
+                                [(ngModel)]="model[key]"
+                                (ngModelChange)="modelChange.emit(model)"
+                                type="number"
+                                >
+
+                                <ng-container
+                                *ngSwitchCase="'boo'"
+                                >
+                                    {{model[key]}}
+                                </ng-container>
+
+                                <common-ng-json-artifact
+                                *ngSwitchDefault
+                                [(model)]="model[key]"
+                                (modelChange)="modelChange.emit(model)"
+                                ></common-ng-json-artifact>
+
                             </ng-container>
-
-                            <common-ng-json-artifact
-                            *ngSwitchDefault
-                            [(model)]="model[key]"
-                            (modelChange)="modelChange.emit(model)"
-                            ></common-ng-json-artifact>
-
                         </ng-container>
                     </ng-container>
 

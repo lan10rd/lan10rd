@@ -346,6 +346,7 @@ yarn add \
   uuid \
   @webcomponents/webcomponentsjs \
   fs-extra \
+  concat \
   ansi-to-html \
   socket.io-client \
   socket.io \

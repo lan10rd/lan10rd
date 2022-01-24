@@ -617,4 +617,17 @@ export class CommonNgJsonService
         return safe ? new Function('return ' + expression)() : eval('(function() { return ' + expression + '}())')
     }
 
+    swap
+    (
+        array: any,
+        firstIndex: number,
+        secondIndex: number
+    )
+    {
+        let tmp = array[firstIndex]
+        array[firstIndex] = array[secondIndex]
+        array[secondIndex] = tmp
+        return array
+    }
+
 }

@@ -81,6 +81,7 @@ export class CommonNgSelectElement
         changes: any
     )
     {
+        console.log('changes', changes)
         // i think i read somewhere you dont have to do set time out if you mark dirty or something
         setTimeout(() => {
             if ('options' in changes)

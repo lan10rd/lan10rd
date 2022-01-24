@@ -4,6 +4,7 @@
     "common-ng": "libs/common/ng",
     "common-ng-core": "libs/common/ng/core",
     "common-ns": "libs/common/ns",
+    "common-wc-ng": "apps/common-wc-ng",
     "docs-app-ng": "apps/docs-app-ng",
     "reference-api-ns": "apps/reference-api-ns",
     "reference-app-ng": "apps/reference-app-ng",

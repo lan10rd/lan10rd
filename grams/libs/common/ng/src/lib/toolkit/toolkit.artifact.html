@@ -24,6 +24,7 @@ class="bl glo-0-text-trim"
             (keyup)="model.model = util.json.parse(jsonTextarea.value)"
             >{}</textarea>
             <common-ng-json-artifact
+            class="bl scrollable"
             [(model)]="model.model"
             (modelChange)="jsonTextarea.value = util.json.stringify(model.model, 4)"
             ></common-ng-json-artifact>
