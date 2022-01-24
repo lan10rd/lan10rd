@@ -18,8 +18,6 @@ export class CommonNgButtonElement
     // @Input() radius : any = '2.5px'
     // @Input() toggleable : boolean = false
 
-    constructor(){console.log('button', this.text)}
-
     toggleButton
     (
     )

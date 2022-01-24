@@ -1,0 +1,220 @@
+html, body {
+    min-height: 100%;
+    max-width: 100%;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    cursor: default;
+    word-wrap: break-word;
+}
+audio { max-width: 100%; }
+
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+.parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    background-repeat: 'no-repeat';
+}
+
+.p { padding: 1rem; }
+.m { margin: 1rem }
+.bl { display: block; }
+.ib { display: inline-block; }
+.mt { margin-top: 1rem; }
+.ml { margin-left: 1rem; }
+.mr { margin-right: 1rem; }
+.mb { margin-bottom: 1rem; }
+.pt { padding-top: 1rem; }
+.pl { padding-left: 1rem; }
+.pr { padding-right: 1rem; }
+.pb { padding-bottom: 1rem; }
+.ib { display: inline-block; }
+.bottom { margin-bottom: 2rem }
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.33); }
+.scrollable {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.scrollable-y {
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.tcenter { text-align: center; }
+.tleft { text-align: left; }
+.tright { text-align: right; }
+.italic { font-style: italic; }
+.fixed-top {
+    position: fixed;
+    top: 0px;
+    z-index: 2;
+    transition-property: top;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0s;
+    left: 0;
+    right: 0;
+}
+.corners { border-radius: 10px; }
+.corners0 { border-radius: 0;}
+
+.point:hover { cursor: pointer; }
+.fit {width: fit-content}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.sticky { position: sticky; position: -webkit-sticky; }
+.flex { display: flex; }
+.column { flex-direction: column;}
+.jcc { justify-content: center; }
+.max-height-100vh {max-height: 100vh;}
+.pre-line {white-space: pre-line;}
+
+pre {
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    /* white-space: pre-line; */
+    margin: 0;
+}
+
+input {
+    background-color: rgba(0, 0,0,0);
+    border-radius: 5px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    font-family: trebuchet ms;
+    font-size: 16px;
+    color: white;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+    /* width: 100%; */
+}
+input::placeholder {
+    text-shadow: none;
+}
+input:focus {
+    /* text-shadow: 0px 0px 3px rgba(0, 0, 0, 1); */
+    /* background-color: rgba(255, 255, 255, 1); */
+    /* color: purple; */
+}
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select:focus,
+textarea {
+    font-size: 16px;
+}
+
+.auto { margin: auto; }
+.bold { font-weight: bold; }
+
+.trunc {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.glo-0-text {
+    color: rgba(255, 255, 255, 1);
+    font-family: trebuchet ms;
+}
+.glo-0-back {
+    background-color: rgba(0, 0, 0, 1);
+}
+.glo-0-shadow {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1)) drop-shadow(0 0 5px rgba(255, 255, 255, 1));
+}
+.glo-0-drop {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0);
+}
+.glo-1-drop {
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
+    border: solid white 1px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(255, 255, 255);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(255, 255, 255);
+    box-shadow: 0px 0px 5px 0px rgba(255, 255, 255);
+}
+
+.glo-0-text-ani:hover {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1));
+}
+
+/*
+.glo-0-text-ani {
+    transition: all .2s ease-in-out;
+}
+*/
+/*
+.glo-0-text-ani:focus-within {
+    transform: scale(1.33);
+}
+*/
+/*
+.glo-0-text-trim {
+    text-shadow: 0px 0px 1px rgb(0 0 0);
+}
+.glo-1-text-trim {
+    text-shadow: 0px 0px 1px rgb(255 255 255);
+} */
+
+.glo-0-text-trim {
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 1));
+    /* at some point should probably transition to text-shadow, but would like it to cover images as well?, text-shadow: 0px 0px 5px #FF0000; */
+}
+.flex1 { flex: 1 }
+.z1 { z-index: 1; }
+.z2 { z-index: 2; }
+.z3 { z-index: 3; }
+.zm1 { z-index: -1; }
+.zm2 { z-index: -2; }
+.zm3 { z-index: -3; }
+.top0 { top: 0; }
+.contain { overscroll-behavior: contain; }
+
+/* these are all attempts to hide scrollbars on non apple browsers, it really looks not elegant, this really seems to work! overflow hidden has a lot of unintended consequences but pure scrollbar attacks seem to work okay */
+/*
+.auto-hide-scroll:not(:focus):not(:hover) { overflow: hidden; }
+*/
+
+/* had to to add not body because the scrollbar would kinda flicker on windows when trying to scroll the body, i guess the scrollbar isnt considered part of it */
+
+*:not(:focus):not(:hover):not(body) { scrollbar-width: none; }
+*:not(:focus):not(:hover):not(body)::-webkit-scrollbar { width: 0px; height: 0px; }
+
+/* this one is something for fixing apple/touch browsers, the outline stays on focus for the select */
+/* *:focus{ outline: inherit !important; } */
+
+/* Safari 7.1+ */
+_::-webkit-full-page-media:focus, _:future:focus, :root.safari_only:focus {
+    outline: inherit !important; 
+}
+/* Safari 10.1+ */
+@media not all and (min-resolution:.001dpcm) { @media {
+    .safari_only:focus { 
+        outline: inherit !important; 
+    }
+}}
