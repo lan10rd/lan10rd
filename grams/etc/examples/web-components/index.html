@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8"/>
     <title>Web Components</title>
-    <base href="/"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-</head>
+    <!-- <link rel="stylesheet" href="https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/styles/default.css"> -->
+  </head>
   <body>
 
     <common-ng-button-element-wc
@@ -17,7 +17,34 @@
     >
         example 2
     </common-ng-button-element-wc>
-    
-    <script src="https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/js/common-wc-ng.js"></script>
+
+    <common-ng-select-element-wc
+    options=[]
+    ></common-ng-select-element-wc>
+
+    <!-- <script src="https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/js/common-wc-ng.js"></script> -->
+
+    <script>
+        // had to do this because the MIME type returned from githubusercontent is plain/text not script :/
+        let fun = async () => {
+
+            let data = await fetch('https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/js/common-wc-ng.js')
+            let text = await data.text()
+
+            let script = document.createElement('script')
+            script.type = 'text/javascript'
+            script.append(document.createTextNode(text))
+            document.head.append(script)
+            
+            data = await fetch('https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/styles/default.css')
+            text = await data.text()
+
+            let style = document.createElement('style')
+            style.append(document.createTextNode(text))
+            document.head.append(style)
+
+        }
+        fun()
+    </script>
 </body>
 </html>
