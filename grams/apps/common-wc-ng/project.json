@@ -15,15 +15,15 @@
         "parallel": false
       },
       "configurations": {
-        "production": {
-          
-        }
+        "production": {}
       },
       "defaultConfiguration": "production"
     },
     "build-normal": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/common-wc-ng",
         "index": "apps/common-wc-ng/src/index.html",
@@ -35,7 +35,9 @@
           "apps/common-wc-ng/src/favicon.ico",
           "apps/common-wc-ng/src/assets"
         ],
-        "styles": ["apps/common-wc-ng/src/styles.scss"],
+        "styles": [
+          "apps/common-wc-ng/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -100,7 +102,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/common-wc-ng"],
+      "outputs": [
+        "coverage/apps/common-wc-ng"
+      ],
       "options": {
         "jestConfig": "apps/common-wc-ng/jest.config.js",
         "passWithNoTests": true

@@ -24,11 +24,11 @@
         </common-ng-button-element-wc>
 
         <common-ng-select-element-wc
-        options="[]"
         ></common-ng-select-element-wc>
     </div>
 
-    <common-ng-themes-element-wc></common-ng-themes-element-wc>
+    <common-ng-themes-element-wc
+    ></common-ng-themes-element-wc>
 
     <!-- <script src="https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/js/common-wc-ng.js"></script> -->
 
@@ -53,6 +53,19 @@
 
         }
         fun()
+    </script>
+
+    <script>
+        let select = document.querySelector( 'common-ng-select-element-wc' )
+        select.options = ['a', 'b', 'c']
+
+        let someFun = ($event) => {
+            console.log('someFun', $event)
+        }
+
+        // $ yarn add @webcomponents/webcomponentsjs
+        // Then, go to the polyfills.ts file and import the following:
+        // import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js';
     </script>
 </body>
 </html>

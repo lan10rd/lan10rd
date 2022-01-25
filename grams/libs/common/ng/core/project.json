@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/common/ng/core"],
+      "outputs": [
+        "dist/libs/common/ng/core"
+      ],
       "options": {
         "project": "libs/common/ng/core/ng-package.json"
       },
@@ -22,7 +24,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/common/ng/core"],
+      "outputs": [
+        "coverage/libs/common/ng/core"
+      ],
       "options": {
         "jestConfig": "libs/common/ng/core/jest.config.js",
         "passWithNoTests": true

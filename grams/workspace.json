@@ -6,8 +6,13 @@
     "common-ns": "libs/common/ns",
     "common-wc-ng": "apps/common-wc-ng",
     "docs-app-ng": "apps/docs-app-ng",
+    "play-app-ng": "apps/play-app-ng",
     "reference-api-ns": "apps/reference-api-ns",
     "reference-app-ng": "apps/reference-app-ng",
-    "reference-app-ng-e2e": "apps/reference-app-ng-e2e"
+    "reference-app-ng-e2e": "apps/reference-app-ng-e2e",
+    "reference-app-rt": "apps/reference-app-rt",
+    "reference-app-rt-e2e": "apps/reference-app-rt-e2e",
+    "reference-app-web": "apps/reference-app-web",
+    "reference-app-web-e2e": "apps/reference-app-web-e2e"
   }
 }
