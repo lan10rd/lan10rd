@@ -8,11 +8,12 @@ import {
   CommonNgButtonElement, CommonNgButtonElementModule,
   CommonNgPopopElement, CommonNgPopopElementModule,
   CommonNgThemesElement, CommonNgThemesElementModule,
+  CommonNgThemesEditorArtifact, CommonNgThemesEditorArtifactModule
 } from '@grams/common/ng'
 
 @NgModule
 ({
-  imports: [BrowserModule, HttpClientModule, CommonNgSelectElementModule, CommonNgButtonElementModule, CommonNgPopopElementModule, CommonNgThemesElementModule, ],
+  imports: [BrowserModule, HttpClientModule, CommonNgSelectElementModule, CommonNgButtonElementModule, CommonNgPopopElementModule, CommonNgThemesElementModule,CommonNgThemesEditorArtifactModule ],
   declarations: [],
   providers: [],
   bootstrap: [],
@@ -24,14 +25,22 @@ export class AppModule {
     injector: Injector
   )
   {
+
     const customSelect = createCustomElement(CommonNgSelectElement, {injector: injector})
     customElements.get('common-ng-select-element-wc') || customElements.define('common-ng-select-element-wc', customSelect)
+
     const customButton = createCustomElement(CommonNgButtonElement, {injector: injector})
     customElements.get('common-ng-button-element-wc') || customElements.define('common-ng-button-element-wc', customButton)
+
     const customPopop = createCustomElement(CommonNgPopopElement, {injector: injector})
     customElements.get('common-ng-popop-element-wc') || customElements.define('common-ng-popop-element-wc', customPopop)
+
     const customThemes = createCustomElement(CommonNgThemesElement, {injector: injector})
     customElements.get('common-ng-themes-element-wc') || customElements.define('common-ng-themes-element-wc', customThemes)
+
+    const customThemesEditor = createCustomElement(CommonNgThemesEditorArtifact, {injector: injector})
+    customElements.get('common-ng-themes-editor-artifact-wc') || customElements.define('common-ng-themes-editor-artifact-wc', customThemesEditor)
+    
   }
 
   ngDoBootstrap() {}

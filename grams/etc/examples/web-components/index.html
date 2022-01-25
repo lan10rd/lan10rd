@@ -8,19 +8,27 @@
   </head>
   <body>
 
-    <common-ng-button-element-wc
+    <div
+    class="glo-0-drop"
     >
-        example 1
-    </common-ng-button-element-wc>
+        <common-ng-button-element-wc
+        class="ib p glo-0-text-trim glo-0-text-ani"
+        >
+            example 1
+        </common-ng-button-element-wc>
 
-    <common-ng-button-element-wc
-    >
-        example 2
-    </common-ng-button-element-wc>
+        <common-ng-button-element-wc
+        class="ib p glo-0-text-trim glo-0-text-ani"
+        >
+            example 2
+        </common-ng-button-element-wc>
 
-    <common-ng-select-element-wc
-    options=[]
-    ></common-ng-select-element-wc>
+        <common-ng-select-element-wc
+        options="[]"
+        ></common-ng-select-element-wc>
+    </div>
+
+    <common-ng-themes-element-wc></common-ng-themes-element-wc>
 
     <!-- <script src="https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/js/common-wc-ng.js"></script> -->
 
@@ -36,12 +44,12 @@
             script.append(document.createTextNode(text))
             document.head.append(script)
             
-            data = await fetch('https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/styles/default.css')
-            text = await data.text()
+            // data = await fetch('https://raw.githubusercontent.com/lan10rd/lan10rd/main/repos/lan10rd/assets/styles/default.css')
+            // text = await data.text()
 
-            let style = document.createElement('style')
-            style.append(document.createTextNode(text))
-            document.head.append(style)
+            // let style = document.createElement('style')
+            // style.append(document.createTextNode(text))
+            // document.head.append(style)
 
         }
         fun()
