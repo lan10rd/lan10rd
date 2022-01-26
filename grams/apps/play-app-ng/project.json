@@ -18,7 +18,9 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/play-app-ng/src/favicon.ico",
-          "apps/play-app-ng/src/assets"
+          "apps/play-app-ng/src/assets",
+          "apps/play-app-ng/src/manifest.webmanifest",
+          "apps/play-app-ng/src/robots.txt"
         ],
         "styles": [
           "apps/play-app-ng/src/styles.scss"

@@ -1,0 +1,81 @@
+<common-ng-app-bar-artifact
+>
+
+    <div
+    left-button
+    class="glo-0-text-trim"
+    >
+        <common-ng-button-element
+        class="tcenter p glo-0-text-ani bl scrollable"
+        [ngClass]="{'glo-0-shadow' : appBar.show === 'left'}"
+        #leftButton
+        >
+            menu
+        </common-ng-button-element>
+    </div>
+
+    <div
+    right-button
+    class="glo-0-text-trim"
+    >
+        <common-ng-button-element
+        class="tcenter p glo-0-text-ani bl scrollable"
+        [ngClass]="{'glo-0-shadow' : appBar.show === 'right'}"
+        #rightButton
+        >
+            user
+        </common-ng-button-element>
+    </div>
+
+    <ng-container
+    middle-bar
+    >
+
+        <common-ng-router-element
+        *ngIf="!appBar.middleBar"
+        class="tcenter glo-0-text-trim bl"
+        ></common-ng-router-element>
+
+        <common-ng-dynamic-element
+        *ngIf="appBar.middleBar"
+        [component]="appBar.middleBar.component"
+        [module]="appBar.middleBar.module"
+        ></common-ng-dynamic-element>
+        
+    </ng-container>
+
+    <div
+    left-bar
+    >
+        <common-ng-select-element
+        class="bl glo-0-text-trim"
+        [options]="['router', 'toolkit']"
+        [initial]="true"
+        #leftBarMenu
+        ></common-ng-select-element>
+    </div>
+
+    <div
+    right-bar
+    >
+        <common-ng-select-element
+        class="bl glo-0-text-trim"
+        [options]="['preferences']"
+        [initial]="true"
+        #rightBarMenu
+        ></common-ng-select-element>
+    </div>
+
+    <app-bar-left-element
+    class="bl"
+    [menu]="leftBarMenu"
+    left-content
+    ></app-bar-left-element>
+
+    <app-bar-right-element
+    class="bl"
+    [menu]="rightBarMenu"
+    right-content
+    ></app-bar-right-element>
+
+</common-ng-app-bar-artifact>

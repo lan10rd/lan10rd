@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule, HammerModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http'
@@ -14,6 +14,21 @@ import { CommonNgCoreDynamicElementModule } from '@grams/common/ng/core'
 
 import { ScullyLibModule } from '@scullyio/ng-lib'
 
+// import * as Hammer from 'hammerjs';
+
+// import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
+// export class MyHammerConfig extends HammerGestureConfig {
+// overrides = <any> {
+//     swipe: { direction: Hammer.DIRECTION_ALL },
+// };
+// }
+
+// providers: [{
+//     provide: HAMMER_GESTURE_CONFIG,
+//     useClass: MyHammerConfig,
+//   },]
+
 @NgModule
 ({
     imports:
@@ -28,7 +43,8 @@ import { ScullyLibModule } from '@scullyio/ng-lib'
             enabled: environment.production,
             registrationStrategy: 'registerWhenStable:30000'
         }),
-        ScullyLibModule
+        ScullyLibModule,
+        HammerModule
     ],
     providers: 
     [

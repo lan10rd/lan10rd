@@ -3,4 +3,81 @@ copy app to src
 mkdir libs
 rename app-root in index.html to &lt;app&gt;
 rename title to app
+
+<textarea readonly class="bl">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>DocsAppNg</title>
+        <base href="/"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!-- , maximum-scale=1 -->
+        <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+        <link rel="manifest" href="manifest.webmanifest">
+        <meta name="theme-color" content="#800080">
+        <link rel="apple-touch-icon" href="assets/icons/apple-192x192.png">
+    </head>
+    <body>
+        <app></app>
+        <!-- Github Pages hack to allow SPA refresh without receiving 404. -->
+        <script>
+        (function () {
+            // Retrieve the URL the user was trying to access when receiving the 404.
+            var redirect = sessionStorage.redirect;
+            // Remove the URL from sessionStorage.
+            delete sessionStorage.redirect;
+            // Check if we actually need to redirect.
+            if (redirect && redirect != location.href) {
+            // We need to redirect to the URL the user was trying to access.
+            history.replaceState(null, null, redirect);
+            }
+        })();
+        </script>
+        <!-- /Github Pages hack. -->
+        <noscript>Please enable JavaScript to continue using this application.</noscript>
+    </body>
+    </html>
+</textarea>
+<!-- &lt;head&gt;
+    &lt;meta charset="utf-8"/&gt;
+    &lt;title&gt;DocsAppNg&lt;/title&gt;
+    &lt;base href="/"/&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"/&gt;
+    &lt;!-- , maximum-scale=1 --&gt;
+    &lt;link rel="icon" type="image/x-icon" href="favicon.ico"/&gt;
+    &lt;link rel="manifest" href="manifest.webmanifest"&gt;
+    &lt;meta name="theme-color" content="#800080"&gt;
+    &lt;link rel="apple-touch-icon" href="assets/icons/apple-192x192.png"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;app&gt;&lt;/app&gt;
+    &lt;!-- Github Pages hack to allow SPA refresh without receiving 404. --&gt;
+    &lt;script&gt;
+      (function () {
+        // Retrieve the URL the user was trying to access when receiving the 404.
+        var redirect = sessionStorage.redirect;
+        // Remove the URL from sessionStorage.
+        delete sessionStorage.redirect;
+        // Check if we actually need to redirect.
+        if (redirect &amp;&amp; redirect != location.href) {
+          // We need to redirect to the URL the user was trying to access.
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    &lt;/script&gt;
+    &lt;!-- /Github Pages hack. --&gt;
+    &lt;noscript&gt;Please enable JavaScript to continue using this application.&lt;/noscript&gt;
+&lt;/body&gt; -->
+
+add the following and replace app name in project.json, build.options.assets (also copy those files into src)
+"apps/play-app-ng/src/manifest.webmanifest",
+"apps/play-app-ng/src/robots.txt"
+
+add the following to build.options
+"serviceWorker": true,
+"ngswConfigPath": "apps/docs-app-ng/ngsw-config.json"
+
+copy assets/icons to assets (should include the iphone one)
+also copy ngsw-config.json in project root, and manifest.webmanifest and robots.txt to src
 </span></div>

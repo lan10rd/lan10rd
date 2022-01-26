@@ -218,4 +218,42 @@ export class CommonNgDocumentService
         return text
     }
 
+    escapeHTML
+    (
+        html: any
+    )
+    {
+        // let txt = document.createTextNode(html)
+        // let div: any = this.document.createElement('div')
+        // div.append(txt)
+        // return div.parentNode.innerHTML
+        // return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;        
+
+        // var escape = document.createElement('textarea');
+        // function escapeHTML(html) {
+        //     escape.textContent = html;
+        //     return escape.innerHTML;
+        // }
+
+        // function unescapeHTML(html) {
+        //     escape.innerHTML = html;
+        //     return escape.textContent;
+        // }
+
+        let tagsToReplace: any = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;'
+        };
+        
+        let replaceTag = (tag: string) => {
+            return tagsToReplace[tag] || tag;
+        }
+        
+        let safe_tags_replace = (str: any) => {
+            return str.replace(/[&<>]/g, replaceTag);
+        }
+        return safe_tags_replace(html)
+    }
+
 }

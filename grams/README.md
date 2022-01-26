@@ -214,6 +214,7 @@ yarn add \
 
 yarn add -D \
   @angular/elements
+  @types/hammerjs
 
 ### client (ui) goodies
 yarn add \
@@ -229,7 +230,8 @@ yarn add \
   marked \
   markdown-it \
   tinymce \
-  froala-editor
+  froala-editor \
+  hammerjs
 
 
 
