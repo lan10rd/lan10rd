@@ -22,6 +22,10 @@ export class PlayHammerRotateElement
         public util: CommonNgUtilityService
     )
     {
+        
+    }
+
+    ngOnInit(){
         this.indicators = new Indicator();
     }
 

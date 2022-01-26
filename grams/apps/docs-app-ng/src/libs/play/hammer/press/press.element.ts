@@ -15,11 +15,15 @@ export class PlayHammerPressElement
 {
 
     eventText = '';
-    indicators;
+    indicators: any;
 
     constructor(
         public util: CommonNgUtilityService
     ) {
+        
+    }
+
+    ngOnInit(){
         this.indicators = new Indicator();
     }
 

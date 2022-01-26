@@ -14,6 +14,9 @@ export const config: ScullyConfig = {
     '/notes',
     '/readme',
     '/showcase',
-    '/play'
+    '/play',
+    '/play/hammer',
+    '/play/apple',
+    '/play/json'
   ]
 };

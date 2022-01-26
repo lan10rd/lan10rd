@@ -8,6 +8,7 @@ import { PlayHammerPanElementModule } from './pan/pan.element.module'
 import { PlayHammerPressElementModule } from './press/press.element.module'
 import { PlayHammerRotateElementModule } from './rotate/rotate.element.module'
 import { PlayHammerSwipeElementModule } from './swipe/swipe.element.module'
+import { PlayHammerTapElementModule } from './tap/tap.element.module'
 
 @NgModule
 ({
@@ -34,7 +35,8 @@ import { PlayHammerSwipeElementModule } from './swipe/swipe.element.module'
         PlayHammerPanElementModule,
         PlayHammerPressElementModule,
         PlayHammerRotateElementModule,
-        PlayHammerSwipeElementModule
+        PlayHammerSwipeElementModule,
+        PlayHammerTapElementModule
     ],
     declarations:
     [

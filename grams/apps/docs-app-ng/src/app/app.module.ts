@@ -1,6 +1,6 @@
 import { BrowserModule, HammerModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { APP_INITIALIZER, NgModule } from '@angular/core'
+import { APP_INITIALIZER, NgModule, Injectable } from '@angular/core'
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
 import { ServiceWorkerModule } from '@angular/service-worker'
@@ -14,20 +14,15 @@ import { CommonNgCoreDynamicElementModule } from '@grams/common/ng/core'
 
 import { ScullyLibModule } from '@scullyio/ng-lib'
 
-// import * as Hammer from 'hammerjs';
+import * as Hammer from 'hammerjs'
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser'
 
-// import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-
-// export class MyHammerConfig extends HammerGestureConfig {
-// overrides = <any> {
-//     swipe: { direction: Hammer.DIRECTION_ALL },
-// };
-// }
-
-// providers: [{
-//     provide: HAMMER_GESTURE_CONFIG,
-//     useClass: MyHammerConfig,
-//   },]
+@Injectable()
+export class MyHammerConfig extends HammerGestureConfig {
+    override overrides = <any> {
+        swipe: { direction: Hammer.DIRECTION_ALL },
+    };
+}
 
 @NgModule
 ({
@@ -67,6 +62,10 @@ import { ScullyLibModule } from '@scullyio/ng-lib'
         {
             provide: 'COMMON_CODE_SERVICE_MONACO_LOCATION',
             useValue: 'https://resources.glass.earth/static/js'
+        },
+        {
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: MyHammerConfig
         }
     ],
     exports:

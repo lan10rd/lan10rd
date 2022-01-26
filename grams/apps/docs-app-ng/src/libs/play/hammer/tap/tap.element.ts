@@ -6,12 +6,12 @@ import { Indicator, IndicatorAnimations } from '../indicator'
 
 @Component
 ({
-    selector: 'play-hammer-pan-element', 
-    templateUrl: './pan.element.html',
-    styleUrls: ['./pan.element.scss'],
+    selector: 'play-hammer-tap-element', 
+    templateUrl: './tap.element.html',
+    styleUrls: ['./tap.element.scss'],
     animations: [IndicatorAnimations]
 })
-export class PlayHammerPanElement
+export class PlayHammerTapElement
 {
 
     eventText = ''
@@ -22,20 +22,19 @@ export class PlayHammerPanElement
         public util: CommonNgUtilityService
     )
     {
-        
-    }
-    
-    ngOnInit(){
-        this.indicators = new Indicator();
+
     }
 
-    onPan(evt: any)
-    {
+    ngOnInit(){
+        this.indicators = new Indicator()
+    }
+
+    onTap(evt: any) {
         this.eventText += `(${evt.center.x}, ${evt.center.y})<br/>`;
         const indicator = this.indicators.display(
-        evt.center.x,
-        evt.center.y,
-        50
+            evt.center.x,
+            evt.center.y,
+            50
         );
         this.indicators.hide(indicator);
     }
