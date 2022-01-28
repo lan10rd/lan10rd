@@ -295,8 +295,10 @@ export class CommonNgSelectElement
         extra?: any
     )
     {
+        console.log('extra', extra)
         let srcElement = $event.srcElement
         this.trap_focus = false // maybe
+        console.log(this.searchEnabled, !this.has_focus$, this._options.length >= this.searchEnabledSize)
         if (this.searchEnabled && !this.has_focus$ && this._options.length >= this.searchEnabledSize)
         {
             this.show_search = true

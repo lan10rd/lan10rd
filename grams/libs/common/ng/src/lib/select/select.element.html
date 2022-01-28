@@ -3,12 +3,15 @@
 #wrapper
 >
 
+    <!-- (click)="focus(wrapper, scrollElement, $event, 'click')" -->
+    <!-- (focus)="focus(wrapper,scrollElement, $event, 'focus')" -->
     <common-ng-scroll-element
+    style="outline: none"
     [classes]="scrollClasses"
     *ngIf="!big"
-    (scroll)="focus(wrapper, scrollElement, $event)"
-    (click)="focus(wrapper, scrollElement, $event, 'click')"
-    (focus)="focus(wrapper,scrollElement, $event)"
+    (scroll)="focus(wrapper, scrollElement, $event, 'scroll')"
+    (keyup)="focus(wrapper,scrollElement, $event, 'keyup')"
+    
     tabindex="0"
     #scrollElement
     >
@@ -35,15 +38,18 @@
     <!-- display: flex; flex-direction: row;  -->
     <!-- looks like its tricky to actually make this center, was able to target inside and find the .wrapper and position: relative with tcenter and it centers it but then it messes with the scrolling -->
 
+    <!-- (click)="focus(wrapper, bigScrollElement, $event, 'click')" -->
+    <!-- (focus)="focus(wrapper, bigScrollElement, $event, 'focus')" -->
     <cdk-virtual-scroll-viewport
+    style="outline: none"
     *ngIf="big"
     orientation="horizontal"
     autosize
     [ngStyle]="{'height': height}"
     style="text-align: center; overflow-y: hidden; white-space: no-wrap; overflow-x: auto; white-space: nowrap"
-    (scroll)="focus(wrapper, bigScrollElement, $event)"
-    (click)="focus(wrapper, bigScrollElement, $event, 'click')"
-    (focus)="focus(wrapper, bigScrollElement, $event)"
+    (scroll)="focus(wrapper, bigScrollElement, $event, 'scroll')"
+    (keyup)="focus(wrapper, bigScrollElement, $event, 'keyup')"
+    
     #bigScrollElement
     tabindex="0"
     >
