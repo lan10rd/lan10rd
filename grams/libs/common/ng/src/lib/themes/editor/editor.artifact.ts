@@ -80,6 +80,7 @@ export class CommonNgThemesEditorArtifact
 
     async paste
     (
+        list: boolean = false
     )
     {
         this.popop.open

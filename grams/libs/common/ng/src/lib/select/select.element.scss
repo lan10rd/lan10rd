@@ -15,6 +15,23 @@ button {
     outline: none -webkit-focus-ring-color;
 }
 
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) {
+    .safari_only { 
+        outline: none;
+        outline: none -webkit-focus-ring-color;
+    }
+}}
+
+// @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
+// { @media {
+//     background: red;
+//     /*
+//       Define here the CSS styles applied only to Safari browsers
+//       (any version and any device)
+//      */
+// }}
+
 // div[data-sid] {
 //     display: inline-block;
 // }

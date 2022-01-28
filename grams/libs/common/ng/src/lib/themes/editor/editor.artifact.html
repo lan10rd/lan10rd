@@ -67,6 +67,20 @@ class="glo-0-text-trim bl"
         paste
     </common-ng-button-element>
 
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="document.copy(json.stringify(themes.themes, 4)); themesSelect.cd.detectChanges();"
+    >
+        copy (all)
+    </common-ng-button-element>
+
+    <common-ng-button-element
+    class="ib p glo-0-text-ani"
+    (click)="paste(true)"
+    >
+        paste (many)
+    </common-ng-button-element>
+
 </common-ng-scroll-element>
 
 <common-ng-json-artifact

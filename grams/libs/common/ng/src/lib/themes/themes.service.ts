@@ -586,15 +586,19 @@ textarea {
 /* *:focus{ outline: inherit !important; } */
 
 /* Safari 7.1+ */
+/*
 _::-webkit-full-page-media:focus, _:future:focus, :root.safari_only:focus {
     outline: inherit !important; 
 }
+*/
 /* Safari 10.1+ */
+/*
 @media not all and (min-resolution:.001dpcm) { @media {
     .safari_only:focus { 
         outline: inherit !important; 
     }
 }}
+*/
         `
 
         // for glo-0-drop, removed border, also idea for how to achieve effect in firefox, though with svg element, is there inline styles with svg background?
