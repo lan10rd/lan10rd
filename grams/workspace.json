@@ -13,6 +13,7 @@
     "reference-app-rt": "apps/reference-app-rt",
     "reference-app-rt-e2e": "apps/reference-app-rt-e2e",
     "reference-app-web": "apps/reference-app-web",
-    "reference-app-web-e2e": "apps/reference-app-web-e2e"
+    "reference-app-web-e2e": "apps/reference-app-web-e2e",
+    "reference-api-ja": "apps/reference-api-ja"
   }
 }

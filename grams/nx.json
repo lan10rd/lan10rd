@@ -74,5 +74,8 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "docs-app-ng"
+  "defaultProject": "docs-app-ng",
+  "plugins": [
+    "@nxrocks/nx-spring-boot"
+  ]
 }
