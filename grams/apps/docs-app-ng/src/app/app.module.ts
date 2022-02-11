@@ -1,28 +1,17 @@
-import { BrowserModule, HammerModule } from '@angular/platform-browser'
+import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { APP_INITIALIZER, NgModule, Injectable } from '@angular/core'
+import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
 import { ServiceWorkerModule } from '@angular/service-worker'
+import { CommonNgCoreDynamicElementModule } from '@grams/common/ng/core'
+import { ScullyLibModule } from '@scullyio/ng-lib'
 
 import { environment } from '../environments/environment'
+
 import { AppComponent } from './app.component'
 import { AppHttpInterceptor } from './app.http.interceptor'
 import { AppInitService } from './init/init.service';
-
-import { CommonNgCoreDynamicElementModule } from '@grams/common/ng/core'
-
-import { ScullyLibModule } from '@scullyio/ng-lib'
-
-import * as Hammer from 'hammerjs'
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser'
-
-@Injectable()
-export class MyHammerConfig extends HammerGestureConfig {
-    override overrides = <any> {
-        swipe: { direction: Hammer.DIRECTION_ALL },
-    };
-}
 
 @NgModule
 ({
@@ -38,8 +27,7 @@ export class MyHammerConfig extends HammerGestureConfig {
             enabled: environment.production,
             registrationStrategy: 'registerWhenStable:30000'
         }),
-        ScullyLibModule,
-        HammerModule
+        ScullyLibModule
     ],
     providers: 
     [
@@ -62,10 +50,6 @@ export class MyHammerConfig extends HammerGestureConfig {
         {
             provide: 'COMMON_CODE_SERVICE_MONACO_LOCATION',
             useValue: 'https://resources.glass.earth/static/js'
-        },
-        {
-            provide: HAMMER_GESTURE_CONFIG,
-            useClass: MyHammerConfig
         }
     ],
     exports:

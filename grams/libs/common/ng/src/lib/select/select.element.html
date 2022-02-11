@@ -11,7 +11,7 @@
     *ngIf="!big"
     (scroll)="focus(wrapper, scrollElement, $event, 'scroll')"
     (click)="focus(wrapper, scrollElement, $event, 'click')"
-    (focus)="focus(wrapper,scrollElement, $event, 'focus')"
+    (keyup)="focus(wrapper,scrollElement, $event, 'keyup')"
     tabindex="0"
     #scrollElement
     >
@@ -49,7 +49,7 @@
     style="text-align: center; overflow-y: hidden; white-space: no-wrap; overflow-x: auto; white-space: nowrap"
     (click)="focus(wrapper, bigScrollElement, $event, 'click')"
     (scroll)="focus(wrapper, bigScrollElement, $event, 'scroll')"
-    (focus)="focus(wrapper, bigScrollElement, $event, 'focus')"
+    (keyup)="focus(wrapper, bigScrollElement, $event, 'keyup')"
     #bigScrollElement
     tabindex="0"
     >

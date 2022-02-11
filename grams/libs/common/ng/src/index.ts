@@ -103,3 +103,7 @@ export * from './lib/themes/editor/remove/remove.popop.module'
 export * from './lib/themes/themes.service'
 export * from './lib/themes/themes.element'
 export * from './lib/themes/themes.element.module'
+
+export * from './lib/notifications/notifications.service'
+
+export * from './lib/hammer/hammer.config.module'

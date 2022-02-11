@@ -1,0 +1,162 @@
+
+
+<play-hammer-pan-element
+></play-hammer-pan-element>
+
+<play-hammer-press-element
+></play-hammer-press-element>
+
+<play-hammer-rotate-element
+></play-hammer-rotate-element>
+
+<play-hammer-swipe-element
+></play-hammer-swipe-element>
+
+<play-hammer-tap-element
+></play-hammer-tap-element>
+
+<textarea>
+Background
+If you are working on a mobile project that requires gestures, hammerjs has the gestures to get you started. Out of the box, hammerjs includes pan,pinch, press, rotate, swipe, and tap gesture recognition. Each of these gesture recognizers may be wired up to any element within the DOM in order to detect the specific gesture and allow you to handle it.
+
+Hammerjs relies on pointer events (pointermove, pointerup, pointerdown, and pointercancel) to perform all of its gestures. If Internet Explorer is being used, MSPointer events are used instead of the standard pointer events.
+
+@angular/platform-browser handles the binding of the hammerjs gestures automatically within the HammerGestureConfig addEventListener method. This call will initialize hammerjs outside of angular and perform the necessary checks to determine if hammerjs is loaded within the angular application.
+
+Getting started with hammerjs
+hammerjs can easily be installed via npm by executing the following command within your angular project:
+
+<>
+npm install hammerjs
+Next, you will need to add import 'hammerjs'; to your main.ts file. If you forget to add the import statement to your main.ts file you will see an error within the console that will stop your application from running.
+
+<>
+Error: Hammer.js is not loaded, can not bind to x event
+Difficulties in hammerjs
+Currently, in version 5.2.0, an exception is thrown, when you forget to include hammerjs, that stops the remainder of your angular project to load. @angular/platform-browser@6.0.0 changes the thrown exception over to a console.warn, so that the remainder of the project continues to load without gestures.
+
+The original issue can be tracked within the github issue tracker.
+
+hammerjs Gestures
+@angular/platform-browser includes a set of events to attach to DOM elements.
+
+The following events are included, but the up to date list can be found on github:
+
+pan
+panstart
+panmove
+panend
+pancancel
+panleft
+panright
+panup
+pandown
+pinch
+pinchstart
+pinchmove
+pinchend
+pinchcancel
+pinchin
+pinchout
+press
+pressup
+rotate
+rotatestart
+rotatemove
+rotateend
+rotatecancel
+swipe
+swipeleft
+swiperight
+swipeup
+swipedown
+tap
+
+Gesture Recognizers
+Pan : A Pan gesture is recognized when a pointer is down and moved within a set direction. The pan gesture is commonly used when scrolling through a set of items.
+Pinch : A Pinch gesture is recognized when two or more pointers are moving toward or away from each other. The pinch gesture is commonly used for zooming in or out.
+Press : A Press gesture is recognized when the pointer is being held down for a set amount of time. This is commonly used for long presses.
+Rotate : A Rotate gesture is recognized when a set amount of pointers, minimum of 2, are moving in a circular motion. This is commonly used to rotate items.
+Swipe : A Swipe gesture is recognized when a pointer is moving at a set speed for a set minimum amount of distance. This is commonly used to flip between items within a UI. Instead of scrolling, it is more useful to swap out items in a set direction.
+Tap : A Tap gesture is recognized when a user taps the screen. This is commonly used for button presses.
+Swipe vs Pan
+Swipe and Pan can almost be used interchangeably, but the main difference is that a pan event will fire off as the panning occurs, whereas the swipe event only fires off at the end of the swipe. The pan is more useful for smoothly scrolling an item as you have your cursor down, but a swipe is more useful for scrolling an item after the swipe occurs.
+
+hammerjs without @angular/platform-browser
+Link to this section
+Without @angular/platform-browser, you will be required to create your own custom directives to add gesture support to your application.
+
+At a bare minimum you need to bind to the window’s hammerjs manager and bind to the on tap event that is provided by hammerjs.
+
+<>
+import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
+
+interface HammerManager {
+  new (element: HTMLElement | SVGElement, options?: any): HammerManager;
+  destroy(): void;
+  add(recognizer: Recognizer): void;
+  on(eventName: string, callback: Function): void;
+}
+
+interface Recognizer {
+  new (options?: any): Recognizer;
+  recognizeWith(otherRecognizer: Recognizer | string): Recognizer;
+}
+
+@Directive({
+  selector: '[customTapGesture]',
+})
+export class TapGestureDirective implements OnInit, OnDestroy {
+  constructor(private elementRef: ElementRef, private zone: NgZone) {}
+
+  /**
+   * Return the hammerjs library if it's available
+   */
+  private get hammerLib() {
+    return typeof window !== 'undefined' ? (window as any).Hammer : undefined;
+  }
+
+  private manager?: HammerManager;
+
+  /**
+   * Event fired when the element is tapped
+   */
+  @Output() cTap = new EventEmitter<any>();
+
+  /**
+   * Binds HammerJS Instances
+   */
+  ngOnInit() {
+    if (this.hammerLib) {
+      this.manager = this.bindHammer();
+    }
+  }
+
+  /**
+   * Unbinds HammerJS Instances
+   */
+  ngOnDestroy() {
+    if (this.manager) {
+      this.manager.destroy();
+    }
+  }
+
+  protected bindHammer(): HammerManager {
+    return this.zone.run(_ => {
+      const hostElement = this.elementRef.nativeElement;
+      const manager = new this.hammerLib.Manager(hostElement, {
+        touchAction: 'tap',
+      });
+
+      manager.add(new this.hammerLib.Tap({}));
+
+      manager.on('tap', (ev: any) => {
+        this.cTap.emit(ev);
+        ev.preventDefault();
+      });
+
+      return manager;
+    });
+  }
+}
+</textarea>

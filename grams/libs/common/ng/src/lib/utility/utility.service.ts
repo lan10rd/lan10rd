@@ -11,6 +11,7 @@ import { CommonNgWindowService } from '../window/window.service'
 import { CommonNgWebsocketsService } from '../websockets/websockets.service'
 import { CommonNgSanitizerService  } from '../sanitizer/sanitizer.service'
 import { CommonNgSeoService } from '../seo/seo.service'
+import { CommonNgNotificationsService } from '../notifications/notifications.service'
 
 @Injectable
 ({
@@ -35,7 +36,8 @@ export class CommonNgUtilityService
         public window : CommonNgWindowService,
         public websockets : CommonNgWebsocketsService,
         public sanitizer : CommonNgSanitizerService,
-        public seo: CommonNgSeoService
+        public seo: CommonNgSeoService,
+        public notifications: CommonNgNotificationsService
     )
     {
         this.setFunctions()

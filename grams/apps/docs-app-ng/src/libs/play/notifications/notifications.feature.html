@@ -1,0 +1,69 @@
+<ng-container
+*ngIf="util.notifications.permissionResult !== 'granted'"
+>
+
+    <button
+    id="enable"
+    (click)="util.notifications.requestPermission()"
+    >
+        Enable notifications
+    </button>
+
+    <ng-container
+    *ngIf="util.notifications.requestingPermission"
+    >
+        Asking for notifications permission!
+    </ng-container>
+
+</ng-container>
+
+<ng-container
+*ngIf="util.notifications.permissionResult === 'granted'"
+>
+
+    <div
+    class="flex jcc column"
+    >
+        <input
+        class="bl"
+        #title
+        placeholder="title"
+        value="title!"
+        >
+    
+        <textarea
+        class="bl"
+        #body
+        >
+            body!
+        </textarea>
+    
+        <input
+        class="bl"
+        #img
+        placeholder="icon img"
+        >
+
+        <div>
+            delay
+            <input
+            #delay
+            placeholder="delay"
+            value="2000"
+            type="number"
+            step="1"
+            min="0"
+            > ms
+        </div>
+
+        <common-ng-button-element
+        class="bl glo-0-text-ani"
+        (click)="notify(title, body, img, delay)"
+        >
+            notify
+        </common-ng-button-element>
+
+    </div>
+
+</ng-container>
+

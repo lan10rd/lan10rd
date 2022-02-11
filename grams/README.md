@@ -395,7 +395,8 @@ yarn add \
   dom-serializer \
   rewire \
   entities \
-  sitemap 
+  sitemap \
+  signature_pad
   
 ## more workspace extras
 yarn add -D \

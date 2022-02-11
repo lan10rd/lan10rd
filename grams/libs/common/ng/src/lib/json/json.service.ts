@@ -630,4 +630,13 @@ export class CommonNgJsonService
         return array
     }
 
+    timeout
+    (
+        fun: Function,
+        waitMs: number
+    )
+    {
+        setTimeout(fun, waitMs)
+    }
+
 }

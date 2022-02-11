@@ -453,6 +453,7 @@ html { box-sizing: border-box; }
 .flex { display: flex; }
 .column { flex-direction: column;}
 .jcc { justify-content: center; }
+.aic { align-items: center; }
 .max-height-100vh {max-height: 100vh;}
 .pre-line {white-space: pre-line;}
 
