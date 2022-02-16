@@ -231,8 +231,8 @@ yarn add \
   markdown-it \
   tinymce \
   froala-editor \
-  hammerjs
-
+  hammerjs \
+  luxon
 
 
 ### nestjs graphql
