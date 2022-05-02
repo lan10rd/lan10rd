@@ -386,7 +386,7 @@ yarn add \
   chalk \
   multicast-dns \
   chokidar \
-
+  pdfmake \
   @ngrx/store \
   @ngrx/store-devtools \
   @ngrx/effects \
