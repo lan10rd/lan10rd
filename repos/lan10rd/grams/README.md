@@ -427,4 +427,7 @@ yarn add \
   @scullyio/init \
   @scullyio/scully \
   @scullyio/ng-lib \
-  @scullyio/scully-plugin-puppeteer
+  @scullyio/scully-plugin-puppeteer \
+  date-fns \
+  luxon \
+  dayjs
