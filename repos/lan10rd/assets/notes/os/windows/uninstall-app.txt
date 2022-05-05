@@ -9,4 +9,10 @@ product get name
 
 product where name="Skype Meetings App" call uninstall
 
-Y
+Y  /* hit enter */
+
+
+
+
+
+// sometimes CMD gets stuck so you need to use arrow keys to kinda get it to go.

@@ -24,6 +24,7 @@ export class CommonNgStreamsService
     }
 
     /* behaviors, ie streamable cache */
+    /* replace ..value with .value */
     check
     (
         behavior: string,
@@ -34,8 +35,8 @@ export class CommonNgStreamsService
         if (!(behavior in this.behaviors))
             return undefined
         if (!path)
-            return copy ? this.json.copy(this.behaviors[behavior].getValue()) : this.behaviors[behavior].getValue() // return this.behaviors[behavior].value
-        return copy ? this.json.copy(this.json.pathToValue(this.behaviors[behavior].getValue(), path)) : this.json.pathToValue(this.behaviors[behavior].getValue(), path)
+            return copy ? this.json.copy(this.behaviors[behavior].value) : this.behaviors[behavior].value // return this.behaviors[behavior].value
+        return copy ? this.json.copy(this.json.pathToValue(this.behaviors[behavior].value, path)) : this.json.pathToValue(this.behaviors[behavior].value, path)
     }
 
     change

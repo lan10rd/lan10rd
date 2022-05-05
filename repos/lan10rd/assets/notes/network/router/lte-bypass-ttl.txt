@@ -1,0 +1,31 @@
+# this actually worked
+iptables -t mangle -I POSTROUTING 1 -j TTL —ttl-set 66
+
+# below should have but didnt
+192.168.0.1/cfg-bin/luci
+luci
+
+Case 1: Standard routed setup
+Scenario: Standard routed setup with separate LAN and WAN (tether) interfaces
+
+Using the OpenWRT package manager via LuCI or opkg CLI, install the iptables-mod-ipopt package.
+Navigate to Network → Firewall → Custom Rules.
+Add the following line: iptables -t mangle -I POSTROUTING -o usb0 -j TTL --ttl-set 65
+Click Restart Firewall to save
+If necessary, change usb0 to wlan0 (or whichever interface name corresponds to your tether interface.)
+
+Case 2: Bridged setup
+Scenario: Tether WAN interface is bridged to LAN interface, i.e. OpenWRT acting as a transparent USB-to-ethernet bridge for a pre-existing router and network
+
+Using the OpenWRT package manager via LuCI or opkg CLI, install the iptables-mod-ipopt and iptables-mod-physdev packages.
+Navigate to Network → Firewall → Custom Rules.
+Add the following line: iptables -t mangle -I POSTROUTING -m physdev --physdev-out usb0 -j TTL --ttl-set 65
+SSH into the OpenWRT device
+In /etc/sysctl.conf, add the following lines:
+net.bridge.bridge-nf-call-arptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+Click Restart Firewall to save
+If necessary, change usb0 to wlan0 (or whichever interface name corresponds to your tether interface.)
+
+If everything was configured properly, you should be able to see the traffic counters slowly incrementing for your new iptables rule in Status → Firewall.

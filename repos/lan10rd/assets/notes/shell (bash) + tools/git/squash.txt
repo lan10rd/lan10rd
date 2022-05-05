@@ -1,3 +1,31 @@
+==== best way that i have found ====
+git checkout yourBranch
+git reset $(git merge-base master $(git branch --show-current))
+git add -A
+git commit -m "one commit on yourBranch"
+git push --force
+
+---- another 2 options ------
+
+a. just start with master branch
+git checkout develop
+git pull
+git checkout -b feature-123-squash
+git merge origin/feature-123 --squash
+git push
+
+-- once pr is raised if you need to fix anything
+git add .
+git commit -m "message" --amend
+git push --force
+
+-- in case you already commited a 2nd and 3rd commit on a pr and need to fix it to be one --
+git reset --soft HEAD~3
+git commit -m "single commit message
+git push --force
+
+
+
 ---- if you already have multiple commits ---
 git rebase -i
 

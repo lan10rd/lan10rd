@@ -1,0 +1,10 @@
+can be hella annoying
+
+mainly you want three variables
+JAVA_HOME  --> pointing to folder in program files where java jdk is installed
+M2_HOME --> pointing to folder wherever you extracted the bin 
+
+
+in Path, add entries:
+
+JAVA_HOME\bin

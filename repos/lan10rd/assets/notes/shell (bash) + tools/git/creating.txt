@@ -1,0 +1,17 @@
+The following commands are used for creating the local branches:
+$ git checkout -b br-tst1
+$ git branch br-tst1
+
+$ git branch bt-tst2
+
+$ git branch br-tst3
+
+This is followed by creating remote branches:
+
+$ git push origin br-tst1
+
+$ git push origin br-tst3
+
+
+
+git checkout -b br-tst1

@@ -1,0 +1,5 @@
+java 8 is for whatever reason called 1.8
+you can install it just make sure to have JAVA_HOME pointing to the folder and in Path add an entry that says JAVA_HOME\bin
+
+if you have java 17 and are trying to point to a lower version (especially in a corporate environemnt), you would need to remove some system level variables.. kinda of annoying since java doesnt have an uninstaller in there installer like every other installer on the planet
+

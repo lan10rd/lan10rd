@@ -1,0 +1,1 @@
+defaults write com.citrix.receiver.nomas EnableHighDPI -bool YES
