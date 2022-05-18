@@ -232,7 +232,12 @@ yarn add \
   tinymce \
   froala-editor \
   hammerjs \
-  luxon
+  luxon \
+  xlsx \
+  pdfmake \
+  x-data-spreadsheet \
+  stream \
+  canvas-datagrid
 
 
 ### nestjs graphql
