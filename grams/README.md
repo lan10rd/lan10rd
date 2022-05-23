@@ -401,7 +401,8 @@ yarn add \
   rewire \
   entities \
   sitemap \
-  signature_pad
+  signature_pad \
+  table
   
 ## more workspace extras
 yarn add -D \
