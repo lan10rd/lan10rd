@@ -1,0 +1,19 @@
+in order to push now, you need a personal access token... not sure about other repos (it seems you can pin/star another users repo, then make changes, and pull request it back to the original author's repo).
+
+login to github, go to developer settings, personal access tokens. create a new token (preferably that doesnt expire) and give it all the scopes (maybe not the delete one).
+
+Personal Access Tokens (PAT) can only be used for HTTPS git operations. Switch your repository to HTTPS if it is using SSH.
+
+https is the easy newb way, ssh keys can probably avoid all this.
+
+
+---
+
+now time to login or store the pat for pushes, not sure if its just one time when you do 
+
+git push https://<GITHUB_ACCESS_TOKEN>@github.com/<GITHUB_USERNAME>/<REPOSITORY_NAME>.git
+
+--- actually ---
+just do git push, it will prompt for login, enter user name and for password use the PAT
+
+not sure how to git login or out
