@@ -1,0 +1,15 @@
+if it all goes tits up, change acme.json to {}  (remove all previously saved credentials, might consider switching register overwrite option to True)
+certbot delete --cert-name abc.xyz (repeat for all domains)
+certbot certonly -d "abc.xyz" -d "*.abc.xyz" --agree-tos --manual-public-ip-logging-ok --register-unsafely-without-email --debug-challenges --preferred-challenges dns --manual --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py    (left off --force-interactive --force-renewal)
+
+this all resides on the following setup already:
+(1) have a separate domain to handle all dns traffic for the acme instance, and all other domains are for normal business use cases. The setup i am a little fuzzy on but the records look like:
+A * 123.456.789 Automatic (TTL)
+A @ 123.456.789 Automatic (TTL)
+A ns1 123.456.789 Automatic (TTL)
+CNAME _acme-challenge 12312312313.acme.nameserve.us Automatic (TTL)
+CNAME _acme-challenge 12312312313.acme.nameserve.us Automatic (TTL)
+
+(2) acme dns py will have this domain setup:
+
+(3) i believe there is a chicken and the egg setup to get those cnames, the a records will be whatever you ip address is

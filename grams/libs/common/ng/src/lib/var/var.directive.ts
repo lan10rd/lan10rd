@@ -4,6 +4,9 @@ import { Directive, Input, ViewContainerRef, TemplateRef } from '@angular/core'
 /*
 *ngVar="srv._magic.stacks.json.services[targetService] as service"
 */
+/* note you can do the following instead and doesnt seem to struggle with flashing as the view changes!
+*ngIf="{x: 'hi', y: true, z: {yo: 'a'}} as someVariable"
+*/
 
 @Directive
 ({

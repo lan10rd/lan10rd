@@ -10,6 +10,14 @@ export const routes: Routes = [
         loadChildren: async () => (await import('../libs/play/play.feature.module')).PlayFeatureModule
     },
     {
+        path: 'testing',
+        loadChildren: async () => (await import('../libs/testing/testing.feature.module')).TestingFeatureModule
+    },
+    {
+        path: 'testing-redirect',
+        redirectTo: 'testing'
+    },
+    {
         path: '**',
         redirectTo: ''
     }
