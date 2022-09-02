@@ -1,0 +1,1 @@
+docker buildx build --platform linux/arm64,linux/amd64 --rm --push --compress -t lan10rd/mailserver:latest -f ./Dockerfile .

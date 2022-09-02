@@ -6,6 +6,10 @@ echo "updating"
 sudo apt update
 
 echo "\n"
+echo "update tools"
+sudo apt install -y aptitude
+
+echo "\n"
 echo "http utils!"
 sudo apt install -y \
     curl \

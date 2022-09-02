@@ -14,6 +14,21 @@ export class CommonNgWindowService
 
     }
 
+    isOnline
+    (
+    )
+    {
+        return window.navigator.onLine
+    }
+
+    onlineSetup
+    (
+    )
+    {
+        // window.addEventListener('online', () => console.log('Became online'));
+        // window.addEventListener('offline', () => console.log('Became offline'));
+    }
+
     updatePath
     (
         params : any

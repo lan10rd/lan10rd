@@ -1,0 +1,13 @@
+if the desktop is vnc enabled, running x11server on 5900, and pulse audio is enabled (load-module module-native-protocol-tcp auth-anonymous=1), then the basic configuration is simply:
+
+PARAMETERS
+  Network
+    Hostname: 192.168.0.x
+    Port: 5900
+
+AUDIO
+  Enable audio: check
+  Audio server name: 192.168.0.x
+
+
+the config folder should just house the local configuration, which admins may want to mess with.  the default login is guacadmin / guacadmin

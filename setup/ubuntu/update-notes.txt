@@ -1,0 +1,242 @@
+------------------------------------------------------------------------------------
+BEFORE UPDATE
+
+## to fix an update problem (where you can just go to software updater and upgrade, looks for /etc/apt/sources.list and replace the contents with the below (maybe make a backup first))
+
+## EOL upgrade sources.list
+# Required
+deb http://old-releases.ubuntu.com/ubuntu/ CODENAME main restricted universe multiverse
+deb http://old-releases.ubuntu.com/ubuntu/ CODENAME-updates main restricted universe multiverse
+deb http://old-releases.ubuntu.com/ubuntu/ CODENAME-security main restricted universe multiverse
+
+# Optional
+#deb http://old-releases.ubuntu.com/ubuntu/ CODENAME-backports main restricted universe multiverse
+
+
+## then run these
+# sudo apt-get update
+# sudo apt-get dist-upgrade
+# sudo do-release-upgrade
+
+## i believe you can add --force-conf new to sudo do-release-upgrade , which you probably should do and come back and edit modified files..
+
+------------------------------------------------------------------------------------
+AFTER UPDATE
+
+
+/etc/sudoers <--- modified for no password prompt
+sshd.config <--- modified for more lenient ssh locally i think
+fuse.conf <---- modified to allow for easy fusing
+pulse.conf <---- modified for allowing vnc audio
+docker.config <---- modified for custom docker json which includes all modes of communication
+
+if on a raspberry pi, check /boot/firmware/config.txt, usually the fkms is changed back to kms which will cause black screen when using x11 vnc, you should see comments above the affected lines.
+
+
+------------
+NOTES and TROUBLESHOOT
+
+options to think of when updating to avoid all the prompts:
+
+--force-confold: do not modify the current configuration file, the new version is installed with a .dpkg-dist suffix. With this option alone, even configuration files that you have not modified are left untouched. You need to combine it with --force-confdef to let dpkg overwrite configuration files that you have not modified.
+--force-confnew: always install the new version of the configuration file, the current version is kept in a file with the .dpkg-old suffix.
+--force-confdef: ask dpkg to decide alone when it can and prompt otherwise. This is the default behavior of dpkg and this option is mainly useful in combination with --force-confold.
+--force-confmiss: ask dpkg to install the configuration file if it’s currently missing (for example because you have removed the file by mistake).
+
+If after you see the partial upgrade screen, you can do partial instead of continue and it worked it looks like.. but alternatives would be 
+I'd suggest trying this:
+
+sudo apt-get install aptitude
+sudo aptitude update
+sudo aptitude dist-upgrade
+
+Or:
+25
+
+It looks like sudo dpkg --configure -a is the magical command.
+
+Here is the dpkg man page’s explanation of the --configure -a options:
+
+
+------------------------------------------------------------------------------------
+FULL upgrade docs
+replace CODENAME with impish for instance if you are getting 404s when trying to run sudo apt-get update
+
+
+PartnersSupportCommunityUbuntu.com
+Ubuntu Documentation
+Official DocumentationCommunity Help WikiContribute
+Page History
+Login to edit
+ 
+EOLUpgrades
+
+
+
+Contents
+
+Introduction
+Upgrade or fresh install?
+Note about hardware support
+Upgrading
+Update sources.list
+Dependencies
+Run the upgrade
+Known issues
+Instructions for specific upgrades
+Introduction
+This page will explain how to upgrade an End of Life (EOL) release of Ubuntu to a supported system. This guide is not limited to Ubuntu Desktop - it is suitable for any Ubuntu flavor.
+
+For upgrading supported releases please refer to this document.
+
+If you want to know whether your release is EOL please have a look at the following resources:
+
+https://wiki.ubuntu.com/Releases
+
+http://en.wikipedia.org/wiki/List_of_Ubuntu_releases
+
+https://ubuntu.com/about/release-cycle
+
+The release notes of an EOL release generally contains instructions to upgrade to a more recent version of ubuntu
+
+These guides may assume that the user knows his way on the terminal, as graphical tools are not always used. This said, the steps for executing all the commands are actually copy/pasteable so everyone, from beginner to advanced user running EOL releases of Ubuntu can execute the upgrade(s).
+
+In case of problems you should be aware that most (if not all) of the releases which are mentioned in this guide are unsupported, and getting help may be a bit tricky since most of us have already upgraded to a more recent version of Ubuntu. As always, take backups of your disks/partitions before upgrading.
+
+Upgrade or fresh install?
+The advantage of upgrading is that you get to keep your current configuration as is. This is often desirable on production environments which you want to keep as stable as possible. At the same time, configuration applicable for older versions might not always work with newer versions.
+
+If you format partitions when installing a newer version, you have the option to select a new file system, which might have benefits and required features compared to the old one. The new installation also gives you a clean platform to start building your system from; no old configuration files and potential upgrade-related bugs.
+
+Reinstalling is usually easier and faster, especially if you would have to upgrade through several releases. It might also help you save some bandwidth, if that is a concern.
+
+Note about hardware support
+It is not certain that every release of Ubuntu runs on the hardware in question. Regardless if you are upgrading or doing a new install, it is always a good start to try the new release in a live boot. A live Ubuntu runs from a CD or a USB stick, and it does not change the installation on the hard drive.
+
+
+
+
+Upgrading
+Note: Before you start, check if your upgrade path is listed in this list. If it is, it's recommended to use the specific instructions on the appropriate subpage.
+
+Update sources.list
+To begin the upgrade, make sure you have a sources.list like the following, with CODENAME being your release, e.g. quantal. Do *not* change your CODENAME, though, just the domain name (to "old-releases.ubuntu.com").
+
+
+## EOL upgrade sources.list
+# Required
+deb http://old-releases.ubuntu.com/ubuntu/ CODENAME main restricted universe multiverse
+deb http://old-releases.ubuntu.com/ubuntu/ CODENAME-updates main restricted universe multiverse
+deb http://old-releases.ubuntu.com/ubuntu/ CODENAME-security main restricted universe multiverse
+
+# Optional
+#deb http://old-releases.ubuntu.com/ubuntu/ CODENAME-backports main restricted universe multiverse
+You can use -backports and or -proposed if you want. For more information about repositories see this page.
+
+Dependencies
+You should also make sure some meta-packages are installed so the upgrade can continue without problems.
+
+Update-manager
+From version 6.06 and up you will need to install the update-manager and update-manager-core packages. Note: You don't want to install the update-manager package on CLI-only servers.
+
+sudo aptitude install update-manager-core update-manager
+For upgrading from an LTS release to a non-LTS release, make sure that the update manager is correctly configured to upgrade any release. This is not needed when upgrading from one LTS release to the next LTS release:
+
+sudo perl -pi -e 's/^Prompt=.*/Prompt=normal/' /etc/update-manager/release-upgrades
+Desktop meta
+If you run a particular desktop version, you might want to reinstall this package to resolve any issue with dependencies of that package. You can (re)install these -desktop packages before or after your upgrade.
+
+To find out if you which desktop package you want to (re)install: dpkg -l | grep tu-desktop. Or search for one by running aptitude search tu-desktop. The correct commands to install a desktop metapackage is (in this example, we're reinstalling the Kubuntu desktop):
+
+
+sudo aptitude install kubuntu-desktop
+Kernel
+8.04 and up: apt:linux-image-generic,linux-headers-generic, apt:linux-image-server,linux-headers-server or apt:linux-image-virtual,linux-headers-virtual
+
+
+sudo aptitude install linux-image-generic linux-headers-generic
+# or
+sudo aptitude install linux-image-server linux-headers-server
+# or
+sudo aptitude install linux-image-virtual linux-headers-virtual
+5.04: linux-image-386 and linux-headers-386
+
+sudo aptitude install linux-image-386 linux-headers-386
+4.10: linux-image-386 and linux-kernel-headers
+
+sudo aptitude install linux-image-386 linux-kernel-headers
+Run the upgrade
+After you've done the above, run the updates and then the upgrade as usually:
+
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo do-release-upgrade
+Unsupported upgrades
+Sometimes do-release-upgrade isn't able to run the upgrade to the latest version and it shows an error similar to this:
+
+An upgrade from 'eoan' to 'focal' is not supported with this tool.
+If that happens, you need to download a version-specific upgrader, you can find the link at https://changelogs.ubuntu.com/meta-release.
+
+You need to download the upgrade tool for the version you are upgrading to. For example, if you are upgrading to Ubuntu 20.04 (focal), you'll see the link on that page as follows:
+
+UpgradeTool: http://archive.ubuntu.com/ubuntu/dists/focal-updates/main/dist-upgrader-all/current/focal.tar.gz
+The download is an archive which contains an executable with the code name of the release. execute it to run the upgrade tool for that release. Note that the archive extracts everything in the current directory so you might want to create a directory for it to extract into:
+
+
+# Downloads the upgrader, check the link above for the URL of the file for your release
+wget http://archive.ubuntu.com/ubuntu/dists/focal-updates/main/dist-upgrader-all/current/focal.tar.gz
+# Extract it into a new directory
+mkdir upgrader
+tar -xaf focal.tar.gz -C upgrader
+cd upgrader
+# Run the executable, the name changes based on the release
+./focal
+This executable works the same as do-release-upgrade. If you still get the error of the upgrade not being supported, you might need to make an intermediate upgrade to an earlier version.
+
+Known issues
+Some issues are related to apt-get upgrade and dist-upgrade commands. If you get calculation errors when running do-release-upgrade you can resolve this issue by running do-release-upgrade -m desktop, or removing the ubuntu-desktop package. When aptitude is used there is no need for this.
+
+If you run into individual dependency issues you need to resolve these individually. You can use sudo apt-get -f install for this. After resolving the issue, you can continue by running sudo ./feisty --frontend DistUpgradeViewText -mode=server; replace feisty with the release where you upgrade to.
+
+
+
+
+Instructions for specific upgrades
+Oneiric 11.10 to Precise 12.04
+
+Jaunty 9.04 to Karmic 9.10
+
+Intrepid 8.10 to Jaunty 9.04
+
+Hardy 8.04 to Lucid 10.04
+
+Gutsy 7.10 to Hardy 8.04
+
+Mac users have reportedly had some difficulty upgrading around versions 7.04/7.10.
+Feisty 7.04 to Gutsy 7.10
+
+Edgy 6.10 to Feisty 7.04
+
+Dapper 6.06 to Hardy 8.04.3
+
+Breezy 5.10 to Dapper 6.06.2
+
+Hoary 5.04 to Breezy 5.10
+
+Warty 4.10 to Hoary 5.04
+
+
+
+
+
+
+
+
+
+
+CategoryUpgrade
+
+EOLUpgrades (last edited 2022-08-20 11:55:08 by tomreyn)
+
+The material on this wiki is available under a free license, see Copyright / License for details
+You can contribute to this wiki, see Wiki Guide for details
