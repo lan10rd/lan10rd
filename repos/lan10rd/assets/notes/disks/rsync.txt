@@ -1875,5 +1875,3 @@ dd - Data Duplicator - convert and copy a file.
 remsync - Synchronize remote files via email.
 Equivalent Windows command: ROBOCOPY - Robust File and Folder Copy.
 
- Copyright © 1999-2021 SS64.com
-Some rights reserved

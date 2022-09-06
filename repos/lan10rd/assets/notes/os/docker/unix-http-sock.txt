@@ -300,10 +300,3 @@ And we have the events!
 {"status":"stop","id":"c025ae0e698eae82e8d783089693c5ada75b9c10ff01e3884255ed019b12c569","from":"redis:latest","Type":"container","Action":"stop","Actor":{"ID":"c025ae0e698eae82e8d783089693c5ada75b9c10ff01e3884255ed019b12c569","Attributes":{"image":"redis:latest","name":"infallible_roentgen"}},"scope":"local","time":1554627859,"timeNano":1554627859510757400}
 Notice the kill->die->network_disconnect->volume_unmount->stop event sequence triggered by the docker stop command.
 
-Almost all the APIs are accessible via Docker CLI. This post should help connect the dots when certain containers ask to mount /var/run/docker.sock. This file provides a very rich (and fast!) IPC channel with the Docker Server, which can then be used for various functions like cluster management, monitoring, discovery, routing, etc.
-
-I’d appreciate your comments and feedback below.
-
-Comments
-
-© Manish Pandit - Powered by Jekyll & whiteglass - Subscribe via RSS

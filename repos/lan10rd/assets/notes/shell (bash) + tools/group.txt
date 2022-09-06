@@ -1,0 +1,35 @@
+groups username
+lists all the groups
+
+How do you get a list of all the members of a group on Ubuntu?
+
+To do this, you can use the getent command, which stands for "get entries" and is used to get data from database like files on Linux systems.
+
+Here's what the command looks like (replace name_of_group with your group name):
+
+Command
+getent group name_of_group
+This command will output something like this:
+
+Output
+name_of_group:x:27:bob,bill
+This command queries the /etc/group file in your system and gets each entry that matches name_of_group.
+
+The output format is as follows:
+
+Output
+group:password:GID:user(s)
+Here's an explanation for each item:
+
+group is the name of the given group.
+password is the encrypted group password. If this value is empty, it means there is no password. If the value is x, the password is in the /etc/gshadow file.
+GID is the group ID.
+users() is a comma-separated list of users that are members of the group. An empty value means there are no users in the group.
+If you want to get fancy, you can also output only the comma-delimited list of users without all the other stuff:
+
+Command
+getent group name_of_group | awk -F: '{print $4}'
+This will have an output that looks like this:
+
+Output
+bob,bill

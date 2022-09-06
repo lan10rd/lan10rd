@@ -1,0 +1,3 @@
+Traditionally, such scripts either go in ~/bin (ie: the bin directory in your home directory) or /usr/local/bin/ The former means the script will only work for you, the latter is for scripts you want anybody on the system to be able to run.
+
+If you put it in ~/bin, you may need to add that to your PATH environment variable. /usr/local/bin should already be on the path.

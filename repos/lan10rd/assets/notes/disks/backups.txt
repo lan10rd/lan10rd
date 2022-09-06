@@ -343,11 +343,3 @@ The backup file will be expanded without being saved on the disk of receiving co
 Additional Resources
 "Backing Up Ubuntu"
 
-"Wei’s world: HOWTO: backup my Ubuntu"
-
-CategoryBackupRecovery CategoryCommandLine
-
-BackupYourSystem/TAR (last edited 2017-07-27 19:11:07 by bodhi.zazen)
-
-The material on this wiki is available under a free license, see Copyright / License for details
-You can contribute to this wiki, see Wiki Guide for details

@@ -117,39 +117,3 @@ desktop: desktop environment which is set in flavor
 addon_package: Debian package to be installed which is set in flavor
 Dockerfile and configuration are re-generate if they do not exist. Or you may force to re-generate by removing them with the command make clean.
 
-Troubleshooting and FAQ
-boot2docker connection issue, https://github.com/fcwu/docker-ubuntu-vnc-desktop/issues/2
-Multi-language supports, https://github.com/fcwu/docker-ubuntu-vnc-desktop/issues/80
-Autostart, https://github.com/fcwu/docker-ubuntu-vnc-desktop/issues/85#issuecomment-466778407
-x11vnc arguments(multiptr), https://github.com/fcwu/docker-ubuntu-vnc-desktop/issues/101
-firefox/chrome crash (/dev/shm), https://github.com/fcwu/docker-ubuntu-vnc-desktop/issues/112
-resize display size without destroying container, https://github.com/fcwu/docker-ubuntu-vnc-desktop/issues/115#issuecomment-522426037
-License
-See the LICENSE file for details.
-
-Docker Pull Command
-docker pull dorowu/ubuntu-desktop-lxde-vnc
-Owner
-dorowu
-Source Repository
-Github
-fcwu/docker-ubuntu-vnc-desktop
-Explore
-Docker Editions
-Containers
-Plugins
-Pricing
-Account
-My Content
-Billing
-Publish
-Publisher Center
-Resources
-Docker Blog
-Support
-Feedback
-Documentation
-Hub Release Notes
-Forums
-© 2021 Docker Inc. All rights reserved | Terms of Service | Privacy | Legal
-Cookie Preferences

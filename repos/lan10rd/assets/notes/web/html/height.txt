@@ -1,0 +1,15 @@
+In this instance, you could use the value 100vh (which is the height of the viewport) - (example)
+
+body {
+    height: 100vh;
+}
+Setting a min-height also works. (example)
+
+body {
+    min-height: 100vh;
+}
+
+html { height:100%; }
+
+
+seems you need a parent with some height for any height percentage to work in a child. doesnt seem to be a thing with the width if the page is responsive

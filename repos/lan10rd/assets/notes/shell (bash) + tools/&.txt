@@ -1,0 +1,13 @@
+The meaning of && and & are intrinsically different.
+
+What is && in Bash? In Bash—and many other programming languages—&& means “AND”. And in command execution context like this, it means items to the left as well as right of && should be run in sequence in this case.
+What is & in Bash? And a single & means that the preceding commands—to the immediate left of the &—should simply be run in the background.
+So looking at your example:
+
+gndlp@ubuntu:~$ test -x examples.desktop  && echo $?
+gndlp@ubuntu:~$ test -x examples.desktop  & echo $?
+[1] 2992
+0
+The first command—as it is structured—actually does not return anything. But second command returns a [1] 2992 in which the 2992 refers to the process ID (PID) that is running in the background and the 0 is the output of the first command.
+
+Since the second command is just running test -x examples.desktop in the background it happens quite quickly, so the process ID is spawned and gone pretty immediately.

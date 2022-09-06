@@ -324,7 +324,3 @@ and check on the compression level using:
 
 sudo zfs get compressratio
 lz4 is significantly faster than the other options while still performing well; lz4 is the safest choice.
-
-Kernel/Reference/ZFS (last edited 2019-10-05 10:04:07 by fitojb)
-
-The material on this wiki is available under a free license, see Copyright / License for details.

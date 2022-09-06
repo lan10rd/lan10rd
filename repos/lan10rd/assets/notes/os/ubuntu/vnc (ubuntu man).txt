@@ -311,11 +311,3 @@ Apple Screen Sharing is a default application in Mac OS X that allows incoming V
 
 Troubleshooting
 Having Compiz enabled may interrupt screen updates with some servers and clients. Using -noxdamage with x11vnc can prevent this.
-
-External links
-* http://www.karlrunge.com/x11vnc/
-
-VNC/Servers (last edited 2020-09-15 23:53:52 by rg141)
-
-The material on this wiki is available under a free license, see Copyright / License for details
-You can contribute to this wiki, see Wiki Guide for details

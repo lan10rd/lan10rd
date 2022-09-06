@@ -169,17 +169,3 @@ Difference Between Cloud Computing and Virtualization
 Difference Between Brain and Computer
 Difference Between Cohesion and Coupling
 
-CATEGORIES
-DBMS
-Hardware
-Internet
-Networking
-Operating System
-Programming
-Software
-
-Copyright © 2020 · Tech Differences · Contact Us · About Us · Privacy
-
-50
-5
-SHARES

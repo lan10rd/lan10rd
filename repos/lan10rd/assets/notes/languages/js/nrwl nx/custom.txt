@@ -307,33 +307,3 @@ readyWhen
 Type: string
 
 String to appear in stdout or stderr that indicates that the task is done. When running multiple commands, this option can only be used when parallel is set to true. If not specified, the task is done when all the child processes complete.
-
-Footer
-Smart, Fast and Extensible Build System
-
-Twitter
-GitHub
-Slack
-Newsletter
-RESOURCES
-Blog
-Youtube Channel
-Nx Playbook
-Nrwl
-HELP
-Documentation
-Community
-StackOverflow
-Report Issues
-COMMUNITY
-Twitter
-Github
-Newsletter
-Slack
-Help Us
-SOLUTIONS
-Nx
-NxCloud
-Nrwl
-© 2022 made with  by 
-

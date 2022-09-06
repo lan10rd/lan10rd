@@ -179,22 +179,3 @@ backdrop-filter
 filter
 Learn the best of web development
 Get the latest and greatest from MDN delivered straight to your inbox.
-
-
-E-mail
-you@example.com
-Sign up now
-Hide Newsletter Sign-up
-MDN Web Docs
-MDN
-Web Technologies
-Learn Web Development
-About MDN
-Feedback
-Mozilla
-Mozilla
-About
-Contact Us
-Firefox
-TermsPrivacyCookies
-© 2005-2020 Mozilla and individual contributors.Content is available under these licenses.
