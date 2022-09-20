@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgPopopService } from '../../../popop/popop.service'
 import { CommonNgJsonService } from '../../../json/json.service'
@@ -7,7 +7,8 @@ import { CommonNgJsonService } from '../../../json/json.service'
 ({
     selector: 'common-ng-themes-editor-paste-popop', 
     templateUrl: './paste.popop.html',
-    styleUrls: ['./paste.popop.scss']
+    styleUrls: ['./paste.popop.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgThemesEditorPastePopop
 {

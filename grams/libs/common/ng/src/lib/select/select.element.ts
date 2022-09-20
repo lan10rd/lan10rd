@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, ViewEncapsulation, ViewChildren} from '@angular/core'
+import { Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, ViewEncapsulation, ViewChildren, ChangeDetectionStrategy } from '@angular/core'
 import { fromEvent, merge } from 'rxjs'
 import { mapTo } from 'rxjs/operators'
 import { CommonNgDocumentService } from '../document/document.service'
@@ -9,6 +9,7 @@ import { CommonNgJsonService } from '../json/json.service'
     selector : 'common-ng-select-element',
     templateUrl : './select.element.html',
     styleUrls : ['./select.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
     // encapsulation: ViewEncapsulation.None commented out on 12/13/21 not sure why it as here
 })
 export class CommonNgSelectElement

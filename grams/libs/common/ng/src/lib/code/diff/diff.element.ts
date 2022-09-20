@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core'
+import { Component, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core'
 import { fromEvent } from 'rxjs'
 
 import { CommonNgCodeService } from '../code.service'
@@ -34,7 +34,8 @@ import { CommonNgCodeService } from '../code.service'
     width: 100%;
     height: 100%;
 }
-`]
+`],
+changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgCodeDiffElement
 {

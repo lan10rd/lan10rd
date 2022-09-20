@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation, ViewChild } from '@angular/core'
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild } from '@angular/core'
 // import { fromEvent } from 'rxjs'
 
 @Component
@@ -6,7 +6,8 @@ import { Component, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsul
     selector : 'common-ng-video-element',
     templateUrl : './video.element.html',
     styleUrls : ['./video.element.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgVideoElement
 {

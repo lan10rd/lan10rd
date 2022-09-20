@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgThemesService } from '../themes.service'
 import { CommonNgPopopService } from '../../popop/popop.service'
@@ -9,7 +9,8 @@ import { CommonNgDocumentService } from '../../document/document.service'
 ({
     selector: 'common-ng-themes-editor-artifact', 
     templateUrl: './editor.artifact.html',
-    styleUrls: ['./editor.artifact.scss']
+    styleUrls: ['./editor.artifact.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgThemesEditorArtifact
 {

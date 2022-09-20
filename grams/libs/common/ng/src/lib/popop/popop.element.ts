@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgPopopService } from './popop.service'
 import { CommonNgJsonService } from '../json/json.service'
@@ -7,7 +7,8 @@ import { CommonNgJsonService } from '../json/json.service'
 ({
     selector: 'common-ng-popop-element',
     templateUrl: './popop.element.html',
-    styleUrls: ['./popop.element.scss']
+    styleUrls: ['./popop.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgPopopElement
 {

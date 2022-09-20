@@ -1,11 +1,12 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core'
 import { CommonNgAppBarService } from './bar.service'
 
 @Component
 ({
     selector : 'common-ng-app-bar-artifact',
     templateUrl : './bar.artifact.html',
-    styleUrls : ['./bar.artifact.scss']
+    styleUrls : ['./bar.artifact.scss'],
+    changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class CommonNgAppBarArtifact
 {

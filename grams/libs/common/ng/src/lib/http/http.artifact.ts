@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgHttpService } from './http.service'
 import { CommonNgJsonService } from '../json/json.service'
@@ -7,7 +7,8 @@ import { CommonNgJsonService } from '../json/json.service'
 ({
     selector: 'common-ng-http-artifact',
     templateUrl: './http.artifact.html',
-    styleUrls: ['./http.artifact.scss']
+    styleUrls: ['./http.artifact.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgHttpArtifact
 {

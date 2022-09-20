@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core'
+import { Component, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy } from '@angular/core'
 
 @Component
 ({
     selector : 'common-ng-scroll-element',
     templateUrl : './scroll.element.html',
-    styleUrls : ['./scroll.element.scss']
+    styleUrls : ['./scroll.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgScrollElement
 {

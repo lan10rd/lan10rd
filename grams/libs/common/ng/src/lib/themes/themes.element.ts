@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgThemesService } from './themes.service'
 
@@ -6,7 +6,8 @@ import { CommonNgThemesService } from './themes.service'
 ({
     selector: 'common-ng-themes-element', 
     templateUrl: './themes.element.html',
-    styleUrls: ['./themes.element.scss']
+    styleUrls: ['./themes.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgThemesElement
 {

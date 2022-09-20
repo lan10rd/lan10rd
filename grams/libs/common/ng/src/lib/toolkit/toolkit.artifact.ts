@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgUtilityService } from '../utility/utility.service'
 
@@ -6,7 +6,8 @@ import { CommonNgUtilityService } from '../utility/utility.service'
 ({
     selector : 'common-ng-toolkit-artifact',
     templateUrl : './toolkit.artifact.html',
-    styleUrls : ['./toolkit.artifact.scss']
+    styleUrls : ['./toolkit.artifact.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgToolkitArtifact
 {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgJoiService } from './joi.service'
 import { CommonNgJsonService } from '../json/json.service'
@@ -9,7 +9,8 @@ import * as Joi from 'joi'
 ({
     selector: 'common-ng-joi-element',
     templateUrl: './joi.element.html',
-    styleUrls: ['./joi.element.scss']
+    styleUrls: ['./joi.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgJoiElement
 {

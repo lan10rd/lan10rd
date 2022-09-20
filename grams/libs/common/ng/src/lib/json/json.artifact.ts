@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgJsonService } from './json.service'
 
@@ -6,7 +6,8 @@ import { CommonNgJsonService } from './json.service'
 ({
     selector: 'common-ng-json-artifact',
     templateUrl: './json.artifact.html',
-    styleUrls: ['./json.artifact.scss']
+    styleUrls: ['./json.artifact.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgJsonArtifact
 {

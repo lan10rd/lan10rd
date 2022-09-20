@@ -14,6 +14,7 @@ import {
     // ɵrenderComponent as renderComponent,
     // ɵLifecycleHooksFeature as LifecycleHooksFeature,
     ViewContainerRef,
+    ChangeDetectionStrategy
 } from '@angular/core'
 import { CommonNgDynamicDirective } from './dynamic.directive'
 
@@ -22,7 +23,8 @@ import { CommonNgDynamicDirective } from './dynamic.directive'
 @Component
 ({
     selector: 'common-ng-dynamic-element',
-    template: `<ng-template dynamic-host></ng-template><ng-content></ng-content><ng-container #containerHost></ng-container>` // <ng-content></ng-content>
+    template: `<ng-template dynamic-host></ng-template><ng-content></ng-content><ng-container #containerHost></ng-container>`, // <ng-content></ng-content>
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgDynamicElement
 {

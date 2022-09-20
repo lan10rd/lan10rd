@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input } from '@angular/core'
+import { Component, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core'
 
 import * as THREE from 'three'
 import { FresnelShader } from './fresnel.shader.js'
@@ -6,7 +6,8 @@ import { FresnelShader } from './fresnel.shader.js'
 @Component
 ({
     selector: 'common-themes-materials-webgl-bubbles-element',
-    template:` <canvas #three style="width: 100%; height: 100%; display: block; position: fixed; z-index: -1; top: 0; left: 0;"></canvas>`
+    template:` <canvas #three style="width: 100%; height: 100%; display: block; position: fixed; z-index: -1; top: 0; left: 0;"></canvas>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonThemesMaterialsWebglBubblesElement
 {

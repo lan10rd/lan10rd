@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 import { ActivatedRoute} from '@angular/router'
 
 /* seems necessary to get router element to show on app load! */
@@ -15,7 +15,8 @@ import { CommonNgRouterService } from '../router/router.service'
         [module]="route.module"
         [data]="route.data"
         ></common-ng-dynamic-element>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgDynamicFeature
 {

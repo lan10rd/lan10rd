@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core'
 
 @Component
 ({
     selector: 'common-ng-button-element', 
     templateUrl: './button.element.html',
-    styleUrls: ['./button.element.scss']
+    styleUrls: ['./button.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgButtonElement
 {

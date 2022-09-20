@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output, Optional, Inject } from '@angular/core'
+import { Component, EventEmitter, Input, Output, Optional, Inject, ChangeDetectionStrategy } from '@angular/core'
 
 @Component
 ({
     selector: 'common-ng-frame-sandbox-element',
     templateUrl: './sandbox.element.html',
-    styleUrls: ['./sandbox.element.scss']
+    styleUrls: ['./sandbox.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgFrameSandboxElement
 {

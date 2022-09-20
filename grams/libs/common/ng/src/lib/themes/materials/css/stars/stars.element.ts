@@ -1,10 +1,11 @@
-import { Component, Input, ViewChild } from '@angular/core'
+import { Component, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core'
 
 @Component
 ({
     selector: 'common-themes-materials-stars-element',
     templateUrl: './stars.element.html',
-    styleUrls: ['./stars.element.scss']
+    styleUrls: ['./stars.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonThemesMaterialsCssStarsElement
 {

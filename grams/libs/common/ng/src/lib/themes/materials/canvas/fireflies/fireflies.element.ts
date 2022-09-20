@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core'
 
 class firefly{
     x
@@ -32,7 +32,8 @@ class firefly{
 ({
     selector: 'common-themes-materials-canvas-fireflies-element',
     templateUrl: './fireflies.element.html',
-    styleUrls: ['./fireflies.element.scss']
+    styleUrls: ['./fireflies.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonThemesMaterialsCanvasFirefliesElement
 {

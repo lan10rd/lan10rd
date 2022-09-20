@@ -1,10 +1,11 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core'
 
 @Component
 ({
     selector: 'common-themes-materials-canvas-starfield-element',
     templateUrl: './starfield.element.html',
-    styleUrls: ['./starfield.element.scss']
+    styleUrls: ['./starfield.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonThemesMaterialsCanvasStarfieldElement
 {

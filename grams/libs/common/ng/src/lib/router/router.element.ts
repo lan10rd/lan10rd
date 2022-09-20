@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from '@angular/core'
+import { Component, ElementRef, Input, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgRouterService } from './router.service'
 import { CommonNgDocumentService  } from '../document/document.service'
@@ -7,7 +7,8 @@ import { CommonNgDocumentService  } from '../document/document.service'
 ({
     selector : 'common-ng-router-element',
     templateUrl : './router.element.html',
-    styleUrls : ['./router.element.scss']
+    styleUrls : ['./router.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgRouterElement
 {

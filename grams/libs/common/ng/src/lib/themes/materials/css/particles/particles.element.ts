@@ -1,13 +1,14 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 
-import { CommonMathService } from '../../../../math/math.service'
-import { CommonStylesService } from '../../../../styles/styles.service'
+import { CommonNgMathService } from '../../../../math/math.service'
+import { CommonNgStylesService } from '../../../../styles/styles.service'
 
 @Component
 ({
     selector: 'common-themes-materials-particles-element', 
     templateUrl: './particles.element.html',
-    styleUrls: ['./particles.element.scss']
+    styleUrls: ['./particles.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonThemesMaterialsCssParticlesElement
 {
@@ -16,8 +17,8 @@ export class CommonThemesMaterialsCssParticlesElement
 
     constructor
     (
-        public math: CommonMathService,
-        public styles: CommonStylesService
+        public math: CommonNgMathService,
+        public styles: CommonNgStylesService
     )
     {
 

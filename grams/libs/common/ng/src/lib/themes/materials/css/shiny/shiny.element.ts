@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 
 @Component
 ({
     selector: 'common-themes-materials-shiny-element',
     templateUrl: './shiny.element.html',
-    styleUrls: ['./shiny.element.scss']
+    styleUrls: ['./shiny.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonThemesMaterialsCssShinyElement
 {

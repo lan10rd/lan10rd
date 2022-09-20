@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, ContentChildren } from '@angular/core'
+import { Component, ElementRef, Input, ContentChildren, ChangeDetectionStrategy } from '@angular/core'
 import { fromEvent } from 'rxjs'
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
+// import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 
 import { CommonNgStylesService } from '../../styles/styles.service'
 
@@ -8,7 +8,8 @@ import { CommonNgStylesService } from '../../styles/styles.service'
 ({
     selector : 'common-ng-app-bar-element',
     templateUrl : './bar.element.html',
-    styleUrls : ['./bar.element.scss']
+    styleUrls : ['./bar.element.scss'],
+    changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class CommonNgAppBarElement
 {

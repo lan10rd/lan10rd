@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 
 import { CommonNgCodeLogsService } from './logs.service'
 
@@ -13,7 +13,8 @@ import { CommonNgCodeLogsService } from './logs.service'
     styles :
 [`
 
-`]
+`],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgCodeLogsElement
 {

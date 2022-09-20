@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core'
 
 import * as THREE from 'three'
 import * as POSTPROCESSING from 'postprocessing'
@@ -6,7 +6,8 @@ import * as POSTPROCESSING from 'postprocessing'
 @Component
 ({
     selector: 'common-themes-materials-webgl-nebula-element',
-    template:` <canvas #three style="width: 100%; height: 100%; display: block; position: fixed; z-index: -1; top: 0; left: 0;"></canvas>`
+    template:` <canvas #three style="width: 100%; height: 100%; display: block; position: fixed; z-index: -1; top: 0; left: 0;"></canvas>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonThemesMaterialsWebglNebulaElement
 {

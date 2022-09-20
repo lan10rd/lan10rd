@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, 
+import { Component, ViewChild, Input, ChangeDetectionStrategy
     // ViewEncapsulation 
 } from '@angular/core'
 
@@ -9,6 +9,7 @@ import { CommonNgHttpService } from '../http/http.service'
     selector: 'common-ng-frame-element',
     templateUrl: './frame.element.html',
     styleUrls: ['./frame.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
     // encapsulation: ViewEncapsulation.None
 })
 export class CommonNgFrameElement

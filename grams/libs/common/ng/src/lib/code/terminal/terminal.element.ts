@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core'
 
 @Component
 ({
@@ -16,7 +16,8 @@ style="{{styles + addedStyles}}"
 >
 `,
     styles :[`input { width: 100%; }`
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgCodeTerminalElement
 {

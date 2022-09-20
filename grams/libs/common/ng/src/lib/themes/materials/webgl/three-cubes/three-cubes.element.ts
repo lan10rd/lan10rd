@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core'
 
 import * as THREE from 'three'
 
@@ -6,7 +6,8 @@ import * as THREE from 'three'
 ({
     selector: 'common-themes-materials-webgl-three-cubes-element',
     templateUrl: './three-cubes.element.html',
-    styleUrls: ['./three-cubes.element.scss']
+    styleUrls: ['./three-cubes.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonThemesMaterialsWebglThreeCubesElement
 {

@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation, ViewChild } from '@angular/core'
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation, ChangeDetectionStrategy, ViewChild } from '@angular/core'
 
 @Component
 ({
     selector : 'common-ng-audio-element',
     templateUrl : './audio.element.html',
-    styleUrls : ['./audio.element.scss']
+    styleUrls : ['./audio.element.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgAudioElement
 {

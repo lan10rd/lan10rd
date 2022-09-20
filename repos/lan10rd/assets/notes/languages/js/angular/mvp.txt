@@ -1,0 +1,17 @@
+forget what it stands for but the idea is to keep anything "smart" like service calls and data  injection outside of a presentation / pure component. thus if you were to make a feature with routing you end up with 
+
+some-feature/
+    some-view-part/
+        some-view-part.*
+        /*
+    some-feature.container.component.* <--- imports the facade, passes unwrapped state to the component with |, may also import other services and listen for bubbled up events of the feature
+     async
+    some-feature.component.*
+    some-feature.module.*
+    some-feature.routing.module* <--- points to some-feature.container.component
+    store/
+        effects.ts  <--- where facade calls are made, and actions are handled, and side effects of other actions are handled but dont re emit a new action
+        facade.ts <-- where most actions are dispatched here
+        actions.ts <-- list of actions
+        selectors.ts
+    service/
