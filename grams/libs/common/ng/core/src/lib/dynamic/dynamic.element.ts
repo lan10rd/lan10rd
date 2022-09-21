@@ -9,11 +9,11 @@ import {
     Injector,
     // Compiler,
     Renderer2,
-    // ChangeDetectionStrategy,
+    ChangeDetectionStrategy,
     // ɵcreateInjector as createInjector,
     // ɵrenderComponent as renderComponent,
     // ɵLifecycleHooksFeature as LifecycleHooksFeature,
-    ViewContainerRef,
+    ViewContainerRef
 } from '@angular/core'
 import { CommonNgCoreDynamicDirective } from './dynamic.directive'
 
@@ -22,7 +22,8 @@ import { CommonNgCoreDynamicDirective } from './dynamic.directive'
 @Component
 ({
     selector: 'common-ng-core-dynamic-element',
-    template: `<ng-template dynamic-host></ng-template><ng-content></ng-content><ng-container #containerHost></ng-container>` // <ng-content></ng-content>
+    template: `<ng-template dynamic-host></ng-template><ng-content></ng-content><ng-container #containerHost></ng-container>`, // <ng-content></ng-content>
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgCoreDynamicElement
 {
