@@ -1,9 +1,36 @@
-==== best way that i have found ====
+==== best way that i have found (only works with no merge conflicts) ====
 git checkout yourBranch
 git reset $(git merge-base master $(git branch --show-current))
 git add -A
 git commit -m "one commit on yourBranch"
 git push --force
+
+
+=====the only sure fire way is=====
+(1) pull develop and resolve merge conflicts to your branch
+  git pull origin develop
+
+(2) checkout develop (and git pull), and create a temp branch
+  git checkout develop && git pull && git checkout -b squashy
+
+(3) pull in changes from your feature branch to the temp (dont forget squash!)
+  git merge feature/branch-name --squash
+
+(4) commit the change (-n to skip annoying commit hooks like linting)
+  git commit -m "my commit" -n
+
+(5) go back to feature branch and this is where the trick comes
+  git reset --hard squashy
+
+(6) push upstream, requires force
+  git push --no-verify -f 
+
+(7) cleanup
+  git branch -D squashy
+
+
+
+  
 
 ---- another 2 options ------
 

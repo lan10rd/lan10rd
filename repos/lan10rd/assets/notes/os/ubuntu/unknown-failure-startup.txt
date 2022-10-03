@@ -1,0 +1,8 @@
+fsck error on boot: /dev/sda6: UNEXPECTED INCONSISTENCY; RUN fsck MANUALLY
+
+fsck /dev/sda6
+
+And enter Yes (y) to for each error. Or press a one time for always-yes.
+
+
+Above has worked, also had a way to do ubuntu recovery mode and run some steps on startup grub menu

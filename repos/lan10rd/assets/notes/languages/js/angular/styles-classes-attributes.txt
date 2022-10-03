@@ -1,0 +1,81 @@
+
+have seen class="{{'some classes' + someVariableClassPerhapsScssPrecompiled}}"
+
+[attr.aria-label]="'no idea why we have to do this instead of just aria-label'"
+
+<div [class.extra-sparkle]="isDelightful">
+When multiple classes should potentially be added, the NgClass directive comes in really handy. NgClass should receive an object with class names as keys and expressions that evaluate to true or false. extra-sparkle is the key and isDelightful is the value (boolean).
+
+<div [ngClass]="{'extra-sparkle': isDelightful}">
+Now along with extra sparkle, you can glitter your div also.
+
+<div [ngClass]="{'extra-sparkle': isDelightful,'extra-glitter':isGlitter}">
+
+Assigning a CSS Class Using [className] Property Binding
+Although this article is about the NgClass directive, it is worth noting that, in many cases, you won’t even need it! Thanks to [className] property binding, we can set a class via the native JavaScript className property, using the [] binding syntax. We can execute any statement inside of that binding that results in a string. This allows us to set one or more classes based on a condition:
+
+<div [className]="isActive ? 'active-class' : 'inactive-class'"></div>
+We could also build the class name at runtime:
+
+<div [className]="'class' + someValue"></div>
+Class Toggling via [className] Property Binding
+Some consider the above class toggling technique to be a little more complicated than it needs to be as the inactive-class would probably be the default. If you fall into that camp, you can employ the [class.class-name] syntax to supply a condition to be evaluated:
+
+<div 
+  class="inactive" 
+  [class.active]="isActive">
+</div>
+So, if we can conditionally set a class using [className] Property Binding, why do we even need the NgClass directive? As we’ll see, the real reason to use the NgClass directive is that it can help us choose between multiple classes.
+
+A Deep Dive into the NgClass Directive
+Before we get into how to use the NgClass directive, it would be instructive to look at its definition:
+
+@Input('class')
+klass: string
+
+@Input()
+ngClass: string | string[] | Set<string> | { [klass: string]: any; }
+Looking at the above code, we can now see that the [class] syntax that used earlier is actually part of the NgClass directive, via @Input(‘class’). Also notice that the NgClass directive gives us no less than four options for setting dynamic classes!
+
+Let’s look at each of these in more detail.
+
+Supplying a string or string[]
+Assigning a string or string array to ngClass allows us to bind dynamic classes to Angular variables. Suppose that we had a variable called activeClass. Inside our .ts file, we can set to a known class name such as “text-success” or “text-failure” based on the result of some operation:
+
+<div 
+  [ngClass]="activeClass">
+</div>
+The array syntax is useful for applying multiple classes to the same element or component:
+
+<div 
+  [ngClass]="[activeClass, openClass]">
+</div>
+Using an Evaluated Expression
+A slightly more advanced – yet highly useful – method of using ngClass is to provide an expression. The provided class is only applied if a variable or expression evaluates to true.
+
+To supply an expression, you must provide an object using curly brackets {}. To the left of each colon – the property name – is the class that will be applied; to the right – the property value – is the expression or variable that you want to be evaluated. Here’s an example:
+
+<!-- input box to toggle a variable to true or false -->
+<input type="checkbox" [ngModel]="redText"> Toggle red text.
+<input type="checkbox" [ngModel]="largeFont"> Toggle large text.
+
+<div [ngClass]="{ 'text-red': redText, 'text-large': largeFont }">
+Using the Ternary Operator
+The ternary operator let’s you assign a value to a variable based on a boolean expression — either a boolean field, or a statement that evaluates to a boolean result. At its most basic, the ternary operator, also known as the conditional operator, can be used as an alternative to the if/then/else statement when setting a variable.
+
+Supplying the ternary operator to ngClass allows us to specify two different classes: one if an expression is true and one for false. Here is the basic syntax for the ternary operator:
+
+[ngClass]="expression or variable ? true class : false class"
+Here is some code that employs the ternary operator to set a DIV’s class depending on whether or not two variables are equal:
+
+<div [ngClass]="varA === varB ? 'css-class-1' : 'css-class-2'">
+The Set<string> NgClass Signature: Unwanted and Unloved
+Set is a new data structure introduced in ES6, similar to Map. A typescript Set allows us to store distinct values into a List using methods such as add(), has(), and delete(). For whatever reason, the Set<string> ngClass signature never really caught on. I have never used it, nor do I know of anyone who has.
+
+Having said that, the Set should contain strings representing class names to apply to the element or component. Here’s some typescript code that creates a Set named classes:
+
+//Declare a Class member variable
+public classes = new Set();
+ 
+//Add class names
+classes.add('active').add('text-large');
