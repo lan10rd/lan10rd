@@ -214,7 +214,8 @@ yarn add \
 
 yarn add -D \
   @angular/elements
-  @types/hammerjs
+  @types/hammerjs \
+  ng-mocks
 
 ### client (ui) goodies
 yarn add \

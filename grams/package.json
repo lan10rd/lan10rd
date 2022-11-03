@@ -266,6 +266,7 @@
     "https-proxy-agent": "^5.0.0",
     "jest": "27.2.3",
     "jest-preset-angular": "11.0.0",
+    "ng-mocks": "^14.3.2",
     "ng-packagr": "^13.0.0",
     "postcss": "^8.4.5",
     "postcss-import": "^14.0.2",
