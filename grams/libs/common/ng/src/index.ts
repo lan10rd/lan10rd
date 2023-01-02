@@ -86,6 +86,7 @@ export * from './lib/app/bar/bar.element.module'
 export * from './lib/app/bar/bar.artifact'
 export * from './lib/app/bar/bar.artifact.module'
 export * from './lib/app/bar/bar.service'
+export * from './lib/app/app.module'
 
 export * from './lib/seo/seo.service'
 

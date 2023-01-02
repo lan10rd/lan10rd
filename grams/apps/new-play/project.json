@@ -1,0 +1,103 @@
+{
+  "projectType": "application",
+  "root": "apps/new-play",
+  "sourceRoot": "apps/new-play/src",
+  "prefix": "grams",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/new-play",
+        "index": "apps/new-play/src/index.html",
+        "main": "apps/new-play/src/main.ts",
+        "polyfills": "apps/new-play/src/polyfills.ts",
+        "tsConfig": "apps/new-play/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/new-play/src/favicon.ico",
+          "apps/new-play/src/assets",
+          "apps/new-play/src/manifest.webmanifest"
+        ],
+        "styles": [
+          "apps/new-play/src/styles.scss"
+        ],
+        "scripts": [],
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/new-play/ngsw-config.json"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/new-play/src/environments/environment.ts",
+              "with": "apps/new-play/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "new-play:build:production"
+        },
+        "development": {
+          "browserTarget": "new-play:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "new-play:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/new-play/src/**/*.ts",
+          "apps/new-play/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/apps/new-play"
+      ],
+      "options": {
+        "jestConfig": "apps/new-play/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
