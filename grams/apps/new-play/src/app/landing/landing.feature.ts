@@ -1,18 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { CommonNgUtilityService } from '@grams/common/ng'
+import { BarService } from '../../libs/bar/bar.service'
 
 @Component
 ({
-    selector: 'app-landing-feature',
-    template: 'diamonds'
+    selector: 'landing-feature',
+    templateUrl: './landing.feature.html',
+    styleUrls: [
+        './landing.feature.scss'
+    ]
 })
 export class AppLandingFeature
 {
+
+    @ViewChild('barTemplate') barTemplate: any
+    @ViewChild('leftButton') leftButton: any
     
     constructor
     (
-        public util: CommonNgUtilityService
+        public util: CommonNgUtilityService,
+        public barService: BarService
     )
     {
 

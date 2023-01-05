@@ -449,3 +449,10 @@ so... made a second library, common/ng/core, which basically just includes dynam
 ### serving
 
 nx serve reference-app-ng --host 0.0.0.0 --disableHostCheck
+
+
+### tsconfig global change
+
+ "strictPropertyInitialization": false,
+
+so annoying to not be able to just type a variable

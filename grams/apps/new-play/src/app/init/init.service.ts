@@ -9,8 +9,6 @@ import { HttpClient } from '@angular/common/http'
 export class AppInitService
 {
 
-    _xsrf: any
-
     constructor
     (
         public http: HttpClient,
@@ -24,7 +22,6 @@ export class AppInitService
     (
     )
     {
-  
         this.router.resetConfig((await import('../app.routes')).routes)
     }
 

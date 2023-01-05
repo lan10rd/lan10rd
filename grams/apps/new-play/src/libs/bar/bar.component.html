@@ -1,0 +1,97 @@
+<div
+class="bar-container"
+#barContainer
+>
+    <div
+    class="bar"
+    #bar
+    >
+        <div
+        class="bar-left"
+        (click)="barService.changeMiddleDirection('left')"
+        >
+            <ng-container
+            *ngIf="barService.bar.leftButton"
+            >
+                <ng-container *ngTemplateOutlet="barService.bar.leftButton" ></ng-container>
+            </ng-container>
+        </div>
+        <div
+        class="bar-middle"
+        >
+            <ng-container
+            [ngSwitch]="barService.middleDirection"
+            >
+                <ng-container
+                *ngSwitchCase="'left'"
+                >
+                    <ng-container
+                    *ngIf="barService.bar.leftBar"
+                    >
+                        <ng-container *ngTemplateOutlet="barService.bar.leftBar" ></ng-container>
+                    </ng-container>
+                </ng-container>
+                <ng-container
+                *ngSwitchCase="'center'"
+                >
+                    <ng-container
+                    *ngIf="barService.bar.middleBar"
+                    >
+                        <ng-container *ngTemplateOutlet="barService.bar.middleBar" ></ng-container>
+                    </ng-container>
+                </ng-container>
+                <ng-container
+                *ngSwitchCase="'right'"
+                >
+                    <ng-container
+                    *ngIf="barService.bar.rightBar"
+                    >
+                        <ng-container *ngTemplateOutlet="barService.bar.rightBar"></ng-container>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+        <div
+        class="bar-right"
+        (click)="barService.changeMiddleDirection('right')"
+        >
+            <ng-container
+            *ngIf="barService.bar.rightButton"
+            >
+                <ng-container *ngTemplateOutlet="barService.bar.rightButton" ></ng-container>
+            </ng-container>
+        </div>
+    </div>
+
+    <div
+    class="bar-view"
+    *ngIf="barService.middleDirection !== 'center'"
+    [style.padding-top]="barService.barOffsetHeight + 'px'"
+    >
+        <ng-container
+        [ngSwitch]="barService.middleDirection"
+        >
+
+            <ng-container
+            *ngSwitchCase="'left'"
+            >
+                <ng-container
+                *ngIf="barService.bar.leftView"
+                >
+                    <ng-container *ngTemplateOutlet="barService.bar.leftView" ></ng-container>
+                </ng-container>
+            </ng-container>
+
+            <ng-container
+            *ngSwitchCase="'right'"
+            >
+                <ng-container
+                *ngIf="barService.bar.rightView"
+                >
+                    <ng-container *ngTemplateOutlet="barService.bar.rightView" ></ng-container>
+                </ng-container>
+            </ng-container>
+
+        </ng-container>
+    </div>
+</div>

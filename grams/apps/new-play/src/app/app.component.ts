@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  init: any = {
-    module: async () => (await import('./init/init.module')).AppInitComponentModule,
-    component: async () => (await import('./init/init.component')).AppInitComponent
+  module: any
+  component: any
+  async ngOnInit(){
+    this.module = (await import('./init/init.module')).AppInitComponentModule
+    this.component = (await import('./init/init.component')).AppInitComponent
   }
 }

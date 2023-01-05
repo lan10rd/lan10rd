@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { AppLandingFeatureModule } from '../landing/landing.feature.module'
-
+import { BarComponentModule } from '../../libs/bar/bar.component.module'
 import { AppInitComponent } from './init.component'
+import { AppBarModule } from '../bar/bar.module'
 
 @NgModule
 ({
     imports:
     [
         CommonModule,
-        AppLandingFeatureModule
+        BarComponentModule,
+        AppBarModule
     ],
     declarations:
     [
