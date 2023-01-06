@@ -1,19 +1,19 @@
-import { Component, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { fromEvent } from 'rxjs'
-import { BarService } from './bar.service'
+import { CommonNgAppBarTemplateService } from './bar-template.service'
 
 @Component
 ({
-    selector: 'bar-component',
-    templateUrl: './bar.component.html',
-    styleUrls: ['./bar.component.scss']
+    selector: 'common-ng-app-bar-template',
+    templateUrl: './bar-template.component.html',
+    styleUrls: ['./bar-template.component.scss']
 })
-export class BarComponent
+export class CommonNgAppBarTemplateComponent
 {
 
     @ViewChild('barContainer') barContainer: ElementRef
 
-    constructor(public barService: BarService) {
+    constructor(public barService: CommonNgAppBarTemplateService) {
         
     }
 

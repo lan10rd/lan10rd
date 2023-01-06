@@ -15,7 +15,7 @@ export interface Bar {
 ({
     providedIn: 'root'
 })
-export class BarService
+export class CommonNgAppBarTemplateService
 {
 
     middleDirection: MiddleDirection = 'center'

@@ -6,7 +6,8 @@ import { BarService } from '../../libs/bar/bar.service'
 @Component
 ({
     selector: 'app-init-component',
-    templateUrl: './init.component.html'
+    templateUrl: './init.component.html',
+    styleUrls: ['init.component.scss']
 })
 export class AppInitComponent
 {

@@ -2,9 +2,17 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { AppInitElement } from './init.element'
-import { AppBarElementModule } from '../bar/bar.element.module'
+// import { AppBarElementModule } from '../bar/bar.element.module'
+import { AppBarModule } from './bar/bar.module'
 
-import { CommonNgPopopElementModule, CommonNgThemesElementModule, CommonNgAppBarElementModule, CommonNgDynamicElementModule, CommonNgHammerConfigModule } from '@grams/common/ng'
+import {
+    CommonNgPopopElementModule,
+    CommonNgThemesElementModule,
+    // CommonNgAppBarElementModule,
+    CommonNgAppBarTemplateComponentModule,
+    CommonNgDynamicElementModule,
+    CommonNgHammerConfigModule
+} from '@grams/common/ng'
 
 @NgModule
 ({
@@ -13,10 +21,12 @@ import { CommonNgPopopElementModule, CommonNgThemesElementModule, CommonNgAppBar
         CommonModule,
         CommonNgPopopElementModule,
         CommonNgThemesElementModule,
-        CommonNgAppBarElementModule,
+        // CommonNgAppBarElementModule,
+        CommonNgAppBarTemplateComponentModule,
         CommonNgDynamicElementModule,
         CommonNgHammerConfigModule,
-        AppBarElementModule
+        AppBarModule,
+        // AppBarElementModule
     ],
     declarations:
     [

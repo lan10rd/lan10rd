@@ -5,7 +5,11 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS, HttpXsrfToke
 import { RouterModule } from '@angular/router'
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ScullyLibModule } from '@scullyio/ng-lib'
-import { CommonNgDynamicElementModule } from '../dynamic/dynamic.element.module'
+import { CommonNgCoreDynamicElementModule } from '@grams/common/ng/core'
+
+const environment = {
+  production: false
+}
 
 @NgModule({
   imports: [
@@ -14,12 +18,12 @@ import { CommonNgDynamicElementModule } from '../dynamic/dynamic.element.module'
     HttpClientModule,
     HttpClientXsrfModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: true,
+      enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'
     }),
     RouterModule.forRoot([], {useHash: false}),
     ScullyLibModule,
-    CommonNgDynamicElementModule
+    CommonNgCoreDynamicElementModule
   ],
   exports: [
     RouterModule,
@@ -29,7 +33,7 @@ import { CommonNgDynamicElementModule } from '../dynamic/dynamic.element.module'
     HttpClientXsrfModule,
     ServiceWorkerModule,
     ScullyLibModule,
-    CommonNgDynamicElementModule
+    CommonNgCoreDynamicElementModule
   ]
 })
 export class CommonAppModule {}

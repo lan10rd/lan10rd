@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { BarService } from '../../../libs/bar/bar.service'
+import { CommonNgAppBarTemplateService } from '@grams/common/ng'
 
 @Component
 ({
@@ -17,7 +17,7 @@ export class LandingBarComponent
     
     constructor
     (
-        public barService: BarService
+        public barService: CommonNgAppBarTemplateService
     )
     {
 
