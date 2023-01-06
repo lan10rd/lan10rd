@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { CommonNgUtilityService } from '@grams/common/ng'
-import { BarService } from '../../libs/bar/bar.service'
 
 @Component
 ({
@@ -19,8 +18,7 @@ export class AppLandingFeature
     
     constructor
     (
-        public util: CommonNgUtilityService,
-        public barService: BarService
+        public util: CommonNgUtilityService
     )
     {
 
