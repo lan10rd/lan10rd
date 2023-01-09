@@ -41,6 +41,10 @@
 
 }
 
+.bar-view {
+    overflow-y: auto;
+}
+
 @media (max-width: 250px) {
     .bar {
       flex-direction: column;

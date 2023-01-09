@@ -1,11 +1,46 @@
 <ng-template
+#leftButton
+>
+    <common-ng-button-element
+    class="tcenter p glo-0-text-ani bl scrollable"
+    [toggle]="true"
+    #leftButton
+    >
+        menu
+    </common-ng-button-element>
+</ng-template>
+
+<ng-template
+#leftBar
+>
+    left bar
+</ng-template>
+
+<ng-template
+#leftView
+>
+    left view
+</ng-template>
+
+<ng-template
 #rightButton
+>
+    <common-ng-button-element
+    class="tcenter p glo-0-text-ani bl scrollable"
+    [toggle]="true"
+    #userButton
+    >
+    <!-- [class.glo-0-text-trim]="userButton.toggle" -->
+        user {{userButton.toggle}}
+    </common-ng-button-element>
+</ng-template>
+
+<ng-template
+#middleBar
 >
     <div
     >
-        <common-ng-button-element
-        text="righty"
-        ></common-ng-button-element>
+        middle bar
     </div>
 </ng-template>
 
@@ -21,7 +56,7 @@
 <ng-template
 #rightView
 >
-    <div class="right-bar-container background" [style.maxHeight]="'calc(100vh - ' + barService.barOffsetHeight + 'px)'">
+    <div class="right-bar-container" [style.maxHeight]="'calc(100vh - ' + barService.barOffsetHeight + 'px)'">
         <div style="color: pink">bar service offset height calc(100vh - {{barService.barOffsetHeight}}px)</div>
         <div>right bar</div>
         <div>right bar</div>

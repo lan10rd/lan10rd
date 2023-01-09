@@ -34,14 +34,15 @@ export class CommonNgAppBarTemplateService
         this.handleBodyScrollbarOverscroll()
     }
     
-    updateBar(bar: Partial<Bar>): Bar {
+    updateBar(bar: Partial<Bar>): void {
         this.bar = {...this.bar, ...bar}
-        if (this.barContainer) {
-            this.barOffsetHeight = this.barContainer.nativeElement.firstChild.offsetHeight
-            document.body.style.paddingTop = this.barOffsetHeight + 'px'
-            this.handleBodyScrollbarOverscroll()
-        }
-        return this.bar
+        setTimeout(() => {
+            if (this.barContainer) {
+                this.barOffsetHeight = this.barContainer.nativeElement.firstChild.offsetHeight
+                document.body.style.paddingTop = this.barOffsetHeight + 'px'
+                this.handleBodyScrollbarOverscroll()
+            }
+        }, 0)
     }
     /* css alone not able to make body content scroll underneath while scrolling the view, and needed set timeout because must be a race condition between after view checked as view is in an ngif */
     handleBodyScrollbarOverscroll() {
@@ -50,7 +51,6 @@ export class CommonNgAppBarTemplateService
                 const bodyHeight = window.innerHeight
                 const barAndViewHeight = this.barContainer.nativeElement.firstChild.offsetHeight + this.barContainer.nativeElement.firstChild.nextSibling.offsetHeight
                 if (barAndViewHeight >= bodyHeight) {
-                    console.log('has scrollbar !!')
                     document.body.style.overflow = 'hidden'
                 } else {
                     document.body.style.overflow = ''

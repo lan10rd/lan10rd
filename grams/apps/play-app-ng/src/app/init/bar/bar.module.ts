@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 
 import { AppBarComponent } from './bar.component'
 
-import { CommonNgButtonElementModule } from '@grams/common/ng'
+import { CommonNgRouterElementModule, CommonNgButtonElementModule, CommonNgAppBarArtifactModule, CommonNgSelectElementModule, CommonNgDynamicElementModule } from '@grams/common/ng'
 
 @NgModule
 ({

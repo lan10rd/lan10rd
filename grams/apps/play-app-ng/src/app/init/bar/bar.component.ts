@@ -12,6 +12,7 @@ import { CommonNgAppBarTemplateService } from '@grams/common/ng'
 export class AppBarComponent
 {
 
+    @ViewChild('leftButton') leftButton: any
     @ViewChild('rightButton') rightButton: any
     @ViewChild('rightBar') rightBar: any
     @ViewChild('rightView') rightView: any
@@ -27,6 +28,7 @@ export class AppBarComponent
     ngAfterViewInit(){
         setTimeout(() => {
             this.barService.updateBar({
+                leftButton: this.leftButton,
                 rightButton: this.rightButton,
                 rightBar: this.rightBar,
                 rightView: this.rightView

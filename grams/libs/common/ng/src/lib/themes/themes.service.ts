@@ -348,7 +348,12 @@ export class CommonNgThemesService
             "theme": "default",
             "author": "grams",
             "addClasses": {
-                "body": ["parallax", "glo-0-text", "glo-0-back", "p"],
+                "body": [
+                    "parallax",
+                    "glo-0-text",
+                    "glo-0-back",
+                    // "p"
+                ],
                 "app": []
             },
             "addStyles": {
@@ -538,7 +543,7 @@ textarea {
 }
 
 .glo-0-text-ani:hover {
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1));
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1));
 }
 
 /*
