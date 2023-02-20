@@ -37,5 +37,9 @@ export class CommonNgAppBarTemplateComponent
             this.barService.handleBodyScrollbarOverscroll()
         })
     }
+    
+    ngAfterViewInit(){
+        this.barService.handleBodyScrollbarOverscroll()
+    }
 
 }
