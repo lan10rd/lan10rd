@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { AppBarComponent } from './bar.component'
+import { AppInitBarComponent } from './bar.component'
 
 import { CommonNgButtonElementModule } from '@grams/common/ng'
 
@@ -14,13 +14,13 @@ import { CommonNgButtonElementModule } from '@grams/common/ng'
     ],
     declarations:
     [
-       AppBarComponent
+       AppInitBarComponent
     ],
     exports: [
-        AppBarComponent
+        AppInitBarComponent
     ]
 })
-export class AppBarModule
+export class AppInitBarModule
 {
     
 }

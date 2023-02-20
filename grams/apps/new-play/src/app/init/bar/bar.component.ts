@@ -5,11 +5,11 @@ import { CommonNgAppBarTemplateService } from '@grams/common/ng'
 
 @Component
 ({
-    selector: 'app-bar',
+    selector: 'app-init-bar',
     templateUrl: './bar.component.html',
     styleUrls: ['./bar.component.scss']
 })
-export class AppBarComponent
+export class AppInitBarComponent
 {
 
     @ViewChild('leftButton') leftButton: any
@@ -29,6 +29,7 @@ export class AppBarComponent
 
     ngAfterViewInit(){
         setTimeout(() => {
+            console.log('init bar')
             this.barService.updateBar({
                 leftButton: this.leftButton,
                 leftBar: this.leftBar,

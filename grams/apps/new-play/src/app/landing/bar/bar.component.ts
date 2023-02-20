@@ -24,6 +24,7 @@ export class LandingBarComponent
     }
 
     ngAfterViewInit(){
+        console.log('landing updating bar')
         this.barService.updateBar({
             leftButton: this.leftButton,
             leftBar: this.leftBar,
