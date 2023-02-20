@@ -2,7 +2,9 @@
 #leftButton
 >
     <common-ng-button-element
-        text="lefty"
+    class="tcenter p glo-0-text-ani bl scrollable"
+    [ngClass]="{'glo-0-shadow' : barService.middleDirection === 'left'}"
+    text="lefty"
     ></common-ng-button-element>
 </ng-template>
 
@@ -30,6 +32,8 @@
 #rightButton
 >
     <div
+    class="tcenter p glo-0-text-ani bl scrollable"
+    [ngClass]="{'glo-0-shadow' : barService.middleDirection === 'right'}"
     >
         <common-ng-button-element
         text="righty"
@@ -49,7 +53,7 @@
 <ng-template
 #rightView
 >
-    <div class="right-bar-container" >
+    <div class="right-bar-container p" >
         [style.maxHeight]="'calc(100vh - ' + barService.barOffsetHeight + 'px)'"
         <div style="color: pink">bar service offset height calc(100vh - {{barService.barOffsetHeight}}px)</div>
         <div>right bar</div>

@@ -2,6 +2,8 @@
 #leftButton
 >
     <common-ng-button-element
+    class="tcenter p glo-0-text-ani bl scrollable"
+    [ngClass]="{'glo-0-shadow' : barService.middleDirection === 'left'}"
     text="lefty"
     ></common-ng-button-element>
 </ng-template>
@@ -15,7 +17,7 @@
 <ng-template
 #leftView
 >
-    <div>
+    <div class="p">
         left view!
     </div>  
 </ng-template>

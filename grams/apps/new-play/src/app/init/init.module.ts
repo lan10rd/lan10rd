@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { CommonNgAppBarTemplateComponentModule } from '@grams/common/ng'
+import { CommonNgAppBarTemplateComponentModule, CommonNgPopopElementModule, CommonNgThemesElementModule } from '@grams/common/ng'
 import { AppInitComponent } from './init.component'
 import { AppInitBarModule } from './bar/bar.module'
 
@@ -11,7 +11,9 @@ import { AppInitBarModule } from './bar/bar.module'
     [
         CommonModule,
         AppInitBarModule,
-        CommonNgAppBarTemplateComponentModule
+        CommonNgAppBarTemplateComponentModule,
+        CommonNgPopopElementModule,
+        CommonNgThemesElementModule
     ],
     declarations:
     [
