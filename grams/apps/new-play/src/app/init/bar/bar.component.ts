@@ -15,6 +15,9 @@ export class AppInitBarComponent
     @ViewChild('leftButton') leftButton: any
     @ViewChild('leftBar') leftBar: any
     @ViewChild('leftView') leftView: any
+
+    @ViewChild('middleBar') middleBar: any
+
     @ViewChild('rightButton') rightButton: any
     @ViewChild('rightBar') rightBar: any
     @ViewChild('rightView') rightView: any
@@ -27,22 +30,20 @@ export class AppInitBarComponent
 
     }
 
-    ngAfterViewInit(){
-        setTimeout(() => {
-            console.log('init bar')
-            this.barService.updateBar({
-                leftButton: this.leftButton,
-                leftBar: this.leftBar,
-                leftView: this.leftView,
-                rightButton: this.rightButton,
-                rightBar: this.rightBar,
-                rightView: this.rightView
-            })
-            this.barService.styleBar({
-                'backdrop-filter': 'blur(5px)',
-                '-webkit-backdrop-filter': 'blur(5px)'
-            })
-        }, 0)
+    ngAfterViewInit() {
+        this.barService.updateBar({
+            leftButton: this.leftButton,
+            leftBar: this.leftBar,
+            leftView: this.leftView,
+            middleBar: this.middleBar,
+            rightButton: this.rightButton,
+            rightBar: this.rightBar,
+            rightView: this.rightView
+        }, true)
+        this.barService.styleBar({
+            'backdrop-filter': 'blur(5px)',
+            '-webkit-backdrop-filter': 'blur(5px)'
+        })
     }
 
 }

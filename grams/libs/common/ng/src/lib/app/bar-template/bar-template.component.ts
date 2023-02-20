@@ -21,9 +21,6 @@ export class CommonNgAppBarTemplateComponent
     }
 
     ngOnInit(){
-        this.barService.barContainer = this.barContainer
-        this.barService.barChild = this.barChild
-        this.barService.barView = this.barView
         fromEvent(window, 'scroll').subscribe(data => {
             if (this.prevScrollPos && this.barChild) {
                 const currentScrollPos = window.pageYOffset
@@ -39,7 +36,10 @@ export class CommonNgAppBarTemplateComponent
     }
     
     ngAfterViewInit(){
-        this.barService.handleBodyScrollbarOverscroll()
+        this.barService.barContainer = this.barContainer
+        this.barService.barChild = this.barChild
+        this.barService.barView = this.barView
+        this.barService.setOffsetHeight()
     }
 
 }

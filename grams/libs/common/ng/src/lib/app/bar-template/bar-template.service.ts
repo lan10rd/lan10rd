@@ -52,16 +52,29 @@ export class CommonNgAppBarTemplateService
         }
         this.handleBodyScrollbarOverscroll()
     }
+
+    setBar(bar: Bar){
+        this.bar = {}
+        this.updateBar(bar)
+    }
     
-    updateBar(bar: Partial<Bar>): void {
-        this.bar = {...this.bar, ...bar}
+    updateBar(
+        bar: Partial<Bar>,
+        reverseUpdate = false // use this option if loading initial bar in a dynamic component, it frequently is called after a lazy loaded feature which also has a bar
+    ): void {
+        // this.bar = {...this.bar, ...bar} // not sure if needs to be here for change detection
         setTimeout(() => {
-            if (this.barContainer) {
-                this.barOffsetHeight = this.barContainer.nativeElement.firstChild.offsetHeight
-                document.body.style.paddingTop = this.barOffsetHeight + 'px'
-                this.handleBodyScrollbarOverscroll()
-            }
+            this.bar = reverseUpdate ? { ...bar, ...this.bar} : {...this.bar, ...bar}
+            this.setOffsetHeight()
         }, 0)
+    }
+
+    setOffsetHeight(){
+        if (this.barContainer) {
+            this.barOffsetHeight = this.barContainer.nativeElement.firstChild.offsetHeight
+            document.body.style.paddingTop = this.barOffsetHeight + 'px'
+            this.handleBodyScrollbarOverscroll()
+        }
     }
 
     /* css alone not able to make body content scroll underneath while scrolling the view, and needed set timeout because must be a race condition between after view checked as view is in an ngif */
