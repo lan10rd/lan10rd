@@ -71,8 +71,9 @@ class="bar-container"
     <div
     class="bar-view"
     *ngIf="barService.middleDirection !== 'center'"
-    [style.max-height]="'calc(100vh - ' + barService.barOffsetHeight + 'px)'"
+    [style.max-height]="'calc(100vh - ' + (barService.barOffsetHeight - 1) + 'px)'"
     #barView
+    (scroll)="scrollme($event)"
     >
         <ng-container
         [ngSwitch]="barService.middleDirection"

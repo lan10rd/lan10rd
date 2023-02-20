@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { fromEvent } from 'rxjs'
 import { CommonNgAppBarTemplateService } from './bar-template.service'
 
@@ -6,7 +6,8 @@ import { CommonNgAppBarTemplateService } from './bar-template.service'
 ({
     selector: 'common-ng-app-bar-template',
     templateUrl: './bar-template.component.html',
-    styleUrls: ['./bar-template.component.scss']
+    styleUrls: ['./bar-template.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonNgAppBarTemplateComponent
 {
@@ -16,12 +17,16 @@ export class CommonNgAppBarTemplateComponent
     @ViewChild('barView') barView
     prevScrollPos
 
-    constructor(public barService: CommonNgAppBarTemplateService) {
+    constructor(
+        public barService: CommonNgAppBarTemplateService,
+        public cdr: ChangeDetectorRef
+    ) {
         
     }
 
     ngOnInit(){
-        fromEvent(window, 'scroll').subscribe(data => {
+        this.barService.cdr = this.cdr
+        fromEvent(window, 'scroll').subscribe($event => {
             if (this.prevScrollPos && this.barChild) {
                 const currentScrollPos = window.pageYOffset
                 this.barContainer.nativeElement.style.top = this.prevScrollPos > currentScrollPos ? '0' : '-' + this.barChild.nativeElement.offsetHeight + (this.barView ? this.barView.nativeElement.offsetHeight : 0) + 'px'
@@ -40,6 +45,10 @@ export class CommonNgAppBarTemplateComponent
         this.barService.barChild = this.barChild
         this.barService.barView = this.barView
         this.barService.setOffsetHeight()
+    }
+
+    scrollme($event){
+        this.barService.handleBodyScrollbarOverscroll()
     }
 
 }

@@ -21,6 +21,8 @@ export class AppInitBarComponent
     @ViewChild('rightButton') rightButton: any
     @ViewChild('rightBar') rightBar: any
     @ViewChild('rightView') rightView: any
+
+    rightBarOption
     
     constructor
     (

@@ -3,14 +3,16 @@ import { CommonModule } from '@angular/common'
 
 import { AppInitBarComponent } from './bar.component'
 
-import { CommonNgButtonElementModule } from '@grams/common/ng'
+import { CommonNgButtonElementModule, CommonNgSelectElementModule, CommonNgThemesEditorArtifactModule } from '@grams/common/ng'
 
 @NgModule
 ({
     imports:
     [
         CommonModule,
-        CommonNgButtonElementModule
+        CommonNgButtonElementModule,
+        CommonNgSelectElementModule,
+        CommonNgThemesEditorArtifactModule
     ],
     declarations:
     [

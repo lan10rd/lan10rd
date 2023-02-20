@@ -19,14 +19,117 @@ export class CommonNgSelectElement
     _options : any
     _option : any
     _type : any
-    selected : number = -7
+    selected : number
 
-    @Input() option: any
+    @Input() set option (value: any) {
+        this.inputOption = value
+        for (let i = 0; i < this._options.length; i++)
+        {
+            if (this._type === 'str[]')
+            {
+                if (this._options[i] === value)
+                {
+                    if (this.selected !== i) //added this cause it was causeing duplicate calls
+                    {
+                        this.select(i) // consider not emitting, im not entirely sure this is necessary to emit, but it may be
+                    }
+                    break
+                }
+            }
+            else if (this.path)
+            {
+                if (this._options[i] === this.json.pathToValue(value, this.path))
+                {
+                    if (this.selected !== i) //added this cause it was causeing duplicate calls
+                    {
+                        this.select(i) // consider not emitting, im not entirely sure this is necessary to emit, but it may be
+                    }
+                    break
+                }
+            }
+        }
+    }
+    get option(){return this.inputOption}
+    inputOption
     @Output() optionChange: any = new EventEmitter()
-    @Input() options: any
+    @Input() set options (value: any) {
+        this.inputOptions = value
+            
+        /* determine type of all objects in options by examining the first */
+        if (value)
+        {
+            let optionsType = this.json.typeOf(value)
+            if (optionsType === 'obj')
+            {
+                let keys = this.json.keys((value))
+                if (keys.length > 0)
+                {
+                    let first = value[keys[0]]
+                    this._type = this.json.typeOf(first) + '{}'
+                }
+            }
+            else if (optionsType === 'arr')
+            {
+                if (value.length > 0)
+                {
+                    let first = value[0]
+                    this._type = this.json.typeOf(first) + '[]'
+                }
+            }
+            if (this._type)
+                this.setOptions()
+        }
+
+        // // took this out, not sure it's really necessary unless the selected index is not in the list
+        // if (!changes.options.firstChange)
+        // { 
+        //     // this was done to reset select if options change but it then had to do dont emit undefined for one of the particular usages, sooo
+        //     /* try to find index if option is already selected*/
+        //     if (this.selected > this.__options.length || this.__options.length === 0)
+        //     {
+        //         this.select(-7)
+        //     }
+        // }
+
+        /* big mode */
+        if (this.options?.length >= this.big_threshold)
+            this.big = true
+        else
+            this.big = false
+    }
+    get options(){ return this.inputOptions}
+    inputOptions: any
     @Input() path : any 
 
-    @Input() initial : any
+    @Input() set initial(value : any) {
+        // setTimeout(() => {
+            this.inputInitial = value
+            
+            if (!this.option && this._options?.length > 0 )
+            {
+                let type = this.json.typeOf(value)
+                if (type === 'boo')
+                    this.select(0)
+                else if (type === 'num')
+                {
+                    this.select(value)
+                }
+                else if (type === 'str')
+                {
+                    for (let i = 0; i < this._options.length; i++)
+                    {
+                        if (this._options[i] === value)
+                        {
+                            this.select(i) // only emit if the first change from changes
+                            break
+                        }
+                    }
+                }
+            }
+        // },0)
+    }
+    get initial(){return this.inputInitial}
+    inputInitial
 
     @Input() toggleable : boolean = true
     @Input() filterFun : any
@@ -75,116 +178,6 @@ export class CommonNgSelectElement
             this.buttonClasses = 'p glo-0-text-ani ib'
         if (!this.buttonStyles)
             this.buttonStyles = ''
-    }
-
-    ngOnChanges
-    (
-        changes: any
-    )
-    {
-        // i think i read somewhere you dont have to do set time out if you mark dirty or something
-        setTimeout(() => {
-            if ('options' in changes)
-            {
-                
-                /* determine type of all objects in options by examining the first */
-                if (changes.options.currentValue)
-                {
-                    let optionsType = this.json.typeOf(changes.options.currentValue)
-                    if (optionsType === 'obj')
-                    {
-                        let keys = this.json.keys((changes.options.currentValue))
-                        if (keys.length > 0)
-                        {
-                            let first = changes.options.currentValue[keys[0]]
-                            this._type = this.json.typeOf(first) + '{}'
-                        }
-                    }
-                    else if (optionsType === 'arr')
-                    {
-                        if (changes.options.currentValue.length > 0)
-                        {
-                            let first = changes.options.currentValue[0]
-                            this._type = this.json.typeOf(first) + '[]'
-                        }
-                    }
-                    if (this._type)
-                        this.setOptions()
-                }
-
-                // took this out, not sure it's really necessary unless the selected index is not in the list
-                if (!changes.options.firstChange)
-                { 
-                    // this was done to reset select if options change but it then had to do dont emit undefined for one of the particular usages, sooo
-                    /* try to find index if option is already selected*/
-                    if (this.selected > this.__options.length || this.__options.length === 0)
-                    {
-                        this.select(-7)
-                    }
-                }
-
-                /* big mode */
-                if (this.options?.length >= this.big_threshold)
-                    this.big = true
-                else
-                    this.big = false
-
-                /* try to initialize   */
-                // && changes.options.firstChange // seems to cause issues
-                if ( this.json.isDefined(this.initial) && !this.option && this._options?.length > 0 )
-                {
-                    let type = this.json.typeOf(this.initial)
-                    if (type === 'boo')
-                        this.select(0)
-                    else if (type === 'num')
-                    {
-                        this.select(this.initial)
-                    }
-                    else if (type === 'str')
-                    {
-                        for (let i = 0; i < this._options.length; i++)
-                        {
-                            if (this._options[i] === this.initial)
-                            {
-                                this.select(i) // only emit if the first change from changes
-                                break
-                            }
-                        }
-                    }
-                }
-            }
-
-            // is this necessary? apparently yes, noticed that when switching the option in nested scenario it wasnt reapplying, might be a better way but the if index is different check seems to work
-            if ('option' in changes && this._options)
-            {
-                for (let i = 0; i < this._options.length; i++)
-                {
-                    if (this._type === 'str[]')
-                    {
-                        if (this._options[i] === changes.option.currentValue)
-                        {
-                            if (this.selected !== i) //added this cause it was causeing duplicate calls
-                            {
-                                this.select(i) // consider not emitting, im not entirely sure this is necessary to emit, but it may be
-                            }
-                            break
-                        }
-                    }
-                    else if (this.path)
-                    {
-                        if (this._options[i] === this.json.pathToValue(changes.option.currentValue, this.path))
-                        {
-                            if (this.selected !== i) //added this cause it was causeing duplicate calls
-                            {
-                                this.select(i) // consider not emitting, im not entirely sure this is necessary to emit, but it may be
-                            }
-                            break
-                        }
-                    }
-                }
-            }
-
-        }, 0)
     }
 
     async cycleBig
@@ -360,33 +353,38 @@ export class CommonNgSelectElement
         emit : boolean = true
     )
     {
-        if (index < 0 || this.selected === index)
-        {
-            this.selected = -7
-            this.option = undefined
-            this._option = undefined
-        }
-        else
-        {
-            this.selected = index
-            if (this._type.endsWith('[]'))
+        setTimeout(() => {  
+            if (index < 0 || this.selected === index)
             {
-                this.option = this.options[this.selected]
-                this._option = this._options[this.selected]
+                console.log('a')
+                this.selected = -7
+                this.option = undefined
+                this._option = undefined
             }
-            else if (this._type.endsWith('{}') && !this.path)
+            else
             {
-                this._option = this._options[this.selected]
-                this.option = this.options[this._option]
+                this.selected = index
+                if (this._type.endsWith('[]'))
+                {
+                    this.option = this.options[this.selected]
+                    this._option = this._options[this.selected]
+                }
+                else if (this._type.endsWith('{}') && !this.path)
+                {
+                    this._option = this._options[this.selected]
+                    this.option = this.options[this._option]
+                }
+                else if (this._type.endsWith('{}') && this.path)
+                {
+                    this.option = this.json.values(this.options)[this.selected]
+                    this._option = this._options[this.selected]
+                }
             }
-            else if (this._type.endsWith('{}') && this.path)
-            {
-                this.option = this.json.values(this.options)[this.selected]
-                this._option = this._options[this.selected]
-            }
-        }
-        if (emit && (this.option !== undefined || this.emitUndefined))
-            this.optionChange.emit(this.option)
+            if (emit && (this.option !== undefined || this.emitUndefined))
+                this.optionChange.emit(this.option)
+            this.cd.detectChanges()
+        }, 0)
+        
     }
 
     deselect(){this.select(-7)}

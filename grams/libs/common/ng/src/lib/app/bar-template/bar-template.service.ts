@@ -1,4 +1,4 @@
-import { Injectable, TemplateRef, ElementRef, ViewChild } from '@angular/core'
+import { Injectable, TemplateRef, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core'
 import { CommonNgStylesService } from '../../styles/styles.service'
 
 export type MiddleDirection = 'center' | 'left' | 'right';
@@ -27,6 +27,8 @@ export class CommonNgAppBarTemplateService
     barChild: ElementRef
     barView: ElementRef
     appliedBarStyles: any = {}
+
+    cdr: ChangeDetectorRef
 
     constructor(
         public styles: CommonNgStylesService
@@ -65,6 +67,7 @@ export class CommonNgAppBarTemplateService
         // this.bar = {...this.bar, ...bar} // not sure if needs to be here for change detection
         setTimeout(() => {
             this.bar = reverseUpdate ? { ...bar, ...this.bar} : {...this.bar, ...bar}
+            this.cdr.detectChanges()
             this.setOffsetHeight()
         }, 0)
     }
