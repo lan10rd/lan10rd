@@ -25,11 +25,9 @@ export class CommonNgAppBarTemplateComponent
         this.barService.barChild = this.barChild
         this.barService.barView = this.barView
         fromEvent(window, 'scroll').subscribe(data => {
-            console.log('scroll')
             if (this.prevScrollPos && this.barChild) {
                 const currentScrollPos = window.pageYOffset
                 this.barContainer.nativeElement.style.top = this.prevScrollPos > currentScrollPos ? '0' : '-' + this.barChild.nativeElement.offsetHeight + (this.barView ? this.barView.nativeElement.offsetHeight : 0) + 'px'
-                console.log( this.prevScrollPos > (currentScrollPos))
                 this.prevScrollPos = currentScrollPos
             } else {
                 this.prevScrollPos = window.pageYOffset
