@@ -1,4 +1,32 @@
 <ng-template
+#leftButton
+>
+    <common-ng-button-element
+        text="lefty"
+    ></common-ng-button-element>
+</ng-template>
+
+<ng-template
+#leftBar
+>
+    starting left content
+</ng-template>
+
+<ng-template
+#leftView
+>
+    <div>
+        starting left view!
+    </div>  
+</ng-template>
+
+<ng-template
+#middleBar
+>
+    example middle bar
+</ng-template>
+
+<ng-template
 #rightButton
 >
     <div
@@ -21,7 +49,7 @@
 <ng-template
 #rightView
 >
-    <div class="right-bar-container background" >
+    <div class="right-bar-container" >
         [style.maxHeight]="'calc(100vh - ' + barService.barOffsetHeight + 'px)'"
         <div style="color: pink">bar service offset height calc(100vh - {{barService.barOffsetHeight}}px)</div>
         <div>right bar</div>

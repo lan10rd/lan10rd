@@ -249,7 +249,7 @@ export class CommonNgThemesService
         //     this.css.applyStyles(this.app?.components[0]?.injector.get(ElementRef).nativeElement, theme.addStyles.app)
 
         if (current?.addStyles?.body)
-            this.css.unApplyStyles(this.document.document.body, current.addStyles.body)
+            this.css.unapplyStyles(this.document.document.body, current.addStyles.body)
         if (theme?.addStyles?.body)
             this.css.applyStyles(this.document.document.body, theme.addStyles.body)
 

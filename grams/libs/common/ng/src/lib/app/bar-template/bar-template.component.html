@@ -1,10 +1,13 @@
 <div
 class="bar-container"
 #barContainer
+[ngStyle]="barService.appliedBarStyles"
 >
+
     <div
     class="bar"
-    #bar
+    #barChild
+    
     >
         <div
         class="bar-left"
@@ -13,7 +16,9 @@ class="bar-container"
             <ng-container
             *ngIf="barService.bar.leftButton"
             >
-                <ng-container *ngTemplateOutlet="barService.bar.leftButton" ></ng-container>
+                <ng-container
+                *ngTemplateOutlet="barService.bar.leftButton"
+                ></ng-container>
             </ng-container>
         </div>
         <div
@@ -66,7 +71,8 @@ class="bar-container"
     <div
     class="bar-view"
     *ngIf="barService.middleDirection !== 'center'"
-    [style.padding-top]="barService.barOffsetHeight + 'px'"
+    [style.max-height]="'calc(100vh - ' + barService.barOffsetHeight + 'px)'"
+    #barView
     >
         <ng-container
         [ngSwitch]="barService.middleDirection"
@@ -94,4 +100,5 @@ class="bar-container"
 
         </ng-container>
     </div>
+
 </div>

@@ -12,18 +12,31 @@ export class CommonNgAppBarTemplateComponent
 {
 
     @ViewChild('barContainer') barContainer: ElementRef
+    @ViewChild('barChild') barChild
+    @ViewChild('barView') barView
+    prevScrollPos
 
     constructor(public barService: CommonNgAppBarTemplateService) {
         
     }
 
-    ngAfterViewInit(){
+    ngOnInit(){
         this.barService.barContainer = this.barContainer
-        let prevScrollpos = window.pageYOffset;
+        this.barService.barChild = this.barChild
+        this.barService.barView = this.barView
         fromEvent(window, 'scroll').subscribe(data => {
-            const currentScrollPos = window.pageYOffset;
-            this.barContainer.nativeElement.style.top = prevScrollpos > (currentScrollPos) ? '0' : '-' + this.barService.barOffsetHeight + 'px'
-            prevScrollpos = currentScrollPos
+            console.log('scroll')
+            if (this.prevScrollPos && this.barChild) {
+                const currentScrollPos = window.pageYOffset
+                this.barContainer.nativeElement.style.top = this.prevScrollPos > currentScrollPos ? '0' : '-' + this.barChild.nativeElement.offsetHeight + (this.barView ? this.barView.nativeElement.offsetHeight : 0) + 'px'
+                console.log( this.prevScrollPos > (currentScrollPos))
+                this.prevScrollPos = currentScrollPos
+            } else {
+                this.prevScrollPos = window.pageYOffset
+            }
+        })
+        fromEvent(window, 'resize').subscribe(data => {
+            this.barService.handleBodyScrollbarOverscroll()
         })
     }
 

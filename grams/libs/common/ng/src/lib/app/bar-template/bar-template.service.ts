@@ -1,4 +1,5 @@
-import { Injectable, TemplateRef, ElementRef } from '@angular/core'
+import { Injectable, TemplateRef, ElementRef, ViewChild } from '@angular/core'
+import { CommonNgStylesService } from '../../styles/styles.service'
 
 export type MiddleDirection = 'center' | 'left' | 'right';
 export interface Bar {
@@ -20,8 +21,26 @@ export class CommonNgAppBarTemplateService
 
     middleDirection: MiddleDirection = 'center'
     bar: Bar = { }
-    barContainer: ElementRef
     barOffsetHeight: number = 0
+
+    barContainer: ElementRef
+    barChild: ElementRef
+    barView: ElementRef
+    appliedBarStyles: any = {}
+
+    constructor(
+        public styles: CommonNgStylesService
+    ){
+
+    }
+
+    styleBar(styles: any) {
+        if (this.barContainer) {
+            this.styles.unapplyStyles(this.barContainer.nativeElement, this.appliedBarStyles)
+            this.styles.applyStyles(this.barContainer.nativeElement, styles)
+        }
+        this.appliedBarStyles = styles
+    }
 
     changeMiddleDirection(direction: MiddleDirection){
         if (this.middleDirection === 'center') {
@@ -44,17 +63,15 @@ export class CommonNgAppBarTemplateService
             }
         }, 0)
     }
+
     /* css alone not able to make body content scroll underneath while scrolling the view, and needed set timeout because must be a race condition between after view checked as view is in an ngif */
     handleBodyScrollbarOverscroll() {
         setTimeout(()=> {
             if (this.barContainer) {
                 const bodyHeight = window.innerHeight
-                const barAndViewHeight = this.barContainer.nativeElement.firstChild.offsetHeight + this.barContainer.nativeElement.firstChild.nextSibling.offsetHeight
-                if (barAndViewHeight >= bodyHeight) {
-                    document.body.style.overflow = 'hidden'
-                } else {
-                    document.body.style.overflow = ''
-                }
+                const barAndViewHeight = this.barContainer.nativeElement.firstChild.offsetHeight + (this.barContainer.nativeElement.firstChild.nextSibling.offsetHeight ? this.barContainer.nativeElement.firstChild.nextSibling.offsetHeight : 0)
+                document.body.style.overflow = barAndViewHeight >= bodyHeight ? 'hidden' : ''
+                const wtf = barAndViewHeight + window.innerHeight // this fixes a bug where you can open a menu, scroll so that menu hides, then ctl + 0 zoom and no longer be able to scroll again
             }
         }, 0)
     }

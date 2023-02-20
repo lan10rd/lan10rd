@@ -60,12 +60,10 @@ export class CommonNgStylesService
         styles: any
     )
     {
-        let currentStyles = this.getStyles(element)
-        Object.keys(styles).forEach(style => { currentStyles[style] = styles[style] })
-        this.setStyles(element, currentStyles)
+        this.setStyles(element, {...this.getStyles(element), ...styles})
     }
 
-    unApplyStyles
+    unapplyStyles
     (
         element: HTMLElement,
         styles: any

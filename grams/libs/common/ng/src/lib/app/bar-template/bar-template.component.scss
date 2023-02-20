@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
     width: 100%;
 }
 
@@ -28,17 +27,15 @@
 }
 
 .bar-container {
-    // position: sticky;
-    // position: -webkit-sticky;
     top: 0;
     transition: top 0.21s;
     width: 100%;
     position: fixed;
+    transition-timing-function: ease-in-out;
 }
 
 .bar-container-fixed {
     position: fixed;
-
 }
 
 .bar-view {
