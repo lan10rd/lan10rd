@@ -1,91 +1,11 @@
-<ng-template
-#leftButton
->
-    <common-ng-button-element
-    class="tcenter p glo-0-text-ani bl scrollable"
-    [ngClass]="{'glo-0-shadow' : barService.middleDirection === 'left'}"
-    text="lefty"
-    ></common-ng-button-element>
-</ng-template>
-
-<ng-template
-#leftBar
->
-    starting left content
-</ng-template>
-
-<ng-template
-#leftView
->
-    <div>
-        starting left view!
-    </div>  
-</ng-template>
+<app-init-bar-left
+></app-init-bar-left>
 
 <ng-template
 #middleBar
 >
-    example middle bar
+    <!-- example middle bar -->
 </ng-template>
 
-<ng-template
-#rightButton
->
-    <div
-    class="tcenter p glo-0-text-ani bl scrollable"
-    [ngClass]="{'glo-0-shadow' : barService.middleDirection === 'right'}"
-    >
-        <common-ng-button-element
-        text="righty"
-        ></common-ng-button-element>
-    </div>
-</ng-template>
-
-<ng-template
-#rightBar
->
-    <div
-    >
-        <common-ng-select-element
-        class="bl glo-0-text-trim"
-        [options]="['preferences']"
-        [(option)]="rightBarOption"
-        [initial]="true"
-        #rightBarMenu
-        ></common-ng-select-element>
-    </div>
-</ng-template>
-
-<ng-template
-#rightView
->
-
-    <ng-container
-    [ngSwitch]="rightBarOption"
-    >
-
-        <ng-container
-        *ngSwitchCase="'preferences'"
-        >
-
-            <common-ng-select-element
-            class="bl glo-0-text-trim"
-            [options]="['themes']"
-            [initial]="true"
-            #preferencesMenu
-            ></common-ng-select-element>
-
-            <ng-container
-            [ngSwitch]="preferencesMenu._option"
-            >
-
-                <common-ng-themes-editor-artifact
-                *ngSwitchCase="'themes'"
-                ></common-ng-themes-editor-artifact>
-        
-            </ng-container>
-
-        </ng-container>
-    </ng-container>
-
-</ng-template>
+<app-init-bar-right
+></app-init-bar-right>

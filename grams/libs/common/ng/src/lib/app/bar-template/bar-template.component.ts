@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { fromEvent } from 'rxjs'
 import { CommonNgAppBarTemplateService } from './bar-template.service'
 
@@ -12,6 +12,7 @@ import { CommonNgAppBarTemplateService } from './bar-template.service'
 export class CommonNgAppBarTemplateComponent
 {
 
+    @Input('zIndex') zIndex = 1
     @ViewChild('barContainer') barContainer: ElementRef
     @ViewChild('barChild') barChild
     @ViewChild('barView') barView
@@ -26,6 +27,7 @@ export class CommonNgAppBarTemplateComponent
 
     ngOnInit(){
         this.barService.cdr = this.cdr
+        this.barService.zIndex = this.zIndex
         fromEvent(window, 'scroll').subscribe($event => {
             if (this.prevScrollPos && this.barChild) {
                 const currentScrollPos = window.pageYOffset

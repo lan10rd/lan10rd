@@ -13,6 +13,7 @@ export class CommonNgCodeService
     monaco : any
     loadPromise : any
     loaded$ : any
+    monacoLocation
 
     constructor
     (
@@ -20,7 +21,8 @@ export class CommonNgCodeService
         @Optional() @Inject('COMMON_CODE_SERVICE_MONACO_LOCATION') public monaco_location : any
     )
     {
-        if (!monaco_location) monaco_location = 'assets'
+        if (!monaco_location) this.monacoLocation = location.href + 'assets'
+        else this.monacoLocation = monaco_location
         this.loaded$ = new BehaviorSubject(false)
         this.init()
     }
@@ -62,7 +64,7 @@ export class CommonNgCodeService
                         return resolve(true)
                     }
                 })
-                await this.doc.loadScript(`${this.monaco_location}/monaco-editor/min/vs/loader.js`, 'loaderjs')
+                await this.doc.loadScript(`${this.monacoLocation}/monaco-editor/min/vs/loader.js`, 'loaderjs')
                 
                 /* Before loading vs/editor/editor.main, define a global MonacoEnvironment that overwrites
                    the default worker url location (used when creating WebWorkers). The problem here is that
@@ -72,9 +74,9 @@ export class CommonNgCodeService
                let encodedUri = 'data:text/javascript;charset=utf-8,' + encodeURIComponent
                (`
                    self.MonacoEnvironment = {
-                   baseUrl: '${this.monaco_location}/monaco-editor/min/'
+                   baseUrl: '${this.monacoLocation}/monaco-editor/min/'
                    };
-                   importScripts('${this.monaco_location}/monaco-editor/min/vs/base/worker/workerMain.js');`
+                   importScripts('${this.monacoLocation}/monaco-editor/min/vs/base/worker/workerMain.js');`
                )
                 let monaco_environment : any = { getWorkerUrl: function(workerId : any, label : any) {return encodedUri} };
                 (window as any)['MonacoEnvironment'] = monaco_environment
@@ -82,7 +84,7 @@ export class CommonNgCodeService
                 await this.doc.createScript
                 ( 
                     `
-                    require.config({ paths: { vs: '${this.monaco_location}/monaco-editor/min/vs' } });
+                    require.config({ paths: { vs: '${this.monacoLocation}/monaco-editor/min/vs' } });
                     
                     require(['vs/editor/editor.main'], () => {
                         window.monaco = monaco

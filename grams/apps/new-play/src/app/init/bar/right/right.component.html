@@ -1,0 +1,59 @@
+<ng-template
+#rightButton
+>
+    <div
+    class="tcenter p glo-0-text-ani bl scrollable"
+    [ngClass]="{'glo-0-shadow' : barService.middleDirection === 'right'}"
+    >
+        <common-ng-button-element
+        >
+            user
+        </common-ng-button-element>
+    </div>
+</ng-template>
+
+<ng-template
+#rightBar
+>
+    <common-ng-select-element
+    class="bl glo-0-text-trim"
+    [options]="['preferences']"
+    [(option)]="rightBarOption"
+    [initial]="true"
+    #rightBarMenu
+    ></common-ng-select-element>
+</ng-template>
+
+<ng-template
+#rightView
+>
+
+    <ng-container
+    [ngSwitch]="rightBarOption"
+    >
+
+        <ng-container
+        *ngSwitchCase="'preferences'"
+        >
+
+            <common-ng-select-element
+            class="bl glo-0-text-trim"
+            [options]="['themes']"
+            [initial]="true"
+            #preferencesMenu
+            ></common-ng-select-element>
+
+            <ng-container
+            [ngSwitch]="preferencesMenu._option"
+            >
+
+                <common-ng-themes-editor-artifact
+                *ngSwitchCase="'themes'"
+                ></common-ng-themes-editor-artifact>
+        
+            </ng-container>
+
+        </ng-container>
+    </ng-container>
+
+</ng-template>

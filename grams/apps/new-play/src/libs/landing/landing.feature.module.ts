@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router'
 
 import { AppLandingFeature } from './landing.feature'
 
-import { CommonNgButtonElementModule } from '@grams/common/ng'
+import { CommonNgButtonElementModule, CommonNgCodeEditorElementModule } from '@grams/common/ng'
 import { LandingBarModule } from './bar/bar.module'
 
 @NgModule
@@ -14,6 +14,7 @@ import { LandingBarModule } from './bar/bar.module'
         CommonModule,
         CommonNgButtonElementModule,
         LandingBarModule,
+        CommonNgCodeEditorElementModule,
         RouterModule.forChild
         ([{
             path: '',

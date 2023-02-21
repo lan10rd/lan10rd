@@ -238,7 +238,8 @@ yarn add \
   pdfmake \
   x-data-spreadsheet \
   stream \
-  canvas-datagrid
+  canvas-datagrid \
+  monaco-editor
 
 
 ### nestjs graphql

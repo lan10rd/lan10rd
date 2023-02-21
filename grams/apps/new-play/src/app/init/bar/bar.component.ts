@@ -1,13 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core'
 
-// import { BarService } from '../../libs/bar/bar.service'
 import { CommonNgAppBarTemplateService } from '@grams/common/ng'
 
 @Component
 ({
     selector: 'app-init-bar',
-    templateUrl: './bar.component.html',
-    styleUrls: ['./bar.component.scss']
+    templateUrl: './bar.component.html'
 })
 export class AppInitBarComponent
 {
@@ -37,10 +35,7 @@ export class AppInitBarComponent
             leftButton: this.leftButton,
             leftBar: this.leftBar,
             leftView: this.leftView,
-            middleBar: this.middleBar,
-            rightButton: this.rightButton,
-            rightBar: this.rightBar,
-            rightView: this.rightView
+            middleBar: this.middleBar
         }, true)
         this.barService.styleBar({
             'backdrop-filter': 'blur(5px)',

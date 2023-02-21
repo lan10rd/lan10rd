@@ -2,8 +2,16 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { AppInitBarComponent } from './bar.component'
+import { AppInitBarRightComponent } from './right/right.component'
+import { AppInitBarLeftComponent } from './left/left.component'
 
-import { CommonNgButtonElementModule, CommonNgSelectElementModule, CommonNgThemesEditorArtifactModule } from '@grams/common/ng'
+import {
+    CommonNgButtonElementModule,
+    CommonNgSelectElementModule,
+    CommonNgThemesEditorArtifactModule,
+    CommonNgRouterElementModule,
+    CommonNgToolkitArtifactModule
+} from '@grams/common/ng'
 
 @NgModule
 ({
@@ -12,14 +20,20 @@ import { CommonNgButtonElementModule, CommonNgSelectElementModule, CommonNgTheme
         CommonModule,
         CommonNgButtonElementModule,
         CommonNgSelectElementModule,
-        CommonNgThemesEditorArtifactModule
+        CommonNgThemesEditorArtifactModule,
+        CommonNgRouterElementModule,
+        CommonNgToolkitArtifactModule
     ],
     declarations:
     [
-       AppInitBarComponent
+       AppInitBarComponent,
+       AppInitBarRightComponent,
+       AppInitBarLeftComponent
     ],
     exports: [
-        AppInitBarComponent
+        AppInitBarComponent,
+        AppInitBarRightComponent,
+        AppInitBarLeftComponent
     ]
 })
 export class AppInitBarModule

@@ -518,6 +518,7 @@ textarea {
 
 .glo-0-text {
     color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 2px black;
     font-family: trebuchet ms;
 }
 .glo-0-back {

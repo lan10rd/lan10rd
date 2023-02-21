@@ -133,6 +133,7 @@
     "minimist": "^1.2.5",
     "mkdirp": "^1.0.4",
     "moment": "^2.29.1",
+    "monaco-editor": "^0.35.0",
     "mongodb": "^4.3.0",
     "mongoose": "^6.1.5",
     "mqtt": "^4.3.4",

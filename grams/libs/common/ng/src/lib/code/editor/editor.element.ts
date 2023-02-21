@@ -15,6 +15,7 @@ import { CommonNgCodeService } from '../code.service'
 :host {
     display: block;
     height: 100px;
+    text-shadow: initial;
 }
 .container {
     width: 100%;

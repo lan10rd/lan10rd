@@ -10,9 +10,6 @@ import { CommonNgAppBarTemplateService } from '@grams/common/ng'
 export class LandingBarComponent
 {
 
-    @ViewChild('leftButton') leftButton: any
-    @ViewChild('leftBar') leftBar: any
-    @ViewChild('leftView') leftView: any
     @ViewChild('middleBar') middleBar: any
     
     constructor
@@ -25,9 +22,6 @@ export class LandingBarComponent
 
     ngAfterViewInit(){
         this.barService.updateBar({
-            leftButton: this.leftButton,
-            leftBar: this.leftBar,
-            leftView: this.leftView,
             middleBar: this.middleBar
         })
     }

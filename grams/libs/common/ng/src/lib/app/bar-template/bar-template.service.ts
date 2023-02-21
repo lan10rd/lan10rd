@@ -27,6 +27,7 @@ export class CommonNgAppBarTemplateService
     barChild: ElementRef
     barView: ElementRef
     appliedBarStyles: any = {}
+    zIndex
 
     cdr: ChangeDetectorRef
 
@@ -41,7 +42,7 @@ export class CommonNgAppBarTemplateService
             this.styles.unapplyStyles(this.barContainer.nativeElement, this.appliedBarStyles)
             this.styles.applyStyles(this.barContainer.nativeElement, styles)
         }
-        this.appliedBarStyles = styles
+        this.appliedBarStyles = {'z-index': this.zIndex, ...styles}
     }
 
     changeMiddleDirection(direction: MiddleDirection){
