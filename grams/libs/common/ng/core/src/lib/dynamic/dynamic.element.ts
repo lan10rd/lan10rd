@@ -166,23 +166,39 @@ import { CommonNgCoreDynamicDirective  } from './dynamic.directive';
 export class CommonNgCoreDynamicElement {
 
     @ViewChild(CommonNgCoreDynamicDirective , {static: true}) dynamicHost!: CommonNgCoreDynamicDirective
-    @Input('component') component: any
-    @Input('module') module: any
-    @Input('data') data: any
+    @Input('component') set component (value: any) {
+        this._component = value
+        this.loadComponent()
+    }
+    get component(){return this._component}
+    _component
+    @Input('module') set module (value: any) {
+        this._module = value
+    }
+    get module(){return this._module}
+    _module
+    @Input('data') set data (value: any) {
+        this._data = value
+    }
+    get data(){return this._data}
+    _data
 
-    loadComponent(): void {
+    async loadComponent() {
+        let component = this.component
+        if (typeof this.component === 'function') {
+            if (typeof this.module === 'function') {
+
+            }
+            try { component = await this.component() } catch(e) { console.log('dynamic await e', e) }
+        }
         if (this.component && this.dynamicHost)
         {
             const viewContainerRef = this.dynamicHost.ref;
             viewContainerRef.clear();
             
-            const componentRef = viewContainerRef.createComponent<any>(this.component);
+            const componentRef = viewContainerRef.createComponent<any>(component);
             componentRef.instance.data = this.data
         }
-    }
-
-    ngOnChanges(changes: any){
-        this.loadComponent()
     }
 
     ngAfterViewInit(){

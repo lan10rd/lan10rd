@@ -9,10 +9,10 @@ import { Component } from '@angular/core'
 export class AppComponent
 {
 
-  // init: any = {
-  //     module: async () => (await import('./init/init.element.module')).AppInitElementModule,
-  //     component: async () => (await import('./init/init.element')).AppInitElement
-  // }
+  init: any = {
+      module: async () => (await import('./init/init.element.module')).AppInitElementModule,
+      component: async () => (await import('./init/init.element')).AppInitElement
+  }
 
   module: any
   component: any

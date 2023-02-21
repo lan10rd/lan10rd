@@ -1,11 +1,30 @@
 {
     "numberOfRoutes": 8,
-    "generatingTime": 12.91,
-    "routesPerSecond": null,
-    "findingRoutesAngular": "",
-    "routeDiscovery": null,
-    "renderingPages": null,
+    "generatingTime": 32.06,
+    "routesPerSecond": 0.38,
+    "findingRoutesAngular": 10.89875,
+    "routeDiscovery": 0.0015400000000000001,
+    "renderingPages": 21.14489,
     "pluginTimings": {
-        "Duration": 12911.85
+        "AllDonePlugins": 0.04,
+        "BeforeAllPlugins": 5.48,
+        "ConfigLoad": 0.04,
+        "Discovery": 1.54,
+        "Duration": 32063.4,
+        "Render": 21144.89,
+        "RouteDonePlugins": 0.94,
+        "RouteProcess": 7.31,
+        "Traverse": 10898.75,
+        "beforeAll:startLaunching the browser": 5.19,
+        "routeDiscoveryDone:storeAllRoutes": 0.28,
+        "scullySystem:generateAll": 32055.21,
+        "scullySystem:handleTravesal": 10899.27,
+        "scullySystem:processRoutes": 7.46,
+        "scullySystem:renderPlugin": 21145.11,
+        "scullySystem:renderRoute": 82940.25,
+        "scullySystem:routeRenderer": 82937.26,
+        "scullySystem:storeRoutes": 7.23,
+        "scullySystem:traverseAppRoutes": 10898.64,
+        "scullySystem:writeToStorage": 1293.2099999999998
     }
 }
