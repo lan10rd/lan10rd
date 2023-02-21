@@ -68,7 +68,8 @@ export class CommonNgAppBarTemplateService
         // this.bar = {...this.bar, ...bar} // not sure if needs to be here for change detection
         setTimeout(() => {
             this.bar = reverseUpdate ? { ...bar, ...this.bar} : {...this.bar, ...bar}
-            this.cdr.detectChanges()
+            if (this.cdr)
+                this.cdr.detectChanges()
             this.setOffsetHeight()
         }, 0)
     }

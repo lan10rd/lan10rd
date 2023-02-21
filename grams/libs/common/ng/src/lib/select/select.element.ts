@@ -356,7 +356,6 @@ export class CommonNgSelectElement
         setTimeout(() => {  
             if (index < 0 || this.selected === index)
             {
-                console.log('a')
                 this.selected = -7
                 this.option = undefined
                 this._option = undefined

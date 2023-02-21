@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Renderer2, RendererFactory2} from '@angular/core'
 
 import { CommonNgDocumentService } from '../document/document.service'
 
@@ -9,12 +9,15 @@ import { CommonNgDocumentService } from '../document/document.service'
 export class CommonNgStylesService
 {
 
+    private renderer: Renderer2;
+
     constructor
     (
-        public document: CommonNgDocumentService
+        public document: CommonNgDocumentService,
+        public rendererFactory: RendererFactory2
     )
     {
-        
+        this.renderer = rendererFactory.createRenderer(null, null)
     }
 
     getStyles

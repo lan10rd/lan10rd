@@ -21,7 +21,7 @@ export class CommonNgCodeService
         @Optional() @Inject('COMMON_CODE_SERVICE_MONACO_LOCATION') public monaco_location : any
     )
     {
-        if (!monaco_location) this.monacoLocation = location.href + 'assets'
+        if (!monaco_location) this.monacoLocation = location.origin + '/assets'
         else this.monacoLocation = monaco_location
         this.loaded$ = new BehaviorSubject(false)
         this.init()
