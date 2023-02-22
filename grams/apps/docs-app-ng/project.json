@@ -21,7 +21,8 @@
           "apps/docs-app-ng/src/assets",
           "apps/docs-app-ng/src/manifest.webmanifest",
           "apps/docs-app-ng/src/robots.txt",
-          "apps/docs-app-ng/src/404.html"
+          "apps/docs-app-ng/src/404.html",
+          { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "/assets/monaco-editor/" }
         ],
         "styles": [
           "apps/docs-app-ng/src/styles.scss"

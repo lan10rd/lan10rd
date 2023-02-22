@@ -47,10 +47,10 @@ import { AppInitService } from './init/init.service';
             multi: true,
             deps: [HttpXsrfTokenExtractor]
         },
-        {
-            provide: 'COMMON_CODE_SERVICE_MONACO_LOCATION',
-            useValue: 'https://resources.glass.earth/static/js'
-        }
+        // {
+        //     provide: 'COMMON_CODE_SERVICE_MONACO_LOCATION',
+        //     useValue: 'https://resources.glass.earth/static/js'
+        // }
     ],
     exports:
     [

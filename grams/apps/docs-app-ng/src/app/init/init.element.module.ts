@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { AppInitElement } from './init.element'
-import { AppBarElementModule } from '../bar/bar.element.module'
+import { AppBarElementModule } from './bar/bar.element.module'
 
 import { CommonNgPopopElementModule, CommonNgThemesElementModule, CommonNgAppBarElementModule, CommonNgDynamicElementModule } from '@grams/common/ng'
 
