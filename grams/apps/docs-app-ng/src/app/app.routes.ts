@@ -22,6 +22,10 @@ export const routes: Routes = [
         loadChildren: async () => (await import('../libs/play/play.feature.module')).PlayFeatureModule
     },
     {
+        path: 'bearclaw',
+        loadChildren: async () => (await import('../libs/bearclaw/bearclaw.feature.module')).BearclawFeatureModule
+    },
+    {
         path: '**',
         redirectTo: ''
     }

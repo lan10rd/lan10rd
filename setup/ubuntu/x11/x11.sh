@@ -7,7 +7,7 @@ sudo systemctl restart gdm3
 
 echo "adding x11 as startup program, in ~/.config/autostartup"
 #x11vnc -forever -loop -noxdamage -repeat -shared
-cp ./x11vnc.desktop ~/.config/autostart
+mkdir -p ~/.config/autostart || true && cp ./x11vnc.desktop ~/.config/autostart
 
 # [Desktop Entry]
 # Type=Application

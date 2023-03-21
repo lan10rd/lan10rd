@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=x11vnc -loop -forever -noxdamage -shared -repeat
+Exec=x11vnc -forever -loop -noxdamage -repeat -shared
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true

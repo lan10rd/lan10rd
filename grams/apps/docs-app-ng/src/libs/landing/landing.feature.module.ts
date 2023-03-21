@@ -15,7 +15,7 @@ import { AppLandingFeature } from './landing.feature'
             component: AppLandingFeature,
             data: {
                 CommonRouterService: {
-                    routes: ['notes', 'readme', 'showcase', 'play'],
+                    routes: ['notes', 'readme', 'showcase', 'play', 'bearclaw'],
                     seo: {
                         title: 'App - Landing',
                         keywords: 'keywords',
