@@ -5,7 +5,8 @@ docker pull nginx
 docker pull jc21/nginx-proxy-manager
 docker pull traefik
 
-docker pull oznu/guacamole
+# docker pull oznu/guacamole # not arm ready
+docker pull lan10rd/guacamole
 docker pull snowdreamtech/frps
 docker pull snowdreamtech/frpc
 docker pull certbot/certbot

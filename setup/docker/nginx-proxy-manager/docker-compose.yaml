@@ -14,3 +14,6 @@ services:
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - nginx-proxy-manager_default
+      - network
