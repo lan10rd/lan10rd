@@ -1,0 +1,12 @@
+services:
+  guacamole:
+    image: lan10rd/guacamole
+    restart: always
+    volumes:
+        - $HOME/lan10rd/setup/docker/guacamole/config:/config
+    logging:
+      options:
+        max-size: 1g
+    ports:
+      - 8080
+    
