@@ -51,3 +51,5 @@ docker pull rabbitmq
 
 docker pull datadog/agent
 docker pull busybox
+
+docker pull portainer/portainer
