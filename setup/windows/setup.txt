@@ -1,0 +1,8 @@
+search "remote desktop settings"
+turn on
+
+from guacamole settings add a new connection and select RDP instead o VNCs need to just find the ip as usual, can leave port blank defaults to 5900 for rdp. 
+
+download docker desktop
+download vs code
+download git bash
