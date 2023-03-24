@@ -53,3 +53,4 @@ docker pull datadog/agent
 docker pull busybox
 
 docker pull linuxserver/plex
+docker pull portainer/portainer
