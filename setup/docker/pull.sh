@@ -55,3 +55,4 @@ docker pull busybox
 docker pull portainer/portainer
 docker pull portainer/portainer-ce
 docker pull linuxserver/plex
+docker pull drakkan/sftpgo
