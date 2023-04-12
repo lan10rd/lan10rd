@@ -55,4 +55,7 @@ docker pull busybox
 docker pull portainer/portainer
 docker pull portainer/portainer-ce
 docker pull linuxserver/plex
-docker pull drakkan/sftpgo
+docker pull drakkan/sftpgo 
+docker pull linuxserver/openssh-server
+# docker pull atmoz/sftp # not ready for arm
+docker pull emberstack/sftp

@@ -87,7 +87,8 @@ echo "network!"
 sudo apt install -y \
     dnsutils \
     udftools \
-    net-tools
+    net-tools \
+    samba
 
 echo "\n"
 echo "package management and security!"
