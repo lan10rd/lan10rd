@@ -93,6 +93,40 @@ Teams using Nx gain the advantage of building full-stack applications with their
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
 
+### removed dependencies, looks like angular builder needed this but the version that was brought in was complaining about es import syntax or something
+ora 
+## removed because of unsafe
+colors
+
+## libs 
+nx g @nrwl/angular:lib common/ng/core --buildable --publishable --importPath=@grams/common/ng/core
+
+## app config and generator commands ran
+nx g @nrwl/angular:app reference-app-ng
+nx g @nrwl/nest:app reference-api-ns
+
+nx g @nrwl/angular:app docs-app-ng
+
+nx g @scullyio/init:install -- --project=docs-app-ng
+
+
+### learning and notes
+for angular apps i noticed that if your goal is to keep main.js as small as possible (usually is), despite only loading and importing dynamic element (from common/ng) into app module, and putting everything else in init element so that it can bootstrap the heavier elements, it actually bloats main.js to the size of the metadata of the common/ng library (which grows as you add to index.ts, even if you dont use any other element/components!!)
+
+so... made a second library, common/ng/core, which basically just includes dynamic element, thats the import that should be in app module and finally the total main.js bundle is back to 30kb!.. well under 500 now, and doesnt grow! the only way it will grow is adding more to app module or to app init service
+
+
+### serving
+
+nx serve reference-app-ng --host 0.0.0.0 --disableHostCheck
+
+
+### tsconfig global change
+
+ "strictPropertyInitialization": false,
+
+so annoying to not be able to just type a variable
+
 ## serve example
 nx serve docs-app-ng --host 0.0.0.0 --disableHostCheck
 
@@ -406,6 +440,10 @@ yarn add \
   signature_pad \
   table \
   cross-env
+  systeminformation \
+  dbus-next \
+  blauzahn \
+  chatgpt
   
 ## more workspace extras
 yarn add -D \
@@ -425,36 +463,3 @@ yarn add -D \
   @jnxplus/nx-boot-gradle 
 
 
-### removed dependencies, looks like angular builder needed this but the version that was brought in was complaining about es import syntax or something
-ora 
-## removed because of unsafe
-colors
-
-## libs 
-nx g @nrwl/angular:lib common/ng/core --buildable --publishable --importPath=@grams/common/ng/core
-
-## app config and generator commands ran
-nx g @nrwl/angular:app reference-app-ng
-nx g @nrwl/nest:app reference-api-ns
-
-nx g @nrwl/angular:app docs-app-ng
-
-nx g @scullyio/init:install -- --project=docs-app-ng
-
-
-### learning and notes
-for angular apps i noticed that if your goal is to keep main.js as small as possible (usually is), despite only loading and importing dynamic element (from common/ng) into app module, and putting everything else in init element so that it can bootstrap the heavier elements, it actually bloats main.js to the size of the metadata of the common/ng library (which grows as you add to index.ts, even if you dont use any other element/components!!)
-
-so... made a second library, common/ng/core, which basically just includes dynamic element, thats the import that should be in app module and finally the total main.js bundle is back to 30kb!.. well under 500 now, and doesnt grow! the only way it will grow is adding more to app module or to app init service
-
-
-### serving
-
-nx serve reference-app-ng --host 0.0.0.0 --disableHostCheck
-
-
-### tsconfig global change
-
- "strictPropertyInitialization": false,
-
-so annoying to not be able to just type a variable

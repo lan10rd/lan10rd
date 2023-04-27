@@ -4,7 +4,7 @@ services:
   guacamole:
     image: lan10rd/guacamole
     volumes:
-      - $HOME/lan10rd/setup/guacamole/config:/config
+      - $HOME/lan10rd/setup/docker/guacamole/config:/config
     ports:
       - 8080:8080
 

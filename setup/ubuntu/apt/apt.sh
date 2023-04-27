@@ -41,8 +41,9 @@ echo "java!"
 sudo apt install -y \
     openjdk-8-jdk \
     openjdk-11-jdk \
-    # openjdk-16-jdk \
     openjdk-17-jdk
+    # openjdk-16-jdk \
+
 
 echo "\n"
 echo "genv (go)!"
@@ -56,7 +57,7 @@ echo "shell, dev, compilers!"
 sudo apt install -y \
     zsh \
     ksh \
-    git-all \
+    git \
     gcc \
     g++ \
     make \
@@ -68,8 +69,12 @@ sudo apt install -y \
     libtool \
     sysstat \
     gnupg \
-    # readline \ libreadline-dev ?
     bats
+
+    # git-all \ #removed cause it brought in apache2 and was running on port 80?!
+    # readline \ libreadline-dev ?
+    # TODO NEED TO FIND WHERE AND WHY APACHE2 service is on startup, aptitude why apache2 lists a few..
+    # sudo systemctl disable apache2 && sudo reboot,  fixed it...
 
 echo "\n"
 echo "browser and audio / video!"
@@ -82,7 +87,8 @@ echo "network!"
 sudo apt install -y \
     dnsutils \
     udftools \
-    net-tools
+    net-tools \
+    samba
 
 echo "\n"
 echo "package management and security!"

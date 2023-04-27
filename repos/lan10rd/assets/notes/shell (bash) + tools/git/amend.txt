@@ -1,0 +1,68 @@
+git commit --amend --reset-author --no-edit
+
+// can do other amends like
+
+git commit --amend -m "New commit message"
+
+f you've already pushed your commit up to your remote branch, then - after amending your commit locally (as described above) - you'll also need to force push the commit with:
+
+git push <remote> <branch> --force
+# Or
+git push <remote> <branch> -f
+
+
+
+Amending the most recent commit message
+git commit --amend
+will open your editor, allowing you to change the commit message of the most recent commit. Additionally, you can set the commit message directly in the command line with:
+
+git commit --amend -m "New commit message"
+…however, this can make multi-line commit messages or small corrections more cumbersome to enter.
+
+Make sure you don't have any working copy changes staged before doing this or they will get committed too. (Unstaged changes will not get committed.)
+
+Changing the message of a commit that you've already pushed to your remote branch
+If you've already pushed your commit up to your remote branch, then - after amending your commit locally (as described above) - you'll also need to force push the commit with:
+
+git push <remote> <branch> --force
+# Or
+git push <remote> <branch> -f
+Warning: force-pushing will overwrite the remote branch with the state of your local one. If there are commits on the remote branch that you don't have in your local branch, you will lose those commits.
+
+Warning: be cautious about amending commits that you have already shared with other people. Amending commits essentially rewrites them to have different SHA IDs, which poses a problem if other people have copies of the old commit that you've rewritten. Anyone who has a copy of the old commit will need to synchronize their work with your newly re-written commit, which can sometimes be difficult, so make sure you coordinate with others when attempting to rewrite shared commit history, or just avoid rewriting shared commits altogether.
+
+Perform an interactive rebase
+Another option is to use interactive rebase. This allows you to edit any message you want to update even if it's not the latest message.
+
+In order to do a Git squash, follow these steps:
+
+// n is the number of commits up to the last commit you want to be able to edit
+git rebase -i HEAD~n
+Once you squash your commits - choose the e/r for editing the message:
+
+Screenshot of terminal while editing commit
+
+Important note about interactive rebase
+When you use git rebase -i HEAD~n there can be more than n commits. Git will "collect" all the commits in the last n commits, and if there was a merge somewhere in between that range you will see all the commits as well, so the outcome will be n + .
+
+Good tip:
+If you have to do it for more than a single branch and you might face conflicts when amending the content, set up git rerere and let Git resolve those conflicts automatically for you.
+
+
+you have the git rerere command for your help.
+
+This is exactly for this command is for.
+
+git rerere
+Recorded Reused Resolution
+
+# enabled the option to record the 
+git config --global rerere.enabled true
+By the way, if you prefer rerere to auto-stage files it solved (I do), you can ask it to: you just need to tweak your configuration like so:
+
+git config --global rerere.autoupdate true
+
+
+If you want all conflicts resolved with changes from both sides being included, add the following to your .gitattributes file:
+
+* merge=union

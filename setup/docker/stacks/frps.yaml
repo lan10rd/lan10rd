@@ -1,0 +1,14 @@
+services:
+  frps:
+    image: snowdreamtech/frps
+    restart: always
+    network_mode: host
+    volumes:
+        - '~/lan10rd/space/setup/frps.ini:/etc/frp/frps.ini'
+        # - '/var/run/docker.sock:/tmp/docker.sock:ro'
+    logging:
+      options:
+        max-size: 1g
+    environment:
+      - FRP_SERVER_PORT=7000
+    

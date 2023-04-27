@@ -1,0 +1,21 @@
+search "remote desktop settings"
+turn on
+
+from guacamole settings add a new connection and select RDP instead o VNCs need to just find the ip as usual, can leave port blank defaults to 5900 for rdp. under authentication put in the user name and password. check ignore server certificate. 
+
+download docker desktop
+download vs code
+download git bash
+
+openssh server ships with windows 11 but you need to go to search and find "optional features", look for "openssh" and enable openssh server (you can also manually install (As the Administrator, extract the package to C:\Program Files\OpenSSH) for a newer version and as admin powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1
+
+Allow incoming connections to SSH server in Windows Firewall:
+When installed as an optional feature, the firewall rule “OpenSSH SSH Server (sshd)” should have been created automatically. If not, proceed to create and enable the rule as follows.
+Either run the following PowerShell command as the Administrator:
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH SSH Server' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22 -Program "C:\Windows\System32\OpenSSH\sshd.exe"
+Replace C:\Windows\System32\OpenSSH\sshd.exe with the actual path to the sshd.exe (C:\Program Files\OpenSSH\ssh.exe, had you followed the manual installation instructions above).
+or go to Windows Security > Firewall & network protection1 > Advanced Settings > Inbound Rules and add a new rule for port 22.
+Start the service and/or configure automatic start:
+Go to Control Panel > System and Security > Administrative Tools and open Services. Locate OpenSSH SSH Server service.
+If you want the server to start automatically when your machine is started: Go to Action > Properties (or just double-click the service). In the Properties dialog, change Startup type to Automatic and confirm.
+Start the OpenSSH SSH Server service by clicking the Start the service link or Action > Start in the menu.
