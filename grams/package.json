@@ -91,6 +91,7 @@
     "cookie-session": "^2.0.0",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "crypto-js": "^4.1.1",
     "css-select": "^4.2.1",
     "csurf": "^1.11.0",

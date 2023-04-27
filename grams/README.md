@@ -404,7 +404,8 @@ yarn add \
   entities \
   sitemap \
   signature_pad \
-  table
+  table \
+  cross-env
   
 ## more workspace extras
 yarn add -D \

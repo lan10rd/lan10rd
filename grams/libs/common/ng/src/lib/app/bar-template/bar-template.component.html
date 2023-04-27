@@ -7,7 +7,6 @@ class="bar-container"
     <div
     class="bar"
     #barChild
-    
     >
         <div
         class="bar-left"
@@ -21,6 +20,7 @@ class="bar-container"
                 ></ng-container>
             </ng-container>
         </div>
+
         <div
         class="bar-middle"
         >
@@ -33,7 +33,9 @@ class="bar-container"
                     <ng-container
                     *ngIf="barService.bar.leftBar"
                     >
-                        <ng-container *ngTemplateOutlet="barService.bar.leftBar" ></ng-container>
+                        <ng-container
+                        *ngTemplateOutlet="barService.bar.leftBar"
+                        ></ng-container>
                     </ng-container>
                 </ng-container>
                 <ng-container
@@ -42,7 +44,9 @@ class="bar-container"
                     <ng-container
                     *ngIf="barService.bar.middleBar"
                     >
-                        <ng-container *ngTemplateOutlet="barService.bar.middleBar" ></ng-container>
+                        <ng-container
+                        *ngTemplateOutlet="barService.bar.middleBar"
+                        ></ng-container>
                     </ng-container>
                 </ng-container>
                 <ng-container
@@ -51,11 +55,14 @@ class="bar-container"
                     <ng-container
                     *ngIf="barService.bar.rightBar"
                     >
-                        <ng-container *ngTemplateOutlet="barService.bar.rightBar"></ng-container>
+                        <ng-container
+                        *ngTemplateOutlet="barService.bar.rightBar"
+                        ></ng-container>
                     </ng-container>
                 </ng-container>
             </ng-container>
         </div>
+
         <div
         class="bar-right"
         (click)="barService.changeMiddleDirection('right')"
