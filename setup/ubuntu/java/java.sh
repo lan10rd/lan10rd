@@ -1,5 +1,14 @@
 # sudo apt install default-jre
 
+echo "\n"
+echo "java!"
+# default-jre
+sudo apt install -y \
+    openjdk-8-jdk \
+    openjdk-11-jdk \
+    openjdk-17-jdk
+    # openjdk-16-jdk \
+
 # Managing Java
 # You can have multiple Java installations on one server. You can configure which version is the default for use on the command line by using the update-alternatives command.
 

@@ -1,3 +1,10 @@
+echo "\n"
+echo "genv (go)!"
+sudo apt install -y \
+    mercurial \
+    binutils \
+    bison
+
 source $HOME/.gvm/scripts/gvm
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) # or replace bash with zsh
 

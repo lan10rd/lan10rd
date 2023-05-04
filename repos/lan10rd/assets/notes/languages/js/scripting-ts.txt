@@ -1,0 +1,20 @@
+// make sure ts-node is downloaded globally
+
+touch hi.ts
+nano hi.ts
+
+console.log('hi')
+
+esc + wq
+
+
+npx ts-node hi.ts
+
+
+
+// or, old fashioned, make sure typescript downloaded globally
+
+tsc helloworld.ts
+node helloworld.js
+
+// difference is js file is compiled and saved instead of ran inline

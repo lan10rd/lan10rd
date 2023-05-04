@@ -1,0 +1,5 @@
+find and download installers for
+- zfs
+- vscode
+
+- browser (brave, opera gx)

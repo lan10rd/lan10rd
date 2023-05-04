@@ -5,7 +5,9 @@ npm i -g \
     npx \
     np \
     npm-name-cli \
-    npm-check
+    npm-check \
+    ts-node \
+    typescript
 
 # frameworks
 npm install -g \
