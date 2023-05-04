@@ -29,7 +29,7 @@ export class CommonNgCoreDynamicElement {
         let component = this.component
         if (typeof this.component === 'function') {
             if (typeof this.module === 'function') { }
-            try { component = await this.component() } catch(e) { console.log('dynamic await e', e) }
+            try { component = await this.component() } catch(e) { / * console.log('dynamic await e', e) */ }
         }
         if (this.component && this.dynamicHost)
         {

@@ -439,6 +439,7 @@ yarn add \
   sitemap \
   signature_pad \
   table \
+  cross-env
   systeminformation \
   dbus-next \
   blauzahn \
