@@ -4,8 +4,8 @@ staticPort: 1668
 reloadPort: 2667
 hostName: localhost
 projectName: docs-app-ng
-homeFolder: /Users/simba/lan10rd/grams
+homeFolder: /Users/nikcaryl/lan10rd/grams
 distFolder: dist/apps/docs-app-ng
-outDir: /Users/simba/lan10rd/grams/dist/static
+outDir: /Users/nikcaryl/lan10rd/grams/dist/static
 handle404: ''
 allowErrorCollect: false
