@@ -19,4 +19,8 @@ export class ShopFeature
 
     }
 
+    purchase(){
+        window.open('https://www.ebay.com/itm/385662142518')
+    }
+
 }
