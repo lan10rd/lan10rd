@@ -1,14 +1,13 @@
 {
+  "name": "play-app-ng",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/play-app-ng",
   "sourceRoot": "apps/play-app-ng/src",
   "prefix": "grams",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/play-app-ng",
         "index": "apps/play-app-ng/src/index.html",
@@ -22,9 +21,7 @@
           "apps/play-app-ng/src/manifest.webmanifest",
           "apps/play-app-ng/src/robots.txt"
         ],
-        "styles": [
-          "apps/play-app-ng/src/styles.scss"
-        ],
+        "styles": ["apps/play-app-ng/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -89,9 +86,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/play-app-ng"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/play-app-ng"],
       "options": {
         "jestConfig": "apps/play-app-ng/jest.config.js",
         "passWithNoTests": true

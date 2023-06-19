@@ -1,14 +1,13 @@
 {
+  "name": "reference-app-ng",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/reference-app-ng",
   "sourceRoot": "apps/reference-app-ng/src",
   "prefix": "grams",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/reference-app-ng",
         "index": "apps/reference-app-ng/src/index.html",
@@ -21,9 +20,7 @@
           "apps/reference-app-ng/src/assets",
           "apps/reference-app-ng/src/manifest.webmanifest"
         ],
-        "styles": [
-          "apps/reference-app-ng/src/styles.scss"
-        ],
+        "styles": ["apps/reference-app-ng/src/styles.scss"],
         "scripts": [],
         "serviceWorker": true,
         "ngswConfigPath": "apps/reference-app-ng/ngsw-config.json"
@@ -90,9 +87,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/reference-app-ng"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/reference-app-ng"],
       "options": {
         "jestConfig": "apps/reference-app-ng/jest.config.js",
         "passWithNoTests": true

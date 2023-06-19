@@ -1,0 +1,22 @@
+{
+  "name": "@grams/source",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {},
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@nx/angular": "^16.3.2",
+    "@nx/cypress": "^16.3.2",
+    "@nx/express": "^16.3.2",
+    "@nx/nest": "^16.3.2",
+    "@nx/next": "^16.3.2",
+    "@nx/node": "^16.3.2",
+    "@nx/nx-plugin": "^16.0.0-beta.1",
+    "@nx/react": "^16.3.2",
+    "@nx/storybook": "^16.3.2",
+    "@nx/web": "^16.3.2",
+    "@nx/workspace": "16.3.2",
+    "nx": "16.3.2"
+  }
+}

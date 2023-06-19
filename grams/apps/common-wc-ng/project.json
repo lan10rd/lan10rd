@@ -1,11 +1,12 @@
 {
+  "name": "common-wc-ng",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/common-wc-ng",
   "sourceRoot": "apps/common-wc-ng/src",
   "prefix": "grams",
   "targets": {
     "build": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           "nx run common-wc-ng:build-normal:production --output-hashing=none",
@@ -21,9 +22,7 @@
     },
     "build-normal": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/common-wc-ng",
         "index": "apps/common-wc-ng/src/index.html",
@@ -35,9 +34,7 @@
           "apps/common-wc-ng/src/favicon.ico",
           "apps/common-wc-ng/src/assets"
         ],
-        "styles": [
-          "apps/common-wc-ng/src/styles.scss"
-        ],
+        "styles": ["apps/common-wc-ng/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -102,9 +99,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/common-wc-ng"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/common-wc-ng"],
       "options": {
         "jestConfig": "apps/common-wc-ng/jest.config.js",
         "passWithNoTests": true

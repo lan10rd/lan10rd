@@ -1,13 +1,12 @@
 {
-  "root": "apps/reference-app-rt",
+  "name": "reference-app-rt",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/reference-app-rt/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/web:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
@@ -21,9 +20,7 @@
           "apps/reference-app-rt/src/favicon.ico",
           "apps/reference-app-rt/src/assets"
         ],
-        "styles": [
-          "apps/reference-app-rt/src/styles.scss"
-        ],
+        "styles": ["apps/reference-app-rt/src/styles.scss"],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
       },
@@ -59,20 +56,14 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/reference-app-rt/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["apps/reference-app-rt/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/reference-app-rt"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/reference-app-rt"],
       "options": {
         "jestConfig": "apps/reference-app-rt/jest.config.js",
         "passWithNoTests": true

@@ -1,5 +1,6 @@
 {
-  "root": "apps/new-play-e2e",
+  "name": "new-play-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/new-play-e2e/src",
   "projectType": "application",
   "targets": {
@@ -17,18 +18,12 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/new-play-e2e/**/*.{js,ts}"
-        ]
+        "lintFilePatterns": ["apps/new-play-e2e/**/*.{js,ts}"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": [
-    "new-play"
-  ]
+  "implicitDependencies": ["new-play"]
 }

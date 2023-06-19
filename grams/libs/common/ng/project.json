@@ -1,14 +1,13 @@
 {
+  "name": "common-ng",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/common/ng",
   "sourceRoot": "libs/common/ng/src",
   "prefix": "grams",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": [
-        "dist/libs/common/ng"
-      ],
+      "outputs": ["{workspaceRoot}/dist/libs/common/ng"],
       "options": {
         "project": "libs/common/ng/ng-package.json"
       },
@@ -24,9 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/common/ng"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/libs/common/ng"],
       "options": {
         "jestConfig": "libs/common/ng/jest.config.js",
         "passWithNoTests": true

@@ -1,14 +1,13 @@
 {
+  "name": "new-play",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/new-play",
   "sourceRoot": "apps/new-play/src",
   "prefix": "grams",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/new-play",
         "index": "apps/new-play/src/index.html",
@@ -20,12 +19,14 @@
           "apps/new-play/src/favicon.ico",
           "apps/new-play/src/assets",
           "apps/new-play/src/manifest.webmanifest",
-          { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "/assets/monaco-editor/" },
+          {
+            "glob": "**/*",
+            "input": "node_modules/monaco-editor",
+            "output": "/assets/monaco-editor/"
+          },
           "apps/new-play/src/robots.txt"
         ],
-        "styles": [
-          "apps/new-play/src/styles.scss"
-        ],
+        "styles": ["apps/new-play/src/styles.scss"],
         "scripts": [],
         "serviceWorker": true,
         "ngswConfigPath": "apps/new-play/ngsw-config.json"
@@ -92,9 +93,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/new-play"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/new-play"],
       "options": {
         "jestConfig": "apps/new-play/jest.config.js",
         "passWithNoTests": true

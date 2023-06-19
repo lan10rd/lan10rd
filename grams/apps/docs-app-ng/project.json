@@ -1,14 +1,13 @@
 {
+  "name": "docs-app-ng",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/docs-app-ng",
   "sourceRoot": "apps/docs-app-ng/src",
   "prefix": "grams",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/docs-app-ng",
         "index": "apps/docs-app-ng/src/index.html",
@@ -22,11 +21,13 @@
           "apps/docs-app-ng/src/manifest.webmanifest",
           "apps/docs-app-ng/src/robots.txt",
           "apps/docs-app-ng/src/404.html",
-          { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "/assets/monaco-editor/" }
+          {
+            "glob": "**/*",
+            "input": "node_modules/monaco-editor",
+            "output": "/assets/monaco-editor/"
+          }
         ],
-        "styles": [
-          "apps/docs-app-ng/src/styles.scss"
-        ],
+        "styles": ["apps/docs-app-ng/src/styles.scss"],
         "scripts": [],
         "serviceWorker": true,
         "ngswConfigPath": "apps/docs-app-ng/ngsw-config.json"
@@ -93,9 +94,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/docs-app-ng"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/docs-app-ng"],
       "options": {
         "jestConfig": "apps/docs-app-ng/jest.config.js",
         "passWithNoTests": true

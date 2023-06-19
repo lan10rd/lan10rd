@@ -1,5 +1,6 @@
 {
-  "root": "apps/reference-api-ja",
+  "name": "reference-api-ja",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/reference-api-ja/src",
   "projectType": "application",
   "targets": {
