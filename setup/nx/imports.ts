@@ -198,6 +198,32 @@ export const importsList = [
 ]
 
 export const devImportsList = [
+    // nx workspace plugins
+    "@nx/workspace",
+    "@nx/devkit",
+    "@nx/angular",
+    "@nx/cypress",
+    "@nx/detox",
+    "@nx/esbuild",
+    "@nx/eslint-plugin",
+    "@nx/expo",
+    "@nx/express",
+    "@nx/jest",
+    "@nx/js",
+    "@nx/linter",
+    "@nx/nest",
+    "@nx/next",
+    "@nx/node",
+    "@nx/plugin",
+    "@nx/react",
+    "@nx/react-native",
+    "@nx/rollup",
+    "@nx/rspack",
+    "@nx/storybook",
+    "@nx/vite",
+    "@nx/web",
+    "@nx/webpack",
+
     // angular dev deps
     "@angular/elements",
     "@types/hammerjs",
