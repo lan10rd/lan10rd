@@ -1,0 +1,1 @@
+docker run -p 22:22 -d --name sftp -v ${HOME}/lan10rd/setup/docker/sftp/sftp.json:/app/config/sftp.json:ro -v ${HOME}:/home/demo/sftp emberstack/sftp
