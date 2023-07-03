@@ -1,0 +1,1 @@
+it is recommended to copy this folder to ~/lan10rd/space that way you leave a reference implementation but can modify your local config as necessary.

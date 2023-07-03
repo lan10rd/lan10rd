@@ -1,44 +1,23 @@
-import { importsList, devImportsList } from "./imports";
-const axios = require('axios');
+#!/usr/bin/env ts-node
 
-class NxHelper {
+import { Installer } from './imports';
+import { command } from './command';
+const process = require('process');
+const os = require('os');
 
-    plugins: string[];
-    
-    constructor(){ this.help();}
+export class NxHelper {
 
     async help() {
         await this.init();
-        await this.install();
+        const installer = new Installer();
+        await installer.installPlugins();
+        await installer.installDevDependencies();
+        await installer.installDependencies();
     }
 
-    async fetchPlugins() {
-        const response = await axios.get('https://raw.githubusercontent.com/nrwl/nx/master/community/approved-plugins.json');
-        const body = (await response).data
-        this.plugins = body.map(plugin => plugin.name);
-    }
-
-    async init(){
-        
-    }
-
-    async install(){
-        await this.fetchPlugins();
-
-        for (let plugin of this.plugins) {
-            const command = 'yarn add -d ' + plugin;
-        }
-
-        for (let devDep of devImportsList) {
-            const command = 'yarn add -d ' + devDep;
-        }
-
-        for (let dep of importsList) {
-            const command = 'yarn add ' + dep;
-        }
-
-        console.log('success installing!');
+    async init(name = 'grams') {
+        process.chdir(os.homedir() + '/lan10rd/setup/nx')
+        console.log(await command(`npx -y create-nx-workspace@latest --pm=yarn --name=${name} --nx-cloud=n --preset=empty`));
+        process.chdir(os.homedir() + '/lan10rd/setup/nx/' + name);
     }
 }
-
-new NxHelper();

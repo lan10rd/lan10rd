@@ -8,6 +8,8 @@ case "$(uname -s)" in
     *)          echo "Unsupported OS. Exiting..."; exit 1 ;;
 esac
 
+# network=10.1.3 # commend above out and uncomment and place your specific network if its different
+
 # Discover all IP addresses on the network
 for i in {1..254}; do 
     ip="$network.$i"
