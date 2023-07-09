@@ -8,10 +8,15 @@ sudo apt install docker-ce
 sudo usermod -aG docker ${USER}
 su - ${USER}
 
+# install docker compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+
 # pull frps
 docker pull snowdreamtech/frps
 
-docker swarm init
+# docker swarm init
 
 # start docker service to restart forever as needed
-/frps -c ./frps.ini
+docker-compose -f frps.yaml up
