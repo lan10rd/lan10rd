@@ -1,0 +1,38 @@
+version: '3.3'
+
+services:
+
+  lan10rd_guacamole:
+    image: oznu/guacamole
+    volumes:
+        - ./guacamole/config:/config
+    logging:
+      options:
+        max-size: 1g
+    restart: always
+    network_mode: host
+
+  lan10rd_frpc:
+    image: snowdreamtech/frpc
+    logging:
+      options:
+        max-size: 1g
+    restart: always
+    network_mode: host
+    volumes:
+        - './frp/frpc.ini:/etc/frp/frpc.ini'
+    environment:
+      - FRP_SERVER_ADDR=x.x.x.x
+      - FRP_SERVER_PORT=7000
+      - SSH_REMOTE_PORT=2222
+
+  lan10rd_nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager'
+    logging:
+      options:
+        max-size: 1g
+    volumes:
+      - ./nginx-proxy-manager/data:/data
+      - ./nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+    restart: always
+    network_mode: host
