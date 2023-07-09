@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
 
-  lan10rd_guacamole:
+  guacamole:
     image: oznu/guacamole
     volumes:
         - ./guacamole/config:/config
@@ -14,7 +14,7 @@ services:
       - '8080:8080'
     # first time login is guacadmin / guacadmin
 
-  lan10rd_frpc:
+  frpc:
     image: snowdreamtech/frpc
     logging:
       options:
@@ -28,7 +28,7 @@ services:
       - FRP_SERVER_PORT=7000
       - SSH_REMOTE_PORT=2222
 
-  lan10rd_nginx-proxy-manager:
+  nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager'
     logging:
       options:

@@ -9,5 +9,5 @@
 # the only configuration change needed is to insert the ip address from your frps instance (you'll also want to add 2 A records (@ and *) in your dns setting)!
 
 cd $(dirname "$0")
-docker-compose -f host.yaml down || true
-docker-compose -f host.yaml up -d 
+docker-compose -p lan10rd -f host.yaml down || true
+docker-compose -p lan10rd -f host.yaml up -d 
