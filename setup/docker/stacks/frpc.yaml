@@ -2,7 +2,11 @@ services:
   frpc:
     image: snowdreamtech/frpc
     restart: always
+    restart-policy: 
+      condition: on-failure
     network_mode: host
+    networks:
+      - host
     volumes:
         - '../frp/frpc.ini:/etc/frp/frpc.ini'
         # - '/var/run/docker.sock:/tmp/docker.sock:ro'
