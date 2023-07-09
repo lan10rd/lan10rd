@@ -10,4 +10,4 @@
 
 cd $(dirname "$0")
 
-docker-compose -d -f host.yaml up
+docker-compose -f host.yaml up -d 
