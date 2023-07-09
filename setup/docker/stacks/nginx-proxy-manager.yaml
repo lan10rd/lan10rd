@@ -1,12 +1,22 @@
+version: '3.3'
+
 services:
   guacamole:
-    image: lan10rd/guacamole
+    image: 'jc21/nginx-proxy-manager'
     restart: always
-    volumes:
-        - $HOME/lan10rd/setup/docker/guacamole/config:/config
+    restart-policy: 
+      condition: on-failure
+    network_mode: host
+    networks:
+      - host
     logging:
       options:
         max-size: 1g
-    ports:
-      - 8080
+    volumes:
+      - ../nginx-proxy-manager/data:/data
+      - ../nginx-proxy-manager/letsencrypt:/etc/letsencrypt
     
+networks:
+  host:
+    name: host
+    external: true

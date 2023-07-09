@@ -1,7 +1,14 @@
+version: '3.3'
+
 services:
   guacamole:
     image: lan10rd/guacamole
     restart: always
+    restart-policy: 
+      condition: on-failure
+    network_mode: host
+    networks:
+      - host
     volumes:
         - ../guacamole/config:/config
     logging:
@@ -10,3 +17,7 @@ services:
     ports:
       - 8080
     
+networks:
+  host:
+    name: host
+    external: true
