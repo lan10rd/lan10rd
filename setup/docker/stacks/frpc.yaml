@@ -14,4 +14,7 @@ services:
       - FRP_SERVER_PORT=7000
       - SSH_REMOTE_PORT=2222
     
-
+networks:
+  host:
+    name: host
+    external: true
