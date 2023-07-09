@@ -1,0 +1,1 @@
+docker stack deploy --prune -c ./frps.yaml lan10rd

@@ -5,7 +5,6 @@ services:
     network_mode: host
     volumes:
         - '../frp/frps.ini:/etc/frp/frps.ini'
-        # - '/var/run/docker.sock:/tmp/docker.sock:ro'
     logging:
       options:
         max-size: 1g
