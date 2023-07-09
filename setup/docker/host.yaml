@@ -12,6 +12,7 @@ services:
     restart: always
     ports: 
       - '8080:8080'
+    # first time login is guacadmin / guacadmin
 
   lan10rd_frpc:
     image: snowdreamtech/frpc
@@ -42,3 +43,4 @@ services:
       - '443:443/udp'
       - '81:81'
     restart: always
+    # first time login is admin@example.com / changeme
