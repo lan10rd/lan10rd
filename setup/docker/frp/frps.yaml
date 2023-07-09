@@ -4,7 +4,7 @@ services:
     restart: always
     network_mode: host
     volumes:
-        - '../frp/frps.ini:/etc/frp/frps.ini'
+        - './frps.ini:/etc/frp/frps.ini'
     logging:
       options:
         max-size: 1g

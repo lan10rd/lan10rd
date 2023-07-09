@@ -11,7 +11,7 @@ su - ${USER}
 # pull frps
 docker pull snowdreamtech/frps
 
-# create config file 
+docker swarm init
 
 # start docker service to restart forever as needed
-./frps -c ./frps.ini
+/frps -c ./frps.ini
