@@ -4,7 +4,7 @@ services:
     restart: always
     network_mode: host
     volumes:
-        - '~/lan10rd/space/setup/frps.ini:/etc/frp/frps.ini'
+        - '../frp/frps.ini:/etc/frp/frps.ini'
         # - '/var/run/docker.sock:/tmp/docker.sock:ro'
     logging:
       options:
