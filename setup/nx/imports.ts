@@ -49,6 +49,8 @@ export const importsList = [
     "stream",
     "canvas-datagrid",
     "monaco-editor",
+    "linkifyjs",
+    "linkify-html",
 
 
     // nestjs deps
@@ -194,7 +196,10 @@ export const importsList = [
     "blauzahn",
     "chatgpt",
     "axios",
-    "ts-node"
+    "ts-node",
+    "googleapis",
+    "ssh2-sftp-client",
+    "walkdir"
 ]
 
 export const devImportsList = [

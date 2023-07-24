@@ -7,12 +7,14 @@ const os = require('os');
 
 export class NxHelper {
 
-    async help() {
-        await this.init();
+    async help(projectName = 'grams', skipImports = 'false') {
+        await this.init(projectName);
         const installer = new Installer();
-        await installer.installPlugins();
-        await installer.installDevDependencies();
-        await installer.installDependencies();
+        if (skipImports !== 'true') {
+            await installer.installPlugins();
+            await installer.installDevDependencies();
+            await installer.installDependencies();
+        }
     }
 
     async init(name = 'grams') {
